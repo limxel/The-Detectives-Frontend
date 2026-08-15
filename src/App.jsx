@@ -5454,7 +5454,7 @@ function App() {
               fontFamily: 'Georgia, serif',
               fontStyle: 'italic'
             }}>
-              THE DETECTIVES
+              TWELVE SUSPECTS
             </h1>
             <div style={{
               display: 'inline-flex',
