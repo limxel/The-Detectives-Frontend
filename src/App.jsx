@@ -7545,7 +7545,7 @@ function App() {
           onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
         >
           <img
-            src="https://files.catbox.moe/gcd6st.png"
+            src="https://files.catbox.moe/amibax.png"
             alt=""
             style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover', display: 'block' }}
           />
