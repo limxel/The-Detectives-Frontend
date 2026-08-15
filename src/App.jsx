@@ -7582,7 +7582,7 @@ function App() {
             }}
           >
             <img
-              src="https://files.catbox.moe/gcd6st.png"
+              src="https://files.catbox.moe/amibax.png"
               alt="Developer"
               style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', marginBottom: '14px' }}
             />
