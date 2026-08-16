@@ -3202,6 +3202,16 @@ function App() {
   const activeAmbientRef = useRef(null);
   const autoplayBlockedRef = useRef(false);
   const phaseSyncRef = useRef(null);
+  // How far (ms) this client's own Date.now() is from the server's clock —
+  // added to every local Date.now() call that gets compared against a
+  // server-sent absolute endsAt/phaseStartTime timestamp. Without this, a
+  // player whose system clock is off from real time sees every countdown
+  // (turn, trial, etc.) run longer or shorter than it actually does on the
+  // server, even though the server's own timers are perfectly accurate.
+  // Measured via syncServerTime() below; starts at 0 (assume no skew) until
+  // the first sync response arrives.
+  const serverTimeOffsetRef = useRef(0);
+  const now = useCallback(() => Date.now() + serverTimeOffsetRef.current, []);
   if (!lobbyAudioRef.current) {
     const audio = new Audio();
     audio.crossOrigin = 'anonymous';
@@ -3982,16 +3992,39 @@ function App() {
   useEffect(() => {
     if (!turnEndsAt) return;
 
-    const tick = () => setTurnTimeLeft(Math.max(0, Math.ceil((turnEndsAt - Date.now()) / 1000)));
+    const tick = () => setTurnTimeLeft(Math.max(0, Math.ceil((turnEndsAt - now()) / 1000)));
     tick();
     const interval = setInterval(tick, 250);
     return () => clearInterval(interval);
   }, [turnEndsAt]);
 
+  // Measures the gap between this client's system clock and the server's by
+  // round-tripping a 'time_sync' ping and halving the observed latency (a
+  // standard NTP-style estimate — assumes the trip there and back take
+  // roughly the same time). The result is stored in serverTimeOffsetRef and
+  // used by every countdown below instead of raw Date.now(), so a player
+  // whose device clock is wrong (bad timezone, unsynced clock, VPN, etc.)
+  // still sees turn/trial timers that match what the server is actually
+  // counting down, instead of running long or short by the size of the skew.
+  const syncServerTime = useCallback(() => {
+    const t0 = Date.now();
+    socket.emit('time_sync');
+    socket.once('time_sync_response', ({ serverTime }) => {
+      const rtt = Date.now() - t0;
+      serverTimeOffsetRef.current = serverTime + rtt / 2 - Date.now();
+      console.log(`CLIENT time sync: offset=${serverTimeOffsetRef.current}ms, rtt=${rtt}ms`);
+    });
+  }, []);
+
   useEffect(() => {
     function onConnect() {
       console.log('CLIENT connected, socket.id =', socket.id);
       setIsConnected(true);
+
+      // Calibrate against the server's clock as soon as we (re)connect — a
+      // fresh connection is also the moment a stale offset from before a
+      // reconnect would otherwise linger the longest.
+      syncServerTime();
 
       // On socket reconnect (new socket.id) during the game screen, immediately
       // re-request our role — otherwise, if role_assigned was addressed to the old
@@ -4206,7 +4239,7 @@ function App() {
       // A reconnect can receive phase state before a room update. Preserve the
       // authoritative room code so trial controls are never left without it.
       if (code) gameRoomCodeRef.current = code;
-      phaseSyncRef.current = { phase, phaseStartTime: phaseStartTime || Date.now() };
+      phaseSyncRef.current = { phase, phaseStartTime: phaseStartTime || now() };
       if (typeof findings !== 'undefined') {
         setTrialFindings(findings || null);
       }
@@ -4229,7 +4262,7 @@ function App() {
         setDisplayPhase('trial');
         setTrialData(prev => ({ ...(prev || {}), status: 'voting', confirmedVoterIds: trial?.confirmedVoterIds || [], totalEligible: trial?.eligibleVoterIds?.length || 0, eligibleVoterIds: trial?.eligibleVoterIds || [], candidates: trial?.candidates || [] }));
         setTrialEndsAt(trial?.endsAt || null);
-        setTrialTimeLeft(trial?.endsAt ? Math.ceil((trial.endsAt - Date.now()) / 1000) : null);
+        setTrialTimeLeft(trial?.endsAt ? Math.ceil((trial.endsAt - now()) / 1000) : null);
         setTrialPlayers(players || []);
         // Voting is interactive: remove the cinematic synchronously so a stale
         // blackout can never cover the voting panel after a missed transition.
@@ -4301,7 +4334,7 @@ function App() {
       setTurnEndsAt(null);
       setTrialData({ status: 'voting', confirmedVoterIds: [], totalEligible: eligibleVoterIds?.length || 0, eligibleVoterIds: eligibleVoterIds || [], candidates: candidates || [] });
       setTrialEndsAt(endsAt || null);
-      setTrialTimeLeft(endsAt ? Math.ceil((endsAt - Date.now()) / 1000) : null);
+      setTrialTimeLeft(endsAt ? Math.ceil((endsAt - now()) / 1000) : null);
       setTrialPlayers(players || []);
       setSelectedTrialPlayer(null);
       setTrialDraftTargetId(undefined);
@@ -4925,7 +4958,13 @@ function App() {
     socket.on('examine_body_result', onExamineBodyResult);
     socket.on('game_over', onGameOver);
 
+    // Re-check the clock offset periodically, not just once on connect — a
+    // laptop coming back from sleep, a background tab getting throttled, or
+    // the device clock adjusting mid-session can all reintroduce drift.
+    const resyncInterval = setInterval(syncServerTime, 120000);
+
     return () => {
+      clearInterval(resyncInterval);
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('rooms_list', onRoomsList);
@@ -5000,7 +5039,7 @@ function App() {
 
       const snapshot = phaseSyncRef.current;
       if (!snapshot) return;
-      const elapsed = Date.now() - snapshot.phaseStartTime;
+      const elapsed = now() - snapshot.phaseStartTime;
       const transitionElapsed = snapshot.phase === 'TRIAL_ANNOUNCEMENT'
         ? elapsed + 1500
         : elapsed;
