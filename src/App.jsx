@@ -2843,6 +2843,39 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
   );
 }
 
+// Available interface languages. Add more entries here (and to TRANSLATIONS
+// below) to support additional languages — the Settings screen renders this
+// list automatically.
+const LANGUAGES = [
+  { code: 'en', flag: '🇬🇧', label: 'English' },
+  { code: 'ua', flag: '🇺🇦', label: 'Українська' }
+];
+
+// UI text for the Settings screen, keyed by language code. Falls back to
+// English for any key missing from the active language (see t() in App).
+const TRANSLATIONS = {
+  en: {
+    settingsTitle: 'TERMINAL ADJUSTMENTS',
+    ambientMusic: 'HQ AMBIENT MUSIC',
+    online: 'ONLINE',
+    muted: 'MUTED',
+    volumeLevel: 'VOLUME LEVEL',
+    languages: 'LANGUAGES',
+    chooseLanguage: 'CHOOSE LANGUAGE',
+    back: 'BACK'
+  },
+  ua: {
+    settingsTitle: 'НАЛАШТУВАННЯ ТЕРМІНАЛУ',
+    ambientMusic: 'ФОНОВА МУЗИКА ШТАБУ',
+    online: 'УВІМКНЕНО',
+    muted: 'ВИМКНЕНО',
+    volumeLevel: 'РІВЕНЬ ГУЧНОСТІ',
+    languages: 'МОВИ',
+    chooseLanguage: 'ОБЕРІТЬ МОВУ',
+    back: 'НАЗАД'
+  }
+};
+
 function App() {
   // Lightweight viewport-width tracker — the app has no CSS media queries
   // anywhere (everything is inline styles), so any responsive behavior has
@@ -2857,6 +2890,13 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Remember the chosen interface language for next time.
+  useEffect(() => {
+    if (typeof window !== 'undefined') localStorage.setItem('gg_language', language);
+  }, [language]);
+  // Looks up `key` in the active language, falling back to English.
+  const t = useCallback((key) => (TRANSLATIONS[language] && TRANSLATIONS[language][key]) || TRANSLATIONS.en[key] || key, [language]);
+
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [nickname, setNickname] = useState('');
   const [isNicknameSet, setIsNicknameSet] = useState(false);
@@ -2866,6 +2906,13 @@ function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [audioInitialized, setAudioInitialized] = useState(false);
   const [volume, setVolume] = useState(0.4);
+  // Interface language — persisted across sessions in localStorage. Defaults
+  // to English, or whatever was last picked in Settings > Languages.
+  const [language, setLanguage] = useState(() => {
+    if (typeof window === 'undefined') return 'en';
+    return localStorage.getItem('gg_language') || 'en';
+  });
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
 
   const [publicRooms, setPublicRooms] = useState([]);
   const [inputCode, setInputCode] = useState('');
@@ -5860,7 +5907,7 @@ function App() {
             {/* --- SCREEN: SETTINGS --- */}
             {currentScreen === 'settings' && (
               <div>
-                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>TERMINAL ADJUSTMENTS</h3>
+                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>{t('settingsTitle')}</h3>
                 <div style={{
                   padding: '20px 15px',
                   background: 'rgba(0,0,0,0.2)',
@@ -5872,7 +5919,7 @@ function App() {
                   gap: '20px'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>HQ AMBIENT MUSIC</span>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('ambientMusic')}</span>
                     <button
                       onClick={toggleMusic}
                       style={{
@@ -5888,12 +5935,12 @@ function App() {
                         boxShadow: isMusicPlaying ? '0 0 10px rgba(0, 255, 135, 0.2)' : '0 0 10px rgba(255, 42, 95, 0.2)'
                       }}
                     >
-                      {isMusicPlaying ? 'ONLINE' : 'MUTED'}
+                      {isMusicPlaying ? t('online') : t('muted')}
                     </button>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px' }}>
-                      <span>VOLUME LEVEL</span>
+                      <span>{t('volumeLevel')}</span>
                       <span style={{ color: '#00f0ff' }}>{Math.round(volume * 100)}%</span>
                     </div>
                     <input
@@ -5909,8 +5956,73 @@ function App() {
                       }}
                     />
                   </div>
+                  <div style={{ position: 'relative' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('languages')}</span>
+                      <button
+                        onClick={() => setIsLanguageMenuOpen(o => !o)}
+                        style={{
+                          background: 'rgba(0, 240, 255, 0.1)',
+                          border: '1px solid #00f0ff',
+                          color: '#00f0ff',
+                          padding: '8px 16px',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          fontWeight: 'bold',
+                          letterSpacing: '1px',
+                          cursor: 'pointer',
+                          boxShadow: '0 0 10px rgba(0, 240, 255, 0.2)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '7px'
+                        }}
+                      >
+                        <span>{LANGUAGES.find(l => l.code === language)?.flag}</span>
+                        {LANGUAGES.find(l => l.code === language)?.label || 'English'}
+                      </button>
+                    </div>
+                    {isLanguageMenuOpen && (
+                      <div style={{
+                        marginTop: '10px',
+                        padding: '10px',
+                        background: 'rgba(0,0,0,0.35)',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '6px'
+                      }}>
+                        <span style={{ fontSize: '10px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px', marginBottom: '2px' }}>{t('chooseLanguage')}</span>
+                        {LANGUAGES.map(lang => (
+                          <button
+                            key={lang.code}
+                            onClick={() => { setLanguage(lang.code); setIsLanguageMenuOpen(false); }}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              padding: '9px 12px',
+                              borderRadius: '6px',
+                              border: lang.code === language ? '1px solid #00ff87' : '1px solid rgba(255,255,255,0.08)',
+                              background: lang.code === language ? 'rgba(0, 255, 135, 0.1)' : 'rgba(255,255,255,0.03)',
+                              color: lang.code === language ? '#00ff87' : '#bdc7db',
+                              fontSize: '12px',
+                              fontWeight: 'bold',
+                              letterSpacing: '0.5px',
+                              cursor: 'pointer',
+                              textAlign: 'left'
+                            }}
+                          >
+                            <span style={{ fontSize: '15px' }}>{lang.flag}</span>
+                            {lang.label}
+                            {lang.code === language && <Icon name="check" size={13} style={{ marginLeft: 'auto' }} />}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
               </div>
             )}
 
