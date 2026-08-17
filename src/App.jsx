@@ -645,6 +645,11 @@ const ICON_PATHS = {
       <path d="M11 6l-6 6 6 6" />
     </>
   ),
+  chevronDown: (
+    <>
+      <path d="M6 9l6 6 6-6" />
+    </>
+  ),
   users: (
     <>
       <circle cx="8.5" cy="8" r="3" />
@@ -3342,6 +3347,14 @@ function App() {
       ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
 
+      .settings-toggle-btn { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, background 0.2s ease; }
+      .settings-toggle-btn:hover { transform: translateY(-2px); }
+      .settings-toggle-btn:active { transform: translateY(1px) scale(0.97); }
+
+      .language-option-btn { transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease, border-color 0.2s ease; }
+      .language-option-btn:hover { transform: translateX(4px); }
+      .language-option-btn:active { transform: translateX(4px) scale(0.98); }
+
       .volume-slider {
         -webkit-appearance: none;
         width: 100%;
@@ -3417,6 +3430,27 @@ function App() {
       @keyframes roleLabelIn {
         0% { opacity: 0; letter-spacing: 12px; }
         100% { opacity: 1; letter-spacing: 4px; }
+      }
+
+      @keyframes settingsRowIn {
+        0% { opacity: 0; transform: translateY(8px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes languageMenuIn {
+        0% { opacity: 0; transform: translateY(-8px) scaleY(0.92); transform-origin: top; }
+        100% { opacity: 1; transform: translateY(0) scaleY(1); transform-origin: top; }
+      }
+
+      @keyframes checkPopIn {
+        0% { opacity: 0; transform: scale(0.4); }
+        60% { opacity: 1; transform: scale(1.25); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+
+      @keyframes chevronRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(180deg); }
       }
 
       @keyframes tokenDropIn {
@@ -5905,7 +5939,7 @@ function App() {
 
             {/* --- SCREEN: SETTINGS --- */}
             {currentScreen === 'settings' && (
-              <div>
+              <div style={{ animation: 'settingsRowIn 0.35s ease-out' }}>
                 <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>{t('settingsTitle')}</h3>
                 <div style={{
                   padding: '20px 15px',
@@ -5917,10 +5951,11 @@ function App() {
                   flexDirection: 'column',
                   gap: '20px'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', animation: 'settingsRowIn 0.4s ease-out' }}>
                     <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('ambientMusic')}</span>
                     <button
                       onClick={toggleMusic}
+                      className="settings-toggle-btn"
                       style={{
                         background: isMusicPlaying ? 'rgba(0, 255, 135, 0.1)' : 'rgba(255, 42, 95, 0.1)',
                         border: isMusicPlaying ? '1px solid #00ff87' : '1px solid #ff2a5f',
@@ -5937,10 +5972,10 @@ function App() {
                       {isMusicPlaying ? t('online') : t('muted')}
                     </button>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left', animation: 'settingsRowIn 0.45s ease-out' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px' }}>
                       <span>{t('volumeLevel')}</span>
-                      <span style={{ color: '#00f0ff' }}>{Math.round(volume * 100)}%</span>
+                      <span style={{ color: '#00f0ff', transition: 'color 0.2s ease' }}>{Math.round(volume * 100)}%</span>
                     </div>
                     <input
                       type="range"
@@ -5951,15 +5986,17 @@ function App() {
                       onChange={(e) => setVolume(parseFloat(e.target.value))}
                       className="volume-slider"
                       style={{
-                        background: `linear-gradient(to right, #00f0ff 0%, #00f0ff ${volume * 100}%, rgba(255,255,255,0.1) ${volume * 100}%, rgba(255,255,255,0.1) 100%)`
+                        background: `linear-gradient(to right, #00f0ff 0%, #00f0ff ${volume * 100}%, rgba(255,255,255,0.1) ${volume * 100}%, rgba(255,255,255,0.1) 100%)`,
+                        transition: 'background 0.15s ease-out'
                       }}
                     />
                   </div>
-                  <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'relative', animation: 'settingsRowIn 0.5s ease-out' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('languages')}</span>
                       <button
                         onClick={() => setIsLanguageMenuOpen(o => !o)}
+                        className="settings-toggle-btn"
                         style={{
                           background: 'rgba(0, 240, 255, 0.1)',
                           border: '1px solid #00f0ff',
@@ -5976,8 +6013,17 @@ function App() {
                           gap: '7px'
                         }}
                       >
-                        <span>{LANGUAGES.find(l => l.code === language)?.flag}</span>
+                        <span style={{ display: 'inline-block', transition: 'transform 0.2s ease' }}>{LANGUAGES.find(l => l.code === language)?.flag}</span>
                         {LANGUAGES.find(l => l.code === language)?.label || 'English'}
+                        <Icon
+                          name="chevronDown"
+                          size={11}
+                          style={{
+                            marginLeft: '2px',
+                            transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transform: isLanguageMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                          }}
+                        />
                       </button>
                     </div>
                     {isLanguageMenuOpen && (
@@ -5989,13 +6035,16 @@ function App() {
                         border: '1px solid rgba(255,255,255,0.08)',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '6px'
+                        gap: '6px',
+                        animation: 'languageMenuIn 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                        transformOrigin: 'top'
                       }}>
                         <span style={{ fontSize: '10px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px', marginBottom: '2px' }}>{t('chooseLanguage')}</span>
-                        {LANGUAGES.map(lang => (
+                        {LANGUAGES.map((lang, i) => (
                           <button
                             key={lang.code}
                             onClick={() => { setLanguage(lang.code); setIsLanguageMenuOpen(false); }}
+                            className="language-option-btn"
                             style={{
                               display: 'flex',
                               alignItems: 'center',
@@ -6009,12 +6058,19 @@ function App() {
                               fontWeight: 'bold',
                               letterSpacing: '0.5px',
                               cursor: 'pointer',
-                              textAlign: 'left'
+                              textAlign: 'left',
+                              animation: `settingsRowIn ${0.2 + i * 0.06}s ease-out`
                             }}
                           >
                             <span style={{ fontSize: '15px' }}>{lang.flag}</span>
                             {lang.label}
-                            {lang.code === language && <Icon name="check" size={13} style={{ marginLeft: 'auto' }} />}
+                            {lang.code === language && (
+                              <Icon
+                                name="check"
+                                size={13}
+                                style={{ marginLeft: 'auto', animation: 'checkPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+                              />
+                            )}
                           </button>
                         ))}
                       </div>
