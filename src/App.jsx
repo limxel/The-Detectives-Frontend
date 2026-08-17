@@ -5424,9 +5424,11 @@ function App() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      // In the lobby content is often taller than the screen — align to top and
-      // allow scrolling, otherwise vertical centering clips the bottom of the card.
-      justifyContent: currentScreen === 'lobby' ? 'flex-start' : 'center',
+      // In the lobby and tutorial (dossier) screens, content is often taller
+      // than the viewport — align to top and allow scrolling, otherwise
+      // vertical centering clips the bottom of the card (e.g. the tutorial's
+      // BACK button becomes unreachable on phones).
+      justifyContent: (currentScreen === 'lobby' || currentScreen === 'tutorial') ? 'flex-start' : 'center',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
     }}>
@@ -5479,7 +5481,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          paddingBottom: currentScreen === 'lobby' ? '30px' : '0px'
+          paddingBottom: (currentScreen === 'lobby' || currentScreen === 'tutorial') ? '30px' : '0px'
         }}>
           {/* HEADER */}
           <header style={{ marginBottom: '30px', textAlign: 'center', zIndex: 1, flexShrink: 0 }}>
