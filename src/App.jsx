@@ -3022,6 +3022,12 @@ function App() {
   // room is entered (onRoomEntered — covers both a new 'select_room' and a
   // mid-turn vent hop) or a new turn starts (onTurnStart).
   const [roomActionTaken, setRoomActionTaken] = useState(false);
+  // Whether "INVESTIGATE ROOM" has actually been used on the room the player
+  // is CURRENTLY standing in — required before "CHECK ROOM" becomes available
+  // (see handleCheckRoom / server's 'check_room' gate). Reset on the exact
+  // same triggers as roomActionTaken: a fresh room entered (onRoomEntered) or
+  // a new turn starting (onTurnStart).
+  const [investigateUsedThisTurn, setInvestigateUsedThisTurn] = useState(false);
 
   // --- EVIDENCE HUD (Innocent only): digits found via 'investigate_room' stay
   // visible for the rest of the match, keyed by their position in the code so
@@ -4364,6 +4370,7 @@ function App() {
       setRevealedRoom(null);
       setRoomChosen(false);
       setRoomActionTaken(false);
+      setInvestigateUsedThisTurn(false);
     }
 
     // Round ended, trial phase started (placeholder for the first part of this mechanic)
@@ -4438,6 +4445,7 @@ function App() {
       // A fresh room — whether from a new 'select_room' or a mid-turn vent
       // hop — re-arms this turn's room-interaction phase.
       if (!data.spectator) setRoomActionTaken(false);
+      if (!data.spectator) setInvestigateUsedThisTurn(false);
       if (!data.spectator) clearAutoEndCountdown();
       // An EXPOSED body (isHidden: false) is detectable just by walking in —
       // no explicit "SEARCH FOR BODY" needed, unlike a hidden one. Surface it
@@ -4688,12 +4696,21 @@ function App() {
     }
 
     // Result of this Innocent's own 'check_room' attempt (see handleCheckRoom).
+    // Deliberately shows the SAME confirmation text ("Room checked.") whether
+    // or not this room actually turned out to hold a code fragment — Check
+    // Room is a logging/sharing action now that it requires INVESTIGATE ROOM
+    // to have already been used first, so the player already knows the room's
+    // contents; the toast here is just confirming the check itself went
+    // through, not repeating what they already found.
     function onCheckRoomResult({ success, reason, cleared, roomId, roomName, turnsRemaining }) {
       setCheckRoomSubmitting(false);
       if (!success) {
         if (reason === 'cooldown') {
           setMarkRoomStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
           pushToast(`Check Room on cooldown for ${turnsRemaining} more round(s).`);
+        } else if (reason === 'investigate_required') {
+          setInvestigateUsedThisTurn(false);
+          pushToast('Investigate this room first.');
         }
         return;
       }
@@ -4701,10 +4718,8 @@ function App() {
       setMarkRoomStatus({ available: false, turnsRemaining: turnsRemaining ?? 2 });
       if (cleared) {
         setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
-        pushToast(`Confirmed clear: ${roomName || roomId} — no code fragment here.`);
-      } else {
-        pushToast(`${roomName || 'This room'} isn't clear — worth a proper investigation.`);
       }
+      pushToast(`Room checked: ${roomName || roomId}.`);
     }
 
     // Privately tells the Innocent whether 'check_room' is off its 2-round
@@ -5220,6 +5235,7 @@ function App() {
     if (!gameRoomCodeRef.current || !revealedRoom || roomActionTaken) return;
     if (trapDebuffActive) { pushToast("You're still recovering from the trap — no actions this round."); return; }
     setRoomActionTaken(true);
+    setInvestigateUsedThisTurn(true);
     playAbilityUseSound(0.75);
     socket.emit('investigate_room', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
   };
@@ -5236,14 +5252,18 @@ function App() {
   };
 
   // Innocent-only: "CHECK ROOM" (Mark Room). A SEPARATE ability from
-  // INVESTIGATE ROOM/SEARCH FOR BODY above — deliberately not gated on
-  // roomActionTaken, so it can be used alongside either of them in the same
-  // turn. Gated instead on its own 2-round cooldown (markRoomStatus, kept
-  // authoritative server-side) and on the room not already being known-clear,
-  // since re-checking a room the team already confirmed empty would just
-  // waste the cooldown for nothing.
+  // INVESTIGATE ROOM/SEARCH FOR BODY above — not gated on roomActionTaken, so
+  // it can still be used after SEARCH FOR BODY in the same turn. It DOES,
+  // however, require INVESTIGATE ROOM to have already been used on this exact
+  // room first (investigateUsedThisTurn, mirrored authoritatively server-side)
+  // — Check Room logs/shares a room you've already investigated, it isn't a
+  // free substitute for investigating it. Also gated on its own 2-round
+  // cooldown (markRoomStatus, kept authoritative server-side) and on the room
+  // not already being known-clear, since re-checking a room the team already
+  // confirmed empty would just waste the cooldown for nothing.
   const handleCheckRoom = () => {
     if (myRole !== 'Innocent' || !gameRoomCodeRef.current || !revealedRoom || checkRoomSubmitting) return;
+    if (!investigateUsedThisTurn) { pushToast('Investigate this room first.'); return; }
     if (markRoomStatus && markRoomStatus.available === false) return;
     if (clearedRoomIds[revealedRoom.roomId]) return;
     if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
@@ -6819,26 +6839,32 @@ function App() {
                                   </NeonButton>
                                   {/* Innocent-only: "CHECK ROOM" (Mark Room) — a SEPARATE ability
                                       from the two above, not gated on roomActionTaken so it can be
-                                      used alongside either of them. Disables itself once the room
-                                      is already known-clear (no point wasting the cooldown), while
-                                      its own cooldown is off, or while a request is in flight (see
-                                      handleCheckRoom). */}
+                                      used after SEARCH FOR BODY too. It IS, however, gated on
+                                      INVESTIGATE ROOM having already been used on this room first
+                                      (investigateUsedThisTurn) — see handleCheckRoom. Also disables
+                                      itself once the room is already known-clear (no point wasting
+                                      the cooldown), while its own cooldown is off, or while a
+                                      request is in flight. */}
                                   {myRole === 'Innocent' && (() => {
                                     const alreadyCleared = Boolean(clearedRoomIds[revealedRoom.roomId]);
                                     const onCooldown = markRoomStatus?.available === false;
-                                    const checkDisabled = alreadyCleared || onCooldown || checkRoomSubmitting;
+                                    const needsInvestigateFirst = !investigateUsedThisTurn;
+                                    const checkDisabled = alreadyCleared || onCooldown || checkRoomSubmitting || needsInvestigateFirst;
                                     return (
                                       <NeonButton
                                         variant="success"
                                         style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: checkDisabled ? 0.5 : 1, gap: '8px' }}
                                         disabled={checkDisabled}
                                         onClick={handleCheckRoom}
+                                        title={needsInvestigateFirst && !alreadyCleared ? 'Investigate this room first' : undefined}
                                       >
                                         {alreadyCleared
                                           ? <><Icon name="check" size={14} /> ALREADY CLEAR</>
                                           : onCooldown
                                             ? `CHECK ROOM (${markRoomStatus.turnsRemaining} ROUND${markRoomStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`
-                                            : <><Icon name="check" size={14} /> CHECK ROOM</>}
+                                            : needsInvestigateFirst
+                                              ? 'INVESTIGATE FIRST'
+                                              : <><Icon name="check" size={14} /> CHECK ROOM</>}
                                       </NeonButton>
                                     );
                                   })()}
