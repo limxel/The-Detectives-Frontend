@@ -3372,6 +3372,20 @@ function App() {
         background: #00f0ff;
       }
 
+      /* Horizontally swipeable row for the in-room action buttons on mobile —
+         used when there are enough buttons (SEARCH FOR BODY / INVESTIGATE ROOM /
+         CHECK ROOM / USE VENT / END TURN) that they can't all comfortably fit
+         without scrolling. Scrollbar hidden cross-browser since the row itself
+         (plus a bit of side padding) already signals it's scrollable. */
+      .action-btn-scroll {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .action-btn-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
       @keyframes supportIconPulse {
         0%, 100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.55), 0 8px 24px rgba(0,0,0,0.5); }
         50% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0), 0 8px 24px rgba(0,0,0,0.5); }
@@ -6765,9 +6779,22 @@ function App() {
                               )}
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                            <div
+                              className={isMobile ? 'action-btn-scroll' : undefined}
+                              style={isMobile ? {
+                                display: 'flex',
+                                gap: '10px',
+                                overflowX: 'auto',
+                                overflowY: 'hidden',
+                                flexWrap: 'nowrap',
+                                justifyContent: (isEliminated || isObserver) ? 'center' : 'flex-start',
+                                padding: '2px 4px 10px 4px',
+                                margin: '0 -4px',
+                                scrollSnapType: 'x proximity'
+                              } : { display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
+                            >
                               {(isEliminated || isObserver) ? (
-                                <NeonButton variant="secondary" style={{ maxWidth: '260px', width: '100%' }} onClick={() => setRoomChosen(false)}>RETURN TO MANSION MAP</NeonButton>
+                                <NeonButton variant="secondary" style={{ maxWidth: '260px', width: '100%', flexShrink: 0, marginBottom: 0 }} onClick={() => setRoomChosen(false)}>RETURN TO MANSION MAP</NeonButton>
                               ) : (
                                 <>
                                   {/* Two mutually-exclusive room actions: picking either one spends
@@ -6776,7 +6803,7 @@ function App() {
                                       (new 'select_room' or a vent hop) or a new turn starts. */}
                                   <NeonButton
                                     variant="primary"
-                                    style={{ maxWidth: '260px', width: '100%', opacity: roomActionTaken ? 0.5 : 1, gap: '8px' }}
+                                    style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: roomActionTaken ? 0.5 : 1, gap: '8px' }}
                                     disabled={roomActionTaken}
                                     onClick={handleSearchBody}
                                   >
@@ -6784,7 +6811,7 @@ function App() {
                                   </NeonButton>
                                   <NeonButton
                                     variant="primary"
-                                    style={{ maxWidth: '260px', width: '100%', opacity: roomActionTaken ? 0.5 : 1 }}
+                                    style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: roomActionTaken ? 0.5 : 1 }}
                                     disabled={roomActionTaken}
                                     onClick={handleInvestigateRoom}
                                   >
@@ -6803,7 +6830,7 @@ function App() {
                                     return (
                                       <NeonButton
                                         variant="success"
-                                        style={{ maxWidth: '260px', width: '100%', opacity: checkDisabled ? 0.5 : 1, gap: '8px' }}
+                                        style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: checkDisabled ? 0.5 : 1, gap: '8px' }}
                                         disabled={checkDisabled}
                                         onClick={handleCheckRoom}
                                       >
@@ -6822,17 +6849,22 @@ function App() {
                                   {myRole === 'Killer' && VENTS[revealedRoom.roomId] && (
                                     <NeonButton
                                       variant="secondary"
-                                      style={{ maxWidth: '260px', width: '100%', opacity: ventUsedThisTurn ? 0.5 : 1, gap: '8px' }}
+                                      style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: ventUsedThisTurn ? 0.5 : 1, gap: '8px' }}
                                       disabled={ventUsedThisTurn}
                                       onClick={handleUseVent}
                                     >
                                       {ventUsedThisTurn ? 'VENT USED' : <><Icon name="vent" size={14} /> USE VENT</>}
                                     </NeonButton>
                                   )}
-                                  <NeonButton variant="success" style={{ maxWidth: '260px', width: '100%' }} onClick={handleEndTurn}>END TURN</NeonButton>
+                                  <NeonButton variant="success" style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start' }} onClick={handleEndTurn}>END TURN</NeonButton>
                                 </>
                               )}
                             </div>
+                            {isMobile && !(isEliminated || isObserver) && (
+                              <p style={{ margin: '-4px 0 0 0', fontSize: '10px', color: '#5a6478', letterSpacing: '1px', textAlign: 'center' }}>
+                                ← SWIPE TO SEE ALL ACTIONS →
+                              </p>
+                            )}
                           </div>
                         </div>
                       )})()}
