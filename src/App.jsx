@@ -5553,8 +5553,10 @@ function App() {
             padding: '35px 40px',
             width: '100%',
             maxWidth: currentScreen === 'lobby' ? '920px' : '440px',
-            maxHeight: currentScreen === 'lobby' ? '82vh' : 'none',
+            maxHeight: currentScreen === 'lobby' ? '82vh' : currentScreen === 'tutorial' ? `min(600px, ${viewportHeight - 140}px)` : 'none',
             overflowY: currentScreen === 'lobby' ? 'auto' : 'visible',
+            display: currentScreen === 'tutorial' ? 'flex' : 'block',
+            flexDirection: 'column',
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
             textAlign: 'center',
@@ -5947,10 +5949,10 @@ function App() {
 
             {/* --- SCREEN: TUTORIAL --- */}
             {currentScreen === 'tutorial' && (
-              <div style={{ textAlign: 'left' }}>
-            <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#00f0ff', fontSize: '20px', letterSpacing: '2px' }}>CLASSIFIED DOSSIER</h3>
+              <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
+            <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#00f0ff', fontSize: '20px', letterSpacing: '2px', flexShrink: 0 }}>CLASSIFIED DOSSIER</h3>
 
-            <div style={{ maxHeight: '360px', overflowY: 'auto', paddingRight: '12px', fontSize: '13px', lineHeight: '1.6', color: '#bdc7db' }}>
+            <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingRight: '12px', fontSize: '13px', lineHeight: '1.6', color: '#bdc7db' }}>
               <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. TURNS & TIMING</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
                 Agents operate <strong>strictly in sequence</strong>. Each asset has up to <strong>30 seconds</strong> to pick a sector to search — the moment they move in and see who's there, their turn wraps up shortly after.
@@ -6009,7 +6011,7 @@ function App() {
               </p>
             </div>
 
-            <NeonButton variant="secondary" style={{ marginTop: '15px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+            <NeonButton variant="secondary" style={{ marginTop: '15px', flexShrink: 0 }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
           </div>
         )}
 
