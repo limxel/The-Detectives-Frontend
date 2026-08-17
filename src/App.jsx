@@ -2857,6 +2857,35 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Mobile browsers (Chrome in particular) size `100vh` and `position: fixed`
+  // against the "layout viewport", which is taller than what's actually
+  // visible whenever the address bar / bottom toolbar is on screen — so a
+  // full-height card and any fixed bottom-anchored buttons render partly
+  // (or fully) behind that browser chrome. window.visualViewport tracks the
+  // *actually visible* area, so we mirror it into state and use it below to
+  // (a) size the root container to real visible height instead of 100vh,
+  // and (b) push every fixed bottom-anchored element up by however much the
+  // browser UI (or the on-screen keyboard) is currently covering.
+  const [viewportHeight, setViewportHeight] = useState(() =>
+    typeof window !== 'undefined' ? (window.visualViewport?.height || window.innerHeight) : 800
+  );
+  const [bottomInset, setBottomInset] = useState(0);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.visualViewport) return;
+    const vv = window.visualViewport;
+    const updateViewportMetrics = () => {
+      setViewportHeight(vv.height);
+      setBottomInset(Math.max(0, window.innerHeight - vv.height - vv.offsetTop));
+    };
+    updateViewportMetrics();
+    vv.addEventListener('resize', updateViewportMetrics);
+    vv.addEventListener('scroll', updateViewportMetrics);
+    return () => {
+      vv.removeEventListener('resize', updateViewportMetrics);
+      vv.removeEventListener('scroll', updateViewportMetrics);
+    };
+  }, []);
+
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [nickname, setNickname] = useState('');
   const [isNicknameSet, setIsNicknameSet] = useState(false);
@@ -5420,7 +5449,7 @@ function App() {
       boxSizing: 'border-box',
       background: 'radial-gradient(circle at center, #11111a 0%, #050508 100%)',
       color: '#e2e8f0',
-      minHeight: '100vh',
+      minHeight: `${viewportHeight}px`,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -6047,7 +6076,7 @@ function App() {
 
               {/* SKIP button in the bottom-right corner — requires a unanimous vote */}
               {!introFinished && (
-                <div style={{ position: 'fixed', right: '24px', bottom: '24px', textAlign: 'right' }}>
+                <div style={{ position: 'fixed', right: '24px', bottom: `${24 + bottomInset}px`, textAlign: 'right' }}>
                   {skipVotes.total > 0 && (
                     <div style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '1px', marginBottom: '6px' }}>
                       {skipVotes.count}/{skipVotes.total} VOTED TO SKIP
@@ -6222,7 +6251,7 @@ function App() {
               {toasts.length > 0 && (
                 <div style={{
                   position: 'fixed',
-                  bottom: '18px',
+                  bottom: `${18 + bottomInset}px`,
                   left: '50%',
                   transform: 'translateX(-50%)',
                   zIndex: 50,
@@ -7089,7 +7118,7 @@ function App() {
                 </div>
               )}
               {displayPhase === 'trial' && isTrialChatOpen && (
-                <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: '18px', zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: `${18 + bottomInset}px`, zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', color: '#8be7ff', fontSize: '11px', letterSpacing: '1px' }}><span>TACTICAL CHAT</span><button onClick={() => setIsTrialChatOpen(false)} style={{ color: '#8be7ff', background: 'transparent', border: 0, cursor: 'pointer' }}>CLOSE</button></div>
                   <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>{chatMessages.map(message => <div key={message.id} style={{ padding: '8px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', fontSize: '12px' }}><div style={{ color: '#00f0ff', fontSize: '10px' }}>{message.senderNickname}</div>{message.text}</div>)}</div>
                   {(isEliminated || isObserver) && <div style={{ padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,42,95,0.35)', background: 'rgba(255,42,95,0.08)', color: '#ff9caf', fontSize: '11px', lineHeight: 1.45, transition: 'all 0.3s ease' }}>YOU ARE ELIMINATED AND CANNOT PARTICIPATE IN TRIAL DISCUSSIONS OR VOTING.</div>}
@@ -7101,7 +7130,7 @@ function App() {
                   'clues_board_update'). Deliberately independent of the digital
                   code fragments, which stay Innocent-only exactly as before. */}
               {displayPhase === 'trial' && isCluesOpen && (
-                <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: '18px', zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(224,64,251,0.3)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: `${18 + bottomInset}px`, zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(224,64,251,0.3)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {(() => {
                     const selectedClue = selectedClueId ? clues.find(c => c.id === selectedClueId) : null;
                     if (selectedClue) {
@@ -7244,7 +7273,7 @@ function App() {
                   a body already found doesn't change again mid-trial, so unlike
                   CLUES there's no live re-fetch on open. */}
               {displayPhase === 'trial' && isBodiesOpen && (
-                <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: '18px', zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,143,168,0.3)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: `${18 + bottomInset}px`, zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,143,168,0.3)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {(() => {
                     const bodies = trialFindings?.bodies || [];
                     const selectedBody = selectedBodyId ? bodies.find(b => (b.bodyId || b.nickname) === selectedBodyId) : null;
@@ -7569,7 +7598,7 @@ function App() {
           style={{
             position: 'fixed',
             right: '20px',
-            bottom: '20px',
+            bottom: `${20 + bottomInset}px`,
             zIndex: 60,
             width: '58px',
             height: '58px',
