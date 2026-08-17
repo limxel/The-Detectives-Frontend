@@ -5553,7 +5553,7 @@ function App() {
             padding: '35px 40px',
             width: '100%',
             maxWidth: currentScreen === 'lobby' ? '920px' : '440px',
-            maxHeight: currentScreen === 'lobby' ? '82vh' : currentScreen === 'tutorial' ? `min(600px, ${viewportHeight - 140}px)` : 'none',
+            maxHeight: currentScreen === 'lobby' ? `${Math.round(viewportHeight * 0.82)}px` : currentScreen === 'tutorial' ? `min(600px, ${viewportHeight - 140}px)` : 'none',
             overflowY: currentScreen === 'lobby' ? 'auto' : 'visible',
             display: currentScreen === 'tutorial' ? 'flex' : 'block',
             flexDirection: 'column',
@@ -5723,7 +5723,7 @@ function App() {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '25px', flexWrap: 'wrap-reverse', justifyContent: 'center', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', gap: '25px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start' }}>
 
                   {/* Character grid */}
                   <div style={{ flex: '2 1 500px', paddingBottom: '10px' }}>
