@@ -4682,26 +4682,30 @@ function App() {
       }
     }
 
-    // Mark Room (Innocent only): another Innocent just confirmed a room holds
-    // no code fragment via 'check_room' — only ever arrives for Innocent
-    // sockets (and only to teammates OTHER than whoever actually clicked
-    // CHECK ROOM, see 'check_room_result' below for their own confirmation),
-    // so no role check is needed client-side. Deliberately anonymous — the
-    // server never tells us who checked it, only that it was checked. Kept
-    // permanently (never cleared on turn_start) so the green highlight in
-    // MansionMap stays accurate the whole match.
-    function onRoomMarkedClean({ roomId, roomName }) {
-      setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
-      pushToast(`Someone checked ${roomName || 'a room'} — no code fragment there.`);
+    // Mark Room (Innocent only): another Innocent just checked a room via
+    // 'check_room' — only ever arrives for Innocent sockets (and only to
+    // teammates OTHER than whoever actually clicked CHECK ROOM, see
+    // 'check_room_result' below for their own confirmation), so no role
+    // check is needed client-side. Deliberately anonymous — the server never
+    // tells us who checked it, only that it was checked. Fires the SAME
+    // generic toast regardless of whether a code fragment was actually in
+    // there, so it never leaks that info to teammates. `cleared` only drives
+    // the green "already checked, no code here" highlight, which is kept
+    // permanently (never cleared on turn_start) so it stays accurate for the
+    // whole match.
+    function onRoomMarkedClean({ roomId, roomName, cleared }) {
+      if (cleared) {
+        setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
+      }
+      pushToast(`${roomName || 'A room'} has been checked.`);
     }
 
     // Result of this Innocent's own 'check_room' attempt (see handleCheckRoom).
-    // Deliberately shows the SAME confirmation text ("Room checked.") whether
-    // or not this room actually turned out to hold a code fragment — Check
-    // Room is a logging/sharing action now that it requires INVESTIGATE ROOM
-    // to have already been used first, so the player already knows the room's
-    // contents; the toast here is just confirming the check itself went
-    // through, not repeating what they already found.
+    // No success toast here — Check Room is a logging/sharing action for the
+    // player's OWN room, taken after INVESTIGATE ROOM already told them what's
+    // there, so a "Room checked" toast to themselves would just be confirming
+    // something they already know they just did. Only failure reasons are
+    // worth surfacing.
     function onCheckRoomResult({ success, reason, cleared, roomId, roomName, turnsRemaining }) {
       setCheckRoomSubmitting(false);
       if (!success) {
@@ -4719,7 +4723,6 @@ function App() {
       if (cleared) {
         setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
       }
-      pushToast(`Room checked: ${roomName || roomId}.`);
     }
 
     // Privately tells the Innocent whether 'check_room' is off its 2-round
