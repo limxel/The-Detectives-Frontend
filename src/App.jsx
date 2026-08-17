@@ -214,17 +214,6 @@ Suddenly, the wall terminal flickered to life. A cold, synthetic voice filled th
 "PROTOCOL OMEGA ENGAGED. Host status: TERMINATED. All exits sealed under absolute quarantine for 24 hours. Identify the killer among you, or the terminal vault will be purged."
 Guests looked at one another in terrifying silence. The storm outside raged against the steel, but the real danger was sitting at the table. The quarantine had begun.`;
 
-// Ukrainian version of the intro story, used when language === 'ua'. Kept as
-// a separate constant (not a TRANSLATIONS key) since the typewriter effect
-// needs to measure raw string length/characters directly.
-const INTRO_STORY_UA = `Червоного дерева стіл був заставлений кришталевими графинами та вишуканим вином. Лорд Алістер Венс, техномагнат-мільярдер, підняв келих.
-"За прогрес," — виголосив він тост.
-Він зробив ковток. За кілька секунд келих розлетівся на друзки. Алістер, хапаючись за горло, захрипів — вени налилися фіолетовим, — і безвольно осів на срібні таці.
-Перш ніж хтось встиг закричати, маєтком прокотився важкий механічний гуркіт. Масивні сталеві жалюзі закрили всі вікна. Важкі дубові двері замкнулися автоматично.
-Раптом настінний термінал ожив. Холодний, синтетичний голос заповнив кімнату:
-"ПРОТОКОЛ ОМЕГА АКТИВОВАНО. Статус хазяїна: ЛІКВІДОВАНО. Усі виходи запечатано в абсолютному карантині на 24 години. Виявіть вбивцю серед вас, або сховище термінала буде знищено."
-Гості дивилися одне на одного у моторошній тиші. Буря лютувала за сталевими стінами, але справжня небезпека сиділа за цим столом. Карантин розпочався.`;
-
 // Milliseconds "per character" for the typewriter effect. Progress is computed from
 // REAL elapsed time (see startIntroTypewriter), not from the number of setInterval
 // ticks that fired, since the browser can throttle timers heavily in background tabs.
@@ -654,11 +643,6 @@ const ICON_PATHS = {
     <>
       <path d="M19 12H5" />
       <path d="M11 6l-6 6 6 6" />
-    </>
-  ),
-  chevronDown: (
-    <>
-      <path d="M6 9l6 6 6-6" />
     </>
   ),
   users: (
@@ -2859,301 +2843,6 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
   );
 }
 
-// Available interface languages. Add more entries here (and to TRANSLATIONS
-// below) to support additional languages — the Settings screen renders this
-// list automatically.
-const LANGUAGES = [
-  { code: 'en', flag: '🇬🇧', label: 'English' },
-  { code: 'ua', flag: '🇺🇦', label: 'Українська' }
-];
-
-// UI text for the Settings screen, keyed by language code. Falls back to
-// English for any key missing from the active language (see t() in App).
-// Ukrainian translations for role labels/descriptions, used ONLY on
-// pre-gameplay screens (lobby role-pool preview, role-reveal screen).
-// Gameplay screens (trial phase, kill feed, etc.) keep using ROLES directly
-// and are not affected by this — translated separately later.
-const ROLE_INFO_UA = {
-  Killer: { label: 'ВБИВЦЯ', description: 'Усувайте цілі під покровом ночі. Один удар за хід.' },
-  Accomplice: { label: 'СПІЛЬНИК', description: 'Спотворюйте потоки доказів. Ви отримуєте звіти Вбивці.' },
-  Innocent: { label: 'НЕВИННИЙ', description: 'Шукайте код розблокування в маєтку. Знайдіть його — і втечіть із карантину.' },
-  Detective: { label: 'ДЕТЕКТИВ', description: 'Відстежуйте мережевий слід профілю. Одна перевірка за хід.' },
-  Officer: { label: 'ОФІЦЕР', description: 'Захищайте союзника від небезпеки. Один захисний протокол на 3 ходи.' },
-  Forensic: { label: 'ЕКСПЕРТ', description: 'Перевіряйте достовірність телеметрії. Один аналіз на 2 ходи.' },
-  Joker: { label: 'ДЖОКЕР', description: 'Розшукується живим чи мертвим. Ви перемагаєте, якщо рада проголосує за вашу страту. Раз на 2 ходи можете підкинути особистий доказ в обшукану кімнату.' }
-};
-
-const TRANSLATIONS = {
-  en: {
-    // Settings screen
-    settingsTitle: 'TERMINAL ADJUSTMENTS',
-    ambientMusic: 'HQ AMBIENT MUSIC',
-    online: 'ONLINE',
-    muted: 'MUTED',
-    volumeLevel: 'VOLUME LEVEL',
-    languages: 'LANGUAGES',
-    chooseLanguage: 'CHOOSE LANGUAGE',
-    back: 'BACK',
-
-    // Nickname entry screen
-    enterNickname: 'ENTER NICKNAME',
-    nicknamePlaceholder: 'YOUR CODE NAME...',
-    initializeTerminal: 'INITIALIZE TERMINAL',
-
-    // Header
-    gameTitle: 'TWELVE SUSPECTS',
-    agentLabel: 'AGENT',
-    systemLabel: 'SYSTEM',
-    statusOnline: 'ONLINE',
-    statusOffline: 'OFFLINE',
-
-    // Main menu
-    mainLaunchCase: 'LAUNCH CASE',
-    mainSettings: 'SETTINGS',
-    mainDossier: 'DOSSIER & RULES',
-
-    // Play menu (game modes)
-    selectOperation: 'Select Operation',
-    publicLobbies: 'PUBLIC LOBBIES',
-    secureConnection: 'SECURE CONNECTION (CODE)',
-    establishNewHQ: 'ESTABLISH NEW HQ',
-    returnBtn: 'RETURN',
-
-    // Servers list
-    availableChannels: 'AVAILABLE ENCRYPTED CHANNELS',
-    scanningFrequencies: 'Scanning frequencies... No active channels found.',
-    idLabel: 'ID',
-    joinBtn: 'JOIN',
-
-    // Connect by code
-    enterDecryptionKey: 'ENTER DECRYPTION KEY',
-    hexCodePlaceholder: '8-HEX CODE...',
-    establishLink: 'ESTABLISH LINK',
-
-    // Create server
-    hqConfiguration: 'HQ CONFIGURATION',
-    publicBroadcast: 'PUBLIC BROADCAST',
-    publicBroadcastDesc: 'Listed in global frequency database. Open to all agents.',
-    covertChannel: 'COVERT CHANNEL',
-    covertChannelDesc: 'Encrypted overlay. Accessible strictly via direct terminal patch-in code.',
-
-    // Lobby
-    hqBase: 'HQ BASE',
-    preparing: 'PREPARING',
-    open: 'OPEN',
-    linkCode: 'LINK CODE:',
-    selectProfile: 'SELECT PROFILE NETOP (1 UNIQUE PER IDENTITY)',
-    taken: 'TAKEN',
-    cancelReadyState: 'CANCEL READY STATE',
-    confirmIdentity: 'CONFIRM IDENTITY (READY)',
-    startOperation: 'START OPERATION',
-    waitingForAgents: 'WAITING FOR AGENTS',
-    waitingForHost: 'Waiting for host to launch the operation...',
-    connectedChannels: 'CONNECTED CHANNELS',
-    minPlayersRequired: 'Requires at least 5 players to start',
-    activeRolePoolFull: 'ACTIVE ROLE POOL (FULL)',
-    activeRolePoolBase: 'ACTIVE ROLE POOL (BASE)',
-    specialRolesUnlockedAll: 'All special roles unlock past 7 players.',
-    specialRolesUnlock: 'Special roles unlock past 7 players.',
-    youTag: 'YOU',
-    hostTag: 'HOST',
-    profileLabel: 'Profile:',
-    selecting: 'Selecting...',
-    ready: 'READY',
-    wait: 'WAIT',
-    disconnect: 'DISCONNECT',
-
-    // Tutorial
-    classifiedDossier: 'CLASSIFIED DOSSIER',
-    tut1Title: '1. TURNS & TIMING',
-    tut1Body: 'Agents operate strictly in sequence. Each asset has up to 30 seconds to pick a sector to search — the moment they move in and see who\'s there, their turn wraps up shortly after.',
-    tut2Title: '2. TWO PHASE PARADIGM',
-    tut2ActionLabel: 'Action Phase:',
-    tut2ActionBody: 'Ghost maneuvers and tactical execution.',
-    tut2TrialLabel: 'Trial Phase:',
-    tut2TrialBody: 'Assembly, evidence triangulation, and asset termination votes.',
-    tut3Title: '3. VENTILATION SHORTCUTS',
-    tut3Body: 'The Killer alone can access a network of vent shortcuts linking specific mansion rooms in pairs. Using one instantly relocates them to the linked room as part of the same turn — a fast, silent way to reach or leave a scene without walking the halls. Only one vent hop is allowed per turn.',
-    tut3KnownConnections: 'Known vent connections:',
-    tut3Conn1Room1: 'Grand Hall',
-    tut3Conn1Floor1: '(1st floor)',
-    tut3Conn1Room2: 'Master Bedroom',
-    tut3Conn1Floor2: '(2nd floor)',
-    tut3Conn2Room1: 'Kitchen',
-    tut3Conn2Room2: 'Armory',
-    tut3Conn2Floors: '(both 1st floor)',
-    tut3Conn3Room1: 'Wine Cellar',
-    tut3Conn3Floor1: '(1st floor)',
-    tut3Conn3Room2: 'Attic',
-    tut3Conn3Floor2: '(2nd floor)',
-    tut4Title: '4. DATA & INTEL',
-    tut4Body1: 'Operatives recover genuine footprints. Accomplices feed fabricated data streams into the logs.',
-    tut4Body2: 'Every discovered body carries exactly one trace of its killer\'s build or blood type, fixed the moment they died — the longer a body goes unexamined, the less reliable that trace becomes. Piecing together a full profile takes more than one body. There\'s also a flat chance the Killer accidentally drops one of their own character\'s personal items in a random room on any kill — an extra clue nobody planted on purpose.',
-    tut5Title: '5. HIDE OR EXPOSE THE BODY',
-    tut5Body: 'Right after a kill, the Killer must choose: Hide the body — it stays concealed until someone deliberately searches for it, but this uses up the turn\'s vent hop, so no venting that turn — or Expose it, leaving it in plain sight for whoever walks in next, while still keeping the vent free to use afterward.',
-    tut6Title: '6. TRAPS',
-    tut6Body: 'The Accomplice can rig a room with a hidden trap (1 per 4 rounds). The first agent who walks into that room — whether via a normal move or a vent hop — sets it off: the trap is consumed instantly and that agent is locked out of every action and ability for their entire next round, action phase and Trial alike.',
-    tut7Title: '7. ACTIVE ROLES IN THE FIELD',
-    tut7KillerName: 'Killer:',
-    tut7KillerBody: 'Neutralizes targets (1/turn), then chooses to hide or expose the body.',
-    tut7AccompliceName: 'Accomplice:',
-    tut7AccompliceBody: 'Scrambles feeds, receives immediate kill reports, and can plant a trap in a room (1 per 4 rounds).',
-    tut7DetectiveName: 'Detective:',
-    tut7DetectiveBody: 'Checks a suspect\'s last known location during the Trial (1 per 2 rounds).',
-    tut7OfficerName: 'Officer:',
-    tut7OfficerBody: 'Locks a suspect in the Holding Cell (1st floor, bottom-right corner of the mansion) for the following round, isolating them from all room actions (1 per 3 rounds).',
-    tut7ForensicName: 'Forensic:',
-    tut7ForensicBody: 'Verifies a piece of evidence\'s authenticity, OR examines a discovered body for a trace of the killer\'s build/blood type — both draw from the same shared cooldown, available once every other round.',
-    tut7JokerName: 'Joker:',
-    tut7JokerBody: 'Wins if compromised and executed by the council. Can plant a piece of personal evidence in a searched room once every 2 of their turns.',
-    tut7InnocentName: 'Innocent:',
-    tut7InnocentBody: 'No special power. Search the mansion for the override code to cancel the protocol and escape the quarantine.',
-    tut8Title: '8. SPECTER PROTOCOL (DECEASED)',
-    tut8Body: 'Terminal transmission cut off, but overrides grant Unrestricted Satellite Map Feed. Watch everything unfold.',
-
-    // Game intro / loading / role reveal (pre-gameplay)
-    establishingChannel: 'Establishing secure channel...',
-    votedToSkip: 'VOTED TO SKIP',
-    voteCast: 'VOTE CAST',
-    skipBtn: 'SKIP ▸',
-    decryptingIdentity: 'Decrypting identity...'
-  },
-  ua: {
-    // Settings screen
-    settingsTitle: 'НАЛАШТУВАННЯ ТЕРМІНАЛУ',
-    ambientMusic: 'ФОНОВА МУЗИКА ШТАБУ',
-    online: 'УВІМКНЕНО',
-    muted: 'ВИМКНЕНО',
-    volumeLevel: 'РІВЕНЬ ГУЧНОСТІ',
-    languages: 'МОВИ',
-    chooseLanguage: 'ОБЕРІТЬ МОВУ',
-    back: 'НАЗАД',
-
-    // Nickname entry screen
-    enterNickname: 'ВВЕДІТЬ ПОЗИВНИЙ',
-    nicknamePlaceholder: 'ВАШ ПОЗИВНИЙ...',
-    initializeTerminal: 'ІНІЦІАЛІЗУВАТИ ТЕРМІНАЛ',
-
-    // Header
-    gameTitle: 'ДВАНАДЦЯТЬ ПІДОЗРЮВАНИХ',
-    agentLabel: 'АГЕНТ',
-    systemLabel: 'СИСТЕМА',
-    statusOnline: 'В МЕРЕЖІ',
-    statusOffline: 'НЕ В МЕРЕЖІ',
-
-    // Main menu
-    mainLaunchCase: 'РОЗПОЧАТИ СПРАВУ',
-    mainSettings: 'НАЛАШТУВАННЯ',
-    mainDossier: 'ДОСЬЄ ТА ПРАВИЛА',
-
-    // Play menu (game modes)
-    selectOperation: 'Оберіть операцію',
-    publicLobbies: 'ПУБЛІЧНІ ЛОБІ',
-    secureConnection: 'ЗАХИЩЕНЕ ПІДКЛЮЧЕННЯ (КОД)',
-    establishNewHQ: 'СТВОРИТИ НОВИЙ ШТАБ',
-    returnBtn: 'НАЗАД',
-
-    // Servers list
-    availableChannels: 'ДОСТУПНІ ЗАШИФРОВАНІ КАНАЛИ',
-    scanningFrequencies: 'Сканування частот... Активних каналів не знайдено.',
-    idLabel: 'ID',
-    joinBtn: 'ПРИЄДНАТИСЬ',
-
-    // Connect by code
-    enterDecryptionKey: 'ВВЕДІТЬ КЛЮЧ РОЗШИФРУВАННЯ',
-    hexCodePlaceholder: '8-ЗНАКОВИЙ КОД...',
-    establishLink: 'ВСТАНОВИТИ ЗВ\'ЯЗОК',
-
-    // Create server
-    hqConfiguration: 'КОНФІГУРАЦІЯ ШТАБУ',
-    publicBroadcast: 'ПУБЛІЧНА ТРАНСЛЯЦІЯ',
-    publicBroadcastDesc: 'Відображається у глобальній базі частот. Відкрито для всіх агентів.',
-    covertChannel: 'ТАЄМНИЙ КАНАЛ',
-    covertChannelDesc: 'Зашифрований канал. Доступ лише за прямим кодом підключення до термінала.',
-
-    // Lobby
-    hqBase: 'БАЗА ШТАБУ',
-    preparing: 'ПІДГОТОВКА',
-    open: 'ВІДКРИТО',
-    linkCode: 'КОД ЗВ\'ЯЗКУ:',
-    selectProfile: 'ОБЕРІТЬ ПРОФІЛЬ (1 УНІКАЛЬНИЙ НА ОСОБУ)',
-    taken: 'ЗАЙНЯТО',
-    cancelReadyState: 'СКАСУВАТИ ГОТОВНІСТЬ',
-    confirmIdentity: 'ПІДТВЕРДИТИ ОСОБУ (ГОТОВО)',
-    startOperation: 'РОЗПОЧАТИ ОПЕРАЦІЮ',
-    waitingForAgents: 'ОЧІКУВАННЯ АГЕНТІВ',
-    waitingForHost: 'Очікування, поки хост розпочне операцію...',
-    connectedChannels: 'ПІДКЛЮЧЕНІ КАНАЛИ',
-    minPlayersRequired: 'Потрібно щонайменше 5 гравців для старту',
-    activeRolePoolFull: 'АКТИВНИЙ ПУЛ РОЛЕЙ (ПОВНИЙ)',
-    activeRolePoolBase: 'АКТИВНИЙ ПУЛ РОЛЕЙ (БАЗОВИЙ)',
-    specialRolesUnlockedAll: 'Усі спеціальні ролі розблоковано від 7 гравців.',
-    specialRolesUnlock: 'Спеціальні ролі розблоковуються від 7 гравців.',
-    youTag: 'ВИ',
-    hostTag: 'ХОСТ',
-    profileLabel: 'Профіль:',
-    selecting: 'Обирає...',
-    ready: 'ГОТОВО',
-    wait: 'ОЧІКУВАННЯ',
-    disconnect: 'ВІДКЛЮЧИТИСЬ',
-
-    // Tutorial
-    classifiedDossier: 'ТАЄМНЕ ДОСЬЄ',
-    tut1Title: '1. ХОДИ ТА ЧАС',
-    tut1Body: 'Агенти діють суворо по черзі. У кожного агента є до 30 секунд, щоб обрати сектор для обшуку — щойно він заходить туди і бачить, хто там є, його хід невдовзі завершується.',
-    tut2Title: '2. ДВОФАЗНА СИСТЕМА',
-    tut2ActionLabel: 'Фаза дій:',
-    tut2ActionBody: 'Тихі пересування та тактичні дії.',
-    tut2TrialLabel: 'Фаза суду:',
-    tut2TrialBody: 'Збір, зіставлення доказів та голосування за усунення агента.',
-    tut3Title: '3. ВЕНТИЛЯЦІЙНІ ХОДИ',
-    tut3Body: 'Лише Вбивця має доступ до мережі вентиляційних ходів, що попарно з\'єднують окремі кімнати маєтку. Використання ходу миттєво переміщує його до пов\'язаної кімнати в межах того самого ходу — швидкий і безшумний спосіб дістатися або залишити місце, не йдучи коридорами. За хід дозволено лише один вентиляційний перехід.',
-    tut3KnownConnections: 'Відомі вентиляційні з\'єднання:',
-    tut3Conn1Room1: 'Велика зала',
-    tut3Conn1Floor1: '(1-й поверх)',
-    tut3Conn1Room2: 'Спальня господаря',
-    tut3Conn1Floor2: '(2-й поверх)',
-    tut3Conn2Room1: 'Кухня',
-    tut3Conn2Room2: 'Зброярня',
-    tut3Conn2Floors: '(обидві на 1-му поверсі)',
-    tut3Conn3Room1: 'Винний льох',
-    tut3Conn3Floor1: '(1-й поверх)',
-    tut3Conn3Room2: 'Горище',
-    tut3Conn3Floor2: '(2-й поверх)',
-    tut4Title: '4. ДАНІ ТА ІНФОРМАЦІЯ',
-    tut4Body1: 'Агенти знаходять справжні сліди. Спільники підкидають у журнали сфальшовані дані.',
-    tut4Body2: 'Кожне виявлене тіло несе рівно один слід статури або групи крові вбивці, зафіксований у момент смерті — чим довше тіло залишається неоглянутим, тим менш надійним стає цей слід. Щоб скласти повний профіль, потрібно більше одного тіла. Також існує невеликий шанс, що Вбивця випадково залишить особисту річ свого персонажа у випадковій кімнаті під час будь-якого вбивства — додатковий доказ, який ніхто не підкидав навмисно.',
-    tut5Title: '5. СХОВАТИ АБО ВИКРИТИ ТІЛО',
-    tut5Body: 'Одразу після вбивства Вбивця має обрати: Сховати тіло — воно залишається прихованим, доки хтось цілеспрямовано не знайде його, але це витрачає вентиляційний перехід цього ходу, тому вентиляцію того ходу використати не вийде — або Викрити його, залишивши на видноті для будь-кого, хто зайде наступним, при цьому вентиляція залишається доступною для використання пізніше.',
-    tut6Title: '6. ПАСТКИ',
-    tut6Body: 'Спільник може встановити приховану пастку в кімнаті (1 раз на 4 раунди). Перший агент, який заходить до цієї кімнати — звичайним переміщенням чи через вентиляцію — активує її: пастка одразу витрачається, а цей агент втрачає доступ до всіх дій та здібностей на весь наступний раунд, як фазу дій, так і суд.',
-    tut7Title: '7. АКТИВНІ РОЛІ В ГРІ',
-    tut7KillerName: 'Вбивця:',
-    tut7KillerBody: 'Усуває цілі (1 раз за хід), потім обирає — сховати тіло чи викрити його.',
-    tut7AccompliceName: 'Спільник:',
-    tut7AccompliceBody: 'Спотворює дані, миттєво отримує звіти про вбивства та може встановити пастку в кімнаті (1 раз на 4 раунди).',
-    tut7DetectiveName: 'Детектив:',
-    tut7DetectiveBody: 'Перевіряє останнє відоме місцезнаходження підозрюваного під час суду (1 раз на 2 раунди).',
-    tut7OfficerName: 'Офіцер:',
-    tut7OfficerBody: 'Замикає підозрюваного в камері утримання (1-й поверх, нижній правий кут маєтку) на наступний раунд, ізолюючи його від усіх дій у кімнатах (1 раз на 3 раунди).',
-    tut7ForensicName: 'Експерт:',
-    tut7ForensicBody: 'Перевіряє достовірність доказу АБО оглядає виявлене тіло на предмет сліду статури/групи крові вбивці — обидві дії використовують спільну перезарядку, доступну раз на два раунди.',
-    tut7JokerName: 'Джокер:',
-    tut7JokerBody: 'Перемагає, якщо його викрито і страчено радою. Може підкинути особистий доказ в обшукану кімнату раз на 2 своїх ходи.',
-    tut7InnocentName: 'Невинний:',
-    tut7InnocentBody: 'Не має особливих здібностей. Шукайте в маєтку код розблокування, щоб скасувати протокол і втекти з карантину.',
-    tut8Title: '8. ПРОТОКОЛ ПРИВИДА (ЗАГИБЛІ)',
-    tut8Body: 'Термінальний зв\'язок обірвано, але доступ до нього надає необмежену трансляцію супутникової карти. Спостерігайте за всім, що відбувається.',
-
-    // Game intro / loading / role reveal (pre-gameplay)
-    establishingChannel: 'Встановлення захищеного каналу...',
-    votedToSkip: 'ПРОГОЛОСУВАЛИ ЗА ПРОПУСК',
-    voteCast: 'ГОЛОС ЗАРАХОВАНО',
-    skipBtn: 'ПРОПУСТИТИ ▸',
-    decryptingIdentity: 'Розшифрування особи...'
-  }
-};
-
 function App() {
   // Lightweight viewport-width tracker — the app has no CSS media queries
   // anywhere (everything is inline styles), so any responsive behavior has
@@ -3177,19 +2866,6 @@ function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [audioInitialized, setAudioInitialized] = useState(false);
   const [volume, setVolume] = useState(0.4);
-  // Interface language — persisted across sessions in localStorage. Defaults
-  // to English, or whatever was last picked in Settings > Languages.
-  const [language, setLanguage] = useState(() => {
-    if (typeof window === 'undefined') return 'en';
-    return localStorage.getItem('gg_language') || 'en';
-  });
-  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-  // Remember the chosen interface language for next time.
-  useEffect(() => {
-    if (typeof window !== 'undefined') localStorage.setItem('gg_language', language);
-  }, [language]);
-  // Looks up `key` in the active language, falling back to English.
-  const t = useCallback((key) => (TRANSLATIONS[language] && TRANSLATIONS[language][key]) || TRANSLATIONS.en[key] || key, [language]);
 
   const [publicRooms, setPublicRooms] = useState([]);
   const [inputCode, setInputCode] = useState('');
@@ -3620,14 +3296,6 @@ function App() {
       ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
 
-      .settings-toggle-btn { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, background 0.2s ease; }
-      .settings-toggle-btn:hover { transform: translateY(-2px); }
-      .settings-toggle-btn:active { transform: translateY(1px) scale(0.97); }
-
-      .language-option-btn { transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease, border-color 0.2s ease; }
-      .language-option-btn:hover { transform: translateX(4px); }
-      .language-option-btn:active { transform: translateX(4px) scale(0.98); }
-
       .volume-slider {
         -webkit-appearance: none;
         width: 100%;
@@ -3703,27 +3371,6 @@ function App() {
       @keyframes roleLabelIn {
         0% { opacity: 0; letter-spacing: 12px; }
         100% { opacity: 1; letter-spacing: 4px; }
-      }
-
-      @keyframes settingsRowIn {
-        0% { opacity: 0; transform: translateY(8px); }
-        100% { opacity: 1; transform: translateY(0); }
-      }
-
-      @keyframes languageMenuIn {
-        0% { opacity: 0; transform: translateY(-8px) scaleY(0.92); transform-origin: top; }
-        100% { opacity: 1; transform: translateY(0) scaleY(1); transform-origin: top; }
-      }
-
-      @keyframes checkPopIn {
-        0% { opacity: 0; transform: scale(0.4); }
-        60% { opacity: 1; transform: scale(1.25); }
-        100% { opacity: 1; transform: scale(1); }
-      }
-
-      @keyframes chevronRotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(180deg); }
       }
 
       @keyframes tokenDropIn {
@@ -4076,14 +3723,6 @@ function App() {
     gamePhaseRef.current = gamePhase;
   }, [gamePhase]);
 
-  // ref to the current language — the socket event listeners below are
-  // registered once (empty dependency array), so their closures would
-  // otherwise keep whatever `language` was set at mount time forever.
-  const languageRef = useRef(language);
-  useEffect(() => {
-    languageRef.current = language;
-  }, [language]);
-
   // --- Intro text typewriter ---
   const startIntroTypewriter = () => {
     skipIntroFlowRef.current = false;
@@ -4114,16 +3753,15 @@ function App() {
     introStartTimeRef.current = Date.now();
 
     typeIntervalRef.current = trackInterval(setInterval(() => {
-      const introStory = languageRef.current === 'ua' ? INTRO_STORY_UA : INTRO_STORY;
       const elapsed = Date.now() - introStartTimeRef.current;
-      const targetLength = Math.min(introStory.length, Math.floor(elapsed / TYPING_MS_PER_CHAR));
+      const targetLength = Math.min(INTRO_STORY.length, Math.floor(elapsed / TYPING_MS_PER_CHAR));
 
       if (targetLength !== introTextRef.current.length) {
-        introTextRef.current = introStory.slice(0, targetLength);
+        introTextRef.current = INTRO_STORY.slice(0, targetLength);
         setIntroTypedText(introTextRef.current);
       }
 
-      if (targetLength >= introStory.length) {
+      if (targetLength >= INTRO_STORY.length) {
         clearInterval(typeIntervalRef.current);
         typeIntervalRef.current = null;
         finishIntro();
@@ -4167,8 +3805,8 @@ function App() {
     } catch (e) { /* noop */ }
 
     introFinishedRef.current = true;
-    introTextRef.current = languageRef.current === 'ua' ? INTRO_STORY_UA : INTRO_STORY;
-    setIntroTypedText(languageRef.current === 'ua' ? INTRO_STORY_UA : INTRO_STORY);
+    introTextRef.current = INTRO_STORY;
+    setIntroTypedText(INTRO_STORY);
     setIntroFinished(true);
     setIntroFadingOut(false);
     setRoleRevealStage('hidden');
@@ -4559,8 +4197,8 @@ function App() {
         clearInterval(typeIntervalRef.current);
         typeIntervalRef.current = null;
       }
-      introTextRef.current = languageRef.current === 'ua' ? INTRO_STORY_UA : INTRO_STORY;
-      setIntroTypedText(languageRef.current === 'ua' ? INTRO_STORY_UA : INTRO_STORY);
+      introTextRef.current = INTRO_STORY;
+      setIntroTypedText(INTRO_STORY);
       finishIntro();
     }
 
@@ -5773,11 +5411,7 @@ function App() {
   const lobbyPlayerCount = activeRoom?.players?.length ?? 0;
   const canStartPreparation = lobbyPlayerCount >= MIN_PLAYERS && lobbyPlayerCount <= MAX_PLAYERS;
   const rolePoolPreview = getRolePoolPreview(lobbyPlayerCount);
-  // Role-reveal screen only (pre-gameplay) — merges in the Ukrainian label/
-  // description when active, otherwise falls back to the base ROLES data.
-  const activeRoleData = myRole
-    ? { ...ROLES[myRole], ...(language === 'ua' ? ROLE_INFO_UA[myRole] : {}) }
-    : null;
+  const activeRoleData = myRole ? ROLES[myRole] : null;
 
   return (
     <div style={{
@@ -5809,11 +5443,11 @@ function App() {
           border: '1px solid rgba(255, 255, 255, 0.07)',
           boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
         }}>
-          <h1 style={{ fontSize: '32px', letterSpacing: '4px', marginBottom: '20px', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>{t('enterNickname')}</h1>
+          <h1 style={{ fontSize: '32px', letterSpacing: '4px', marginBottom: '20px', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>ENTER NICKNAME</h1>
           <form onSubmit={handleNicknameSubmit}>
             <input
               type="text"
-              placeholder={t('nicknamePlaceholder')}
+              placeholder="YOUR CODE NAME..."
               maxLength={15}
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -5832,7 +5466,7 @@ function App() {
                 boxSizing: 'border-box'
               }}
             />
-            <NeonButton type="submit" variant="success">{t('initializeTerminal')}</NeonButton>
+            <NeonButton type="submit" variant="success">INITIALIZE TERMINAL</NeonButton>
           </form>
         </div>
       )}
@@ -5859,7 +5493,7 @@ function App() {
               fontFamily: 'Georgia, serif',
               fontStyle: 'italic'
             }}>
-              {t('gameTitle')}
+              TWELVE SUSPECTS
             </h1>
             <div style={{
               display: 'inline-flex',
@@ -5878,7 +5512,7 @@ function App() {
                 boxShadow: isConnected ? '0 0 8px #00ff87' : '0 0 8px #ff2a5f'
               }} />
               <span style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad', fontWeight: 'bold', textTransform: 'uppercase' }}>
-                {t('agentLabel')}: {nickname.toUpperCase()} | {t('systemLabel')}: {isConnected ? t('statusOnline') : t('statusOffline')}
+                AGENT: {nickname.toUpperCase()} | SYSTEM: {isConnected ? 'ONLINE' : 'OFFLINE'}
               </span>
             </div>
           </header>
@@ -5906,27 +5540,27 @@ function App() {
             {/* --- SCREEN 1: MAIN MENU --- */}
             {currentScreen === 'main' && (
               <div style={{ display: 'flex', flexDirection: 'column', padding: '10px 0' }}>
-                <NeonButton variant="primary" onClick={() => setCurrentScreen('play_menu')}>{t('mainLaunchCase')}</NeonButton>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('settings')}>{t('mainSettings')}</NeonButton>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('tutorial')}>{t('mainDossier')}</NeonButton>
+                <NeonButton variant="primary" onClick={() => setCurrentScreen('play_menu')}>LAUNCH CASE</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('settings')}>SETTINGS</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('tutorial')}>DOSSIER & RULES</NeonButton>
               </div>
             )}
 
             {/* --- SCREEN 2: GAME MODES --- */}
             {currentScreen === 'play_menu' && (
               <div>
-                <h3 style={{ marginBottom: '25px', color: '#8a99ad', fontSize: '14px', letterSpacing: '2px', textTransform: 'uppercase' }}>{t('selectOperation')}</h3>
-                <NeonButton variant="primary" onClick={openServersList}>{t('publicLobbies')}</NeonButton>
-                <NeonButton variant="primary" onClick={() => { setCurrentScreen('connect_code'); setErrorMessage(''); setInputCode(''); }}>{t('secureConnection')}</NeonButton>
-                <NeonButton variant="success" onClick={() => setCurrentScreen('create_server')}>{t('establishNewHQ')}</NeonButton>
-                <NeonButton variant="secondary" style={{ marginTop: '10px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('returnBtn')}</NeonButton>
+                <h3 style={{ marginBottom: '25px', color: '#8a99ad', fontSize: '14px', letterSpacing: '2px', textTransform: 'uppercase' }}>Select Operation</h3>
+                <NeonButton variant="primary" onClick={openServersList}>PUBLIC LOBBIES</NeonButton>
+                <NeonButton variant="primary" onClick={() => { setCurrentScreen('connect_code'); setErrorMessage(''); setInputCode(''); }}>SECURE CONNECTION (CODE)</NeonButton>
+                <NeonButton variant="success" onClick={() => setCurrentScreen('create_server')}>ESTABLISH NEW HQ</NeonButton>
+                <NeonButton variant="secondary" style={{ marginTop: '10px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />RETURN</NeonButton>
               </div>
             )}
 
             {/* --- SERVERS LIST --- */}
             {currentScreen === 'servers_list' && (
               <div>
-                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>{t('availableChannels')}</h3>
+                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>AVAILABLE ENCRYPTED CHANNELS</h3>
                 {errorMessage && <p style={{ color: '#ff2a5f', fontSize: '13px', margin: '0 0 15px 0', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '6px' }}><Icon name="alert" size={13} />{errorMessage}</p>}
                 <div style={{
                   maxHeight: '280px',
@@ -5936,7 +5570,7 @@ function App() {
                   background: 'rgba(0,0,0,0.2)'
                 }}>
                   {publicRooms.length === 0 ? (
-                    <p style={{ color: '#6272a4', padding: '30px', fontSize: '13px', fontStyle: 'italic' }}>{t('scanningFrequencies')}</p>
+                    <p style={{ color: '#6272a4', padding: '30px', fontSize: '13px', fontStyle: 'italic' }}>Scanning frequencies... No active channels found.</p>
                   ) : (
                     publicRooms.map((room) => (
                       <div key={room.id} style={{
@@ -5949,7 +5583,7 @@ function App() {
                       }}>
                         <div style={{ flex: 1, marginRight: '10px' }}>
                           <div style={{ fontWeight: 'bold', color: '#fff', fontSize: '14px', marginBottom: '2px' }}>{room.name}</div>
-                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{t('idLabel')}: {room.code}</div>
+                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>ID: {room.code}</div>
                         </div>
                         <span style={{ color: '#8a99ad', fontSize: '13px', marginRight: '15px', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="users" size={13} />{room.playersCount}/{room.maxPlayers || MAX_PLAYERS}</span>
                         <button style={{
@@ -5962,22 +5596,22 @@ function App() {
                           fontWeight: '900',
                           letterSpacing: '1px',
                           cursor: 'pointer'
-                        }} onClick={() => socket.emit('join_by_code', { code: room.code, nickname })}>{t('joinBtn')}</button>
+                        }} onClick={() => socket.emit('join_by_code', { code: room.code, nickname })}>JOIN</button>
                       </div>
                     ))
                   )}
                 </div>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
               </div>
             )}
 
             {/* --- JOIN BY CODE --- */}
             {currentScreen === 'connect_code' && (
               <form onSubmit={handleJoinByCode}>
-                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>{t('enterDecryptionKey')}</h3>
+                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>ENTER DECRYPTION KEY</h3>
                 <input
                   type="text"
-                  placeholder={t('hexCodePlaceholder')}
+                  placeholder="8-HEX CODE..."
                   maxLength={8}
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value.toUpperCase())}
@@ -5999,27 +5633,27 @@ function App() {
                 />
                 {errorMessage && <p style={{ color: '#ff2a5f', fontSize: '13px', margin: '0 0 15px 0', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '6px' }}><Icon name="alert" size={13} />{errorMessage}</p>}
                 <button type="submit" style={{ display: 'none' }} />
-                <NeonButton onClick={handleJoinByCode} variant="primary">{t('establishLink')}</NeonButton>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
+                <NeonButton onClick={handleJoinByCode} variant="primary">ESTABLISH LINK</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
               </form>
             )}
 
             {/* --- CREATE SERVER --- */}
             {currentScreen === 'create_server' && (
               <div>
-                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>{t('hqConfiguration')}</h3>
+                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>HQ CONFIGURATION</h3>
 
                 <div style={{ marginBottom: '20px', textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '15px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                  <NeonButton variant="success" onClick={() => handleCreateRoom('public')} style={{ marginBottom: '8px' }}>{t('publicBroadcast')}</NeonButton>
-                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>{t('publicBroadcastDesc')}</p>
+                  <NeonButton variant="success" onClick={() => handleCreateRoom('public')} style={{ marginBottom: '8px' }}>PUBLIC BROADCAST</NeonButton>
+                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>Listed in global frequency database. Open to all agents.</p>
                 </div>
 
                 <div style={{ marginBottom: '25px', textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '15px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                  <NeonButton variant="danger" onClick={() => handleCreateRoom('private')} style={{ marginBottom: '8px' }}>{t('covertChannel')}</NeonButton>
-                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>{t('covertChannelDesc')}</p>
+                  <NeonButton variant="danger" onClick={() => handleCreateRoom('private')} style={{ marginBottom: '8px' }}>COVERT CHANNEL</NeonButton>
+                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>Encrypted overlay. Accessible strictly via direct terminal patch-in code.</p>
                 </div>
 
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
               </div>
             )}
 
@@ -6029,7 +5663,7 @@ function App() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', flexWrap: 'wrap', gap: '10px' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <span style={{ fontSize: '10px', color: '#00ff87', letterSpacing: '2px', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="mapPin" size={12} />{t('hqBase')}</span>
+                    <span style={{ fontSize: '10px', color: '#00ff87', letterSpacing: '2px', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="mapPin" size={12} />HQ BASE</span>
                     <h2 style={{ color: '#fff', margin: '2px 0', fontSize: '20px' }}>{activeRoom.roomName}</h2>
                   </div>
 
@@ -6047,10 +5681,10 @@ function App() {
                       alignItems: 'center',
                       gap: '6px'
                     }}>
-                      <Icon name={isPreparing ? 'lock' : 'unlock'} size={12} /> {isPreparing ? t('preparing') : t('open')}
+                      <Icon name={isPreparing ? 'lock' : 'unlock'} size={12} /> {isPreparing ? 'PREPARING' : 'OPEN'}
                     </span>
                     <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 16px', borderRadius: '6px', border: '1px solid #00f0ff' }}>
-                      <span style={{ fontSize: '11px', color: '#8a99ad' }}>{t('linkCode')} </span>
+                      <span style={{ fontSize: '11px', color: '#8a99ad' }}>LINK CODE: </span>
                       <strong style={{ fontFamily: 'monospace', color: '#00f0ff', fontSize: '16px', letterSpacing: '2px' }}>{activeRoom.roomCode}</strong>
                     </div>
                   </div>
@@ -6060,7 +5694,7 @@ function App() {
 
                   {/* Character grid */}
                   <div style={{ flex: '2 1 500px', paddingBottom: '10px' }}>
-                    <h4 style={{ textAlign: 'left', margin: '0 0 15px 0', letterSpacing: '2px', color: '#8a99ad', fontSize: '12px' }}>{t('selectProfile')}</h4>
+                    <h4 style={{ textAlign: 'left', margin: '0 0 15px 0', letterSpacing: '2px', color: '#8a99ad', fontSize: '12px' }}>SELECT PROFILE NETOP (1 UNIQUE PER IDENTITY)</h4>
                     <div style={{
                       display: 'grid',
                       gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
@@ -6105,7 +5739,7 @@ function App() {
 
                             {isTaken && (
                               <div style={{ position: 'absolute', top: 5, right: 5, background: '#ff2a5f', color: '#000', fontSize: '8px', padding: '2px 4px', borderRadius: '3px', fontWeight: 'bold' }}>
-                                {t('taken')}
+                                TAKEN
                               </div>
                             )}
                           </div>
@@ -6120,7 +5754,7 @@ function App() {
                         disabled={!selectedChar}
                         onClick={handleReadySubmit}
                       >
-                        {isReady ? t('cancelReadyState') : t('confirmIdentity')}
+                        {isReady ? "CANCEL READY STATE" : "CONFIRM IDENTITY (READY)"}
                       </NeonButton>
                     ) : isHost ? (
                       // Room still open — only the host sees the start button
@@ -6129,12 +5763,12 @@ function App() {
                         disabled={!canStartPreparation}
                         onClick={handleStartPreparation}
                       >
-                        {canStartPreparation ? t('startOperation') : `${t('waitingForAgents')} (${activeRoom.players.length}/${MIN_PLAYERS})`}
+                        {canStartPreparation ? 'START OPERATION' : `WAITING FOR AGENTS (${activeRoom.players.length}/${MIN_PLAYERS})`}
                       </NeonButton>
                     ) : (
                       // Regular player waits for the host to launch preparation
                       <p style={{ fontSize: '12px', color: '#8a99ad', textAlign: 'center', letterSpacing: '1px', margin: '10px 0 0 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                        <Icon name="hourglass" size={13} /> {t('waitingForHost')}
+                        <Icon name="hourglass" size={13} /> Waiting for host to launch the operation...
                       </p>
                     )}
                   </div>
@@ -6142,7 +5776,7 @@ function App() {
                   {/* Sidebar */}
                   <div style={{ flex: '1 1 240px', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'left' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                      <h4 style={{ margin: 0, letterSpacing: '1px', fontSize: '12px', color: '#8a99ad' }}>{t('connectedChannels')}</h4>
+                      <h4 style={{ margin: 0, letterSpacing: '1px', fontSize: '12px', color: '#8a99ad' }}>CONNECTED CHANNELS</h4>
                       <span style={{
                         fontSize: '12px',
                         fontWeight: 'bold',
@@ -6159,22 +5793,22 @@ function App() {
                     </div>
                     {lobbyPlayerCount < MIN_PLAYERS && (
                       <p style={{ fontSize: '11px', color: '#ff9100', margin: '-10px 0 15px 0', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <Icon name="alert" size={12} /> {t('minPlayersRequired')}
+                        <Icon name="alert" size={12} /> Requires at least 5 players to start
                       </p>
                     )}
                     <div style={{ marginBottom: '15px', padding: '10px', borderRadius: '6px', background: 'rgba(0,240,255,0.04)', border: '1px solid rgba(0,240,255,0.18)' }}>
                       <div style={{ fontSize: '10px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px', marginBottom: '7px' }}>
-                        {lobbyPlayerCount > 7 ? t('activeRolePoolFull') : t('activeRolePoolBase')}
+                        ACTIVE ROLE POOL {lobbyPlayerCount > 7 ? '(FULL)' : '(BASE)'}
                       </div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {rolePoolPreview.map(({ name, count }) => (
                           <span key={name} style={{ fontSize: '10px', padding: '3px 6px', borderRadius: '4px', color: ROLES[name].color, border: `1px solid ${ROLES[name].color}`, background: 'rgba(0,0,0,0.25)' }}>
-                            {language === 'ua' ? ROLE_INFO_UA[name].label : ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
+                            {ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
                           </span>
                         ))}
                       </div>
                       <div style={{ fontSize: '10px', color: '#8a99ad', marginTop: '7px' }}>
-                        {lobbyPlayerCount > 7 ? t('specialRolesUnlockedAll') : t('specialRolesUnlock')}
+                        {lobbyPlayerCount > 7 ? 'All special roles unlock past 7 players.' : 'Special roles unlock past 7 players.'}
                       </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -6190,11 +5824,11 @@ function App() {
                         }}>
                           <div>
                             <div style={{ fontWeight: 'bold', fontSize: '13px', color: '#fff' }}>
-                              {player.nickname} {player.id === socket.id && <span style={{ color: '#00f0ff', fontSize: '10px' }}>({t('youTag')})</span>}
-                              {player.id === activeRoom.hostId && <span style={{ color: '#ffd700', fontSize: '10px', marginLeft: '4px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}><Icon name="crown" size={11} />{t('hostTag')}</span>}
+                              {player.nickname} {player.id === socket.id && <span style={{ color: '#00f0ff', fontSize: '10px' }}>(YOU)</span>}
+                              {player.id === activeRoom.hostId && <span style={{ color: '#ffd700', fontSize: '10px', marginLeft: '4px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}><Icon name="crown" size={11} />HOST</span>}
                             </div>
                             <div style={{ fontSize: '11px', color: player.character ? '#00ff87' : '#8a99ad', marginTop: '2px' }}>
-                              {t('profileLabel')} {player.character ? player.character : t('selecting')}
+                              Profile: {player.character ? player.character : 'Selecting...'}
                             </div>
                           </div>
                           <span style={{
@@ -6207,14 +5841,14 @@ function App() {
                             border: player.isReady ? '1px solid #00ff87' : '1px solid #ff2a5f',
                             transition: 'all 0.2s ease'
                           }}>
-                            {player.isReady ? t('ready') : t('wait')}
+                            {player.isReady ? 'READY' : 'WAIT'}
                           </span>
                         </div>
                       ))}
                     </div>
 
                     <div style={{ marginTop: '20px' }}>
-                      <NeonButton variant="secondary" onClick={handleLeaveLobby} style={{ padding: '10px', fontSize: '12px' }}>{t('disconnect')}</NeonButton>
+                      <NeonButton variant="secondary" onClick={handleLeaveLobby} style={{ padding: '10px', fontSize: '12px' }}>DISCONNECT</NeonButton>
                     </div>
                   </div>
 
@@ -6225,8 +5859,8 @@ function App() {
 
             {/* --- SCREEN: SETTINGS --- */}
             {currentScreen === 'settings' && (
-              <div style={{ animation: 'settingsRowIn 0.35s ease-out' }}>
-                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>{t('settingsTitle')}</h3>
+              <div>
+                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>TERMINAL ADJUSTMENTS</h3>
                 <div style={{
                   padding: '20px 15px',
                   background: 'rgba(0,0,0,0.2)',
@@ -6237,11 +5871,10 @@ function App() {
                   flexDirection: 'column',
                   gap: '20px'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', animation: 'settingsRowIn 0.4s ease-out' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('ambientMusic')}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>HQ AMBIENT MUSIC</span>
                     <button
                       onClick={toggleMusic}
-                      className="settings-toggle-btn"
                       style={{
                         background: isMusicPlaying ? 'rgba(0, 255, 135, 0.1)' : 'rgba(255, 42, 95, 0.1)',
                         border: isMusicPlaying ? '1px solid #00ff87' : '1px solid #ff2a5f',
@@ -6255,13 +5888,13 @@ function App() {
                         boxShadow: isMusicPlaying ? '0 0 10px rgba(0, 255, 135, 0.2)' : '0 0 10px rgba(255, 42, 95, 0.2)'
                       }}
                     >
-                      {isMusicPlaying ? t('online') : t('muted')}
+                      {isMusicPlaying ? 'ONLINE' : 'MUTED'}
                     </button>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left', animation: 'settingsRowIn 0.45s ease-out' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px' }}>
-                      <span>{t('volumeLevel')}</span>
-                      <span style={{ color: '#00f0ff', transition: 'color 0.2s ease' }}>{Math.round(volume * 100)}%</span>
+                      <span>VOLUME LEVEL</span>
+                      <span style={{ color: '#00f0ff' }}>{Math.round(volume * 100)}%</span>
                     </div>
                     <input
                       type="range"
@@ -6272,166 +5905,80 @@ function App() {
                       onChange={(e) => setVolume(parseFloat(e.target.value))}
                       className="volume-slider"
                       style={{
-                        background: `linear-gradient(to right, #00f0ff 0%, #00f0ff ${volume * 100}%, rgba(255,255,255,0.1) ${volume * 100}%, rgba(255,255,255,0.1) 100%)`,
-                        transition: 'background 0.15s ease-out'
+                        background: `linear-gradient(to right, #00f0ff 0%, #00f0ff ${volume * 100}%, rgba(255,255,255,0.1) ${volume * 100}%, rgba(255,255,255,0.1) 100%)`
                       }}
                     />
                   </div>
-                  <div style={{ position: 'relative', animation: 'settingsRowIn 0.5s ease-out' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('languages')}</span>
-                      <button
-                        onClick={() => setIsLanguageMenuOpen(o => !o)}
-                        className="settings-toggle-btn"
-                        style={{
-                          background: 'rgba(0, 240, 255, 0.1)',
-                          border: '1px solid #00f0ff',
-                          color: '#00f0ff',
-                          padding: '8px 16px',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          fontWeight: 'bold',
-                          letterSpacing: '1px',
-                          cursor: 'pointer',
-                          boxShadow: '0 0 10px rgba(0, 240, 255, 0.2)',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '7px'
-                        }}
-                      >
-                        <span style={{ display: 'inline-block', transition: 'transform 0.2s ease' }}>{LANGUAGES.find(l => l.code === language)?.flag}</span>
-                        {LANGUAGES.find(l => l.code === language)?.label || 'English'}
-                        <Icon
-                          name="chevronDown"
-                          size={11}
-                          style={{
-                            marginLeft: '2px',
-                            transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                            transform: isLanguageMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                          }}
-                        />
-                      </button>
-                    </div>
-                    {isLanguageMenuOpen && (
-                      <div style={{
-                        marginTop: '10px',
-                        padding: '10px',
-                        background: 'rgba(0,0,0,0.35)',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '6px',
-                        animation: 'languageMenuIn 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
-                        transformOrigin: 'top'
-                      }}>
-                        <span style={{ fontSize: '10px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px', marginBottom: '2px' }}>{t('chooseLanguage')}</span>
-                        {LANGUAGES.map((lang, i) => (
-                          <button
-                            key={lang.code}
-                            onClick={() => { setLanguage(lang.code); setIsLanguageMenuOpen(false); }}
-                            className="language-option-btn"
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '10px',
-                              padding: '9px 12px',
-                              borderRadius: '6px',
-                              border: lang.code === language ? '1px solid #00ff87' : '1px solid rgba(255,255,255,0.08)',
-                              background: lang.code === language ? 'rgba(0, 255, 135, 0.1)' : 'rgba(255,255,255,0.03)',
-                              color: lang.code === language ? '#00ff87' : '#bdc7db',
-                              fontSize: '12px',
-                              fontWeight: 'bold',
-                              letterSpacing: '0.5px',
-                              cursor: 'pointer',
-                              textAlign: 'left',
-                              animation: `settingsRowIn ${0.2 + i * 0.06}s ease-out`
-                            }}
-                          >
-                            <span style={{ fontSize: '15px' }}>{lang.flag}</span>
-                            {lang.label}
-                            {lang.code === language && (
-                              <Icon
-                                name="check"
-                                size={13}
-                                style={{ marginLeft: 'auto', animation: 'checkPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
-                              />
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
                 </div>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
               </div>
             )}
 
             {/* --- SCREEN: TUTORIAL --- */}
             {currentScreen === 'tutorial' && (
               <div style={{ textAlign: 'left' }}>
-            <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#00f0ff', fontSize: '20px', letterSpacing: '2px' }}>{t('classifiedDossier')}</h3>
+            <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#00f0ff', fontSize: '20px', letterSpacing: '2px' }}>CLASSIFIED DOSSIER</h3>
 
             <div style={{ maxHeight: '360px', overflowY: 'auto', paddingRight: '12px', fontSize: '13px', lineHeight: '1.6', color: '#bdc7db' }}>
-              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut1Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. TURNS & TIMING</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                {t('tut1Body')}
+                Agents operate <strong>strictly in sequence</strong>. Each asset has up to <strong>30 seconds</strong> to pick a sector to search — the moment they move in and see who's there, their turn wraps up shortly after.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut2Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. TWO PHASE PARADIGM</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                <strong>{t('tut2ActionLabel')}</strong> {t('tut2ActionBody')}<br />
-                <strong>{t('tut2TrialLabel')}</strong> {t('tut2TrialBody')}
+                <strong>Action Phase:</strong> Ghost maneuvers and tactical execution.<br />
+                <strong>Trial Phase:</strong> Assembly, evidence triangulation, and asset termination votes.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut3Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. VENTILATION SHORTCUTS</p>
               <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
-                {t('tut3Body')}
+                The <strong>Killer</strong> alone can access a network of vent shortcuts linking specific mansion rooms in pairs. Using one instantly relocates them to the linked room as part of the same turn — a fast, silent way to reach or leave a scene without walking the halls. Only <strong>one vent hop is allowed per turn</strong>.
               </p>
-              <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>{t('tut3KnownConnections')}</p>
+              <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Known vent connections:</p>
               <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>{t('tut3Conn1Room1')}</strong> {t('tut3Conn1Floor1')} ↔ <strong style={{ color: '#fff' }}>{t('tut3Conn1Room2')}</strong> {t('tut3Conn1Floor2')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>{t('tut3Conn2Room1')}</strong> ↔ <strong style={{ color: '#fff' }}>{t('tut3Conn2Room2')}</strong> {t('tut3Conn2Floors')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>{t('tut3Conn3Room1')}</strong> {t('tut3Conn3Floor1')} ↔ <strong style={{ color: '#fff' }}>{t('tut3Conn3Room2')}</strong> {t('tut3Conn3Floor2')}</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Grand Hall</strong> (1st floor) ↔ <strong style={{ color: '#fff' }}>Master Bedroom</strong> (2nd floor)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Kitchen</strong> ↔ <strong style={{ color: '#fff' }}>Armory</strong> (both 1st floor)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Wine Cellar</strong> (1st floor) ↔ <strong style={{ color: '#fff' }}>Attic</strong> (2nd floor)</li>
               </ul>
 
 
-              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut4Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. DATA & INTEL</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                {t('tut4Body1')}
+                Operatives recover genuine footprints. <strong>Accomplices feed fabricated data streams</strong> into the logs.
               </p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                {t('tut4Body2')}
-              </p>
-
-              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut5Title')}</p>
-              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                {t('tut5Body')}
+                Every discovered body carries exactly one trace of its killer's build or blood type, fixed the moment they died — the longer a body goes unexamined, the less reliable that trace becomes. Piecing together a full profile takes more than one body. There's also a flat chance the Killer accidentally drops one of their own character's personal items in a random room on any kill — an extra clue nobody planted on purpose.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut6Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. HIDE OR EXPOSE THE BODY</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                {t('tut6Body')}
+                Right after a kill, the <strong>Killer</strong> must choose: <strong>Hide</strong> the body — it stays concealed until someone deliberately searches for it, but this uses up the turn's vent hop, so no venting that turn — or <strong>Expose</strong> it, leaving it in plain sight for whoever walks in next, while still keeping the vent free to use afterward.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>{t('tut7Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. TRAPS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                The <strong>Accomplice</strong> can rig a room with a hidden trap (<strong style={{ color: '#fff' }}>1 per 4 rounds</strong>). The first agent who walks into that room — whether via a normal move or a vent hop — sets it off: the trap is consumed instantly and that agent is locked out of every action and ability for their entire next round, action phase and Trial alike.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>7. ACTIVE ROLES IN THE FIELD</p>
               <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>{t('tut7KillerName')}</strong> {t('tut7KillerBody')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>{t('tut7AccompliceName')}</strong> {t('tut7AccompliceBody')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>{t('tut7DetectiveName')}</strong> {t('tut7DetectiveBody')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>{t('tut7OfficerName')}</strong> {t('tut7OfficerBody')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>{t('tut7ForensicName')}</strong> {t('tut7ForensicBody')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>{t('tut7JokerName')}</strong> {t('tut7JokerBody')}</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>{t('tut7InnocentName')}</strong> {t('tut7InnocentBody')}</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Killer:</strong> Neutralizes targets (<strong style={{ color: '#fff' }}>1/turn</strong>), then chooses to hide or expose the body.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Accomplice:</strong> Scrambles feeds, receives immediate kill reports, and can plant a trap in a room (<strong style={{ color: '#fff' }}>1 per 4 rounds</strong>).</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Detective:</strong> Checks a suspect's last known location during the Trial (<strong style={{ color: '#fff' }}>1 per 2 rounds</strong>).</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Officer:</strong> Locks a suspect in the Holding Cell (1st floor, bottom-right corner of the mansion) for the following round, isolating them from all room actions (<strong style={{ color: '#fff' }}>1 per 3 rounds</strong>).</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Forensic:</strong> Verifies a piece of evidence's authenticity, OR examines a discovered body for a trace of the killer's build/blood type — both draw from the <strong style={{ color: '#fff' }}>same shared cooldown</strong>, available <strong style={{ color: '#fff' }}>once every other round</strong>.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Joker:</strong> Wins if compromised and executed by the council. Can plant a piece of personal evidence in a searched room once every 2 of their turns.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Innocent:</strong> No special power. Search the mansion for the override code to cancel the protocol and escape the quarantine.</li>
               </ul>
 
-              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>{t('tut8Title')}</p>
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. SPECTER PROTOCOL (DECEASED)</p>
               <p style={{ color: '#8a99ad', margin: '0 0 5px 0' }}>
-                {t('tut8Body')}
+                Terminal transmission cut off, but overrides grant <strong style={{ color: '#00ff87' }}>Unrestricted Satellite Map Feed</strong>. Watch everything unfold.
               </p>
             </div>
 
-            <NeonButton variant="secondary" style={{ marginTop: '15px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
+            <NeonButton variant="secondary" style={{ marginTop: '15px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
           </div>
         )}
 
@@ -6461,7 +6008,7 @@ function App() {
               textTransform: 'uppercase',
               animation: 'introCaretBlink 1.6s ease-in-out infinite'
             }}>
-              {t('establishingChannel')}
+              Establishing secure channel...
             </p>
           )}
 
@@ -6501,7 +6048,7 @@ function App() {
                 <div style={{ position: 'fixed', right: '24px', bottom: '24px', textAlign: 'right' }}>
                   {skipVotes.total > 0 && (
                     <div style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '1px', marginBottom: '6px' }}>
-                      {skipVotes.count}/{skipVotes.total} {t('votedToSkip')}
+                      {skipVotes.count}/{skipVotes.total} VOTED TO SKIP
                     </div>
                   )}
                   <button
@@ -6520,7 +6067,7 @@ function App() {
                       cursor: hasVotedSkip ? 'default' : 'pointer'
                     }}
                   >
-                    {hasVotedSkip ? t('voteCast') : t('skipBtn')}
+                    {hasVotedSkip ? 'VOTE CAST' : 'SKIP ▸'}
                   </button>
                 </div>
               )}
@@ -6538,7 +6085,7 @@ function App() {
                   textTransform: 'uppercase',
                   animation: 'introCaretBlink 1.6s ease-in-out infinite'
                 }}>
-                  {t('decryptingIdentity')}
+                  Decrypting identity...
                 </p>
               )}
 
