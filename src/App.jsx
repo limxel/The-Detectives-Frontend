@@ -4956,7 +4956,21 @@ function App() {
     // needed on this side, and onRoomJoined already clears gameOverData.
     function onGameOver(data) {
       console.log('CLIENT game_over:', data);
-      playGameOverSting(0.95);
+      // game_over doesn't touch gamePhase/currentScreen (the summary just
+      // overlays the still-"playing" game screen), so the ambient-switching
+      // effect above never re-fires and whatever loop was running (trial
+      // ambience, most often) would otherwise keep looping right underneath
+      // the victory stinger. Duck every loop out first, then let the sting
+      // land in the clear. activeAmbientRef is cleared too so the separate
+      // volume-slider effect can't undo the fade by nudging a "still active"
+      // track's gain back up while the summary is on screen.
+      const duckDuration = 400;
+      [lobbyAudioRef.current, explorationAudioRef.current, trialAudioRef.current, typingLoopAudioRef.current]
+        .forEach(audio => fadeAudio(audio, 0, duckDuration, true));
+      [lobbyAudioRef.current, explorationAudioRef.current, trialAudioRef.current, typingLoopAudioRef.current]
+        .forEach(audio => pauseAfterFade(audio, duckDuration));
+      activeAmbientRef.current = null;
+      trackTimeout(setTimeout(() => playGameOverSting(0.95), duckDuration));
       setGameOverData(data);
       setCinematic(null);
       setCodeGuess('');
