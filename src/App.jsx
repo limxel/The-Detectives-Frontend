@@ -3035,6 +3035,10 @@ function App() {
   // turn_start — unlike the fog-of-war state above, found evidence must persist
   // across every future turn/round.
   const [foundFragments, setFoundFragments] = useState([]); // [{ position, digit }]
+  // Whether the mobile OVERRIDE CODE HUD (top-left pill) is expanded to show the
+  // full digit row. Starts collapsed on mobile so it doesn't eat screen space /
+  // sit over other content by default; irrelevant on desktop (always expanded).
+  const [isCodeHudExpanded, setIsCodeHudExpanded] = useState(false);
   const [codeTotalDigits, setCodeTotalDigits] = useState(null);
 
   // --- MARK ROOM (Innocent only): rooms the Innocent team has personally
@@ -6242,46 +6246,62 @@ function App() {
                   place in the code. Persists on screen for the whole match — it is
                   never cleared on turn/round transitions, only ever added to. This is
                   the ONE place the code fragments are shown; keep it that way. */}
+              {/* Positioned top-LEFT (not right) so it never sits on top of the
+                  CHAT/CLUES/BODIES asides or the trial header's TIME LEFT block,
+                  which all live in the top-right corner (see 'top: 18px, right:
+                  18px' below) — that exact overlap was why this HUD used to cover
+                  content during both the action phase and the trial. On mobile it
+                  also shrinks and defaults to a compact "3/6" pill instead of the
+                  full digit row, which used to be wide enough to eat most of a
+                  phone's width and sit right over the round/trial header beneath
+                  it; tapping the pill expands it to the full row on demand. */}
               {foundFragments.length > 0 && (
-                <div style={{
-                  position: 'fixed',
-                  top: '18px',
-                  right: '18px',
-                  zIndex: 40,
-                  padding: '10px 14px',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(0,255,135,0.3)',
-                  background: 'rgba(6, 10, 8, 0.82)',
-                  backdropFilter: 'blur(8px)',
-                  textAlign: 'right',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.35)'
-                }}>
-                  <p style={{ margin: '0 0 6px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>
-                    OVERRIDE CODE
+                <div
+                  onClick={() => isMobile && setIsCodeHudExpanded(e => !e)}
+                  style={{
+                    position: 'fixed',
+                    top: '18px',
+                    left: '18px',
+                    zIndex: 40,
+                    padding: isMobile ? '7px 10px' : '10px 14px',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(0,255,135,0.3)',
+                    background: 'rgba(6, 10, 8, 0.82)',
+                    backdropFilter: 'blur(8px)',
+                    textAlign: 'left',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
+                    maxWidth: 'calc(100vw - 36px)',
+                    cursor: isMobile ? 'pointer' : 'default'
+                  }}
+                >
+                  <p style={{ margin: isMobile && !isCodeHudExpanded ? 0 : '0 0 6px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>
+                    OVERRIDE CODE{isMobile && !isCodeHudExpanded ? ` ${foundFragments.length}/${codeTotalDigits || foundFragments.length}` : ''}
                   </p>
-                  <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
-                    {Array.from({ length: codeTotalDigits || foundFragments.length }, (_, i) => {
-                      const found = foundFragments.find(f => f.position === i + 1);
-                      return (
-                        <div key={i} style={{
-                          width: '26px',
-                          height: '32px',
-                          borderRadius: '6px',
-                          border: `1px solid ${found ? 'rgba(0,255,135,0.5)' : 'rgba(255,255,255,0.15)'}`,
-                          background: found ? 'rgba(0,255,135,0.12)' : 'rgba(255,255,255,0.03)',
-                          color: found ? '#00ff87' : '#4b5568',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '16px',
-                          fontWeight: 800,
-                          fontFamily: 'Georgia, serif'
-                        }}>
-                          {found ? found.digit : '?'}
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {(!isMobile || isCodeHudExpanded) && (
+                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-start', flexWrap: 'wrap', maxWidth: isMobile ? 'calc(100vw - 56px)' : 'none' }}>
+                      {Array.from({ length: codeTotalDigits || foundFragments.length }, (_, i) => {
+                        const found = foundFragments.find(f => f.position === i + 1);
+                        return (
+                          <div key={i} style={{
+                            width: isMobile ? '22px' : '26px',
+                            height: isMobile ? '28px' : '32px',
+                            borderRadius: '6px',
+                            border: `1px solid ${found ? 'rgba(0,255,135,0.5)' : 'rgba(255,255,255,0.15)'}`,
+                            background: found ? 'rgba(0,255,135,0.12)' : 'rgba(255,255,255,0.03)',
+                            color: found ? '#00ff87' : '#4b5568',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: isMobile ? '14px' : '16px',
+                            fontWeight: 800,
+                            fontFamily: 'Georgia, serif'
+                          }}>
+                            {found ? found.digit : '?'}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               )}
 
