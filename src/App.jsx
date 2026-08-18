@@ -5028,8 +5028,30 @@ function App() {
     // the device clock adjusting mid-session can all reintroduce drift.
     const resyncInterval = setInterval(syncServerTime, 120000);
 
+    // --- EXPLICIT LEAVE ON TAB CLOSE ------------------------------------
+    // Without this, closing/navigating away from the tab relies entirely on
+    // the server noticing the socket died — which it does via Socket.IO's
+    // ping/pong heartbeat, not instantly. socket.io's defaults (pingInterval
+    // 25s + pingTimeout 20s) mean a closed tab can look "still in the lobby"
+    // to everyone else for up to ~45s, and on mobile browsers that suspend a
+    // backgrounded/closed tab's networking outright (rather than sending a
+    // clean close frame), the server's 'disconnect' handler can be delayed
+    // far longer than that, so the player appears to never leave. 'pagehide'
+    // fires reliably (including on mobile Safari, where 'beforeunload' is
+    // unreliable) just before the page is actually torn down, so we proactively
+    // tell the server "this player is gone" instead of waiting on heartbeat
+    // detection. The backend already treats 'leave_room' identically to a
+    // disconnect (see handlePlayerLeftRoom, shared by both).
+    const onPageHide = () => {
+      if (gameRoomCodeRef.current) {
+        socket.emit('leave_room', { code: gameRoomCodeRef.current });
+      }
+    };
+    window.addEventListener('pagehide', onPageHide);
+
     return () => {
       clearInterval(resyncInterval);
+      window.removeEventListener('pagehide', onPageHide);
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('rooms_list', onRoomsList);
