@@ -2915,6 +2915,7 @@ function App() {
   const [audioInitialized, setAudioInitialized] = useState(false);
   const [volume, setVolume] = useState(0.4);
   const [dopamineCorner, setDopamineCorner] = useState(false);
+  const [language, setLanguage] = useState('en');
   const [dopamineCornerMinimized, setDopamineCornerMinimized] = useState(false);
   const dopamineCornerVideoRef = useRef(null);
 
@@ -6016,6 +6017,45 @@ function App() {
                         }}
                       />
                     </label>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>LANGUAGES</span>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button
+                        onClick={() => setLanguage('en')}
+                        style={{
+                          background: language === 'en' ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.04)',
+                          border: language === 'en' ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
+                          color: language === 'en' ? '#00f0ff' : '#8a99ad',
+                          padding: '8px 14px',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          fontWeight: 'bold',
+                          letterSpacing: '1px',
+                          cursor: 'pointer',
+                          boxShadow: language === 'en' ? '0 0 10px rgba(0, 240, 255, 0.2)' : 'none'
+                        }}
+                      >
+                        ENGLISH
+                      </button>
+                      <button
+                        onClick={() => setLanguage('ru')}
+                        style={{
+                          background: language === 'ru' ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.04)',
+                          border: language === 'ru' ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
+                          color: language === 'ru' ? '#00f0ff' : '#8a99ad',
+                          padding: '8px 14px',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          fontWeight: 'bold',
+                          letterSpacing: '1px',
+                          cursor: 'pointer',
+                          boxShadow: language === 'ru' ? '0 0 10px rgba(0, 240, 255, 0.2)' : 'none'
+                        }}
+                      >
+                        РУССКИЙ
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
