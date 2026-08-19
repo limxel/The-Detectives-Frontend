@@ -22,6 +22,7 @@ const INTRO_TYPING_LOOP_SOUND = 'https://files.catbox.moe/svl419.mp3';
 const ABILITY_USE_SOUND = 'https://files.catbox.moe/nhfdld.mp3';
 const VICTORY_SOUND = 'https://files.catbox.moe/9e3gv6.mp3';
 const MURDER_SOUND = 'https://files.catbox.moe/nzupgt.mp3';
+const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/jp8f3r.mp4';
 
 // Master volume, controlled by the settings slider. Kept outside the component
 // so it's visible both to module-level functions (Web Audio effects) and to the
@@ -2895,6 +2896,8 @@ function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [audioInitialized, setAudioInitialized] = useState(false);
   const [volume, setVolume] = useState(0.4);
+  const [dopamineCorner, setDopamineCorner] = useState(false);
+  const [dopamineCornerMinimized, setDopamineCornerMinimized] = useState(false);
 
   const [publicRooms, setPublicRooms] = useState([]);
   const [inputCode, setInputCode] = useState('');
@@ -3035,10 +3038,6 @@ function App() {
   // turn_start — unlike the fog-of-war state above, found evidence must persist
   // across every future turn/round.
   const [foundFragments, setFoundFragments] = useState([]); // [{ position, digit }]
-  // Whether the mobile OVERRIDE CODE HUD (top-left pill) is expanded to show the
-  // full digit row. Starts collapsed on mobile so it doesn't eat screen space /
-  // sit over other content by default; irrelevant on desktop (always expanded).
-  const [isCodeHudExpanded, setIsCodeHudExpanded] = useState(false);
   const [codeTotalDigits, setCodeTotalDigits] = useState(null);
 
   // --- MARK ROOM (Innocent only): rooms the Innocent team has personally
@@ -4956,21 +4955,7 @@ function App() {
     // needed on this side, and onRoomJoined already clears gameOverData.
     function onGameOver(data) {
       console.log('CLIENT game_over:', data);
-      // game_over doesn't touch gamePhase/currentScreen (the summary just
-      // overlays the still-"playing" game screen), so the ambient-switching
-      // effect above never re-fires and whatever loop was running (trial
-      // ambience, most often) would otherwise keep looping right underneath
-      // the victory stinger. Duck every loop out first, then let the sting
-      // land in the clear. activeAmbientRef is cleared too so the separate
-      // volume-slider effect can't undo the fade by nudging a "still active"
-      // track's gain back up while the summary is on screen.
-      const duckDuration = 400;
-      [lobbyAudioRef.current, explorationAudioRef.current, trialAudioRef.current, typingLoopAudioRef.current]
-        .forEach(audio => fadeAudio(audio, 0, duckDuration, true));
-      [lobbyAudioRef.current, explorationAudioRef.current, trialAudioRef.current, typingLoopAudioRef.current]
-        .forEach(audio => pauseAfterFade(audio, duckDuration));
-      activeAmbientRef.current = null;
-      trackTimeout(setTimeout(() => playGameOverSting(0.95), duckDuration));
+      playGameOverSting(0.95);
       setGameOverData(data);
       setCinematic(null);
       setCodeGuess('');
@@ -5042,30 +5027,8 @@ function App() {
     // the device clock adjusting mid-session can all reintroduce drift.
     const resyncInterval = setInterval(syncServerTime, 120000);
 
-    // --- EXPLICIT LEAVE ON TAB CLOSE ------------------------------------
-    // Without this, closing/navigating away from the tab relies entirely on
-    // the server noticing the socket died — which it does via Socket.IO's
-    // ping/pong heartbeat, not instantly. socket.io's defaults (pingInterval
-    // 25s + pingTimeout 20s) mean a closed tab can look "still in the lobby"
-    // to everyone else for up to ~45s, and on mobile browsers that suspend a
-    // backgrounded/closed tab's networking outright (rather than sending a
-    // clean close frame), the server's 'disconnect' handler can be delayed
-    // far longer than that, so the player appears to never leave. 'pagehide'
-    // fires reliably (including on mobile Safari, where 'beforeunload' is
-    // unreliable) just before the page is actually torn down, so we proactively
-    // tell the server "this player is gone" instead of waiting on heartbeat
-    // detection. The backend already treats 'leave_room' identically to a
-    // disconnect (see handlePlayerLeftRoom, shared by both).
-    const onPageHide = () => {
-      if (gameRoomCodeRef.current) {
-        socket.emit('leave_room', { code: gameRoomCodeRef.current });
-      }
-    };
-    window.addEventListener('pagehide', onPageHide);
-
     return () => {
       clearInterval(resyncInterval);
-      window.removeEventListener('pagehide', onPageHide);
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('rooms_list', onRoomsList);
@@ -6019,6 +5982,22 @@ function App() {
                       }}
                     />
                   </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>DOPAMINE CORNER</span>
+                    <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        checked={dopamineCorner}
+                        onChange={(e) => setDopamineCorner(e.target.checked)}
+                        style={{
+                          width: '18px',
+                          height: '18px',
+                          accentColor: '#00f0ff',
+                          cursor: 'pointer'
+                        }}
+                      />
+                    </label>
+                  </div>
                 </div>
                 <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
               </div>
@@ -6108,6 +6087,62 @@ function App() {
           zIndex: 5,
           overflow: 'hidden'
         }}>
+
+          {/* --- DOPAMINE CORNER: looping muted video shown only during other
+               players' turns (action phase, not your own turn). Click to
+               minimize into a small tab; click the tab to bring it back. --- */}
+          {dopamineCorner && displayPhase === 'action' && currentTurnPlayerId && currentTurnPlayerId !== socket.id && (
+            dopamineCornerMinimized ? (
+              <div
+                onClick={() => setDopamineCornerMinimized(false)}
+                role="button"
+                aria-label="Expand Dopamine Corner"
+                style={{
+                  position: 'fixed',
+                  top: '16px',
+                  right: '16px',
+                  zIndex: 9500,
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  background: 'rgba(18, 18, 28, 0.9)',
+                  border: '1px solid rgba(0, 240, 255, 0.4)',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
+                  color: '#00f0ff',
+                  fontSize: '11px',
+                  fontWeight: 'bold',
+                  letterSpacing: '1px',
+                  cursor: 'pointer',
+                  userSelect: 'none'
+                }}
+              >
+                ▶ DOPAMINE CORNER
+              </div>
+            ) : (
+              <video
+                key={DOPAMINE_CORNER_VIDEO}
+                src={DOPAMINE_CORNER_VIDEO}
+                autoPlay
+                loop
+                muted
+                playsInline
+                onClick={() => setDopamineCornerMinimized(true)}
+                aria-label="Minimize Dopamine Corner"
+                style={{
+                  position: 'fixed',
+                  top: '16px',
+                  right: '16px',
+                  zIndex: 9500,
+                  width: 'clamp(120px, 20vw, 340px)',
+                  height: 'auto',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(0, 240, 255, 0.4)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.6), 0 0 20px rgba(0,240,255,0.15)',
+                  cursor: 'pointer',
+                  display: 'block'
+                }}
+              />
+            )
+          )}
 
           {/* Waiting for other players to load */}
           {gamePhase === 'loading' && (
@@ -6282,62 +6317,46 @@ function App() {
                   place in the code. Persists on screen for the whole match — it is
                   never cleared on turn/round transitions, only ever added to. This is
                   the ONE place the code fragments are shown; keep it that way. */}
-              {/* Positioned top-LEFT (not right) so it never sits on top of the
-                  CHAT/CLUES/BODIES asides or the trial header's TIME LEFT block,
-                  which all live in the top-right corner (see 'top: 18px, right:
-                  18px' below) — that exact overlap was why this HUD used to cover
-                  content during both the action phase and the trial. On mobile it
-                  also shrinks and defaults to a compact "3/6" pill instead of the
-                  full digit row, which used to be wide enough to eat most of a
-                  phone's width and sit right over the round/trial header beneath
-                  it; tapping the pill expands it to the full row on demand. */}
               {foundFragments.length > 0 && (
-                <div
-                  onClick={() => isMobile && setIsCodeHudExpanded(e => !e)}
-                  style={{
-                    position: 'fixed',
-                    top: '18px',
-                    left: '18px',
-                    zIndex: 40,
-                    padding: isMobile ? '7px 10px' : '10px 14px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(0,255,135,0.3)',
-                    background: 'rgba(6, 10, 8, 0.82)',
-                    backdropFilter: 'blur(8px)',
-                    textAlign: 'left',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-                    maxWidth: 'calc(100vw - 36px)',
-                    cursor: isMobile ? 'pointer' : 'default'
-                  }}
-                >
-                  <p style={{ margin: isMobile && !isCodeHudExpanded ? 0 : '0 0 6px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>
-                    OVERRIDE CODE{isMobile && !isCodeHudExpanded ? ` ${foundFragments.length}/${codeTotalDigits || foundFragments.length}` : ''}
+                <div style={{
+                  position: 'fixed',
+                  top: '18px',
+                  right: '18px',
+                  zIndex: 40,
+                  padding: '10px 14px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(0,255,135,0.3)',
+                  background: 'rgba(6, 10, 8, 0.82)',
+                  backdropFilter: 'blur(8px)',
+                  textAlign: 'right',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.35)'
+                }}>
+                  <p style={{ margin: '0 0 6px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>
+                    OVERRIDE CODE
                   </p>
-                  {(!isMobile || isCodeHudExpanded) && (
-                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-start', flexWrap: 'wrap', maxWidth: isMobile ? 'calc(100vw - 56px)' : 'none' }}>
-                      {Array.from({ length: codeTotalDigits || foundFragments.length }, (_, i) => {
-                        const found = foundFragments.find(f => f.position === i + 1);
-                        return (
-                          <div key={i} style={{
-                            width: isMobile ? '22px' : '26px',
-                            height: isMobile ? '28px' : '32px',
-                            borderRadius: '6px',
-                            border: `1px solid ${found ? 'rgba(0,255,135,0.5)' : 'rgba(255,255,255,0.15)'}`,
-                            background: found ? 'rgba(0,255,135,0.12)' : 'rgba(255,255,255,0.03)',
-                            color: found ? '#00ff87' : '#4b5568',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: isMobile ? '14px' : '16px',
-                            fontWeight: 800,
-                            fontFamily: 'Georgia, serif'
-                          }}>
-                            {found ? found.digit : '?'}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
+                  <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
+                    {Array.from({ length: codeTotalDigits || foundFragments.length }, (_, i) => {
+                      const found = foundFragments.find(f => f.position === i + 1);
+                      return (
+                        <div key={i} style={{
+                          width: '26px',
+                          height: '32px',
+                          borderRadius: '6px',
+                          border: `1px solid ${found ? 'rgba(0,255,135,0.5)' : 'rgba(255,255,255,0.15)'}`,
+                          background: found ? 'rgba(0,255,135,0.12)' : 'rgba(255,255,255,0.03)',
+                          color: found ? '#00ff87' : '#4b5568',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '16px',
+                          fontWeight: 800,
+                          fontFamily: 'Georgia, serif'
+                        }}>
+                          {found ? found.digit : '?'}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
