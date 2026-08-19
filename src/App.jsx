@@ -22,7 +22,7 @@ const INTRO_TYPING_LOOP_SOUND = 'https://files.catbox.moe/svl419.mp3';
 const ABILITY_USE_SOUND = 'https://files.catbox.moe/nhfdld.mp3';
 const VICTORY_SOUND = 'https://files.catbox.moe/9e3gv6.mp3';
 const MURDER_SOUND = 'https://files.catbox.moe/nzupgt.mp3';
-const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/eq3fwd.gif';
+const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/jp8f3r.mp4';
 
 // Master volume, controlled by the settings slider. Kept outside the component
 // so it's visible both to module-level functions (Web Audio effects) and to the
@@ -123,6 +123,29 @@ const MIN_PLAYERS = 5;
 const MAX_PLAYERS = 12;
 const TURN_DURATION_SECONDS = 30;
 const TRIAL_DURATION_SECONDS = 120;
+
+// --- LANGUAGES: selectable in Settings. Only English is actually wired up to
+// the UI text right now (see `language` state) — the rest are placeholders
+// for future localization, listed roughly by number of speakers worldwide.
+const APP_LANGUAGES = [
+  { code: 'en', label: 'English' },
+  { code: 'zh', label: '中文' },
+  { code: 'hi', label: 'हिन्दी' },
+  { code: 'es', label: 'Español' },
+  { code: 'fr', label: 'Français' },
+  { code: 'ar', label: 'العربية' },
+  { code: 'bn', label: 'বাংলা' },
+  { code: 'ru', label: 'Русский' },
+  { code: 'pt', label: 'Português' },
+  { code: 'ur', label: 'اردو' },
+  { code: 'id', label: 'Bahasa Indonesia' },
+  { code: 'de', label: 'Deutsch' },
+  { code: 'ja', label: '日本語' },
+  { code: 'tr', label: 'Türkçe' },
+  { code: 'ko', label: '한국어' },
+  { code: 'vi', label: 'Tiếng Việt' },
+  { code: 'it', label: 'Italiano' }
+];
 
 // KEEP IN SYNC WITH backend/index.js — this dossier copy must match the
 // server-authoritative CHARACTERS roster used by generateForensicClue.
@@ -6018,43 +6041,29 @@ function App() {
                       />
                     </label>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: 'left' }}>
                     <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>LANGUAGES</span>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        onClick={() => setLanguage('en')}
-                        style={{
-                          background: language === 'en' ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.04)',
-                          border: language === 'en' ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
-                          color: language === 'en' ? '#00f0ff' : '#8a99ad',
-                          padding: '8px 14px',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          fontWeight: 'bold',
-                          letterSpacing: '1px',
-                          cursor: 'pointer',
-                          boxShadow: language === 'en' ? '0 0 10px rgba(0, 240, 255, 0.2)' : 'none'
-                        }}
-                      >
-                        ENGLISH
-                      </button>
-                      <button
-                        onClick={() => setLanguage('ru')}
-                        style={{
-                          background: language === 'ru' ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.04)',
-                          border: language === 'ru' ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
-                          color: language === 'ru' ? '#00f0ff' : '#8a99ad',
-                          padding: '8px 14px',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          fontWeight: 'bold',
-                          letterSpacing: '1px',
-                          cursor: 'pointer',
-                          boxShadow: language === 'ru' ? '0 0 10px rgba(0, 240, 255, 0.2)' : 'none'
-                        }}
-                      >
-                        РУССКИЙ
-                      </button>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                      {APP_LANGUAGES.map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => setLanguage(lang.code)}
+                          style={{
+                            background: language === lang.code ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.04)',
+                            border: language === lang.code ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
+                            color: language === lang.code ? '#00f0ff' : '#8a99ad',
+                            padding: '8px 14px',
+                            borderRadius: '6px',
+                            fontSize: '11px',
+                            fontWeight: 'bold',
+                            letterSpacing: '0.5px',
+                            cursor: 'pointer',
+                            boxShadow: language === lang.code ? '0 0 10px rgba(0, 240, 255, 0.2)' : 'none'
+                          }}
+                        >
+                          {lang.label}
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </div>
