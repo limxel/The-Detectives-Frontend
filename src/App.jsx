@@ -466,6 +466,45 @@ const MANSION_LAYOUT = {
   }
 };
 
+// --- ROOM NAME TRANSLATIONS: the server is only ever aware of the English
+// room names (they're the shared identifiers baked into MANSION_LAYOUT and
+// echoed back verbatim in every socket event — trap/evidence/body/clue
+// payloads, toasts, etc.). This map lets the client re-label any of those
+// English strings for display when the Russian UI is active, without
+// touching the underlying id/name used for game logic or vent/trap lookups.
+const ROOM_NAMES_RU = {
+  'Torture Room': 'Пыточная',
+  'Grand Hall': 'Главный зал',
+  'Library': 'Библиотека',
+  'Conservatory': 'Оранжерея',
+  'Kitchen': 'Кухня',
+  'Dining Room': 'Столовая',
+  'Study': 'Кабинет',
+  'Wine Cellar': 'Винный погреб',
+  'Ballroom': 'Бальный зал',
+  'Armory': 'Оружейная',
+  'Garage': 'Гараж',
+  'Holding Cell': 'Камера содержания',
+  'Master Bedroom': 'Хозяйская спальня',
+  'Bathroom': 'Ванная комната',
+  'Guest Room': 'Гостевая комната',
+  'Nursery': 'Детская',
+  'Private Office': 'Личный кабинет',
+  'Portrait Gallery': 'Портретная галерея',
+  'Archive': 'Архив',
+  'Terrace': 'Терраса',
+  'Attic': 'Чердак',
+  'Observatory': 'Обсерватория'
+};
+
+// Translates a room name for display only. `name` is whatever English string
+// the server/MANSION_LAYOUT gave us; falls back to the original if there's
+// no mapping (e.g. an unexpected/legacy value) or the UI isn't in Russian.
+function translateRoomName(name, language) {
+  if (language !== 'ru' || !name) return name;
+  return ROOM_NAMES_RU[name] || name;
+}
+
 // --- VENTS: Killer-only shortcut passages, one-way per entry (source ->
 // destination). Must mirror the server's VENTS constant exactly — this copy
 // is only used to decide when to show the "USE VENT" button and where the
@@ -2063,7 +2102,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
                 zIndex: 1,
                 color: isRevealed ? '#00ff87' : isCleared ? '#5cffb0' : restricted ? '#ff8ea0' : '#bdc7db'
               }}>
-                {room.name.toUpperCase()}
+                {translateRoomName(room.name, language).toUpperCase()}
               </span>
 
               {restricted && (
@@ -2308,7 +2347,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
                 }}
               >
                 <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.4px', color: restricted ? '#ff5d73' : '#f0c6ff', lineHeight: 1.25 }}>
-                  {isSubmittingThis ? (language === 'ru' ? 'ПОДБРАСЫВАЕМ…' : 'PLANTING…') : room.name.toUpperCase()}
+                  {isSubmittingThis ? (language === 'ru' ? 'ПОДБРАСЫВАЕМ…' : 'PLANTING…') : translateRoomName(room.name, language).toUpperCase()}
                 </span>
               </div>
             );
@@ -2485,7 +2524,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
                 }}
               >
                 <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.4px', color: restricted ? '#ff5d73' : '#ffd8a8', lineHeight: 1.25 }}>
-                  {isSubmittingThis ? (language === 'ru' ? 'УСТАНАВЛИВАЕМ…' : 'SETTING…') : room.name.toUpperCase()}
+                  {isSubmittingThis ? (language === 'ru' ? 'УСТАНАВЛИВАЕМ…' : 'SETTING…') : translateRoomName(room.name, language).toUpperCase()}
                 </span>
               </div>
             );
@@ -2807,7 +2846,7 @@ function TrapTriggeredModal({ roomName, onClose, language }) {
         <div>
           <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЛОВУШКА СРАБОТАЛА' : 'TRAP TRIGGERED'}</p>
           <h3 style={{ margin: 0, fontSize: '22px', color: '#ff9caf', letterSpacing: '1px' }}>
-            {(roomName || (language === 'ru' ? 'ЭТА КОМНАТА' : 'THIS ROOM')).toUpperCase()}
+            {(translateRoomName(roomName, language) || (language === 'ru' ? 'ЭТА КОМНАТА' : 'THIS ROOM')).toUpperCase()}
           </h3>
         </div>
 
@@ -4697,7 +4736,7 @@ function App() {
         playEvidencePlantedSound(0.38);
         setJokerEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 3 });
         pushToast(language === 'ru'
-          ? `Улика подброшена в ${clue?.roomName || 'комнате'}: "${clue?.text || 'неизвестный предмет'}"`
+          ? `Улика подброшена в ${translateRoomName(clue?.roomName, language) || 'комнате'}: "${clue?.text || 'неизвестный предмет'}"`
           : `Evidence planted in ${clue?.roomName || 'the room'}: "${clue?.text || 'unknown item'}"`);
         setJokerPlantPickerOpen(false);
         setRevealedRoom(previous => previous && previous.roomId === clue?.roomId
@@ -4773,7 +4812,7 @@ function App() {
       if (success) {
         playAbilityUseSound(0.75);
         setAccompliceTrapStatus({ available: false, roundsRemaining: roundsRemaining ?? 4 });
-        pushToast(language === 'ru' ? `Ловушка установлена в ${trap?.roomName || 'комнате'}.` : `Trap set in ${trap?.roomName || 'the room'}.`);
+        pushToast(language === 'ru' ? `Ловушка установлена в ${translateRoomName(trap?.roomName, language) || 'комнате'}.` : `Trap set in ${trap?.roomName || 'the room'}.`);
         setAccompliceTrapPickerOpen(false);
       } else if (reason === 'cooldown') {
         setAccompliceTrapStatus({ available: false, roundsRemaining: roundsRemaining ?? 0 });
@@ -4818,7 +4857,7 @@ function App() {
     // trap_triggered above there's no decision or lasting state attached.
     function onAccompliceKillerClueNotice({ roomName, text }) {
       pushToast(language === 'ru'
-        ? `Ваш Убийца случайно оставил улику: "${text || 'предмет'}" в ${roomName || 'комнате'}.`
+        ? `Ваш Убийца случайно оставил улику: "${text || 'предмет'}" в ${translateRoomName(roomName, language) || 'комнате'}.`
         : `Your Killer accidentally left evidence behind: "${text || 'an item'}" in ${roomName || 'a room'}.`);
     }
 
@@ -4826,7 +4865,7 @@ function App() {
     // 'set_trap' server-side) — mirrors onAccompliceKillerClueNotice above,
     // just going the other direction within the same Killer/Accomplice pair.
     function onKillerTrapNotice({ roomName }) {
-      pushToast(language === 'ru' ? `Ваш Сообщник установил ловушку в ${roomName || 'комнате'}.` : `Your Accomplice set a trap in ${roomName || 'a room'}.`);
+      pushToast(language === 'ru' ? `Ваш Сообщник установил ловушку в ${translateRoomName(roomName, language) || 'комнате'}.` : `Your Accomplice set a trap in ${roomName || 'a room'}.`);
     }
 
     // Private to the Detective only: whether 'detective_check_location' is off
@@ -4929,7 +4968,7 @@ function App() {
       if (cleared) {
         setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
       }
-      pushToast(language === 'ru' ? `${roomName || 'Комната'} проверена.` : `${roomName || 'A room'} has been checked.`);
+      pushToast(language === 'ru' ? `${translateRoomName(roomName, language) || 'Комната'} проверена.` : `${roomName || 'A room'} has been checked.`);
     }
 
     // Result of this Innocent's own 'check_room' attempt (see handleCheckRoom).
@@ -5053,7 +5092,7 @@ function App() {
       // same treatment as the joker_evidence_result toast below.
       if (killerClue) {
         pushToast(language === 'ru'
-          ? `Вы оставили улику в ${killerClue.roomName}: "${killerClue.text}"`
+          ? `Вы оставили улику в ${translateRoomName(killerClue.roomName, language)}: "${killerClue.text}"`
           : `You left behind a clue in ${killerClue.roomName}: "${killerClue.text}"`);
       }
       if (action === 'hide') {
@@ -7027,7 +7066,7 @@ function App() {
                                   <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>
                                     {language === 'ru' ? 'ПРОСМОТР' : 'PEEKING INTO'}
                                   </p>
-                                  <h3 style={{ margin: 0, fontSize: '26px', color: roomAccent, letterSpacing: '1px', textShadow: `0 0 18px ${roomAccent}55` }}>{revealedRoom.roomName.toUpperCase()}</h3>
+                                  <h3 style={{ margin: 0, fontSize: '26px', color: roomAccent, letterSpacing: '1px', textShadow: `0 0 18px ${roomAccent}55` }}>{translateRoomName(revealedRoom.roomName, language).toUpperCase()}</h3>
                                 </div>
                               </div>
                               <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#6272a4', textAlign: 'right' }}>
@@ -7586,7 +7625,7 @@ function App() {
                   <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(360px, calc(100vw - 40px))', padding: '20px', borderRadius: '14px', border: '1px solid rgba(224,64,251,0.4)', background: '#0a0a0f', boxShadow: '0 0 40px rgba(224,64,251,0.25)', animation: 'verdictEnter 420ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
                     <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#e29bff', marginBottom: '8px' }}>🔍 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ДЕТЕКТИВА' : 'CONFIDENTIAL — DETECTIVE EYES ONLY'}</div>
                     <div style={{ color: '#e2e8f0', lineHeight: 1.6, fontSize: '14px' }}>
-                      <strong>{detectiveCheckResult.targetNickname}</strong> {language === 'ru' ? 'завершил свой последний ход в:' : 'ended their last turn in:'} <strong style={{ color: '#e29bff' }}>{detectiveCheckResult.roomName}</strong>
+                      <strong>{detectiveCheckResult.targetNickname}</strong> {language === 'ru' ? 'завершил свой последний ход в:' : 'ended their last turn in:'} <strong style={{ color: '#e29bff' }}>{translateRoomName(detectiveCheckResult.roomName, language)}</strong>
                     </div>
                     <button onClick={() => setDetectiveCheckResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(224,64,251,0.4)', background: 'rgba(224,64,251,0.1)', color: '#e29bff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button>
                   </div>
@@ -7640,7 +7679,7 @@ function App() {
                               <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{selectedClue.text}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{selectedClue.roomName}</span>
+                              {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedClue.roomName, language)}</span>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
                               {language === 'ru' ? 'НАЙДЕНО:' : 'FOUND BY:'}
@@ -7679,7 +7718,7 @@ function App() {
                               >
                                 <span style={{ fontSize: '13px' }}>{clue.text}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
-                                  {clue.roomName} · {language === 'ru' ? 'найдено:' : 'found by'} {clue.foundBy.map(f => f.nickname).join(', ')}
+                                  {translateRoomName(clue.roomName, language)} · {language === 'ru' ? 'найдено:' : 'found by'} {clue.foundBy.map(f => f.nickname).join(', ')}
                                 </span>
                               </div>
                               {/* Forensic Examiner only: "Verify Evidence Authenticity" — asks
@@ -7789,7 +7828,7 @@ function App() {
                               <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{selectedBody.nickname}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{selectedBody.roomName}</span>
+                              {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedBody.roomName, language)}</span>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
                               {language === 'ru' ? 'НАЙДЕНО:' : 'FOUND BY:'}
@@ -7862,7 +7901,7 @@ function App() {
                               >
                                 <span style={{ fontSize: '13px', fontWeight: 700 }}>{body.nickname}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
-                                  {body.roomName} · {language === 'ru' ? 'найдено:' : 'found by'} {(body.foundBy || []).length > 0 ? body.foundBy.join(', ') : (language === 'ru' ? 'Неизвестно' : 'Unknown')}
+                                  {translateRoomName(body.roomName, language)} · {language === 'ru' ? 'найдено:' : 'found by'} {(body.foundBy || []).length > 0 ? body.foundBy.join(', ') : (language === 'ru' ? 'Неизвестно' : 'Unknown')}
                                 </span>
                               </div>
                               {myRole === 'Forensic' && (
@@ -8030,13 +8069,13 @@ function App() {
                   {(trialFindings.bodies || []).map((body, idx) => (
                     <div key={`body-${idx}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#ff8fa8' }}>
                       <Icon name="skull" size={13} />
-                      <span>{language === 'ru' ? `Тело ${body.nickname} — найдено в ${body.roomName}` : `${body.nickname}'s body — found in ${body.roomName}`}</span>
+                      <span>{language === 'ru' ? `Тело ${body.nickname} — найдено в ${translateRoomName(body.roomName, language)}` : `${body.nickname}'s body — found in ${body.roomName}`}</span>
                     </div>
                   ))}
                   {(trialFindings.clues || []).map((clue) => (
                     <div key={`clue-${clue.id}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#a6ffcf' }}>
                       <Icon name="search" size={13} />
-                      <span>{clue.text}{clue.roomName ? ` — ${clue.roomName}` : ''}</span>
+                      <span>{clue.text}{clue.roomName ? ` — ${translateRoomName(clue.roomName, language)}` : ''}</span>
                     </div>
                   ))}
                 </div>
