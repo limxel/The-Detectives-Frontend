@@ -505,6 +505,198 @@ function translateRoomName(name, language) {
   return ROOM_NAMES_RU[name] || name;
 }
 
+// --- EVIDENCE (CLUE) TRANSLATIONS: same situation as ROOM_NAMES_RU above —
+// the server (CHARACTER_EVIDENCE) only ever knows the English item name and
+// description, and echoes them back verbatim in every socket event that
+// touches evidence (investigate_result, joker_evidence_result,
+// accomplice_change_evidence's result, verify_evidence_result,
+// kill_resolved's killerClue, clues_board_update, trial findings, etc).
+// Keyed by the exact English `text` the server sends — every name in
+// CHARACTER_EVIDENCE is unique, so this is a safe, stable lookup key. Falls
+// back to the server's own string for anything unrecognized (e.g. a future
+// item added server-side without an entry added here yet).
+const EVIDENCE_RU = {
+  'Auction certificate': { name: 'Сертификат с аукциона', description: 'Официальное свидетельство о покупке цифрового произведения искусства на астрономическую сумму, с отметкой о полной оплате.' },
+  'Hardware crypto wallet': { name: 'Аппаратный крипто-кошелёк', description: 'Элегантный титановый USB-накопитель лимитированной серии с лазерной гравировкой серийного номера, купленный на элитном техно-аукционе.' },
+  'Vintage Swiss watch': { name: 'Винтажные швейцарские часы', description: 'Изящный аксессуар на тонком кожаном ремешке, слегка испачканный каплей дорогого красного вина.' },
+  'Watchmaker magnifier': { name: 'Часовая лупа', description: 'Высокоточная ювелирная лупа для осмотра сложных механизмов часов.' },
+  'Crystal stopper': { name: 'Хрустальная пробка', description: 'Тяжёлая пробка от редкой винтажной бутылки вина, всё ещё хранящая насыщенный, резкий аромат.' },
+
+  'Steel foil tip cover': { name: 'Стальной наконечник рапиры', description: 'Защитный колпачок для наконечника спортивной рапиры, аккуратно выгравированный инициалами «К.Т.».' },
+  'White fencing glove': { name: 'Белая фехтовальная перчатка', description: 'Безупречная кожаная перчатка для фехтования с едва заметными следами мела и вышитой личной эмблемой.' },
+  'Opera ticket stub': { name: 'Обгоревший оперный билет', description: 'Обгоревший обрывок VIP-билета на премьеру в первом ряду престижного театра.' },
+  'Gold opera glasses': { name: 'Золотой театральный бинокль', description: 'Компактный винтажный латунный бинокль, отделанный перламутром.' },
+  'Genealogy chart': { name: 'Генеалогическое древо', description: 'Отрывок из старинной книги о королевских династиях, где одна родовая линия обведена красным маркером.' },
+
+  'Rubber pool duck': { name: 'Резиновая уточка для бассейна', description: 'Детская резиновая игрушка, испачканная тёмным машинным маслом и промышленными отходами.' },
+  'Duck feed container': { name: 'Баночка с кормом для уток', description: 'Небольшая металлическая банка с сухой зерновой смесью и мелкими крошками сигарного табака.' },
+  'Cigar butt with ash': { name: 'Окурок сигары с пеплом', description: 'Недокуренная импортная сигара с золотым тиснёным кольцом и свежим табачным пеплом.' },
+  'Engraved brass Zippo': { name: 'Гравированная латунная зажигалка Zippo', description: 'Тяжёлая старинная зажигалка, сильно пахнущая бензином для зажигалок, с истёртыми инициалами «А.Р.» на боку.' },
+  'Garbage contract': { name: 'Мусорный контракт', description: 'Смятый договор на вывоз мусора со смазанной подписью, похожей на «Росси».' },
+
+  'Guitar pick and string': { name: 'Медиатор и струна', description: 'Чёрный медиатор со стилизованным логотипом рядом с оборванной стальной гитарной струной.' },
+  'Custom Explorer guitar strap': { name: 'Именной гитарный ремень «Explorer»', description: 'Плотный кожаный ремень с металлическими шипами, слабо пахнущий сценическим дымом.' },
+  'Engine oil canister': { name: 'Канистра моторного масла', description: 'Металлическая ёмкость для масла от мощного V8-двигателя с чёткими отпечатками пальцев на боку.' },
+  'Greasy shop rag': { name: 'Промасленная тряпка', description: 'Тёмно-красная ткань, пропитанная высокооктановым бензином и густой моторной смазкой.' },
+  'Rifle casing': { name: 'Винтовочная гильза', description: 'Стреляная гильза крупного калибра, явно принадлежавшая нарезному охотничьему карабину.' },
+
+  'Exercise band': { name: 'Резинка для тренировок', description: 'Порванный резиновый эспандер с явными следами интенсивных физических нагрузок.' },
+  'Chalk dust pouch': { name: 'Мешочек с магнезией', description: 'Небольшой тканевый мешочек с сухим гимнастическим мелом для сухости рук во время тяжёлых тренировок.' },
+  'Tattoo sketch': { name: 'Эскиз татуировки', description: 'Мрачный монохромный рисунок, сделанный от руки на смятом листе бумаги.' },
+  'Drawing charcoal pencil': { name: 'Угольный карандаш для рисования', description: 'Тонкий чёрный графитовый карандаш, стёртый почти до огрызка от прорисовки сложных татуировок.' },
+  'Makeshift shank': { name: 'Самодельная заточка', description: 'Тяжёлый металлический стержень, заточенный до острия, с рукоятью, плотно обмотанной чёрной изолентой.' },
+
+  'Recipe card': { name: 'Рецептурная карточка', description: 'Карточка с домашним рецептом пирога, запятнанная глубоко-красными каплями, подозрительно похожими на кровь.' },
+  'Cherry pie tin': { name: 'Форма для вишнёвого пирога', description: 'Лёгкая алюминиевая форма для выпечки с остатками липкого сладкого красного сиропа.' },
+  'Skein of wool yarn': { name: 'Моток шерстяной пряжи', description: 'Мягкий клубок толстой пряжи с торчащей из него длинной стальной спицей.' },
+  'Stray wool thread': { name: 'Оторванная шерстяная нить', description: 'Длинная нить ярко-вишнёвой пряжи, вытянутая из тяжёлого вязаного свитера ручной работы.' },
+  'Paperback novel': { name: 'Потрёпанный детективный роман', description: 'Потрёпанная детективная книга с закладкой, лежащей ровно на главе под названием «Убийца — это...».' },
+
+  'Jar of glowing dust': { name: 'Банка со светящейся пылью', description: 'Стеклянный флакон с фосфоресцирующим порошком и колпачком от засушенного лесного гриба.' },
+  'Dried mushroom cap': { name: 'Засушенная шляпка гриба', description: 'Хрупкий биолюминесцентный лесной гриб, слабо светящийся в полной темноте.' },
+  'Woven flower crown': { name: 'Плетёный венок из цветов', description: 'Засушенный венок из лесных цветов с кусочками зелёного мха, застрявшими между стеблями.' },
+  'Floral wire snips': { name: 'Флористические ножницы', description: 'Крошечные ржавые ножницы для подрезки стеблей цветов и лозы.' },
+  'Sparkling dust jar': { name: 'Баночка с блестящей пылью', description: 'Крошечный закупоренный стеклянный флакон с переливающимися блёстками и мелким песком.' },
+
+  'Suture thread': { name: 'Хирургическая нить', description: 'Катушка тонкой хирургической нити, прикреплённая к изогнутой игле на конце.' },
+  'Synthetic skin patch': { name: 'Лоскут синтетической кожи', description: 'Резиновая тренировочная подложка с рядом аккуратных, плотных хирургических швов, вызывающих тревогу.' },
+  'Surgical scalpel': { name: 'Хирургический скальпель', description: 'Старинный стальной инструмент с бритвенно-острым лезвием, на котором остались едва заметные следы синтетической кожи.' },
+  'Antique scalpel case': { name: 'Старинный футляр для скальпелей', description: 'Обитая бархатом деревянная шкатулка, предназначенная для набора исторических хирургических инструментов.' },
+  'Anatomy page': { name: 'Страница из атласа анатомии', description: 'Вырванная страница из медицинского учебника с анализом уязвимых точек вдоль сонной артерии.' },
+
+  'Locked black journal': { name: 'Запертый чёрный дневник', description: 'Карманный дневник в твёрдом переплёте, запертый на миниатюрный замочек.' },
+  'Water-damaged note': { name: 'Размокшая записка', description: 'Рукописная записка с размытыми водой словами: «...снова один в этой тёмной комнате...».' },
+  'Vinyl record sleeve fragment': { name: 'Обрывок конверта виниловой пластинки', description: 'Кусок редкого конверта виниловой пластинки, слабо пахнущий дождём и сыростью.' },
+  'Headphone jack adapter': { name: 'Переходник для наушников', description: 'Небольшой позолоченный аудиопереходник с крошечной эмблемой эмо-группы.' },
+  'Damp umbrella cover': { name: 'Мокрый чехол от зонта', description: 'Насквозь мокрый нейлоновый чехол для компактного чёрного зонта.' },
+
+  'Charcoal stick': { name: 'Угольный стержень', description: 'Кусок рисовального угля, оставивший тёмную пыль на пальцах после хаотичных набросков на стене.' },
+  'Smudged wall rubbing': { name: 'Смазанный оттиск со стены', description: 'Лист бумаги, прижатый к твёрдой поверхности, отпечатавший хаотичные спиралевидные узоры углём.' },
+  'Note to invisible visitors': { name: 'Записка невидимым гостям', description: 'Смятый лист бумаги с записью странного рукописного диалога с невидимым собеседником.' },
+  'Empty blister pack': { name: 'Пустая блистерная упаковка', description: 'Полностью пустая фольгированная упаковка, ранее содержавшая ярко окрашенные рецептурные таблетки.' },
+  'Pill bottle cap': { name: 'Крышка от флакона с таблетками', description: 'Защитная крышка от флакона рецептурных лекарств, испачканная чёрной угольной пылью.' },
+
+  'Katana sheath': { name: 'Ножны катаны', description: 'Кожаные ножны для традиционного японского меча, сильно пахнущие оружейным маслом и полиролью.' },
+  'Tsuka-ito ribbon': { name: 'Лента цука-ито', description: 'Полоса прочной, обработанной воском чёрной шёлковой ленты, используемой для обмотки рукояти меча.' },
+  'Revenge checklist': { name: 'Список мести', description: 'Лист бумаги со списком имён, где два пункта аккуратно вычеркнуты.' },
+  'Crossed-out name fragment': { name: 'Обрывок с вычеркнутым именем', description: 'Оторванный клочок бумаги с именем одной из целей, перечёркнутым жирной красной линией.' },
+  'Meditation blindfold': { name: 'Повязка для медитации', description: 'Чёрная шёлковая повязка на голову, всё ещё влажная от пота после изнурительной тренировки.' },
+
+  'Literature club pin': { name: 'Значок литературного клуба', description: 'Металлический значок с изображением книги и выгравированной поэтической цитатой.' },
+  'Metaphorical poem draft': { name: 'Черновик метафоричного стихотворения', description: 'Лист бумаги с глубоко личным стихотворением о цифровом одиночестве и классической игре на фортепиано.' },
+  'Piano sheet music': { name: 'Ноты для фортепиано', description: 'Страница из тетради с меланхоличной мелодией в минорной тональности, записанной от руки.' },
+  'USB drive': { name: 'USB-накопитель', description: 'Компактная флешка с аккуратной наклейкой «script_v2.py».' },
+  'Code printout': { name: 'Распечатка кода', description: 'Страница сложного Python-кода с рукописными музыкальными пометками на полях.' },
+
+  'Mysterious personal item': { name: 'Загадочная личная вещь', description: 'Неопознанный предмет без каких-либо дополнительных зацепок.' }
+};
+
+// Evidence item NAME for display — falls back to the raw server string for
+// anything unrecognized or when the UI isn't Russian.
+function translateEvidenceName(text, language) {
+  if (language !== 'ru' || !text) return text;
+  return EVIDENCE_RU[text]?.name || text;
+}
+
+// Evidence item DESCRIPTION for display — keyed off the item's (untranslated)
+// `text`, since that's the stable id shared with EVIDENCE_RU above. Falls
+// back to whatever description string the server actually sent.
+function translateEvidenceDescription(text, description, language) {
+  if (language !== 'ru') return description;
+  return EVIDENCE_RU[text]?.description || description;
+}
+
+// --- BODY (VICTIM SCENE) DESCRIPTIONS: same idea, but keyed by character
+// name (BODY_DESCRIPTIONS server-side) rather than by evidence text, since
+// that's the stable field the findings/body payloads already carry.
+const BODY_DESCRIPTIONS_RU = {
+  Creed: 'Тело Крида застыло на полу в изящной позе, из кармана выпали разбитые дорогие часы. Тонкая струйка крови стекает из уголка рта, резко контрастируя с его безупречным костюмом.',
+  Karl: 'Карл лежит лицом вниз, его рука крепко сжимает наконечник фехтовальной рапиры. Тёмная засохшая кровь пятнает его безупречный белый воротник.',
+  Anthonio: 'Массивное тело Антонио тяжело лежит на боку, рядом всё ещё тлеет дорогая сигара. Его глаза широко открыты — застывший тихий шок от внезапной смерти.',
+  James: 'Джеймс привалился к стене, будто отброшенный мощным ударом, в нескольких шагах лежит его чёрный медиатор. Кровь медленно сочится из тяжёлой раны на груди.',
+  Cedric: 'Закалённое в боях тело Седрика застыло в оборонительной позе, хотя следы борьбы указывают на трусливую засаду из-за угла. На его татуированных руках видны свежие ссадины.',
+  Lidy: 'Хрупкое тело Лиди выглядит беспомощным, вокруг разбросаны мотки шерстяной пряжи. Её лицо застыло в выражении глубокого страха и предательства.',
+  May: 'Маленькая Мэй лежит неподвижно, вокруг рассыпан светящийся порошок из разбитой стеклянной банки. Её плетёный цветочный венок сбит набок и частично примят.',
+  Gregory: 'Доктор Чен упал навзничь, хирургические инструменты высыпались из открытой медицинской сумки. Точный, профессиональный удар лишил его жизни за считаные секунды.',
+  Onyx: 'Тело Оникса неподвижно лежит в тени, почти сливаясь с ней, его запертый чёрный дневник отброшен в сторону. На мокром полу рядом видны следы недолгой борьбы.',
+  Max: 'Макс застыл в неестественной позе у стены, покрытой его хаотичными угольными набросками. Вокруг рассыпаны яркие таблетки из вскрытой блистерной упаковки.',
+  Bea: 'Беа лежит у противоположной стены, её рука всё ещё сжимает ножны катаны, которую она так и не успела обнажить. В её остекленевших глазах застыла чистая ярость от несбывшейся мести.',
+  Moonka: 'Мунка неподвижно лежит на полу, сжимая в руке маленькую флешку с кодом. Её лицо на удивление умиротворено — будто она успела дописать своё последнее стихотворение перед концом.'
+};
+
+// Victim scene description for display — keyed by `character` (e.g. from
+// the findings/body payload), falling back to whatever description string
+// the server actually sent (covers the 'Mysterious...'-style generic
+// fallback the server uses when `character` is missing).
+function translateBodyDescription(character, description, language) {
+  if (language !== 'ru') return description;
+  return BODY_DESCRIPTIONS_RU[character] || description;
+}
+
+// --- TRIAL / GAME-OVER MESSAGE TRANSLATIONS: like translateRoomName above,
+// the server only ever sends English prose for these (see 'trial_result',
+// 'game_over' and 'code_submission_result' on the backend). Rather than
+// hard-code a Russian string builder that has to mirror the server's exact
+// interpolation, each server payload also carries a stable `reason` code
+// (and, where a name needs to be interpolated, structured data like
+// `targetName` / `triggeredBy.nickname`) that these functions key off of.
+// Falls back to the server's own `message` for any reason we don't
+// recognize (e.g. a legacy/unexpected value) or when the UI isn't Russian.
+
+// Trial council vote outcome — rendered under the trial's code terminal.
+function translateTrialResultMessage(result, language) {
+  if (!result) return '';
+  if (language !== 'ru') return result.message;
+  switch (result.reason) {
+    case 'skipped':
+      return 'ГОЛОСОВАНИЕ ПРОПУЩЕНО — АГЕНТ НЕ УСТРАНЁН';
+    case 'executed':
+      return `${result.targetName} устранён(а) по решению совета.`;
+    default:
+      return result.message;
+  }
+}
+
+// GAME_OVER summary overlay's victory explanation line.
+function translateGameOverMessage(data, language) {
+  if (!data) return '';
+  if (language !== 'ru') return data.message;
+  const name = data.triggeredBy?.nickname;
+  switch (data.reason) {
+    case 'joker_executed':
+      return `${name} оказался(-ась) Джокером и был(а) казнён(а) по решению совета. Джокер побеждает!`;
+    case 'killer_executed':
+      return `${name} оказался(-ась) Убийцей и был(а) казнён(а) по решению совета. Невинные побеждают!`;
+    case 'killer_majority_wipeout':
+      return 'Все мирные агенты устранены. Убийца побеждает!';
+    case 'killer_majority_outnumbered':
+      return 'Команда Убийцы теперь равна или превосходит числом оставшихся мирных агентов. Убийца побеждает!';
+    case 'killer_team_disconnected':
+      return 'Убийца выбыл из матча. Невинные побеждают!';
+    case 'CODE_CRACKED':
+      return `${name} взломал(а) код отмены. Невинные побеждают!`;
+    default:
+      return data.message;
+  }
+}
+
+// code_submission_result rejection reasons (trap debuff / undiscovered body /
+// wrong code) — surfaced as a toast via pushToast.
+function translateCodeSubmissionMessage(payload, language) {
+  if (!payload) return '';
+  if (language !== 'ru') return payload.message;
+  switch (payload.reason) {
+    case 'trap_debuff':
+      return 'Вы всё ещё приходите в себя после ловушки — терминал не примет ввод в этом раунде.';
+    case 'body_missing':
+      return 'Выход опечатан — где-то ещё остаётся необнаруженное тело.';
+    case 'invalid_code':
+      return 'Неверный код';
+    default:
+      return payload.message || 'Неверный код';
+  }
+}
+
 // --- VENTS: Killer-only shortcut passages, one-way per entry (source ->
 // destination). Must mirror the server's VENTS constant exactly — this copy
 // is only used to decide when to show the "USE VENT" button and where the
@@ -4536,8 +4728,8 @@ function App() {
       if (roundLock) {
         pushToast(
           roundLock.id === socket.id
-            ? (language === 'ru' ? 'Вы заперты в Камере на этот раунд.' : 'You are locked in the Holding Cell for this round.')
-            : (language === 'ru' ? `${roundLock.nickname} заперт в Камере на этот раунд.` : `${roundLock.nickname} is locked in the Holding Cell this round.`)
+            ? (languageRef.current === 'ru' ? 'Вы заперты в Камере на этот раунд.' : 'You are locked in the Holding Cell for this round.')
+            : (languageRef.current === 'ru' ? `${roundLock.nickname} заперт в Камере на этот раунд.` : `${roundLock.nickname} is locked in the Holding Cell this round.`)
         );
       }
     }
@@ -4566,7 +4758,7 @@ function App() {
         setCurrentTurnPlayerId(null);
         setTurnEndsAt(null);
       } else if (phase === 'TRIAL_ANNOUNCEMENT') {
-        setCinematic({ mode: 'announcement', text: language === 'ru' ? 'НАЧИНАЕТСЯ ФАЗА СУДА' : 'TRIAL PHASE COMMENCING', accent: 'cyan' });
+        setCinematic({ mode: 'announcement', text: languageRef.current === 'ru' ? 'НАЧИНАЕТСЯ ФАЗА СУДА' : 'TRIAL PHASE COMMENCING', accent: 'cyan' });
       } else if (phase === 'TRIAL_VOTING') {
         setGameData(prev => ({ ...prev, round: round ?? prev.round, phase: 'trial' }));
         setDisplayPhase('trial');
@@ -4713,7 +4905,7 @@ function App() {
       // the same way search_body_result already does.
       if (Array.isArray(data.bodies) && data.bodies.length > 0) {
         playTrashFoundSound(0.2);
-        data.bodies.forEach(body => pushToast(language === 'ru' ? `Тело ${body.nickname} лежит здесь, на виду.` : `${body.nickname}'s body is lying here, exposed.`));
+        data.bodies.forEach(body => pushToast(languageRef.current === 'ru' ? `Тело ${body.nickname} лежит здесь, на виду.` : `${body.nickname}'s body is lying here, exposed.`));
       }
     }
 
@@ -4735,8 +4927,8 @@ function App() {
       if (success) {
         playEvidencePlantedSound(0.38);
         setJokerEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 3 });
-        pushToast(language === 'ru'
-          ? `Улика подброшена в ${translateRoomName(clue?.roomName, language) || 'комнате'}: "${clue?.text || 'неизвестный предмет'}"`
+        pushToast(languageRef.current === 'ru'
+          ? `Улика подброшена в ${translateRoomName(clue?.roomName, languageRef.current) || 'комнате'}: "${translateEvidenceName(clue?.text, languageRef.current) || 'неизвестный предмет'}"`
           : `Evidence planted in ${clue?.roomName || 'the room'}: "${clue?.text || 'unknown item'}"`);
         setJokerPlantPickerOpen(false);
         setRevealedRoom(previous => previous && previous.roomId === clue?.roomId
@@ -4744,10 +4936,10 @@ function App() {
           : previous);
       } else if (reason === 'cooldown') {
         setJokerEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `Подбрасывание улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence planting is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(languageRef.current === 'ru' ? `Подбрасывание улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence planting is on cooldown for ${turnsRemaining} more turn(s).`);
         setJokerPlantPickerOpen(false);
       } else {
-        pushToast(language === 'ru' ? 'Не удалось подбросить улику — попробуйте другую комнату.' : 'Could not plant evidence there — try another room.');
+        pushToast(languageRef.current === 'ru' ? 'Не удалось подбросить улику — попробуйте другую комнату.' : 'Could not plant evidence there — try another room.');
       }
     }
 
@@ -4778,8 +4970,8 @@ function App() {
       if (success) {
         playEvidencePlantedSound(0.38);
         setAccompliceEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 3 });
-        pushToast(language === 'ru'
-          ? `Улика изменена: "${evidence?.text || 'неизвестный предмет'}"`
+        pushToast(languageRef.current === 'ru'
+          ? `Улика изменена: "${translateEvidenceName(evidence?.text, languageRef.current) || 'неизвестный предмет'}"`
           : `Evidence altered: "${evidence?.text || 'unknown item'}"`);
         setChangeEvidencePickerOpen(false);
         setChangeEvidenceTargetEvidenceId(null);
@@ -4794,10 +4986,10 @@ function App() {
           : previous);
       } else if (reason === 'cooldown') {
         setAccompliceEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `«Изменить улику» на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Change Evidence is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(languageRef.current === 'ru' ? `«Изменить улику» на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Change Evidence is on cooldown for ${turnsRemaining} more turn(s).`);
         setChangeEvidencePickerOpen(false);
       } else {
-        pushToast(language === 'ru' ? 'Не удалось изменить эту улику — попробуйте снова.' : 'Could not alter that evidence — try again.');
+        pushToast(languageRef.current === 'ru' ? 'Не удалось изменить эту улику — попробуйте снова.' : 'Could not alter that evidence — try again.');
       }
     }
 
@@ -4812,14 +5004,14 @@ function App() {
       if (success) {
         playAbilityUseSound(0.75);
         setAccompliceTrapStatus({ available: false, roundsRemaining: roundsRemaining ?? 4 });
-        pushToast(language === 'ru' ? `Ловушка установлена в ${translateRoomName(trap?.roomName, language) || 'комнате'}.` : `Trap set in ${trap?.roomName || 'the room'}.`);
+        pushToast(languageRef.current === 'ru' ? `Ловушка установлена в ${translateRoomName(trap?.roomName, languageRef.current) || 'комнате'}.` : `Trap set in ${trap?.roomName || 'the room'}.`);
         setAccompliceTrapPickerOpen(false);
       } else if (reason === 'cooldown') {
         setAccompliceTrapStatus({ available: false, roundsRemaining: roundsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `«Установить ловушку» на перезарядке ещё ${roundsRemaining} раунд(а/ов).` : `Set a Trap is on cooldown for ${roundsRemaining} more round(s).`);
+        pushToast(languageRef.current === 'ru' ? `«Установить ловушку» на перезарядке ещё ${roundsRemaining} раунд(а/ов).` : `Set a Trap is on cooldown for ${roundsRemaining} more round(s).`);
         setAccompliceTrapPickerOpen(false);
       } else {
-        pushToast(language === 'ru' ? 'Не удалось установить ловушку — попробуйте другую комнату.' : 'Could not set a trap there — try another room.');
+        pushToast(languageRef.current === 'ru' ? 'Не удалось установить ловушку — попробуйте другую комнату.' : 'Could not set a trap there — try another room.');
       }
     }
 
@@ -4847,7 +5039,7 @@ function App() {
     // server rejects it and this lets them know why instead of it just
     // silently doing nothing.
     function onTrapDebuffBlocked() {
-      pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия и способности недоступны.' : "You're still recovering from the trap — no actions or abilities this round.");
+      pushToast(languageRef.current === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия и способности недоступны.' : "You're still recovering from the trap — no actions or abilities this round.");
     }
 
     // Accomplice-only: fires whenever their own Killer's accidental evidence
@@ -4856,8 +5048,8 @@ function App() {
     // rule as killerClue itself. A simple toast is enough here; unlike
     // trap_triggered above there's no decision or lasting state attached.
     function onAccompliceKillerClueNotice({ roomName, text }) {
-      pushToast(language === 'ru'
-        ? `Ваш Убийца случайно оставил улику: "${text || 'предмет'}" в ${translateRoomName(roomName, language) || 'комнате'}.`
+      pushToast(languageRef.current === 'ru'
+        ? `Ваш Убийца случайно оставил улику: "${translateEvidenceName(text, languageRef.current) || 'предмет'}" в ${translateRoomName(roomName, languageRef.current) || 'комнате'}.`
         : `Your Killer accidentally left evidence behind: "${text || 'an item'}" in ${roomName || 'a room'}.`);
     }
 
@@ -4865,7 +5057,7 @@ function App() {
     // 'set_trap' server-side) — mirrors onAccompliceKillerClueNotice above,
     // just going the other direction within the same Killer/Accomplice pair.
     function onKillerTrapNotice({ roomName }) {
-      pushToast(language === 'ru' ? `Ваш Сообщник установил ловушку в ${translateRoomName(roomName, language) || 'комнате'}.` : `Your Accomplice set a trap in ${roomName || 'a room'}.`);
+      pushToast(languageRef.current === 'ru' ? `Ваш Сообщник установил ловушку в ${translateRoomName(roomName, languageRef.current) || 'комнате'}.` : `Your Accomplice set a trap in ${roomName || 'a room'}.`);
     }
 
     // Private to the Detective only: whether 'detective_check_location' is off
@@ -4886,7 +5078,7 @@ function App() {
         setDetectiveCheckResult({ targetNickname, roomName });
       } else if (reason === 'cooldown') {
         setDetectiveAbilityStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `Способность обыска на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Investigation ability on cooldown for ${turnsRemaining} more round(s).`);
+        pushToast(languageRef.current === 'ru' ? `Способность обыска на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Investigation ability on cooldown for ${turnsRemaining} more round(s).`);
       }
     }
 
@@ -4908,7 +5100,7 @@ function App() {
         setOfficerLockResult({ targetNickname });
       } else if (reason === 'cooldown') {
         setOfficerAbilityStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `Протокол задержания на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Detainment protocol on cooldown for ${turnsRemaining} more round(s).`);
+        pushToast(languageRef.current === 'ru' ? `Протокол задержания на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Detainment protocol on cooldown for ${turnsRemaining} more round(s).`);
       }
     }
 
@@ -4926,7 +5118,7 @@ function App() {
           ? prev
           : [...prev, { position, digit }].sort((a, b) => a.position - b.position));
         if (selfFound) playFragmentFoundSound(0.5);
-        pushToast(language === 'ru'
+        pushToast(languageRef.current === 'ru'
           ? (selfFound
               ? `Фрагмент ${position}/${totalDigits}: "${digit}"`
               : `Кто-то нашёл фрагмент ${position}/${totalDigits}: "${digit}"`)
@@ -4935,21 +5127,21 @@ function App() {
               : `Someone found Fragment ${position}/${totalDigits}: "${digit}"`));
       } else if (type === 'trash') {
         playTrashFoundSound(0.2);
-        pushToast(language === 'ru' ? 'Вы нашли скомканный лист бумаги. Похоже на бесполезный мусор.' : 'You found a crumpled piece of paper. It looks like useless trash.');
+        pushToast(languageRef.current === 'ru' ? 'Вы нашли скомканный лист бумаги. Похоже на бесполезный мусор.' : 'You found a crumpled piece of paper. It looks like useless trash.');
       } else if (Array.isArray(evidence) && evidence.length > 0) {
         // No digital code fragment here, but the Joker left evidence behind —
         // skip the "nothing" message so it doesn't contradict the evidence
         // toast fired below.
       } else {
         playTrashFoundSound(0.14);
-        pushToast(language === 'ru' ? 'В этой комнате не нашлось ничего интересного.' : 'Nothing of interest found in this room.');
+        pushToast(languageRef.current === 'ru' ? 'В этой комнате не нашлось ничего интересного.' : 'Nothing of interest found in this room.');
       }
 
       if (Array.isArray(evidence) && evidence.length > 0) {
         setRevealedRoom(previous => previous && previous.roomId === roomId
           ? { ...previous, evidence }
           : previous);
-        evidence.forEach(item => pushToast(language === 'ru' ? `Найдена улика: ${item.text}` : `Evidence found: ${item.text}`));
+        evidence.forEach(item => pushToast(languageRef.current === 'ru' ? `Найдена улика: ${translateEvidenceName(item.text, languageRef.current)}` : `Evidence found: ${item.text}`));
       }
     }
 
@@ -4968,7 +5160,7 @@ function App() {
       if (cleared) {
         setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
       }
-      pushToast(language === 'ru' ? `${translateRoomName(roomName, language) || 'Комната'} проверена.` : `${roomName || 'A room'} has been checked.`);
+      pushToast(languageRef.current === 'ru' ? `${translateRoomName(roomName, languageRef.current) || 'Комната'} проверена.` : `${roomName || 'A room'} has been checked.`);
     }
 
     // Result of this Innocent's own 'check_room' attempt (see handleCheckRoom).
@@ -4982,10 +5174,10 @@ function App() {
       if (!success) {
         if (reason === 'cooldown') {
           setMarkRoomStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-          pushToast(language === 'ru' ? `«Проверить комнату» на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Check Room on cooldown for ${turnsRemaining} more round(s).`);
+          pushToast(languageRef.current === 'ru' ? `«Проверить комнату» на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Check Room on cooldown for ${turnsRemaining} more round(s).`);
         } else if (reason === 'investigate_required') {
           setInvestigateUsedThisTurn(false);
-          pushToast(language === 'ru' ? 'Сначала обыщите эту комнату.' : 'Investigate this room first.');
+          pushToast(languageRef.current === 'ru' ? 'Сначала обыщите эту комнату.' : 'Investigate this room first.');
         }
         return;
       }
@@ -5014,7 +5206,7 @@ function App() {
         // hit just like a found code fragment, so it gets the identical
         // bright confirm sound instead of the dull "nothing much" one.
         playFragmentFoundSound(0.5);
-        bodies.forEach(body => pushToast(language === 'ru' ? `Вы нашли здесь тело ${body.nickname}!` : `You found ${body.nickname}'s body here!`));
+        bodies.forEach(body => pushToast(languageRef.current === 'ru' ? `Вы нашли здесь тело ${body.nickname}!` : `You found ${body.nickname}'s body here!`));
         // A newly-found hidden body should show up exactly like an already-exposed
         // one — the same big crossed-out icon in the room scene and the same pill
         // row — rather than only ever surfacing as a toast. Merge it into
@@ -5031,7 +5223,7 @@ function App() {
         });
       } else {
         playTrashFoundSound(0.14);
-        pushToast(language === 'ru' ? 'В этой комнате тел не обнаружено.' : 'No bodies found in this room.');
+        pushToast(languageRef.current === 'ru' ? 'В этой комнате тел не обнаружено.' : 'No bodies found in this room.');
       }
     }
 
@@ -5091,13 +5283,13 @@ function App() {
       // Nobody else's client ever receives this — it's private to the Killer,
       // same treatment as the joker_evidence_result toast below.
       if (killerClue) {
-        pushToast(language === 'ru'
-          ? `Вы оставили улику в ${translateRoomName(killerClue.roomName, language)}: "${killerClue.text}"`
+        pushToast(languageRef.current === 'ru'
+          ? `Вы оставили улику в ${translateRoomName(killerClue.roomName, languageRef.current)}: "${translateEvidenceName(killerClue.text, languageRef.current)}"`
           : `You left behind a clue in ${killerClue.roomName}: "${killerClue.text}"`);
       }
       if (action === 'hide') {
         setVentUsedThisTurn(true);
-        pushToast(language === 'ru' ? 'Тело спрятано. Теперь его найдут только при обыске — вентиляция в этот ход недоступна.' : 'Body hidden. Only a search will find it now — vent unavailable this turn.');
+        pushToast(languageRef.current === 'ru' ? 'Тело спрятано. Теперь его найдут только при обыске — вентиляция в этот ход недоступна.' : 'Body hidden. Only a search will find it now — vent unavailable this turn.');
         // 'kill_options' (see onKillOptions) already dropped the body marker
         // into the Killer's own view the instant the kill landed, regardless
         // of what they'd later choose to do with it. A hidden body is only
@@ -5113,7 +5305,7 @@ function App() {
           };
         });
       } else {
-        pushToast(language === 'ru' ? 'Тело оставлено на виду в комнате.' : 'Body left exposed in the room.');
+        pushToast(languageRef.current === 'ru' ? 'Тело оставлено на виду в комнате.' : 'Body left exposed in the room.');
       }
     }
 
@@ -5162,7 +5354,7 @@ function App() {
         setForensicVerifyResult({ evidenceId, text, isAuthentic });
       } else if (reason === 'cooldown') {
         setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `Проверка улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence verification is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(languageRef.current === 'ru' ? `Проверка улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence verification is on cooldown for ${turnsRemaining} more turn(s).`);
       }
     }
 
@@ -5175,16 +5367,16 @@ function App() {
         setForensicBodyExamineResult({ bodyId, clue });
       } else if (reason === 'cooldown') {
         setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(language === 'ru' ? `Осмотр тела на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Body examination is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(languageRef.current === 'ru' ? `Осмотр тела на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Body examination is on cooldown for ${turnsRemaining} more turn(s).`);
       } else if (reason === 'invalid_body') {
-        pushToast(language === 'ru' ? 'Это тело сейчас нельзя осмотреть.' : 'That body cannot be examined right now.');
+        pushToast(languageRef.current === 'ru' ? 'Это тело сейчас нельзя осмотреть.' : 'That body cannot be examined right now.');
       }
     }
 
     function onForensicReport({ success, reason, report }) {
       if (!success) {
         if (reason === 'no_report') {
-          pushToast(language === 'ru' ? 'Криминалистический отчёт ещё не сохранён.' : 'No forensic report has been saved yet.');
+          pushToast(languageRef.current === 'ru' ? 'Криминалистический отчёт ещё не сохранён.' : 'No forensic report has been saved yet.');
           setForensicBodyExamineResult(null);
         }
         return;
@@ -5210,11 +5402,11 @@ function App() {
     // Server rejected the code just submitted via the override terminal — reset
     // the draft input and surface the exact same generic notice regardless of
     // why it failed (wrong digits, empty, etc.).
-    function onCodeSubmissionResult({ success, message }) {
-      console.log('CLIENT code_submission_result:', { success, message });
+    function onCodeSubmissionResult({ success, message, reason }) {
+      console.log('CLIENT code_submission_result:', { success, message, reason });
       if (!success) {
         playCodeErrorSound(0.4);
-        pushToast(message || (language === 'ru' ? 'Неверный код' : 'Invalid Code'));
+        pushToast(translateCodeSubmissionMessage({ message, reason }, languageRef.current));
         setCodeGuess('');
       }
     }
@@ -6990,7 +7182,7 @@ function App() {
 
                       {changeEvidencePickerOpen && (
                         <AccompliceChangeEvidenceModal
-                          evidenceText={(revealedRoom?.evidence || []).find(item => item.id === changeEvidenceTargetEvidenceId)?.text}
+                          evidenceText={translateEvidenceName((revealedRoom?.evidence || []).find(item => item.id === changeEvidenceTargetEvidenceId)?.text, language)}
                           players={activeRoom?.players || []}
                           selfId={socket.id}
                           submittingTargetId={changeEvidenceSubmittingTargetId}
@@ -7255,7 +7447,7 @@ function App() {
                                       opacity: 0,
                                       animation: `trialCardEnter 380ms cubic-bezier(0.16, 1, 0.3, 1) ${idx * 80}ms forwards`
                                     }}>
-                                      <span style={{ fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="search" size={12} />{item.text}</span>
+                                      <span style={{ fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="search" size={12} />{translateEvidenceName(item.text, language)}</span>
                                       {canChangeThis && <span style={{ fontSize: '10px', letterSpacing: '1px', color: '#ffb974' }}>{language === 'ru' ? 'ИЗМЕНИТЬ' : 'CHANGE'}</span>}
                                     </div>
                                     );
@@ -7573,7 +7765,7 @@ function App() {
 
                       {trialData?.result && (
                         <div style={{ marginTop: '14px', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(0,255,135,0.2)', background: 'rgba(0,255,135,0.08)', color: '#76ffb4', animation: 'verdictEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-                          {trialData.result.message}
+                          {translateTrialResultMessage(trialData.result, language)}
                         </div>
                       )}
                     </div>
@@ -7676,7 +7868,7 @@ function App() {
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
                               <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ УЛИКИ' : 'EVIDENCE DOSSIER'}</p>
-                              <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{selectedClue.text}</h4>
+                              <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{translateEvidenceName(selectedClue.text, language)}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
                               {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedClue.roomName, language)}</span>
@@ -7692,7 +7884,7 @@ function App() {
                               </div>
                             </div>
                             <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', color: '#bdc7db', fontSize: '12px', lineHeight: 1.55 }}>
-                              {selectedClue.description || (language === 'ru' ? 'Дополнительное описание отсутствует.' : 'No further description available.')}
+                              {translateEvidenceDescription(selectedClue.text, selectedClue.description, language) || (language === 'ru' ? 'Дополнительное описание отсутствует.' : 'No further description available.')}
                             </div>
                           </div>
                         </>
@@ -7716,7 +7908,7 @@ function App() {
                                 onClick={() => handleSelectClue(clue.id)}
                                 style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '4px' }}
                               >
-                                <span style={{ fontSize: '13px' }}>{clue.text}</span>
+                                <span style={{ fontSize: '13px' }}>{translateEvidenceName(clue.text, language)}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
                                   {translateRoomName(clue.roomName, language)} · {language === 'ru' ? 'найдено:' : 'found by'} {clue.foundBy.map(f => f.nickname).join(', ')}
                                 </span>
@@ -7778,7 +7970,7 @@ function App() {
                   if the Evidence panel itself gets closed in the meantime. */}
               {forensicVerifyResult && (
                 <ForensicVerifyResultModal
-                  evidenceText={forensicVerifyResult.text}
+                  evidenceText={translateEvidenceName(forensicVerifyResult.text, language)}
                   isAuthentic={forensicVerifyResult.isAuthentic}
                   onClose={handleCloseForensicResult}
                   language={language}
@@ -7872,7 +8064,7 @@ function App() {
                               </div>
                             )}
                             <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', color: '#bdc7db', fontSize: '12px', lineHeight: 1.55 }}>
-                              {selectedBody.description || (language === 'ru' ? 'На месте происшествия больше ничего не обнаружено.' : 'The scene offers no further detail.')}
+                              {translateBodyDescription(selectedBody.character, selectedBody.description, language) || (language === 'ru' ? 'На месте происшествия больше ничего не обнаружено.' : 'The scene offers no further detail.')}
                             </div>
                           </div>
                         </>
@@ -7978,7 +8170,7 @@ function App() {
                   : (language === 'ru' ? `ПОБЕДА КОМАНДЫ ${gameOverData.winner || 'НЕИЗВЕСТНО'}` : `${gameOverData.winner || 'UNKNOWN'} TEAM VICTORY`)}
             </h2>
             <p style={{ margin: '0 0 22px 0', color: '#c9d3e0', lineHeight: 1.6, fontSize: '14px' }}>
-              {gameOverData.message}
+              {translateGameOverMessage(gameOverData, language)}
               {gameOverData.digitalCode && (
                 <><br /><span style={{ color: '#76ffb4', letterSpacing: '3px', fontFamily: 'Georgia, serif' }}>{language === 'ru' ? 'КОД ОТМЕНЫ' : 'OVERRIDE CODE'}: {gameOverData.digitalCode}</span></>
               )}
@@ -8075,7 +8267,7 @@ function App() {
                   {(trialFindings.clues || []).map((clue) => (
                     <div key={`clue-${clue.id}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#a6ffcf' }}>
                       <Icon name="search" size={13} />
-                      <span>{clue.text}{clue.roomName ? ` — ${translateRoomName(clue.roomName, language)}` : ''}</span>
+                      <span>{translateEvidenceName(clue.text, language)}{clue.roomName ? ` — ${translateRoomName(clue.roomName, language)}` : ''}</span>
                     </div>
                   ))}
                 </div>
