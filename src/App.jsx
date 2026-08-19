@@ -285,45 +285,59 @@ const CHARACTERS = [
 const ROLES = {
   Killer: {
     label: 'KILLER',
+    labelRu: 'УБИЙЦА',
     color: '#ff2a5f',
     sprite: 'https://i.postimg.cc/K8WMPW4s/15c3aab1-6af8-4f71-8190-91a3017ae631.jpg',
-    description: 'Eliminate targets under cover of night. One strike per turn.'
+    description: 'Eliminate targets under cover of night. One strike per turn.',
+    descriptionRu: 'Устраняйте цели под покровом ночи. Один удар за ход.'
   },
   Accomplice: {
     label: 'ACCOMPLICE',
+    labelRu: 'СООБЩНИК',
     color: '#ff2a5f',
     sprite: 'https://i.postimg.cc/FH6Ly61T/1bff526b-381a-4464-8439-bcb173ddda17.jpg',
-    description: 'Scramble the evidence feeds. You receive the Killer\'s reports.'
+    description: 'Scramble the evidence feeds. You receive the Killer\'s reports.',
+    descriptionRu: 'Искажайте потоки улик. Вы получаете отчёты Убийцы.'
   },
   Innocent: {
     label: 'INNOCENT',
+    labelRu: 'НЕВИННЫЙ',
     color: '#00ff87',
     sprite: 'https://i.postimg.cc/sgLhYL1N/bb4a6ebf-afab-4e2a-bee8-df0067360ba6.jpg',
-    description: 'Search the mansion for the override code. Find it, and escape quarantine.'
+    description: 'Search the mansion for the override code. Find it, and escape quarantine.',
+    descriptionRu: 'Ищите по особняку код отмены протокола. Найдите его — и выберитесь из карантина.'
   },
   Detective: {
     label: 'DETECTIVE',
+    labelRu: 'ДЕТЕКТИВ',
     color: '#00f0ff',
     sprite: 'https://i.postimg.cc/vZKVrKDK/082786d9-31b4-474f-acba-562a20ec018a.jpg',
-    description: 'Shadow a profile\'s network path. One trace per turn.'
+    description: 'Shadow a profile\'s network path. One trace per turn.',
+    descriptionRu: 'Отслеживайте сетевой путь подозреваемого. Одна проверка за ход.'
   },
   Officer: {
     label: 'OFFICER',
+    labelRu: 'ОФИЦЕР',
     color: '#00f0ff',
     sprite: 'https://i.postimg.cc/vZKVrKDk/dc83107d-3ed0-46d0-84ac-72ceb725ebf4.jpg',
-    description: 'Shield an ally from harm. One protocol lock every 3 turns.'
+    description: 'Shield an ally from harm. One protocol lock every 3 turns.',
+    descriptionRu: 'Защищайте союзника от опасности. Один протокольный захват раз в 3 хода.'
   },
   Forensic: {
     label: 'FORENSIC',
+    labelRu: 'КРИМИНАЛИСТ',
     color: '#00f0ff',
     sprite: 'https://i.postimg.cc/fRP9cPk1/d9a46ad6-0508-43b9-bd5a-28e1e378bf48.jpg',
-    description: 'Authenticate telemetry validity. One analysis every 2 turns.'
+    description: 'Authenticate telemetry validity. One analysis every 2 turns.',
+    descriptionRu: 'Проверяйте подлинность телеметрии. Один анализ раз в 2 хода.'
   },
   Joker: {
     label: 'JOKER',
+    labelRu: 'ДЖОКЕР',
     color: '#e040fb',
     sprite: 'https://i.postimg.cc/Cx2qG2dr/12d256b6-17de-4a39-b551-44760940de79.jpg',
-    description: 'Wanted dead. You win if the council votes to execute you. Plant a piece of personal evidence in a searched room once every 2 turns.'
+    description: 'Wanted dead. You win if the council votes to execute you. Plant a piece of personal evidence in a searched room once every 2 turns.',
+    descriptionRu: 'Разыскивается для устранения. Вы побеждаете, если совет проголосует за вашу казнь. Подбрасывайте личную улику в обысканной комнате раз в 2 хода.'
   }
 };
 
@@ -354,6 +368,14 @@ Before anyone could scream, a heavy mechanical thud reverberated through the man
 Suddenly, the wall terminal flickered to life. A cold, synthetic voice filled the room:
 "PROTOCOL OMEGA ENGAGED. Host status: TERMINATED. All exits sealed under absolute quarantine for 24 hours. Identify the killer among you, or the terminal vault will be purged."
 Guests looked at one another in terrifying silence. The storm outside raged against the steel, but the real danger was sitting at the table. The quarantine had begun.`;
+
+const INTRO_STORY_RU = `Стол красного дерева был уставлен хрустальными графинами и марочным вином. Лорд Алистер Вэнс, технологический магнат стоимостью в миллиарды, поднял бокал.
+«За прогресс», — произнёс он тост.
+Он сделал глоток. Через несколько секунд бокал разлетелся вдребезги. Алистер задохнулся, схватившись за горло — вены налились фиолетовым, — и безжизненно рухнул на серебряные подносы.
+Прежде чем кто-либо успел закричать, по особняку прокатился тяжёлый механический гул. Массивные стальные ставни запечатали каждое окно. Тяжёлые дубовые двери заперлись автоматически.
+Внезапно настенный терминал ожил. Холодный синтетический голос заполнил комнату:
+«ПРОТОКОЛ ОМЕГА АКТИВИРОВАН. Статус хозяина: ЛИКВИДИРОВАН. Все выходы запечатаны под абсолютным карантином на 24 часа. Определите убийцу среди вас, иначе хранилище терминала будет уничтожено».
+Гости в ужасе переглянулись в мёртвой тишине. Снаружи бушевала буря, обрушиваясь на сталь, но настоящая опасность сидела прямо за этим столом. Карантин начался.`;
 
 // Milliseconds "per character" for the typewriter effect. Progress is computed from
 // REAL elapsed time (see startIntroTypewriter), not from the number of setInterval
@@ -1920,7 +1942,7 @@ function getCharacterUrl(name) {
 // Once a room is chosen, the player's own character token is drawn on that tile —
 // visually "moving" their agent into the room — and the panel below the grid shows
 // a small interior sketch, a flavor description, and who else was already there.
-function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRoom, myCharacter, spectatorMode, clearedRoomIds, myRole, isMobile }) {
+function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRoom, myCharacter, spectatorMode, clearedRoomIds, myRole, isMobile, language }) {
   const layout = MANSION_LAYOUT[floor];
   const myAvatarUrl = getCharacterUrl(myCharacter);
   const isRestrictedRoom = (roomId) => roomId === 'f1_holding_cell';
@@ -1963,7 +1985,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           >
-            {floorNum === 0 ? 'BASEMENT' : `FLOOR ${floorNum}`}
+            {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : `FLOOR ${floorNum}`)}
           </button>
         ))}
       </div>
@@ -2056,7 +2078,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
                   zIndex: 2,
                   textTransform: 'uppercase'
                 }}>
-                  Locked
+                  {language === 'ru' ? 'Заперто' : 'Locked'}
                 </span>
               )}
 
@@ -2072,7 +2094,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
                   zIndex: 2,
                   textTransform: 'uppercase'
                 }}>
-                  ✓ Clear
+                  {language === 'ru' ? '✓ Проверено' : '✓ Clear'}
                 </span>
               )}
 
@@ -2119,7 +2141,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
 
       {(!roomChosen || spectatorMode) && (
         <p style={{ textAlign: 'center', fontSize: '10px', color: '#6272a4', letterSpacing: '1px', marginTop: '12px' }}>
-          SELECT A ROOM TO SEARCH — ONE PER TURN
+          {language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ ДЛЯ ОБЫСКА — ОДНА ЗА ХОД' : 'SELECT A ROOM TO SEARCH — ONE PER TURN'}
         </p>
       )}
     </div>
@@ -2132,7 +2154,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
 // same floor-plan grid/layout as MansionMap, but every tile is just a plain
 // clickable target — no fog of war, no occupants, since the Joker isn't
 // peeking into the room, only leaving something behind in it.
-function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRoomId, onClose }) {
+function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRoomId, onClose, language }) {
   const layout = MANSION_LAYOUT[floor];
   const isRestrictedRoom = (roomId) => roomId === 'f1_holding_cell';
   const isBusy = Boolean(submittingRoomId);
@@ -2173,8 +2195,8 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#e040fb' }}>JOKER — PLANT EVIDENCE</p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#f0c6ff', letterSpacing: '1px' }}>CHOOSE A ROOM</h3>
+            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#e040fb' }}>{language === 'ru' ? 'ДЖОКЕР — ПОДБРОСИТЬ УЛИКУ' : 'JOKER — PLANT EVIDENCE'}</p>
+            <h3 style={{ margin: 0, fontSize: '20px', color: '#f0c6ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ' : 'CHOOSE A ROOM'}</h3>
           </div>
           <button
             onClick={onClose}
@@ -2193,7 +2215,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
               transition: 'all 0.2s ease'
             }}
           >
-            CANCEL
+            {language === 'ru' ? 'ОТМЕНА' : 'CANCEL'}
           </button>
         </div>
 
@@ -2219,7 +2241,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
                 transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
-              {floorNum === 0 ? 'BASEMENT' : `FLOOR ${floorNum}`}
+              {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : `FLOOR ${floorNum}`)}
             </button>
           ))}
         </div>
@@ -2286,7 +2308,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
                 }}
               >
                 <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.4px', color: restricted ? '#ff5d73' : '#f0c6ff', lineHeight: 1.25 }}>
-                  {isSubmittingThis ? 'PLANTING…' : room.name.toUpperCase()}
+                  {isSubmittingThis ? (language === 'ru' ? 'ПОДБРАСЫВАЕМ…' : 'PLANTING…') : room.name.toUpperCase()}
                 </span>
               </div>
             );
@@ -2294,7 +2316,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
         </div>
 
         <p style={{ margin: 0, fontSize: '11px', letterSpacing: '0.5px', color: '#6272a4', textAlign: 'center' }}>
-          Pick any room on this floor to leave a piece of evidence behind.
+          {language === 'ru' ? 'Выберите любую комнату на этом этаже, чтобы оставить там улику.' : 'Pick any room on this floor to leave a piece of evidence behind.'}
         </p>
       </div>
     </div>
@@ -2309,7 +2331,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
 // abilities for their entire next round (see triggerTrapIfPresent /
 // isPlayerTrapDebuffed server-side) — this modal only handles picking WHERE
 // to put it.
-function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRoomId, onClose }) {
+function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRoomId, onClose, language }) {
   const layout = MANSION_LAYOUT[floor];
   const isRestrictedRoom = (roomId) => roomId === 'f1_holding_cell';
   const isBusy = Boolean(submittingRoomId);
@@ -2350,8 +2372,8 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>ACCOMPLICE — SET A TRAP</p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd8a8', letterSpacing: '1px' }}>CHOOSE A ROOM</h3>
+            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>{language === 'ru' ? 'СООБЩНИК — УСТАНОВИТЬ ЛОВУШКУ' : 'ACCOMPLICE — SET A TRAP'}</p>
+            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd8a8', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ' : 'CHOOSE A ROOM'}</h3>
           </div>
           <button
             onClick={onClose}
@@ -2370,7 +2392,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
               transition: 'all 0.2s ease'
             }}
           >
-            CANCEL
+            {language === 'ru' ? 'ОТМЕНА' : 'CANCEL'}
           </button>
         </div>
 
@@ -2396,7 +2418,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
                 transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
-              {floorNum === 0 ? 'BASEMENT' : `FLOOR ${floorNum}`}
+              {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : `FLOOR ${floorNum}`)}
             </button>
           ))}
         </div>
@@ -2463,7 +2485,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
                 }}
               >
                 <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.4px', color: restricted ? '#ff5d73' : '#ffd8a8', lineHeight: 1.25 }}>
-                  {isSubmittingThis ? 'SETTING…' : room.name.toUpperCase()}
+                  {isSubmittingThis ? (language === 'ru' ? 'УСТАНАВЛИВАЕМ…' : 'SETTING…') : room.name.toUpperCase()}
                 </span>
               </div>
             );
@@ -2471,7 +2493,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
         </div>
 
         <p style={{ margin: 0, fontSize: '11px', letterSpacing: '0.5px', color: '#6272a4', textAlign: 'center' }}>
-          Pick any room on this floor to set a trap there.
+          {language === 'ru' ? 'Выберите любую комнату на этом этаже, чтобы установить там ловушку.' : 'Pick any room on this floor to set a trap there.'}
         </p>
       </div>
     </div>
@@ -2486,7 +2508,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
 // too as a second line of defense. Reuses the same full-screen modal chrome
 // as JokerPlantRoomPicker above, just with a simple player list instead of a
 // room grid, since the target here is a person, not a location.
-function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submittingTargetId, onChooseTarget, onClose }) {
+function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submittingTargetId, onChooseTarget, onClose, language }) {
   const isBusy = Boolean(submittingTargetId);
   const eligiblePlayers = (players || []).filter(p => p.id !== selfId && !p.isEliminated && !p.isObserver);
 
@@ -2526,8 +2548,8 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>ACCOMPLICE — CHANGE EVIDENCE</p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd28e', letterSpacing: '1px' }}>FRAME WHO?</h3>
+            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>{language === 'ru' ? 'СООБЩНИК — ИЗМЕНИТЬ УЛИКУ' : 'ACCOMPLICE — CHANGE EVIDENCE'}</p>
+            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd28e', letterSpacing: '1px' }}>{language === 'ru' ? 'КОГО ПОДСТАВИТЬ?' : 'FRAME WHO?'}</h3>
           </div>
           <button
             onClick={onClose}
@@ -2546,17 +2568,17 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
               transition: 'all 0.2s ease'
             }}
           >
-            CANCEL
+            {language === 'ru' ? 'ОТМЕНА' : 'CANCEL'}
           </button>
         </div>
 
         <p style={{ margin: 0, fontSize: '12px', letterSpacing: '0.5px', color: '#bdc7db', lineHeight: 1.5 }}>
-          Altering: <span style={{ color: '#f0c6ff' }}>{evidenceText || 'this evidence'}</span>. Pick who it should implicate — nobody will be told you're the one who changed it.
+          {language === 'ru' ? 'Изменяется:' : 'Altering:'} <span style={{ color: '#f0c6ff' }}>{evidenceText || (language === 'ru' ? 'эта улика' : 'this evidence')}</span>. {language === 'ru' ? 'Выберите, на кого она будет указывать — никто не узнает, что это сделали вы.' : "Pick who it should implicate — nobody will be told you're the one who changed it."}
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '340px', overflowY: 'auto' }}>
           {eligiblePlayers.length === 0 ? (
-            <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px', textAlign: 'center' }}>No eligible players to frame right now.</p>
+            <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px', textAlign: 'center' }}>{language === 'ru' ? 'Сейчас некого подставить.' : 'No eligible players to frame right now.'}</p>
           ) : eligiblePlayers.map((p) => {
             const isSubmittingThis = submittingTargetId === p.id;
             const isDisabled = isBusy;
@@ -2582,7 +2604,7 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
                 }}
               >
                 <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.3px', color: '#ffd28e' }}>{p.nickname}</span>
-                <span style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{isSubmittingThis ? 'FRAMING…' : 'SELECT'}</span>
+                <span style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{isSubmittingThis ? (language === 'ru' ? 'ПОДСТАВЛЯЕМ…' : 'FRAMING…') : (language === 'ru' ? 'ВЫБРАТЬ' : 'SELECT')}</span>
               </div>
             );
           })}
@@ -2602,7 +2624,7 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
 // dedicated instant-escape option was redundant. Just two choices remain:
 // hiding the body costs this turn's vent hop (stay put, no vent travel
 // left), while leaving it exposed keeps the vent free to use afterward.
-function KillDecisionModal({ targetNickname, resolving, onChoose }) {
+function KillDecisionModal({ targetNickname, resolving, onChoose, language }) {
   return (
     <div
       style={{
@@ -2634,24 +2656,26 @@ function KillDecisionModal({ targetNickname, resolving, onChoose }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>TARGET ELIMINATED</p>
-          <h3 style={{ margin: 0, fontSize: '24px', color: '#ff9caf', letterSpacing: '1px' }}>{(targetNickname || 'AGENT').toUpperCase()} IS DOWN</h3>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЦЕЛЬ УСТРАНЕНА' : 'TARGET ELIMINATED'}</p>
+          <h3 style={{ margin: 0, fontSize: '24px', color: '#ff9caf', letterSpacing: '1px' }}>{(targetNickname || (language === 'ru' ? 'АГЕНТ' : 'AGENT')).toUpperCase()} {language === 'ru' ? 'ПОВЕРЖЕН' : 'IS DOWN'}</h3>
           <p style={{ margin: '10px 0 0 0', fontSize: '12px', lineHeight: 1.5, color: '#c9a3ab' }}>
-            What do you do with the body?
+            {language === 'ru' ? 'Что сделать с телом?' : 'What do you do with the body?'}
           </p>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <NeonButton variant="danger" style={{ margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }} disabled={resolving} onClick={() => onChoose('hide')}>
-            <Icon name="hatch" size={15} /> HIDE BODY
+            <Icon name="hatch" size={15} /> {language === 'ru' ? 'СПРЯТАТЬ ТЕЛО' : 'HIDE BODY'}
           </NeonButton>
           <NeonButton variant="primary" style={{ margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }} disabled={resolving} onClick={() => onChoose('expose')}>
-            <Icon name="eye" size={15} /> LEAVE BODY EXPOSED
+            <Icon name="eye" size={15} /> {language === 'ru' ? 'ОСТАВИТЬ НА ВИДУ' : 'LEAVE BODY EXPOSED'}
           </NeonButton>
         </div>
 
         <p style={{ margin: 0, fontSize: '10px', letterSpacing: '0.5px', color: '#6272a4', textAlign: 'center' }}>
-          A hidden body is only ever found by an explicit search, but costs you this turn's vent hop. Leaving it exposed keeps the vent free to use afterward.
+          {language === 'ru'
+            ? 'Спрятанное тело найдут только целенаправленным поиском, но это использует прыжок через вентиляцию в этот ход. Оставленное на виду тело увидит следующий, кто зайдёт в комнату, а вентиляция останется доступной позже.'
+            : "A hidden body is only ever found by an explicit search, but costs you this turn's vent hop. Leaving it exposed keeps the vent free to use afterward."}
         </p>
       </div>
     </div>
@@ -2666,7 +2690,7 @@ function KillDecisionModal({ targetNickname, resolving, onChoose }) {
 // nothing pending to lose by closing it). Color/label flip between the two
 // possible verdicts: AUTHENTIC (genuinely left by the Killer) in green, or
 // FABRICATED/PLANTED (Joker plant or Accomplice frame job) in red.
-function ForensicVerifyResultModal({ evidenceText, isAuthentic, onClose }) {
+function ForensicVerifyResultModal({ evidenceText, isAuthentic, onClose, language }) {
   const accent = isAuthentic ? '#00ff87' : '#ff2a5f';
   const accentSoft = isAuthentic ? 'rgba(0,255,135,0.35)' : 'rgba(255,42,95,0.35)';
   const accentGlow = isAuthentic ? 'rgba(0,255,135,0.12)' : 'rgba(255,42,95,0.12)';
@@ -2704,16 +2728,16 @@ function ForensicVerifyResultModal({ evidenceText, isAuthentic, onClose }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>FORENSIC ANALYSIS — {(evidenceText || 'EVIDENCE').toUpperCase()}</p>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>{language === 'ru' ? 'КРИМИНАЛИСТИЧЕСКИЙ АНАЛИЗ — ' : 'FORENSIC ANALYSIS — '}{(evidenceText || (language === 'ru' ? 'УЛИКА' : 'EVIDENCE')).toUpperCase()}</p>
           <h3 style={{ margin: 0, fontSize: '24px', color: accent, letterSpacing: '1px' }}>
-            {isAuthentic ? 'AUTHENTIC' : 'FABRICATED / PLANTED'}
+            {isAuthentic ? (language === 'ru' ? 'ПОДЛИННАЯ' : 'AUTHENTIC') : (language === 'ru' ? 'СФАБРИКОВАНА / ПОДБРОШЕНА' : 'FABRICATED / PLANTED')}
           </h3>
         </div>
 
         <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#bdc7db' }}>
           {isAuthentic
-            ? 'This item genuinely belongs to the killer — it was left behind at the scene, not staged.'
-            : 'This item is not authentic. It was fabricated or tampered with — planted to mislead whoever found it.'}
+            ? (language === 'ru' ? 'Этот предмет действительно принадлежит убийце — он был оставлен на месте преступления, а не подстроен.' : 'This item genuinely belongs to the killer — it was left behind at the scene, not staged.')
+            : (language === 'ru' ? 'Этот предмет не подлинный. Он был сфабрикован или подделан — подброшен, чтобы ввести в заблуждение того, кто его найдёт.' : 'This item is not authentic. It was fabricated or tampered with — planted to mislead whoever found it.')}
         </p>
 
         <button
@@ -2747,7 +2771,7 @@ function ForensicVerifyResultModal({ evidenceText, isAuthentic, onClose }) {
 // server-side (see isPlayerTrapDebuffed / trap_debuff_status) — the actual
 // lockout kicks in once the debuffed round starts, mirrored client-side via
 // trapDebuffActive.
-function TrapTriggeredModal({ roomName, onClose }) {
+function TrapTriggeredModal({ roomName, onClose, language }) {
   return (
     <div
       onClick={onClose}
@@ -2781,14 +2805,16 @@ function TrapTriggeredModal({ roomName, onClose }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>TRAP TRIGGERED</p>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЛОВУШКА СРАБОТАЛА' : 'TRAP TRIGGERED'}</p>
           <h3 style={{ margin: 0, fontSize: '22px', color: '#ff9caf', letterSpacing: '1px' }}>
-            {(roomName || 'THIS ROOM').toUpperCase()}
+            {(roomName || (language === 'ru' ? 'ЭТА КОМНАТА' : 'THIS ROOM')).toUpperCase()}
           </h3>
         </div>
 
         <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#bdc7db' }}>
-          There was a trap hidden in this room. For all of your next round — both the search phase and the trial — you won't be able to investigate, search for bodies, or use any ability.
+          {language === 'ru'
+            ? 'В этой комнате была спрятана ловушка. Весь ваш следующий раунд — и фазу действий, и суд — вы не сможете расследовать, искать тела или использовать способности.'
+            : "There was a trap hidden in this room. For all of your next round — both the search phase and the trial — you won't be able to investigate, search for bodies, or use any ability."}
         </p>
 
         <button
@@ -2807,14 +2833,14 @@ function TrapTriggeredModal({ roomName, onClose }) {
             transition: 'all 0.2s ease'
           }}
         >
-          CLOSE
+          {language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}
         </button>
       </div>
     </div>
   );
 }
 
-function ForensicBodyExaminationModal({ clue, onClose }) {
+function ForensicBodyExaminationModal({ clue, onClose, language }) {
   const getSentence = () => {
     if (!clue) return 'No clue available.';
     if (clue.type === 'bloodType') {
@@ -2863,8 +2889,8 @@ function ForensicBodyExaminationModal({ clue, onClose }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>FORENSIC BODY EXAMINATION</p>
-          <h3 style={{ margin: 0, fontSize: '22px', color: '#8be7ff', letterSpacing: '1px' }}>SCENE REPORT</h3>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>{language === 'ru' ? 'СУДЕБНО-МЕДИЦИНСКИЙ ОСМОТР ТЕЛА' : 'FORENSIC BODY EXAMINATION'}</p>
+          <h3 style={{ margin: 0, fontSize: '22px', color: '#8be7ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ОТЧЁТ ОСМОТРА' : 'SCENE REPORT'}</h3>
         </div>
         <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.7, color: '#bdc7db' }}>{getSentence()}</p>
         <button
@@ -2874,7 +2900,7 @@ function ForensicBodyExaminationModal({ clue, onClose }) {
             background: 'rgba(0,240,255,0.08)', color: '#8be7ff', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', cursor: 'pointer'
           }}
         >
-          CLOSE
+          {language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}
         </button>
       </div>
     </div>
@@ -3056,6 +3082,11 @@ function App() {
   const [volume, setVolume] = useState(0.4);
   const [dopamineCorner, setDopamineCorner] = useState(false);
   const [language, setLanguage] = useState('en');
+  // Mirrors `language` for the socket listeners below, which are registered
+  // once (empty dependency array) and would otherwise keep reading the
+  // language value from the render they were set up in.
+  const languageRef = useRef('en');
+  useEffect(() => { languageRef.current = language; }, [language]);
   // Looks up a UI_TEXT key for the current language, falling back to English
   // for any key not yet translated for that language. Values can be plain
   // strings or functions (for strings that interpolate a variable, e.g. a
@@ -3972,16 +4003,20 @@ function App() {
     // to the correct position instead of falling further behind other players.
     introStartTimeRef.current = Date.now();
 
+    // Story text follows the current UI language (English/Russian for now,
+    // falling back to English for the placeholder languages).
+    const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : INTRO_STORY;
+
     typeIntervalRef.current = trackInterval(setInterval(() => {
       const elapsed = Date.now() - introStartTimeRef.current;
-      const targetLength = Math.min(INTRO_STORY.length, Math.floor(elapsed / TYPING_MS_PER_CHAR));
+      const targetLength = Math.min(activeIntroStory.length, Math.floor(elapsed / TYPING_MS_PER_CHAR));
 
       if (targetLength !== introTextRef.current.length) {
-        introTextRef.current = INTRO_STORY.slice(0, targetLength);
+        introTextRef.current = activeIntroStory.slice(0, targetLength);
         setIntroTypedText(introTextRef.current);
       }
 
-      if (targetLength >= INTRO_STORY.length) {
+      if (targetLength >= activeIntroStory.length) {
         clearInterval(typeIntervalRef.current);
         typeIntervalRef.current = null;
         finishIntro();
@@ -4025,8 +4060,9 @@ function App() {
     } catch (e) { /* noop */ }
 
     introFinishedRef.current = true;
-    introTextRef.current = INTRO_STORY;
-    setIntroTypedText(INTRO_STORY);
+    const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : INTRO_STORY;
+    introTextRef.current = activeIntroStory;
+    setIntroTypedText(activeIntroStory);
     setIntroFinished(true);
     setIntroFadingOut(false);
     setRoleRevealStage('hidden');
@@ -4417,8 +4453,9 @@ function App() {
         clearInterval(typeIntervalRef.current);
         typeIntervalRef.current = null;
       }
-      introTextRef.current = INTRO_STORY;
-      setIntroTypedText(INTRO_STORY);
+      const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : INTRO_STORY;
+      introTextRef.current = activeIntroStory;
+      setIntroTypedText(activeIntroStory);
       finishIntro();
     }
 
@@ -6044,7 +6081,7 @@ function App() {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {rolePoolPreview.map(({ name, count }) => (
                           <span key={name} style={{ fontSize: '10px', padding: '3px 6px', borderRadius: '4px', color: ROLES[name].color, border: `1px solid ${ROLES[name].color}`, background: 'rgba(0,0,0,0.25)' }}>
-                            {ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
+                            {language === 'ru' ? ROLES[name].labelRu : ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
                           </span>
                         ))}
                       </div>
@@ -6380,7 +6417,7 @@ function App() {
                     transition: 'opacity 0.15s ease'
                   }}
                 >
-                  ▶ DOPAMINE CORNER
+                  ▶ {language === 'ru' ? 'ДОФАМИНОВЫЙ УГОЛОК' : 'DOPAMINE CORNER'}
                 </div>
                 <video
                   ref={dopamineCornerVideoRef}
@@ -6422,7 +6459,7 @@ function App() {
               textTransform: 'uppercase',
               animation: 'introCaretBlink 1.6s ease-in-out infinite'
             }}>
-              Establishing secure channel...
+              {language === 'ru' ? 'Установка защищённого канала...' : 'Establishing secure channel...'}
             </p>
           )}
 
@@ -6462,7 +6499,7 @@ function App() {
                 <div style={{ position: 'fixed', right: '24px', bottom: `${24 + bottomInset}px`, textAlign: 'right' }}>
                   {skipVotes.total > 0 && (
                     <div style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '1px', marginBottom: '6px' }}>
-                      {skipVotes.count}/{skipVotes.total} VOTED TO SKIP
+                      {skipVotes.count}/{skipVotes.total} {language === 'ru' ? 'ПРОГОЛОСОВАЛИ ЗА ПРОПУСК' : 'VOTED TO SKIP'}
                     </div>
                   )}
                   <button
@@ -6481,7 +6518,9 @@ function App() {
                       cursor: hasVotedSkip ? 'default' : 'pointer'
                     }}
                   >
-                    {hasVotedSkip ? 'VOTE CAST' : 'SKIP ▸'}
+                    {language === 'ru'
+                      ? (hasVotedSkip ? 'ГОЛОС ОТДАН' : 'ПРОПУСТИТЬ ▸')
+                      : (hasVotedSkip ? 'VOTE CAST' : 'SKIP ▸')}
                   </button>
                 </div>
               )}
@@ -6499,7 +6538,7 @@ function App() {
                   textTransform: 'uppercase',
                   animation: 'introCaretBlink 1.6s ease-in-out infinite'
                 }}>
-                  Decrypting identity...
+                  {language === 'ru' ? 'Расшифровка личности...' : 'Decrypting identity...'}
                 </p>
               )}
 
@@ -6524,7 +6563,7 @@ function App() {
                     {(roleRevealStage === 'sprite' || roleRevealStage === 'label') && (
                       <img
                         src={activeRoleData.sprite}
-                        alt={activeRoleData.label}
+                        alt={language === 'ru' ? activeRoleData.labelRu : activeRoleData.label}
                         style={{
                           width: '220px',
                           height: '220px',
@@ -6550,7 +6589,7 @@ function App() {
                           fontFamily: 'Georgia, serif',
                           fontStyle: 'italic'
                         }}>
-                          {activeRoleData.label}
+                          {language === 'ru' ? activeRoleData.labelRu : activeRoleData.label}
                         </h2>
                         <p style={{
                           maxWidth: '380px',
@@ -6560,7 +6599,7 @@ function App() {
                           color: '#bdc7db',
                           letterSpacing: '0.5px'
                         }}>
-                          {activeRoleData.description}
+                          {language === 'ru' ? activeRoleData.descriptionRu : activeRoleData.description}
                         </p>
                       </div>
                     )}
@@ -6601,7 +6640,7 @@ function App() {
                   boxShadow: '0 10px 30px rgba(0,0,0,0.35)'
                 }}>
                   <p style={{ margin: '0 0 6px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>
-                    OVERRIDE CODE
+                    {language === 'ru' ? 'КОД ОТМЕНЫ' : 'OVERRIDE CODE'}
                   </p>
                   <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
                     {Array.from({ length: codeTotalDigits || foundFragments.length }, (_, i) => {
@@ -6669,7 +6708,9 @@ function App() {
               )}
 
               <p style={{ fontSize: '11px', letterSpacing: '2px', color: '#8a99ad', marginBottom: '6px' }}>
-                ROUND {gameData.round} {displayPhase === 'trial' ? '— TRIAL' : '— ACTION PHASE'}
+                {language === 'ru'
+                  ? `РАУНД ${gameData.round} ${displayPhase === 'trial' ? '— СУД' : '— ФАЗА ДЕЙСТВИЙ'}`
+                  : `ROUND ${gameData.round} ${displayPhase === 'trial' ? '— TRIAL' : '— ACTION PHASE'}`}
               </p>
 
               {/* --- HOLDING CELL: ROUND-LONG SPECTATOR VIEW ---------------------
@@ -6689,10 +6730,12 @@ function App() {
                   padding: '10px 0 4px'
                 }}>
                   <h2 style={{ fontSize: '22px', letterSpacing: '2px', color: '#e0524a', marginBottom: 0 }}>
-                    LOCKED IN THE HOLDING CELL
+                    {language === 'ru' ? 'ЗАПЕРТЫ В КАМЕРЕ' : 'LOCKED IN THE HOLDING CELL'}
                   </h2>
                   <p style={{ margin: 0, maxWidth: '420px', fontSize: '12px', lineHeight: 1.6, color: '#c9a5a2', letterSpacing: '0.3px' }}>
-                    The Officer has confined you here for the entirety of this round. You cannot move, search, or act — sit tight until the next round begins.
+                    {language === 'ru'
+                      ? 'Офицер запер вас здесь на весь этот раунд. Вы не можете двигаться, обыскивать комнаты или действовать — дождитесь начала следующего раунда.'
+                      : 'The Officer has confined you here for the entirety of this round. You cannot move, search, or act — sit tight until the next round begins.'}
                   </p>
 
                   <div style={{
@@ -6732,7 +6775,7 @@ function App() {
                     fontWeight: 800
                   }}>
                     <Icon name="lock" size={13} color="#ff9caf" />
-                    NO ACTIONS AVAILABLE THIS ROUND
+                    {language === 'ru' ? 'ДЕЙСТВИЯ В ЭТОМ РАУНДЕ НЕДОСТУПНЫ' : 'NO ACTIONS AVAILABLE THIS ROUND'}
                   </div>
                 </div>
               )}
@@ -6746,10 +6789,10 @@ function App() {
                     marginBottom: '18px'
                   }}>
                     {currentTurnPlayerId === socket.id
-                      ? 'YOUR TURN'
+                      ? (language === 'ru' ? 'ВАШ ХОД' : 'YOUR TURN')
                       // Deliberately not revealing which player is acting — only the
                       // player themself should know whose turn it is.
-                      : 'AN AGENT IS ACTING'}
+                      : (language === 'ru' ? 'АГЕНТ ДЕЙСТВУЕТ' : 'AN AGENT IS ACTING')}
                   </h2>
 
                   <div style={{
@@ -6771,7 +6814,7 @@ function App() {
                       inspect it before ending the turn manually. */}
                   {canObserveMap && (
                     <div style={{ position: 'relative' }}>
-                      {(isEliminated || isObserver) && <div style={{ margin: '0 0 12px', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,42,95,0.45)', background: 'rgba(255,42,95,0.1)', color: '#ff9caf', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>SPECTATING — FREE ROOM NAVIGATION. ACTIVE PLAYERS AND ACTIONS ARE LOCKED.</div>}
+                      {(isEliminated || isObserver) && <div style={{ margin: '0 0 12px', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,42,95,0.45)', background: 'rgba(255,42,95,0.1)', color: '#ff9caf', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{language === 'ru' ? 'НАБЛЮДЕНИЕ — СВОБОДНАЯ НАВИГАЦИЯ ПО КОМНАТАМ. АКТИВНЫЕ ИГРОКИ И ДЕЙСТВИЯ ЗАБЛОКИРОВАНЫ.' : 'SPECTATING — FREE ROOM NAVIGATION. ACTIVE PLAYERS AND ACTIONS ARE LOCKED.'}</div>}
                       {canObserveMap && (
                         <MansionMap
                           floor={mansionFloor}
@@ -6814,8 +6857,10 @@ function App() {
                             onClick={handleOpenJokerPlantPicker}
                           >
                             {jokerEvidenceStatus?.available === false
-                              ? `PLANT EVIDENCE (${jokerEvidenceStatus.turnsRemaining} TURN${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`
-                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />PLANT EVIDENCE</>}
+                              ? (language === 'ru'
+                                  ? `ПОДБРОСИТЬ УЛИКУ (ОСТАЛОСЬ ${jokerEvidenceStatus.turnsRemaining} ХОД${jokerEvidenceStatus.turnsRemaining === 1 ? '' : (jokerEvidenceStatus.turnsRemaining >= 2 && jokerEvidenceStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                  : `PLANT EVIDENCE (${jokerEvidenceStatus.turnsRemaining} TURN${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />{language === 'ru' ? 'ПОДБРОСИТЬ УЛИКУ' : 'PLANT EVIDENCE'}</>}
                           </NeonButton>
                         </div>
                       )}
@@ -6857,8 +6902,10 @@ function App() {
                             onClick={handleOpenAccompliceTrapPicker}
                           >
                             {accompliceTrapStatus?.available === false
-                              ? `SET A TRAP (${accompliceTrapStatus.roundsRemaining} ROUND${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`
-                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />SET A TRAP</>}
+                              ? (language === 'ru'
+                                  ? `УСТАНОВИТЬ ЛОВУШКУ (ОСТАЛОСЬ ${accompliceTrapStatus.roundsRemaining} РАУНД${accompliceTrapStatus.roundsRemaining === 1 ? '' : (accompliceTrapStatus.roundsRemaining >= 2 && accompliceTrapStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                  : `SET A TRAP (${accompliceTrapStatus.roundsRemaining} ROUND${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
+                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />{language === 'ru' ? 'УСТАНОВИТЬ ЛОВУШКУ' : 'SET A TRAP'}</>}
                           </NeonButton>
                         </div>
                       )}
@@ -6947,13 +6994,15 @@ function App() {
                                 </div>
                                 <div>
                                   <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>
-                                    PEEKING INTO
+                                    {language === 'ru' ? 'ПРОСМОТР' : 'PEEKING INTO'}
                                   </p>
                                   <h3 style={{ margin: 0, fontSize: '26px', color: roomAccent, letterSpacing: '1px', textShadow: `0 0 18px ${roomAccent}55` }}>{revealedRoom.roomName.toUpperCase()}</h3>
                                 </div>
                               </div>
                               <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#6272a4', textAlign: 'right' }}>
-                                {(isEliminated || isObserver) ? 'SPECTATOR VIEW — LIVE OCCUPANTS' : `TURN TIMER: ${turnTimeLeft}s`}
+                                {(isEliminated || isObserver)
+                                  ? (language === 'ru' ? 'РЕЖИМ НАБЛЮДЕНИЯ — ПРИСУТСТВУЮЩИЕ' : 'SPECTATOR VIEW — LIVE OCCUPANTS')
+                                  : (language === 'ru' ? `ТАЙМЕР ХОДА: ${turnTimeLeft}с` : `TURN TIMER: ${turnTimeLeft}s`)}
                               </div>
                             </div>
 
@@ -7012,7 +7061,7 @@ function App() {
                               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
                                 {revealedRoom.occupants.length === 0 ? (
                                   <span style={{ fontSize: '12px', color: '#8a99ad', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '999px', padding: '6px 10px' }}>
-                                    NO OTHER AGENTS HERE
+                                    {language === 'ru' ? 'ЗДЕСЬ БОЛЬШЕ НИКОГО НЕТ' : 'NO OTHER AGENTS HERE'}
                                   </span>
                                 ) : revealedRoom.occupants.map((occupant, idx) => {
                                   const occupantAvatarUrl = getCharacterUrl(occupant.character);
@@ -7033,7 +7082,7 @@ function App() {
                                       onClick={canKillThis ? () => handleKillPlayer(occupant.id) : undefined}
                                       onMouseEnter={canKillThis ? () => playHoverSound(0.2) : undefined}
                                       onTouchStart={canKillThis ? () => playHoverSound(0.2) : undefined}
-                                      title={canKillThis ? `Eliminate ${occupant.nickname}` : undefined}
+                                      title={canKillThis ? (language === 'ru' ? `Устранить ${occupant.nickname}` : `Eliminate ${occupant.nickname}`) : undefined}
                                       style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -7102,7 +7151,7 @@ function App() {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                   {myRole === 'Accomplice' && (
                                     <p style={{ margin: 0, fontSize: '10px', letterSpacing: '2px', color: '#ff9100' }}>
-                                      ACCOMPLICE — TAP EVIDENCE TO REFRAME
+                                      {language === 'ru' ? 'СООБЩНИК — НАЖМИТЕ НА УЛИКУ, ЧТОБЫ ПОДСТАВИТЬ' : 'ACCOMPLICE — TAP EVIDENCE TO REFRAME'}
                                     </p>
                                   )}
                                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
@@ -7122,7 +7171,7 @@ function App() {
                                       onClick={canChangeThis ? () => handleOpenChangeEvidence(item.id) : undefined}
                                       onMouseEnter={canChangeThis ? () => playHoverSound(0.12) : undefined}
                                       onTouchStart={canChangeThis ? () => playHoverSound(0.12) : undefined}
-                                      title={canChangeThis ? 'Change this evidence' : undefined}
+                                      title={canChangeThis ? (language === 'ru' ? 'Изменить эту улику' : 'Change this evidence') : undefined}
                                       style={{
                                       display: 'flex',
                                       alignItems: 'center',
@@ -7137,7 +7186,7 @@ function App() {
                                       animation: `trialCardEnter 380ms cubic-bezier(0.16, 1, 0.3, 1) ${idx * 80}ms forwards`
                                     }}>
                                       <span style={{ fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="search" size={12} />{item.text}</span>
-                                      {canChangeThis && <span style={{ fontSize: '10px', letterSpacing: '1px', color: '#ffb974' }}>CHANGE</span>}
+                                      {canChangeThis && <span style={{ fontSize: '10px', letterSpacing: '1px', color: '#ffb974' }}>{language === 'ru' ? 'ИЗМЕНИТЬ' : 'CHANGE'}</span>}
                                     </div>
                                     );
                                   })}
@@ -7161,7 +7210,7 @@ function App() {
                               } : { display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
                             >
                               {(isEliminated || isObserver) ? (
-                                <NeonButton variant="secondary" style={{ maxWidth: '260px', width: '100%', flexShrink: 0, marginBottom: 0 }} onClick={() => setRoomChosen(false)}>RETURN TO MANSION MAP</NeonButton>
+                                <NeonButton variant="secondary" style={{ maxWidth: '260px', width: '100%', flexShrink: 0, marginBottom: 0 }} onClick={() => setRoomChosen(false)}>{language === 'ru' ? 'ВЕРНУТЬСЯ К КАРТЕ ОСОБНЯКА' : 'RETURN TO MANSION MAP'}</NeonButton>
                               ) : (
                                 <>
                                   {/* Two mutually-exclusive room actions: picking either one spends
@@ -7174,7 +7223,7 @@ function App() {
                                     disabled={roomActionTaken}
                                     onClick={handleSearchBody}
                                   >
-                                    <Icon name="search" size={14} /> SEARCH FOR BODY
+                                    <Icon name="search" size={14} /> {language === 'ru' ? 'ИСКАТЬ ТЕЛО' : 'SEARCH FOR BODY'}
                                   </NeonButton>
                                   <NeonButton
                                     variant="primary"
@@ -7182,7 +7231,7 @@ function App() {
                                     disabled={roomActionTaken}
                                     onClick={handleInvestigateRoom}
                                   >
-                                    INVESTIGATE ROOM
+                                    {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : 'INVESTIGATE ROOM'}
                                   </NeonButton>
                                   {/* Innocent-only: "CHECK ROOM" (Mark Room) — a SEPARATE ability
                                       from the two above, not gated on roomActionTaken so it can be
@@ -7203,15 +7252,17 @@ function App() {
                                         style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: checkDisabled ? 0.5 : 1, gap: '8px' }}
                                         disabled={checkDisabled}
                                         onClick={handleCheckRoom}
-                                        title={needsInvestigateFirst && !alreadyCleared ? 'Investigate this room first' : undefined}
+                                        title={needsInvestigateFirst && !alreadyCleared ? (language === 'ru' ? 'Сначала обыщите эту комнату' : 'Investigate this room first') : undefined}
                                       >
                                         {alreadyCleared
-                                          ? <><Icon name="check" size={14} /> ALREADY CLEAR</>
+                                          ? <><Icon name="check" size={14} /> {language === 'ru' ? 'УЖЕ ПРОВЕРЕНО' : 'ALREADY CLEAR'}</>
                                           : onCooldown
-                                            ? `CHECK ROOM (${markRoomStatus.turnsRemaining} ROUND${markRoomStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`
+                                            ? (language === 'ru'
+                                                ? `ПРОВЕРИТЬ КОМНАТУ (ОСТАЛОСЬ ${markRoomStatus.turnsRemaining} РАУНД${markRoomStatus.turnsRemaining === 1 ? '' : (markRoomStatus.turnsRemaining >= 2 && markRoomStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                                : `CHECK ROOM (${markRoomStatus.turnsRemaining} ROUND${markRoomStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
                                             : needsInvestigateFirst
-                                              ? 'INVESTIGATE FIRST'
-                                              : <><Icon name="check" size={14} /> CHECK ROOM</>}
+                                              ? (language === 'ru' ? 'СНАЧАЛА ОБЫЩИТЕ' : 'INVESTIGATE FIRST')
+                                              : <><Icon name="check" size={14} /> {language === 'ru' ? 'ПРОВЕРИТЬ КОМНАТУ' : 'CHECK ROOM'}</>}
                                       </NeonButton>
                                     );
                                   })()}
@@ -7226,16 +7277,16 @@ function App() {
                                       disabled={ventUsedThisTurn}
                                       onClick={handleUseVent}
                                     >
-                                      {ventUsedThisTurn ? 'VENT USED' : <><Icon name="vent" size={14} /> USE VENT</>}
+                                      {ventUsedThisTurn ? (language === 'ru' ? 'ВЕНТИЛЯЦИЯ ИСПОЛЬЗОВАНА' : 'VENT USED') : <><Icon name="vent" size={14} /> {language === 'ru' ? 'ИСПОЛЬЗОВАТЬ ВЕНТИЛЯЦИЮ' : 'USE VENT'}</>}
                                     </NeonButton>
                                   )}
-                                  <NeonButton variant="success" style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start' }} onClick={handleEndTurn}>END TURN</NeonButton>
+                                  <NeonButton variant="success" style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start' }} onClick={handleEndTurn}>{language === 'ru' ? 'ЗАКОНЧИТЬ ХОД' : 'END TURN'}</NeonButton>
                                 </>
                               )}
                             </div>
                             {isMobile && !(isEliminated || isObserver) && (
                               <p style={{ margin: '-4px 0 0 0', fontSize: '10px', color: '#5a6478', letterSpacing: '1px', textAlign: 'center' }}>
-                                ← SWIPE TO SEE ALL ACTIONS →
+                                {language === 'ru' ? '← ПРОЛИСТНИТЕ, ЧТОБЫ УВИДЕТЬ ВСЕ ДЕЙСТВИЯ →' : '← SWIPE TO SEE ALL ACTIONS →'}
                               </p>
                             )}
                           </div>
@@ -7289,31 +7340,35 @@ function App() {
                     <div>
                       <div style={{ display: 'flex', flexWrap: isMobile ? 'wrap' : 'nowrap', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? '10px' : 0, marginBottom: '14px' }}>
                         <div>
-                          <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>COUNCIL SESSION</p>
-                          <h3 style={{ margin: 0, fontSize: isMobile ? '19px' : '24px', color: '#00f0ff', letterSpacing: '1px' }}>EXECUTION VOTE</h3>
+                          <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ЗАСЕДАНИЕ СОВЕТА' : 'COUNCIL SESSION'}</p>
+                          <h3 style={{ margin: 0, fontSize: isMobile ? '19px' : '24px', color: '#00f0ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ГОЛОСОВАНИЕ О КАЗНИ' : 'EXECUTION VOTE'}</h3>
                         </div>
                         <div style={{ textAlign: isMobile ? 'left' : 'right', width: isMobile ? '100%' : 'auto' }}>
-                          <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>TIME LEFT</div>
+                          <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{language === 'ru' ? 'ОСТАЛОСЬ ВРЕМЕНИ' : 'TIME LEFT'}</div>
                           <div style={{ fontSize: '32px', fontWeight: 900, color: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff' }}>
                             {trialTimeLeft ?? '--'}s
                           </div>
                           <div aria-label="Trial time remaining" style={{ width: isMobile ? '100%' : '112px', height: '4px', margin: isMobile ? '5px 0 8px 0' : '5px 0 4px auto', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}><div style={{ height: '100%', background: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff', transformOrigin: 'right center', transform: `scaleX(${trialTimeLeft === null ? 1 : Math.max(0, Math.min(1, trialTimeLeft / TRIAL_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} /></div>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: isMobile ? 'flex-start' : 'flex-end' }}>
-                          <button onClick={() => selectTrialVote(null)} disabled={isEliminated || isObserver || trialData?.status !== 'voting' || trialData?.confirmedVoterIds?.includes(socket.id)} style={{ marginTop: '6px', padding: '7px 11px', borderRadius: '6px', border: trialDraftTargetId === null ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.16)', background: trialDraftTargetId === null ? 'rgba(255,255,255,0.17)' : 'rgba(255,255,255,0.04)', color: '#e2e8f0', cursor: 'pointer', boxShadow: trialDraftTargetId === null ? '0 0 20px rgba(255,255,255,0.25)' : 'none', animation: trialDraftTargetId === null ? 'trialSkipPulse 900ms ease-in-out infinite' : 'none', transition: 'all 0.25s ease-in-out' }}>⊘ SKIP VOTE</button>
-                          <button onClick={() => setIsTrialChatOpen(open => !open)} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', cursor: 'pointer' }}>CHAT ({chatMessages.length})</button>
-                          <button onClick={handleOpenClues} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(224,64,251,0.3)', background: 'rgba(224,64,251,0.08)', color: '#e29bff', cursor: 'pointer' }}>CLUES ({clues.length})</button>
-                          <button onClick={handleOpenBodies} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(255,143,168,0.3)', background: 'rgba(255,143,168,0.08)', color: '#ff8fa8', cursor: 'pointer' }}>BODIES ({(trialFindings?.bodies || []).length})</button>
+                          <button onClick={() => selectTrialVote(null)} disabled={isEliminated || isObserver || trialData?.status !== 'voting' || trialData?.confirmedVoterIds?.includes(socket.id)} style={{ marginTop: '6px', padding: '7px 11px', borderRadius: '6px', border: trialDraftTargetId === null ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.16)', background: trialDraftTargetId === null ? 'rgba(255,255,255,0.17)' : 'rgba(255,255,255,0.04)', color: '#e2e8f0', cursor: 'pointer', boxShadow: trialDraftTargetId === null ? '0 0 20px rgba(255,255,255,0.25)' : 'none', animation: trialDraftTargetId === null ? 'trialSkipPulse 900ms ease-in-out infinite' : 'none', transition: 'all 0.25s ease-in-out' }}>⊘ {language === 'ru' ? 'ПРОПУСТИТЬ ГОЛОС' : 'SKIP VOTE'}</button>
+                          <button onClick={() => setIsTrialChatOpen(open => !open)} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', cursor: 'pointer' }}>{language === 'ru' ? 'ЧАТ' : 'CHAT'} ({chatMessages.length})</button>
+                          <button onClick={handleOpenClues} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(224,64,251,0.3)', background: 'rgba(224,64,251,0.08)', color: '#e29bff', cursor: 'pointer' }}>{language === 'ru' ? 'УЛИКИ' : 'CLUES'} ({clues.length})</button>
+                          <button onClick={handleOpenBodies} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(255,143,168,0.3)', background: 'rgba(255,143,168,0.08)', color: '#ff8fa8', cursor: 'pointer' }}>{language === 'ru' ? 'ТЕЛА' : 'BODIES'} ({(trialFindings?.bodies || []).length})</button>
                           </div>
                         </div>
                       </div>
 
                       <p style={{ margin: '0 0 16px 0', color: '#bdc7db', lineHeight: 1.6 }}>
-                        Deliberate. The sole suspect with the most votes is removed; any tie or Skip vote tie prevents an elimination.
+                        {language === 'ru'
+                          ? 'Совещайтесь. Единственный подозреваемый с наибольшим числом голосов будет устранён; ничья или ничья с голосами «Пропустить» не приводит к устранению.'
+                          : 'Deliberate. The sole suspect with the most votes is removed; any tie or Skip vote tie prevents an elimination.'}
                       </p>
 
                       {isEliminated || isObserver ? (
                         <div style={{ padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(255,42,95,0.2)', background: 'rgba(255,42,95,0.08)', color: '#ff8da6', marginBottom: '12px' }}>
-                          You are observing the council from the cells below. Your vote is no longer in play.
+                          {language === 'ru'
+                            ? 'Вы наблюдаете за советом из камер внизу. Ваш голос больше не учитывается.'
+                            : 'You are observing the council from the cells below. Your vote is no longer in play.'}
                         </div>
                       ) : null}
 
@@ -7367,16 +7422,16 @@ function App() {
                               isSelf={isSelf}
                             />
                           );
-                        }) : <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px' }}>Loading encrypted agent profiles...</p>}
+                        }) : <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px' }}>{language === 'ru' ? 'Загрузка зашифрованных профилей агентов...' : 'Loading encrypted agent profiles...'}</p>}
                       </div>
 
                       {!isEliminated && !isObserver && trialData?.status === 'voting' && (
                         <div style={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center' }}>
                           {trialData.confirmedVoterIds?.includes(socket.id) ? (
-                            <><span style={{ flex: 1, color: '#76ffb4', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Icon name="check" size={13} />VOTE LOCKED</span><button onClick={unlockTrialVote} style={{ padding: '9px 12px', borderRadius: '8px', border: '1px solid rgba(255,191,105,0.5)', background: 'rgba(255,191,105,0.1)', color: '#ffd28e', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>CHANGE VOTE</button></>
+                            <><span style={{ flex: 1, color: '#76ffb4', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Icon name="check" size={13} />{language === 'ru' ? 'ГОЛОС ЗАФИКСИРОВАН' : 'VOTE LOCKED'}</span><button onClick={unlockTrialVote} style={{ padding: '9px 12px', borderRadius: '8px', border: '1px solid rgba(255,191,105,0.5)', background: 'rgba(255,191,105,0.1)', color: '#ffd28e', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ИЗМЕНИТЬ ГОЛОС' : 'CHANGE VOTE'}</button></>
                           ) : trialDraftTargetId !== undefined ? (
-                            <><button onClick={confirmTrialVote} style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #00ff87', background: 'rgba(0,255,135,0.16)', color: '#76ffb4', fontWeight: 900, cursor: 'pointer', boxShadow: '0 0 18px rgba(0,255,135,0.15)', transition: 'all 0.25s ease-in-out' }}>CONFIRM VOTE</button><button onClick={() => setTrialDraftTargetId(undefined)} style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(255,255,255,0.04)', color: '#c9d3e0', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>RESET / CHANGE</button></>
-                          ) : <span style={{ color: '#8a99ad', fontSize: '11px', letterSpacing: '1px' }}>SELECT A SUSPECT OR ABSTAIN, THEN LOCK YOUR VOTE</span>}
+                            <><button onClick={confirmTrialVote} style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #00ff87', background: 'rgba(0,255,135,0.16)', color: '#76ffb4', fontWeight: 900, cursor: 'pointer', boxShadow: '0 0 18px rgba(0,255,135,0.15)', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ПОДТВЕРДИТЬ ГОЛОС' : 'CONFIRM VOTE'}</button><button onClick={() => setTrialDraftTargetId(undefined)} style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(255,255,255,0.04)', color: '#c9d3e0', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'СБРОСИТЬ / ИЗМЕНИТЬ' : 'RESET / CHANGE'}</button></>
+                          ) : <span style={{ color: '#8a99ad', fontSize: '11px', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ ПОДОЗРЕВАЕМОГО ИЛИ ВОЗДЕРЖИТЕСЬ, ЗАТЕМ ЗАФИКСИРУЙТЕ ГОЛОС' : 'SELECT A SUSPECT OR ABSTAIN, THEN LOCK YOUR VOTE'}</span>}
                         </div>
                       )}
 
@@ -7393,15 +7448,15 @@ function App() {
                           background: exitSealed ? 'rgba(255,42,95,0.06)' : 'rgba(0,255,135,0.06)'
                         }}>
                           <div style={{ fontSize: '11px', letterSpacing: '2px', color: exitSealed ? '#ff2a5f' : '#76ffb4', marginBottom: '4px' }}>
-                            OVERRIDE TERMINAL — SUBMIT THE CODE TO END THE MATCH
+                            {language === 'ru' ? 'ТЕРМИНАЛ ОТМЕНЫ — ВВЕДИТЕ КОД, ЧТОБЫ ЗАВЕРШИТЬ ИГРУ' : 'OVERRIDE TERMINAL — SUBMIT THE CODE TO END THE MATCH'}
                           </div>
                           {exitSealed ? (
                             <div style={{ fontSize: '10px', letterSpacing: '0.5px', color: '#ff8fa8', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <Icon name="lock" size={12} /> SEALED — a body is still out there, unaccounted for.
+                              <Icon name="lock" size={12} /> {language === 'ru' ? 'ЗАБЛОКИРОВАНО — где-то ещё осталось непроверенное тело.' : 'SEALED — a body is still out there, unaccounted for.'}
                             </div>
                           ) : (
                             <div style={{ fontSize: '10px', letterSpacing: '0.5px', color: '#8a99ad', marginBottom: '10px' }}>
-                              Check your collected digits in the top-right corner.
+                              {language === 'ru' ? 'Проверьте собранные цифры в верхнем правом углу.' : 'Check your collected digits in the top-right corner.'}
                             </div>
                           )}
 
@@ -7418,7 +7473,7 @@ function App() {
                               value={codeGuess}
                               disabled={exitSealed}
                               onChange={(e) => setCodeGuess(e.target.value.replace(/[^0-9]/g, ''))}
-                              placeholder={exitSealed ? 'EXIT SEALED' : 'ENTER OVERRIDE CODE'}
+                              placeholder={exitSealed ? (language === 'ru' ? 'ВЫХОД ЗАБЛОКИРОВАН' : 'EXIT SEALED') : (language === 'ru' ? 'ВВЕДИТЕ КОД ОТМЕНЫ' : 'ENTER OVERRIDE CODE')}
                               style={{
                                 flex: '1 1 auto',
                                 minWidth: 0,
@@ -7439,7 +7494,7 @@ function App() {
                               disabled={exitSealed || !codeGuess.trim()}
                               style={{ width: 'auto', flex: '0 0 auto', marginBottom: 0, padding: '10px 16px' }}
                             >
-                              {exitSealed ? 'SEALED' : 'SUBMIT CODE'}
+                              {exitSealed ? (language === 'ru' ? 'ЗАБЛОКИРОВАНО' : 'SEALED') : (language === 'ru' ? 'ОТПРАВИТЬ КОД' : 'SUBMIT CODE')}
                             </NeonButton>
                           </form>
                         </div>
@@ -7476,7 +7531,7 @@ function App() {
                           </div>
                           <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                           <div style={{ fontSize: isMobile ? '19px' : '24px', fontWeight: 900, color: '#fff' }}>{selectedTrialPlayer.nickname}</div>
-                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{character?.name?.toUpperCase() || 'UNKNOWN AGENT'}</div>
+                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{character?.name?.toUpperCase() || (language === 'ru' ? 'НЕИЗВЕСТНЫЙ АГЕНТ' : 'UNKNOWN AGENT')}</div>
                           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '8px', fontSize: isMobile ? '12px' : '11px', color: '#c9d3e0', lineHeight: 1.5 }}>
                             <span>REAL NAME: {dossier?.realName || 'CLASSIFIED'}</span><span>HEIGHT: {dossier?.height || '—'}</span>
                             <span>WEIGHT: {dossier?.weight || '—'}</span><span>BLOOD: {dossier?.bloodType || '—'}</span>
@@ -7484,7 +7539,7 @@ function App() {
                           </div>
                           </div>
                         </div>;
-                      })() : <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '2px', fontSize: '13px' }}>SELECT AN AGENT TO INVESTIGATE</div>}
+                      })() : <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '2px', fontSize: '13px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ АГЕНТА ДЛЯ РАССЛЕДОВАНИЯ' : 'SELECT AN AGENT TO INVESTIGATE'}</div>}
                     </div>
                   </div>
                 </div>
@@ -7497,11 +7552,11 @@ function App() {
               {displayPhase === 'trial' && detectiveCheckResult && (
                 <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)' }} onClick={() => setDetectiveCheckResult(null)}>
                   <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(360px, calc(100vw - 40px))', padding: '20px', borderRadius: '14px', border: '1px solid rgba(224,64,251,0.4)', background: '#0a0a0f', boxShadow: '0 0 40px rgba(224,64,251,0.25)', animation: 'verdictEnter 420ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#e29bff', marginBottom: '8px' }}>🔍 CONFIDENTIAL — DETECTIVE EYES ONLY</div>
+                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#e29bff', marginBottom: '8px' }}>🔍 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ДЕТЕКТИВА' : 'CONFIDENTIAL — DETECTIVE EYES ONLY'}</div>
                     <div style={{ color: '#e2e8f0', lineHeight: 1.6, fontSize: '14px' }}>
-                      <strong>{detectiveCheckResult.targetNickname}</strong> ended their last turn in: <strong style={{ color: '#e29bff' }}>{detectiveCheckResult.roomName}</strong>
+                      <strong>{detectiveCheckResult.targetNickname}</strong> {language === 'ru' ? 'завершил свой последний ход в:' : 'ended their last turn in:'} <strong style={{ color: '#e29bff' }}>{detectiveCheckResult.roomName}</strong>
                     </div>
-                    <button onClick={() => setDetectiveCheckResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(224,64,251,0.4)', background: 'rgba(224,64,251,0.1)', color: '#e29bff', fontWeight: 800, cursor: 'pointer' }}>CLOSE</button>
+                    <button onClick={() => setDetectiveCheckResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(224,64,251,0.4)', background: 'rgba(224,64,251,0.1)', color: '#e29bff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button>
                   </div>
                 </div>
               )}
@@ -7516,20 +7571,20 @@ function App() {
               {displayPhase === 'trial' && officerLockResult && (
                 <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)' }} onClick={() => setOfficerLockResult(null)}>
                   <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(360px, calc(100vw - 40px))', padding: '20px', borderRadius: '14px', border: '1px solid rgba(0,240,255,0.4)', background: '#0a0a0f', boxShadow: '0 0 40px rgba(0,240,255,0.25)', animation: 'verdictEnter 420ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8be7ff', marginBottom: '8px' }}>🔒 CONFIDENTIAL — OFFICER EYES ONLY</div>
+                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8be7ff', marginBottom: '8px' }}>🔒 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ОФИЦЕРА' : 'CONFIDENTIAL — OFFICER EYES ONLY'}</div>
                     <div style={{ color: '#e2e8f0', lineHeight: 1.6, fontSize: '14px' }}>
-                      <strong>{officerLockResult.targetNickname}</strong> will be locked in the <strong style={{ color: '#8be7ff' }}>Holding Cell</strong> for the entirety of next round.
+                      <strong>{officerLockResult.targetNickname}</strong> {language === 'ru' ? 'будет заперт в' : 'will be locked in the'} <strong style={{ color: '#8be7ff' }}>{language === 'ru' ? 'Камере' : 'Holding Cell'}</strong> {language === 'ru' ? 'на весь следующий раунд.' : 'for the entirety of next round.'}
                     </div>
-                    <button onClick={() => setOfficerLockResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.1)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer' }}>CLOSE</button>
+                    <button onClick={() => setOfficerLockResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.1)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button>
                   </div>
                 </div>
               )}
               {displayPhase === 'trial' && isTrialChatOpen && (
                 <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: `${18 + bottomInset}px`, zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#8be7ff', fontSize: '11px', letterSpacing: '1px' }}><span>TACTICAL CHAT</span><button onClick={() => setIsTrialChatOpen(false)} style={{ color: '#8be7ff', background: 'transparent', border: 0, cursor: 'pointer' }}>CLOSE</button></div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#8be7ff', fontSize: '11px', letterSpacing: '1px' }}><span>{language === 'ru' ? 'ТАКТИЧЕСКИЙ ЧАТ' : 'TACTICAL CHAT'}</span><button onClick={() => setIsTrialChatOpen(false)} style={{ color: '#8be7ff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button></div>
                   <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>{chatMessages.map(message => <div key={message.id} style={{ padding: '8px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', fontSize: '12px' }}><div style={{ color: '#00f0ff', fontSize: '10px' }}>{message.senderNickname}</div>{message.text}</div>)}</div>
-                  {(isEliminated || isObserver) && <div style={{ padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,42,95,0.35)', background: 'rgba(255,42,95,0.08)', color: '#ff9caf', fontSize: '11px', lineHeight: 1.45, transition: 'all 0.3s ease' }}>YOU ARE ELIMINATED AND CANNOT PARTICIPATE IN TRIAL DISCUSSIONS OR VOTING.</div>}
-                  <form onSubmit={handleSendChatMessage} style={{ display: 'flex', gap: '6px' }}><input disabled={isEliminated || isObserver} value={draftChatMessage} onChange={(e) => setDraftChatMessage(e.target.value)} placeholder={isEliminated || isObserver ? 'Trial chat locked for spectators' : 'Send a message'} style={{ minWidth: 0, flex: 1, padding: '8px', minHeight: '40px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: '#0a0a0f', color: '#fff', fontSize: '16px', opacity: isEliminated || isObserver ? 0.45 : 1, transition: 'all 0.3s ease' }} /><button disabled={isEliminated || isObserver} type="submit" style={{ borderRadius: '6px', border: '1px solid rgba(0,240,255,0.3)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', padding: '8px 14px', minHeight: '40px', minWidth: '56px', opacity: isEliminated || isObserver ? 0.45 : 1 }}>SEND</button></form>
+                  {(isEliminated || isObserver) && <div style={{ padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,42,95,0.35)', background: 'rgba(255,42,95,0.08)', color: '#ff9caf', fontSize: '11px', lineHeight: 1.45, transition: 'all 0.3s ease' }}>{language === 'ru' ? 'ВЫ УСТРАНЕНЫ И НЕ МОЖЕТЕ УЧАСТВОВАТЬ В ОБСУЖДЕНИЯХ ИЛИ ГОЛОСОВАНИИ СУДА.' : 'YOU ARE ELIMINATED AND CANNOT PARTICIPATE IN TRIAL DISCUSSIONS OR VOTING.'}</div>}
+                  <form onSubmit={handleSendChatMessage} style={{ display: 'flex', gap: '6px' }}><input disabled={isEliminated || isObserver} value={draftChatMessage} onChange={(e) => setDraftChatMessage(e.target.value)} placeholder={isEliminated || isObserver ? (language === 'ru' ? 'Чат суда заблокирован для наблюдателей' : 'Trial chat locked for spectators') : (language === 'ru' ? 'Отправить сообщение' : 'Send a message')} style={{ minWidth: 0, flex: 1, padding: '8px', minHeight: '40px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: '#0a0a0f', color: '#fff', fontSize: '16px', opacity: isEliminated || isObserver ? 0.45 : 1, transition: 'all 0.3s ease' }} /><button disabled={isEliminated || isObserver} type="submit" style={{ borderRadius: '6px', border: '1px solid rgba(0,240,255,0.3)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', padding: '8px 14px', minHeight: '40px', minWidth: '56px', opacity: isEliminated || isObserver ? 0.45 : 1 }}>{language === 'ru' ? 'ОТПРАВИТЬ' : 'SEND'}</button></form>
                 </aside>
               )}
               {/* Shared CLUES board — every piece of physical evidence anyone has
@@ -7544,8 +7599,8 @@ function App() {
                       return (
                         <>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#e29bff', fontSize: '11px', letterSpacing: '1px' }}>
-                            <button onClick={handleBackToCluesList} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ BACK</button>
-                            <button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>CLOSE</button>
+                            <button onClick={handleBackToCluesList} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ {language === 'ru' ? 'НАЗАД' : 'BACK'}</button>
+                            <button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button>
                           </div>
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
@@ -7574,11 +7629,11 @@ function App() {
                     }
                     return (
                       <>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#e29bff', fontSize: '11px', letterSpacing: '1px' }}><span>CLUES ({clues.length})</span><button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>CLOSE</button></div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#e29bff', fontSize: '11px', letterSpacing: '1px' }}><span>{language === 'ru' ? 'УЛИКИ' : 'CLUES'} ({clues.length})</span><button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button></div>
                         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {clues.length === 0 && (
                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '1px', fontSize: '12px', padding: '20px 8px' }}>
-                              NO EVIDENCE FOUND YET
+                              {language === 'ru' ? 'УЛИКИ ПОКА НЕ НАЙДЕНЫ' : 'NO EVIDENCE FOUND YET'}
                             </div>
                           )}
                           {clues.map(clue => (
@@ -7629,10 +7684,12 @@ function App() {
                                     }}
                                   >
                                     {isBusy
-                                      ? 'VERIFYING…'
+                                      ? (language === 'ru' ? 'ПРОВЕРКА…' : 'VERIFYING…')
                                       : onCooldown
-                                        ? `VERIFY (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`
-                                        : 'VERIFY'}
+                                        ? (language === 'ru'
+                                            ? `ПРОВЕРИТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.turnsRemaining} ХОД${forensicVerifyStatus.turnsRemaining === 1 ? '' : (forensicVerifyStatus.turnsRemaining >= 2 && forensicVerifyStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                            : `VERIFY (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                        : (language === 'ru' ? 'ПРОВЕРИТЬ' : 'VERIFY')}
                                   </button>
                                 );
                               })()}
@@ -7688,8 +7745,8 @@ function App() {
                       return (
                         <>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#ff8fa8', fontSize: '11px', letterSpacing: '1px' }}>
-                            <button onClick={handleBackToBodiesList} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ BACK</button>
-                            <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>CLOSE</button>
+                            <button onClick={handleBackToBodiesList} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ {language === 'ru' ? 'НАЗАД' : 'BACK'}</button>
+                            <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button>
                           </div>
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
@@ -7706,7 +7763,7 @@ function App() {
                                   ? selectedBody.foundBy.map((nickname, idx) => (
                                     <span key={`${nickname}_${idx}`} style={{ color: '#e2e8f0', fontSize: '12px' }}>{nickname}</span>
                                   ))
-                                  : <span style={{ color: '#e2e8f0', fontSize: '12px' }}>Unknown</span>}
+                                  : <span style={{ color: '#e2e8f0', fontSize: '12px' }}>{language === 'ru' ? 'Неизвестно' : 'Unknown'}</span>}
                               </div>
                             </div>
                             {myRole === 'Forensic' && (
@@ -7721,8 +7778,10 @@ function App() {
                                   }}
                                 >
                                   {forensicVerifyStatus?.available === false
-                                    ? `EXAMINE (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`
-                                    : 'EXAMINE BODY'}
+                                    ? (language === 'ru'
+                                        ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.turnsRemaining} ХОД${forensicVerifyStatus.turnsRemaining === 1 ? '' : (forensicVerifyStatus.turnsRemaining >= 2 && forensicVerifyStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                        : `EXAMINE (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                    : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : 'EXAMINE BODY')}
                                 </button>
                                 {forensicReportUnlocked && (
                                   <button
@@ -7733,7 +7792,7 @@ function App() {
                                       letterSpacing: '1px', cursor: 'pointer'
                                     }}
                                   >
-                                    VIEW REPORT
+                                    {language === 'ru' ? 'СМОТРЕТЬ ОТЧЁТ' : 'VIEW REPORT'}
                                   </button>
                                 )}
                               </div>
@@ -7748,13 +7807,13 @@ function App() {
                     return (
                       <>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: '#ff8fa8', fontSize: '11px', letterSpacing: '1px' }}>
-                          <span>BODIES ({bodies.length})</span>
-                          <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>CLOSE</button>
+                          <span>{language === 'ru' ? 'ТЕЛА' : 'BODIES'} ({bodies.length})</span>
+                          <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}</button>
                         </div>
                         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {bodies.length === 0 && (
                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '1px', fontSize: '12px', padding: '20px 8px' }}>
-                              NO BODIES FOUND YET
+                              {language === 'ru' ? 'ТЕЛА ПОКА НЕ НАЙДЕНЫ' : 'NO BODIES FOUND YET'}
                             </div>
                           )}
                           {bodies.map((body, idx) => (
@@ -7768,7 +7827,7 @@ function App() {
                               >
                                 <span style={{ fontSize: '13px', fontWeight: 700 }}>{body.nickname}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
-                                  {body.roomName} · found by {(body.foundBy || []).length > 0 ? body.foundBy.join(', ') : 'Unknown'}
+                                  {body.roomName} · {language === 'ru' ? 'найдено:' : 'found by'} {(body.foundBy || []).length > 0 ? body.foundBy.join(', ') : (language === 'ru' ? 'Неизвестно' : 'Unknown')}
                                 </span>
                               </div>
                               {myRole === 'Forensic' && (
@@ -7783,8 +7842,10 @@ function App() {
                                     }}
                                   >
                                     {forensicVerifyStatus?.available === false
-                                      ? `EXAMINE (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`
-                                      : 'EXAMINE BODY'}
+                                      ? (language === 'ru'
+                                          ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.turnsRemaining} ХОД${forensicVerifyStatus.turnsRemaining === 1 ? '' : (forensicVerifyStatus.turnsRemaining >= 2 && forensicVerifyStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                          : `EXAMINE (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                      : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : 'EXAMINE BODY')}
                                   </button>
                                   {forensicReportUnlocked && (
                                     <button
@@ -7795,7 +7856,7 @@ function App() {
                                         letterSpacing: '1px', cursor: 'pointer'
                                       }}
                                     >
-                                      VIEW REPORT
+                                      {language === 'ru' ? 'СМОТРЕТЬ ОТЧЁТ' : 'VIEW REPORT'}
                                     </button>
                                   )}
                                 </div>
@@ -7831,25 +7892,25 @@ function App() {
             boxShadow: '0 30px 100px rgba(0,255,135,0.15)', padding: '32px', boxSizing: 'border-box',
             textAlign: 'center', animation: 'verdictEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) both'
           }}>
-            <p style={{ margin: '0 0 8px 0', fontSize: '11px', letterSpacing: '3px', color: '#8a99ad' }}>MATCH CONCLUDED</p>
+            <p style={{ margin: '0 0 8px 0', fontSize: '11px', letterSpacing: '3px', color: '#8a99ad' }}>{language === 'ru' ? 'ИГРА ЗАВЕРШЕНА' : 'MATCH CONCLUDED'}</p>
             <h2 style={{
               margin: '0 0 14px 0', fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 900,
               color: '#00ff87', textShadow: '0 0 30px rgba(0,255,135,0.5)', letterSpacing: '1px', textTransform: 'uppercase'
             }}>
               {gameOverData.winner === 'Innocent'
-                ? 'INNOCENT TEAM VICTORY'
+                ? (language === 'ru' ? 'ПОБЕДА КОМАНДЫ НЕВИННЫХ' : 'INNOCENT TEAM VICTORY')
                 : gameOverData.winner === 'Joker'
-                  ? 'JOKER VICTORY'
-                  : `${gameOverData.winner || 'UNKNOWN'} TEAM VICTORY`}
+                  ? (language === 'ru' ? 'ПОБЕДА ДЖОКЕРА' : 'JOKER VICTORY')
+                  : (language === 'ru' ? `ПОБЕДА КОМАНДЫ ${gameOverData.winner || 'НЕИЗВЕСТНО'}` : `${gameOverData.winner || 'UNKNOWN'} TEAM VICTORY`)}
             </h2>
             <p style={{ margin: '0 0 22px 0', color: '#c9d3e0', lineHeight: 1.6, fontSize: '14px' }}>
               {gameOverData.message}
               {gameOverData.digitalCode && (
-                <><br /><span style={{ color: '#76ffb4', letterSpacing: '3px', fontFamily: 'Georgia, serif' }}>OVERRIDE CODE: {gameOverData.digitalCode}</span></>
+                <><br /><span style={{ color: '#76ffb4', letterSpacing: '3px', fontFamily: 'Georgia, serif' }}>{language === 'ru' ? 'КОД ОТМЕНЫ' : 'OVERRIDE CODE'}: {gameOverData.digitalCode}</span></>
               )}
             </p>
 
-            <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8a99ad', marginBottom: '10px' }}>FINAL ROLES</div>
+            <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8a99ad', marginBottom: '10px' }}>{language === 'ru' ? 'ИТОГОВЫЕ РОЛИ' : 'FINAL ROLES'}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '20px' }}>
               {(gameOverData.roster || []).map(entry => (
                 <div key={entry.id} style={{
@@ -7859,17 +7920,17 @@ function App() {
                   background: entry.isEliminated ? 'rgba(255,42,95,0.06)' : 'rgba(255,255,255,0.03)'
                 }}>
                   <span style={{ color: entry.isEliminated ? '#ff8da6' : '#e2e8f0', fontSize: '13px' }}>
-                    {entry.nickname}{entry.isEliminated ? ' (eliminated)' : ''}
+                    {entry.nickname}{entry.isEliminated ? (language === 'ru' ? ' (устранён)' : ' (eliminated)') : ''}
                   </span>
                   <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '1px', color: ROLES[entry.role]?.color || '#8a99ad' }}>
-                    {ROLES[entry.role]?.label || entry.role || 'UNKNOWN'}
+                    {(language === 'ru' ? ROLES[entry.role]?.labelRu : ROLES[entry.role]?.label) || entry.role || (language === 'ru' ? 'НЕИЗВЕСТНО' : 'UNKNOWN')}
                   </span>
                 </div>
               ))}
             </div>
 
             <p style={{ margin: 0, fontSize: '11px', letterSpacing: '1px', color: '#6272a4', animation: 'introCaretBlink 1.6s ease-in-out infinite' }}>
-              RETURNING TO LOBBY...
+              {language === 'ru' ? 'ВОЗВРАЩЕНИЕ В ЛОББИ...' : 'RETURNING TO LOBBY...'}
             </p>
           </div>
         </div>
@@ -7909,7 +7970,7 @@ function App() {
               background: 'rgba(10,10,15,0.9)', animation: 'cinematicTextIn 650ms ease-out 150ms both'
             }}>
               <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#6272a4', marginBottom: '10px', textAlign: 'center' }}>
-                CASE FILE — WHAT'S BEEN FOUND SO FAR
+                {language === 'ru' ? 'МАТЕРИАЛЫ ДЕЛА — ЧТО НАЙДЕНО НА ДАННЫЙ МОМЕНТ' : "CASE FILE — WHAT'S BEEN FOUND SO FAR"}
               </div>
               {trialFindings.undiscoveredCount > 0 && (
                 <div style={{
@@ -7920,21 +7981,21 @@ function App() {
                   <Icon name="skull" size={13} />
                   <span>
                     {trialFindings.undiscoveredCount === 1
-                      ? 'Someone was killed, but the body hasn\u2019t been found yet.'
-                      : `${trialFindings.undiscoveredCount} agents were killed, but their bodies haven't been found yet.`}
+                      ? (language === 'ru' ? 'Кто-то был убит, но тело ещё не найдено.' : 'Someone was killed, but the body hasn\u2019t been found yet.')
+                      : (language === 'ru' ? `Убито агентов: ${trialFindings.undiscoveredCount}, но их тела ещё не найдены.` : `${trialFindings.undiscoveredCount} agents were killed, but their bodies haven't been found yet.`)}
                   </span>
                 </div>
               )}
               {(trialFindings.bodies?.length || 0) === 0 && (trialFindings.clues?.length || 0) === 0 ? (
                 trialFindings.undiscoveredCount > 0 ? null : (
-                  <div style={{ fontSize: '13px', color: '#8a99ad', textAlign: 'center' }}>Nothing has been found yet.</div>
+                  <div style={{ fontSize: '13px', color: '#8a99ad', textAlign: 'center' }}>{language === 'ru' ? 'Пока ничего не найдено.' : 'Nothing has been found yet.'}</div>
                 )
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {(trialFindings.bodies || []).map((body, idx) => (
                     <div key={`body-${idx}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#ff8fa8' }}>
                       <Icon name="skull" size={13} />
-                      <span>{body.nickname}'s body — found in {body.roomName}</span>
+                      <span>{language === 'ru' ? `Тело ${body.nickname} — найдено в ${body.roomName}` : `${body.nickname}'s body — found in ${body.roomName}`}</span>
                     </div>
                   ))}
                   {(trialFindings.clues || []).map((clue) => (
