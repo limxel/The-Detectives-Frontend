@@ -22,7 +22,7 @@ const INTRO_TYPING_LOOP_SOUND = 'https://files.catbox.moe/svl419.mp3';
 const ABILITY_USE_SOUND = 'https://files.catbox.moe/nhfdld.mp3';
 const VICTORY_SOUND = 'https://files.catbox.moe/9e3gv6.mp3';
 const MURDER_SOUND = 'https://files.catbox.moe/nzupgt.mp3';
-const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/jp8f3r.mp4';
+const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/eq3fwd.gif';
 
 // Master volume, controlled by the settings slider. Kept outside the component
 // so it's visible both to module-level functions (Web Audio effects) and to the
