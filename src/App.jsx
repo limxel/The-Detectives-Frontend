@@ -2842,30 +2842,44 @@ function TrapTriggeredModal({ roomName, onClose, language }) {
 
 function ForensicBodyExaminationModal({ clue, onClose, language }) {
   const getSentence = () => {
-    if (!clue) return 'No clue available.';
+    if (!clue) return language === 'ru' ? 'Улика недоступна.' : 'No clue available.';
     if (clue.type === 'bloodType') {
       return (
         <>
-          Blood traces at the scene don't match the victim's — type <strong style={{ color: '#8be7ff' }}>{clue.value}</strong> found.
+          {language === 'ru'
+            ? <>Следы крови на месте преступления не совпадают с кровью жертвы — обнаружен тип <strong style={{ color: '#8be7ff' }}>{clue.value}</strong>.</>
+            : <>Blood traces at the scene don't match the victim's — type <strong style={{ color: '#8be7ff' }}>{clue.value}</strong> found.</>}
         </>
       );
     }
     if (clue.type === 'height') {
       if (clue.value === 'tall') {
-        return <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>taller</strong> than the victim.</>;
+        return language === 'ru'
+          ? <>Угол раны указывает, что нападавший был <strong style={{ color: '#8be7ff' }}>выше</strong> жертвы.</>
+          : <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>taller</strong> than the victim.</>;
       }
       if (clue.value === 'short') {
-        return <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>shorter</strong> than the victim.</>;
+        return language === 'ru'
+          ? <>Угол раны указывает, что нападавший был <strong style={{ color: '#8be7ff' }}>ниже</strong> жертвы.</>
+          : <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>shorter</strong> than the victim.</>;
       }
-      return <>Wound angle shows no notable difference — the attacker was likely of <strong style={{ color: '#8be7ff' }}>average height</strong>.</>;
+      return language === 'ru'
+        ? <>Угол раны не показывает заметной разницы — нападавший, вероятно, был <strong style={{ color: '#8be7ff' }}>среднего роста</strong>.</>
+        : <>Wound angle shows no notable difference — the attacker was likely of <strong style={{ color: '#8be7ff' }}>average height</strong>.</>;
     }
     if (clue.value === 'heavy') {
-      return <>The nature of the injuries suggests <strong style={{ color: '#8be7ff' }}>significant physical strength</strong>.</>;
+      return language === 'ru'
+        ? <>Характер повреждений указывает на <strong style={{ color: '#8be7ff' }}>значительную физическую силу</strong>.</>
+        : <>The nature of the injuries suggests <strong style={{ color: '#8be7ff' }}>significant physical strength</strong>.</>;
     }
     if (clue.value === 'light') {
-      return <>The nature of the injuries suggests a <strong style={{ color: '#8be7ff' }}>moderate, lighter build</strong>.</>;
+      return language === 'ru'
+        ? <>Характер повреждений указывает на <strong style={{ color: '#8be7ff' }}>умеренное, более лёгкое телосложение</strong>.</>
+        : <>The nature of the injuries suggests a <strong style={{ color: '#8be7ff' }}>moderate, lighter build</strong>.</>;
     }
-    return <>The nature of the injuries doesn't point to an unusually strong or light attacker — likely an <strong style={{ color: '#8be7ff' }}>average build</strong>.</>;
+    return language === 'ru'
+      ? <>Характер повреждений не указывает на необычно сильного или лёгкого нападавшего — вероятно, <strong style={{ color: '#8be7ff' }}>среднее телосложение</strong>.</>
+      : <>The nature of the injuries doesn't point to an unusually strong or light attacker — likely an <strong style={{ color: '#8be7ff' }}>average build</strong>.</>;
   };
 
   return (
@@ -2911,20 +2925,20 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
 // username on top, character name in a smaller line right below it, and a
 // green "VOTE" overlay that fades in on hover (click anywhere on the overlay
 // to cast the vote). Its own component (not inline JSX) so each card can hold
-function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, isDraft, canVote, onVote, onCheck, index, showDetectiveAction, detectiveAvailable, detectiveTurnsRemaining, onDetectiveCheck, showOfficerAction, officerAvailable, officerTurnsRemaining, onOfficerLock, isSelf }) {
+function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, isDraft, canVote, onVote, onCheck, index, showDetectiveAction, detectiveAvailable, detectiveTurnsRemaining, onDetectiveCheck, showOfficerAction, officerAvailable, officerTurnsRemaining, onOfficerLock, isSelf, language }) {
   return (
     <div style={{ padding: '10px', borderRadius: '8px', border: isEliminated ? '1px solid rgba(255,42,95,0.65)' : isDraft ? '1px solid #00ff87' : '1px solid rgba(0,240,255,0.3)', background: isEliminated ? 'rgba(255,42,95,0.11)' : isDraft ? 'rgba(0,255,135,0.08)' : '#0a0a0f', boxShadow: isEliminated ? '0 0 18px rgba(255,42,95,0.18)' : isDraft ? '0 0 18px rgba(0,255,135,0.2)' : 'none', transition: 'all 0.3s ease', opacity: 0, animation: `trialCardEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards` }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
         {playerCharacter?.url && <img src={playerCharacter.url} alt="" style={{ width: '42px', height: '42px', borderRadius: '7px', objectFit: 'cover' }} />}
         <div style={{ minWidth: 0, flex: 1 }}>
           <div style={{ fontWeight: 800, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: isEliminated ? '#ff8da6' : '#fff', textDecoration: isEliminated ? 'line-through' : 'none', transition: 'all 0.3s ease' }}>{player.nickname}</div>
-          <div style={{ fontSize: '10px', color: isEliminated ? '#ff8da6' : '#8a99ad', marginTop: '2px' }}>{isEliminated ? 'ELIMINATED — SPECTATING' : playerCharacter?.name || 'UNKNOWN'}</div>
+          <div style={{ fontSize: '10px', color: isEliminated ? '#ff8da6' : '#8a99ad', marginTop: '2px' }}>{isEliminated ? (language === 'ru' ? 'УСТРАНЁН(А) — НАБЛЮДЕНИЕ' : 'ELIMINATED — SPECTATING') : playerCharacter?.name || (language === 'ru' ? 'НЕИЗВЕСТНО' : 'UNKNOWN')}</div>
         </div>
       </div>
       <div style={{ display: 'flex', gap: '8px', marginTop: '9px' }}>
-        <span style={{ padding: '7px 9px', borderRadius: '8px', border: `1px solid ${isEliminated ? 'rgba(255,42,95,0.45)' : isConfirmed ? 'rgba(0,255,135,0.45)' : 'rgba(255,255,255,0.12)'}`, background: isEliminated ? 'rgba(255,42,95,0.12)' : isConfirmed ? 'rgba(0,255,135,0.1)' : 'rgba(255,255,255,0.03)', color: isEliminated ? '#ff9caf' : isConfirmed ? '#76ffb4' : '#8a99ad', fontSize: '10px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{isEliminated ? 'SPECTATOR' : isConfirmed ? 'VOTED / READY' : 'WAITING'}</span>
-        <button onClick={onVote} disabled={!canVote} style={{ flex: 1, padding: '7px', borderRadius: '8px', border: isDraft ? '1px solid #00ff87' : '1px solid rgba(255,42,95,0.55)', background: isDraft ? 'rgba(0,255,135,0.16)' : 'rgba(255,42,95,0.12)', color: isDraft ? '#76ffb4' : '#ff9caf', fontWeight: 800, cursor: canVote ? 'pointer' : 'not-allowed', transition: 'all 0.25s ease-in-out' }}>{isDraft ? 'SELECTED' : 'SELECT'}</button>
-        <button onClick={onCheck} style={{ padding: '7px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>INFO</button>
+        <span style={{ padding: '7px 9px', borderRadius: '8px', border: `1px solid ${isEliminated ? 'rgba(255,42,95,0.45)' : isConfirmed ? 'rgba(0,255,135,0.45)' : 'rgba(255,255,255,0.12)'}`, background: isEliminated ? 'rgba(255,42,95,0.12)' : isConfirmed ? 'rgba(0,255,135,0.1)' : 'rgba(255,255,255,0.03)', color: isEliminated ? '#ff9caf' : isConfirmed ? '#76ffb4' : '#8a99ad', fontSize: '10px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{isEliminated ? (language === 'ru' ? 'НАБЛЮДАТЕЛЬ' : 'SPECTATOR') : isConfirmed ? (language === 'ru' ? 'ГОЛОС ОТДАН / ГОТОВ' : 'VOTED / READY') : (language === 'ru' ? 'ОЖИДАНИЕ' : 'WAITING')}</span>
+        <button onClick={onVote} disabled={!canVote} style={{ flex: 1, padding: '7px', borderRadius: '8px', border: isDraft ? '1px solid #00ff87' : '1px solid rgba(255,42,95,0.55)', background: isDraft ? 'rgba(0,255,135,0.16)' : 'rgba(255,42,95,0.12)', color: isDraft ? '#76ffb4' : '#ff9caf', fontWeight: 800, cursor: canVote ? 'pointer' : 'not-allowed', transition: 'all 0.25s ease-in-out' }}>{isDraft ? (language === 'ru' ? 'ВЫБРАНО' : 'SELECTED') : (language === 'ru' ? 'ВЫБРАТЬ' : 'SELECT')}</button>
+        <button onClick={onCheck} style={{ padding: '7px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ИНФО' : 'INFO'}</button>
       </div>
       {/* Detective-only special investigation action. Only ever rendered for
           the Detective themself (see showDetectiveAction), never for anyone
@@ -2948,7 +2962,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
               transition: 'all 0.25s ease-in-out'
             }}
           >
-            🔍 CHECK LOCATION
+            🔍 {language === 'ru' ? 'ПРОВЕРИТЬ ЛОКАЦИЮ' : 'CHECK LOCATION'}
           </button>
           <span style={{
             padding: '7px 9px',
@@ -2961,7 +2975,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
             letterSpacing: '0.5px',
             whiteSpace: 'nowrap'
           }}>
-            {detectiveAvailable ? 'READY' : `COOLDOWN: ${detectiveTurnsRemaining}`}
+            {detectiveAvailable ? (language === 'ru' ? 'ГОТОВО' : 'READY') : (language === 'ru' ? `ПЕРЕЗАРЯДКА: ${detectiveTurnsRemaining}` : `COOLDOWN: ${detectiveTurnsRemaining}`)}
           </span>
         </div>
       )}
@@ -2989,7 +3003,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
               transition: 'all 0.25s ease-in-out'
             }}
           >
-            🔒 {isSelf ? 'LOCK MYSELF IN CELL' : 'LOCK IN CELL'}
+            🔒 {isSelf ? (language === 'ru' ? 'ЗАПЕРЕТЬ СЕБЯ В КАМЕРЕ' : 'LOCK MYSELF IN CELL') : (language === 'ru' ? 'ЗАПЕРЕТЬ В КАМЕРЕ' : 'LOCK IN CELL')}
           </button>
           <span style={{
             padding: '7px 9px',
@@ -3002,7 +3016,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
             letterSpacing: '0.5px',
             whiteSpace: 'nowrap'
           }}>
-            {officerAvailable ? 'READY' : `COOLDOWN: ${officerTurnsRemaining}`}
+            {officerAvailable ? (language === 'ru' ? 'ГОТОВО' : 'READY') : (language === 'ru' ? `ПЕРЕЗАРЯДКА: ${officerTurnsRemaining}` : `COOLDOWN: ${officerTurnsRemaining}`)}
           </span>
         </div>
       )}
@@ -4146,7 +4160,7 @@ function App() {
   const handleVerifyEvidence = (evidenceId) => {
     if (myRole !== 'Forensic' || !gameRoomCodeRef.current || forensicVerifyingId) return;
     if (forensicVerifyStatus && forensicVerifyStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     setForensicVerifyingId(evidenceId);
     playAbilityUseSound(0.75);
     socket.emit('verify_evidence', { code: gameRoomCodeRef.current, evidenceId });
@@ -4155,7 +4169,7 @@ function App() {
   const handleExamineBody = (bodyId) => {
     if (myRole !== 'Forensic' || !gameRoomCodeRef.current || !bodyId) return;
     if (forensicVerifyStatus && forensicVerifyStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     socket.emit('examine_body', { code: gameRoomCodeRef.current, bodyId });
   };
@@ -4483,8 +4497,8 @@ function App() {
       if (roundLock) {
         pushToast(
           roundLock.id === socket.id
-            ? 'You are locked in the Holding Cell for this round.'
-            : `${roundLock.nickname} is locked in the Holding Cell this round.`
+            ? (language === 'ru' ? 'Вы заперты в Камере на этот раунд.' : 'You are locked in the Holding Cell for this round.')
+            : (language === 'ru' ? `${roundLock.nickname} заперт в Камере на этот раунд.` : `${roundLock.nickname} is locked in the Holding Cell this round.`)
         );
       }
     }
@@ -4513,7 +4527,7 @@ function App() {
         setCurrentTurnPlayerId(null);
         setTurnEndsAt(null);
       } else if (phase === 'TRIAL_ANNOUNCEMENT') {
-        setCinematic({ mode: 'announcement', text: 'TRIAL PHASE COMMENCING', accent: 'cyan' });
+        setCinematic({ mode: 'announcement', text: language === 'ru' ? 'НАЧИНАЕТСЯ ФАЗА СУДА' : 'TRIAL PHASE COMMENCING', accent: 'cyan' });
       } else if (phase === 'TRIAL_VOTING') {
         setGameData(prev => ({ ...prev, round: round ?? prev.round, phase: 'trial' }));
         setDisplayPhase('trial');
@@ -4660,7 +4674,7 @@ function App() {
       // the same way search_body_result already does.
       if (Array.isArray(data.bodies) && data.bodies.length > 0) {
         playTrashFoundSound(0.2);
-        data.bodies.forEach(body => pushToast(`${body.nickname}'s body is lying here, exposed.`));
+        data.bodies.forEach(body => pushToast(language === 'ru' ? `Тело ${body.nickname} лежит здесь, на виду.` : `${body.nickname}'s body is lying here, exposed.`));
       }
     }
 
@@ -4682,17 +4696,19 @@ function App() {
       if (success) {
         playEvidencePlantedSound(0.38);
         setJokerEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 3 });
-        pushToast(`Evidence planted in ${clue?.roomName || 'the room'}: "${clue?.text || 'unknown item'}"`);
+        pushToast(language === 'ru'
+          ? `Улика подброшена в ${clue?.roomName || 'комнате'}: "${clue?.text || 'неизвестный предмет'}"`
+          : `Evidence planted in ${clue?.roomName || 'the room'}: "${clue?.text || 'unknown item'}"`);
         setJokerPlantPickerOpen(false);
         setRevealedRoom(previous => previous && previous.roomId === clue?.roomId
           ? { ...previous, evidence: [...(previous.evidence || []), { id: clue.id, text: clue.text }] }
           : previous);
       } else if (reason === 'cooldown') {
         setJokerEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(`Evidence planting is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(language === 'ru' ? `Подбрасывание улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence planting is on cooldown for ${turnsRemaining} more turn(s).`);
         setJokerPlantPickerOpen(false);
       } else {
-        pushToast('Could not plant evidence there — try another room.');
+        pushToast(language === 'ru' ? 'Не удалось подбросить улику — попробуйте другую комнату.' : 'Could not plant evidence there — try another room.');
       }
     }
 
@@ -4723,7 +4739,9 @@ function App() {
       if (success) {
         playEvidencePlantedSound(0.38);
         setAccompliceEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 3 });
-        pushToast(`Evidence altered: "${evidence?.text || 'unknown item'}"`);
+        pushToast(language === 'ru'
+          ? `Улика изменена: "${evidence?.text || 'неизвестный предмет'}"`
+          : `Evidence altered: "${evidence?.text || 'unknown item'}"`);
         setChangeEvidencePickerOpen(false);
         setChangeEvidenceTargetEvidenceId(null);
         setRoomActionTaken(true);
@@ -4737,10 +4755,10 @@ function App() {
           : previous);
       } else if (reason === 'cooldown') {
         setAccompliceEvidenceStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(`Change Evidence is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(language === 'ru' ? `«Изменить улику» на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Change Evidence is on cooldown for ${turnsRemaining} more turn(s).`);
         setChangeEvidencePickerOpen(false);
       } else {
-        pushToast('Could not alter that evidence — try again.');
+        pushToast(language === 'ru' ? 'Не удалось изменить эту улику — попробуйте снова.' : 'Could not alter that evidence — try again.');
       }
     }
 
@@ -4755,14 +4773,14 @@ function App() {
       if (success) {
         playAbilityUseSound(0.75);
         setAccompliceTrapStatus({ available: false, roundsRemaining: roundsRemaining ?? 4 });
-        pushToast(`Trap set in ${trap?.roomName || 'the room'}.`);
+        pushToast(language === 'ru' ? `Ловушка установлена в ${trap?.roomName || 'комнате'}.` : `Trap set in ${trap?.roomName || 'the room'}.`);
         setAccompliceTrapPickerOpen(false);
       } else if (reason === 'cooldown') {
         setAccompliceTrapStatus({ available: false, roundsRemaining: roundsRemaining ?? 0 });
-        pushToast(`Set a Trap is on cooldown for ${roundsRemaining} more round(s).`);
+        pushToast(language === 'ru' ? `«Установить ловушку» на перезарядке ещё ${roundsRemaining} раунд(а/ов).` : `Set a Trap is on cooldown for ${roundsRemaining} more round(s).`);
         setAccompliceTrapPickerOpen(false);
       } else {
-        pushToast('Could not set a trap there — try another room.');
+        pushToast(language === 'ru' ? 'Не удалось установить ловушку — попробуйте другую комнату.' : 'Could not set a trap there — try another room.');
       }
     }
 
@@ -4790,7 +4808,7 @@ function App() {
     // server rejects it and this lets them know why instead of it just
     // silently doing nothing.
     function onTrapDebuffBlocked() {
-      pushToast("You're still recovering from the trap — no actions or abilities this round.");
+      pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия и способности недоступны.' : "You're still recovering from the trap — no actions or abilities this round.");
     }
 
     // Accomplice-only: fires whenever their own Killer's accidental evidence
@@ -4799,14 +4817,16 @@ function App() {
     // rule as killerClue itself. A simple toast is enough here; unlike
     // trap_triggered above there's no decision or lasting state attached.
     function onAccompliceKillerClueNotice({ roomName, text }) {
-      pushToast(`Your Killer accidentally left evidence behind: "${text || 'an item'}" in ${roomName || 'a room'}.`);
+      pushToast(language === 'ru'
+        ? `Ваш Убийца случайно оставил улику: "${text || 'предмет'}" в ${roomName || 'комнате'}.`
+        : `Your Killer accidentally left evidence behind: "${text || 'an item'}" in ${roomName || 'a room'}.`);
     }
 
     // Killer-only: fires whenever their own Accomplice sets a trap (see
     // 'set_trap' server-side) — mirrors onAccompliceKillerClueNotice above,
     // just going the other direction within the same Killer/Accomplice pair.
     function onKillerTrapNotice({ roomName }) {
-      pushToast(`Your Accomplice set a trap in ${roomName || 'a room'}.`);
+      pushToast(language === 'ru' ? `Ваш Сообщник установил ловушку в ${roomName || 'комнате'}.` : `Your Accomplice set a trap in ${roomName || 'a room'}.`);
     }
 
     // Private to the Detective only: whether 'detective_check_location' is off
@@ -4827,7 +4847,7 @@ function App() {
         setDetectiveCheckResult({ targetNickname, roomName });
       } else if (reason === 'cooldown') {
         setDetectiveAbilityStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(`Investigation ability on cooldown for ${turnsRemaining} more round(s).`);
+        pushToast(language === 'ru' ? `Способность обыска на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Investigation ability on cooldown for ${turnsRemaining} more round(s).`);
       }
     }
 
@@ -4849,7 +4869,7 @@ function App() {
         setOfficerLockResult({ targetNickname });
       } else if (reason === 'cooldown') {
         setOfficerAbilityStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(`Detainment protocol on cooldown for ${turnsRemaining} more round(s).`);
+        pushToast(language === 'ru' ? `Протокол задержания на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Detainment protocol on cooldown for ${turnsRemaining} more round(s).`);
       }
     }
 
@@ -4867,26 +4887,30 @@ function App() {
           ? prev
           : [...prev, { position, digit }].sort((a, b) => a.position - b.position));
         if (selfFound) playFragmentFoundSound(0.5);
-        pushToast(selfFound
-          ? `Fragment ${position}/${totalDigits}: "${digit}"`
-          : `Someone found Fragment ${position}/${totalDigits}: "${digit}"`);
+        pushToast(language === 'ru'
+          ? (selfFound
+              ? `Фрагмент ${position}/${totalDigits}: "${digit}"`
+              : `Кто-то нашёл фрагмент ${position}/${totalDigits}: "${digit}"`)
+          : (selfFound
+              ? `Fragment ${position}/${totalDigits}: "${digit}"`
+              : `Someone found Fragment ${position}/${totalDigits}: "${digit}"`));
       } else if (type === 'trash') {
         playTrashFoundSound(0.2);
-        pushToast('You found a crumpled piece of paper. It looks like useless trash.');
+        pushToast(language === 'ru' ? 'Вы нашли скомканный лист бумаги. Похоже на бесполезный мусор.' : 'You found a crumpled piece of paper. It looks like useless trash.');
       } else if (Array.isArray(evidence) && evidence.length > 0) {
         // No digital code fragment here, but the Joker left evidence behind —
         // skip the "nothing" message so it doesn't contradict the evidence
         // toast fired below.
       } else {
         playTrashFoundSound(0.14);
-        pushToast('Nothing of interest found in this room.');
+        pushToast(language === 'ru' ? 'В этой комнате не нашлось ничего интересного.' : 'Nothing of interest found in this room.');
       }
 
       if (Array.isArray(evidence) && evidence.length > 0) {
         setRevealedRoom(previous => previous && previous.roomId === roomId
           ? { ...previous, evidence }
           : previous);
-        evidence.forEach(item => pushToast(`Evidence found: ${item.text}`));
+        evidence.forEach(item => pushToast(language === 'ru' ? `Найдена улика: ${item.text}` : `Evidence found: ${item.text}`));
       }
     }
 
@@ -4905,7 +4929,7 @@ function App() {
       if (cleared) {
         setClearedRoomIds(prev => (prev[roomId] ? prev : { ...prev, [roomId]: { roomName: roomName || roomId } }));
       }
-      pushToast(`${roomName || 'A room'} has been checked.`);
+      pushToast(language === 'ru' ? `${roomName || 'Комната'} проверена.` : `${roomName || 'A room'} has been checked.`);
     }
 
     // Result of this Innocent's own 'check_room' attempt (see handleCheckRoom).
@@ -4919,10 +4943,10 @@ function App() {
       if (!success) {
         if (reason === 'cooldown') {
           setMarkRoomStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-          pushToast(`Check Room on cooldown for ${turnsRemaining} more round(s).`);
+          pushToast(language === 'ru' ? `«Проверить комнату» на перезарядке ещё ${turnsRemaining} раунд(а/ов).` : `Check Room on cooldown for ${turnsRemaining} more round(s).`);
         } else if (reason === 'investigate_required') {
           setInvestigateUsedThisTurn(false);
-          pushToast('Investigate this room first.');
+          pushToast(language === 'ru' ? 'Сначала обыщите эту комнату.' : 'Investigate this room first.');
         }
         return;
       }
@@ -4951,7 +4975,7 @@ function App() {
         // hit just like a found code fragment, so it gets the identical
         // bright confirm sound instead of the dull "nothing much" one.
         playFragmentFoundSound(0.5);
-        bodies.forEach(body => pushToast(`You found ${body.nickname}'s body here!`));
+        bodies.forEach(body => pushToast(language === 'ru' ? `Вы нашли здесь тело ${body.nickname}!` : `You found ${body.nickname}'s body here!`));
         // A newly-found hidden body should show up exactly like an already-exposed
         // one — the same big crossed-out icon in the room scene and the same pill
         // row — rather than only ever surfacing as a toast. Merge it into
@@ -4968,7 +4992,7 @@ function App() {
         });
       } else {
         playTrashFoundSound(0.14);
-        pushToast('No bodies found in this room.');
+        pushToast(language === 'ru' ? 'В этой комнате тел не обнаружено.' : 'No bodies found in this room.');
       }
     }
 
@@ -5028,11 +5052,13 @@ function App() {
       // Nobody else's client ever receives this — it's private to the Killer,
       // same treatment as the joker_evidence_result toast below.
       if (killerClue) {
-        pushToast(`You left behind a clue in ${killerClue.roomName}: "${killerClue.text}"`);
+        pushToast(language === 'ru'
+          ? `Вы оставили улику в ${killerClue.roomName}: "${killerClue.text}"`
+          : `You left behind a clue in ${killerClue.roomName}: "${killerClue.text}"`);
       }
       if (action === 'hide') {
         setVentUsedThisTurn(true);
-        pushToast('Body hidden. Only a search will find it now — vent unavailable this turn.');
+        pushToast(language === 'ru' ? 'Тело спрятано. Теперь его найдут только при обыске — вентиляция в этот ход недоступна.' : 'Body hidden. Only a search will find it now — vent unavailable this turn.');
         // 'kill_options' (see onKillOptions) already dropped the body marker
         // into the Killer's own view the instant the kill landed, regardless
         // of what they'd later choose to do with it. A hidden body is only
@@ -5048,7 +5074,7 @@ function App() {
           };
         });
       } else {
-        pushToast('Body left exposed in the room.');
+        pushToast(language === 'ru' ? 'Тело оставлено на виду в комнате.' : 'Body left exposed in the room.');
       }
     }
 
@@ -5097,7 +5123,7 @@ function App() {
         setForensicVerifyResult({ evidenceId, text, isAuthentic });
       } else if (reason === 'cooldown') {
         setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(`Evidence verification is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(language === 'ru' ? `Проверка улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence verification is on cooldown for ${turnsRemaining} more turn(s).`);
       }
     }
 
@@ -5110,16 +5136,16 @@ function App() {
         setForensicBodyExamineResult({ bodyId, clue });
       } else if (reason === 'cooldown') {
         setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(`Body examination is on cooldown for ${turnsRemaining} more turn(s).`);
+        pushToast(language === 'ru' ? `Осмотр тела на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Body examination is on cooldown for ${turnsRemaining} more turn(s).`);
       } else if (reason === 'invalid_body') {
-        pushToast('That body cannot be examined right now.');
+        pushToast(language === 'ru' ? 'Это тело сейчас нельзя осмотреть.' : 'That body cannot be examined right now.');
       }
     }
 
     function onForensicReport({ success, reason, report }) {
       if (!success) {
         if (reason === 'no_report') {
-          pushToast('No forensic report has been saved yet.');
+          pushToast(language === 'ru' ? 'Криминалистический отчёт ещё не сохранён.' : 'No forensic report has been saved yet.');
           setForensicBodyExamineResult(null);
         }
         return;
@@ -5149,7 +5175,7 @@ function App() {
       console.log('CLIENT code_submission_result:', { success, message });
       if (!success) {
         playCodeErrorSound(0.4);
-        pushToast(message || 'Invalid Code');
+        pushToast(message || (language === 'ru' ? 'Неверный код' : 'Invalid Code'));
         setCodeGuess('');
       }
     }
@@ -5351,7 +5377,7 @@ function App() {
         setShowMainContent(true);
       }, 100);
     } else {
-      alert('Nickname must be at least 2 characters long.');
+      alert(language === 'ru' ? 'Никнейм должен содержать не менее 2 символов.' : 'Nickname must be at least 2 characters long.');
     }
   };
 
@@ -5369,7 +5395,7 @@ function App() {
     if (inputCode.length === 8) {
       socket.emit('join_by_code', { code: inputCode, nickname });
     } else {
-      setErrorMessage('Code must be exactly 8 characters.');
+      setErrorMessage(language === 'ru' ? 'Код должен состоять ровно из 8 символов.' : 'Code must be exactly 8 characters.');
     }
   };
 
@@ -5444,7 +5470,7 @@ function App() {
   // room is entered (see onRoomEntered) or a new turn starts (onTurnStart).
   const handleInvestigateRoom = () => {
     if (!gameRoomCodeRef.current || !revealedRoom || roomActionTaken) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no actions this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : "You're still recovering from the trap — no actions this round."); return; }
     setRoomActionTaken(true);
     setInvestigateUsedThisTurn(true);
     playAbilityUseSound(0.75);
@@ -5456,7 +5482,7 @@ function App() {
   // "INVESTIGATE ROOM" — see handleInvestigateRoom above.
   const handleSearchBody = () => {
     if (!gameRoomCodeRef.current || !revealedRoom || roomActionTaken) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no actions this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : "You're still recovering from the trap — no actions this round."); return; }
     setRoomActionTaken(true);
     playAbilityUseSound(0.75);
     socket.emit('search_body', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
@@ -5474,10 +5500,10 @@ function App() {
   // confirmed empty would just waste the cooldown for nothing.
   const handleCheckRoom = () => {
     if (myRole !== 'Innocent' || !gameRoomCodeRef.current || !revealedRoom || checkRoomSubmitting) return;
-    if (!investigateUsedThisTurn) { pushToast('Investigate this room first.'); return; }
+    if (!investigateUsedThisTurn) { pushToast(language === 'ru' ? 'Сначала обыщите эту комнату.' : 'Investigate this room first.'); return; }
     if (markRoomStatus && markRoomStatus.available === false) return;
     if (clearedRoomIds[revealedRoom.roomId]) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     setCheckRoomSubmitting(true);
     playAbilityUseSound(0.75);
     socket.emit('check_room', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
@@ -5490,7 +5516,7 @@ function App() {
   const handleDetectiveCheck = (targetId) => {
     if (myRole !== 'Detective' || !gameRoomCodeRef.current) return;
     if (detectiveAbilityStatus && detectiveAbilityStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     socket.emit('detective_check_location', { code: gameRoomCodeRef.current, targetId });
   };
@@ -5502,7 +5528,7 @@ function App() {
   const handleOfficerLock = (targetId) => {
     if (myRole !== 'Officer' || !gameRoomCodeRef.current) return;
     if (officerAbilityStatus && officerAbilityStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     socket.emit('officer_lock_player', { code: gameRoomCodeRef.current, targetId });
   };
@@ -5515,7 +5541,7 @@ function App() {
   const handleOpenJokerPlantPicker = () => {
     if (myRole !== 'Joker' || currentTurnPlayerId !== socket.id) return;
     if (jokerEvidenceStatus && jokerEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playHoverSound(0.25);
     setJokerPlantFloor(mansionFloor);
     setJokerPlantPickerOpen(true);
@@ -5530,7 +5556,7 @@ function App() {
     if (!gameRoomCodeRef.current || myRole !== 'Joker' || jokerPlantSubmittingRoomId) return;
     if (roomId === 'f1_holding_cell') return;
     if (jokerEvidenceStatus && jokerEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     setJokerPlantSubmittingRoomId(roomId);
     socket.emit('plant_joker_evidence', { code: gameRoomCodeRef.current, roomId });
@@ -5548,7 +5574,7 @@ function App() {
   const handleOpenChangeEvidence = (evidenceId) => {
     if (myRole !== 'Accomplice' || !revealedRoom || !evidenceId) return;
     if (accompliceEvidenceStatus && accompliceEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playHoverSound(0.25);
     setChangeEvidenceTargetEvidenceId(evidenceId);
     setChangeEvidencePickerOpen(true);
@@ -5566,7 +5592,7 @@ function App() {
     if (!changeEvidenceTargetEvidenceId || changeEvidenceSubmittingTargetId) return;
     if (targetPlayerId === socket.id) return;
     if (accompliceEvidenceStatus && accompliceEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     setChangeEvidenceSubmittingTargetId(targetPlayerId);
     socket.emit('accomplice_change_evidence', {
@@ -5586,7 +5612,7 @@ function App() {
   const handleOpenAccompliceTrapPicker = () => {
     if (myRole !== 'Accomplice' || currentTurnPlayerId !== socket.id) return;
     if (accompliceTrapStatus && accompliceTrapStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playHoverSound(0.25);
     setAccompliceTrapFloor(mansionFloor);
     setAccompliceTrapPickerOpen(true);
@@ -5600,7 +5626,7 @@ function App() {
     if (!gameRoomCodeRef.current || myRole !== 'Accomplice' || accompliceTrapSubmittingRoomId) return;
     if (roomId === 'f1_holding_cell') return;
     if (accompliceTrapStatus && accompliceTrapStatus.available === false) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     setAccompliceTrapSubmittingRoomId(roomId);
     socket.emit('set_trap', { code: gameRoomCodeRef.current, roomId });
@@ -5612,7 +5638,7 @@ function App() {
   // failure) or 'game_over' (on success).
   const handleSubmitInnocentCode = () => {
     if (!gameRoomCodeRef.current || !codeGuess.trim()) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — the terminal won't accept input this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — терминал не примет ввод в этом раунде.' : "You're still recovering from the trap — the terminal won't accept input this round."); return; }
     socket.emit('submit_innocent_code', { code: gameRoomCodeRef.current, guess: codeGuess.trim() });
   };
 
@@ -5639,7 +5665,7 @@ function App() {
     if (isEliminated || isObserver) return;
     if (!gameRoomCodeRef.current || !revealedRoom || ventUsedThisTurn) return;
     if (!VENTS[revealedRoom.roomId]) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     setVentUsedThisTurn(true);
     playAbilityUseSound(0.75);
     socket.emit('use_vent', { code: gameRoomCodeRef.current });
@@ -5657,7 +5683,7 @@ function App() {
     if (isEliminated || isObserver) return;
     if (!gameRoomCodeRef.current || !revealedRoom || pendingKillDecision) return;
     if (!targetId || targetId === socket.id) return;
-    if (trapDebuffActive) { pushToast("You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : "You're still recovering from the trap — no abilities this round."); return; }
     socket.emit('kill_player', { code: gameRoomCodeRef.current, targetId });
   };
 
@@ -6395,7 +6421,7 @@ function App() {
                 <div
                   onClick={() => setDopamineCornerMinimized(false)}
                   role="button"
-                  aria-label="Expand Dopamine Corner"
+                  aria-label={language === 'ru' ? 'Развернуть дофаминовый уголок' : 'Expand Dopamine Corner'}
                   style={{
                     position: 'fixed',
                     top: '16px',
@@ -6428,7 +6454,7 @@ function App() {
                   muted
                   playsInline
                   onClick={() => setDopamineCornerMinimized(true)}
-                  aria-label="Minimize Dopamine Corner"
+                  aria-label={language === 'ru' ? 'Свернуть дофаминовый уголок' : 'Minimize Dopamine Corner'}
                   style={{
                     position: 'fixed',
                     top: '16px',
@@ -6805,7 +6831,7 @@ function App() {
                   }}>
                     {turnTimeLeft}s
                   </div>
-                  <div aria-label="Turn time remaining" style={{ width: 'min(340px, 80vw)', height: '5px', margin: '-8px auto 20px', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}>
+                  <div aria-label={language === 'ru' ? 'Оставшееся время хода' : 'Turn time remaining'} style={{ width: 'min(340px, 80vw)', height: '5px', margin: '-8px auto 20px', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}>
                     <div style={{ height: '100%', background: turnTimeLeft <= 5 ? '#ff2a5f' : '#00f0ff', boxShadow: `0 0 12px ${turnTimeLeft <= 5 ? '#ff2a5f' : '#00f0ff'}`, transformOrigin: 'left center', transform: `scaleX(${Math.max(0, Math.min(1, turnTimeLeft / TURN_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} />
                   </div>
 
@@ -6827,6 +6853,7 @@ function App() {
                           clearedRoomIds={clearedRoomIds}
                           myRole={myRole}
                           isMobile={isMobile}
+                          language={language}
                         />
                       )}
 
@@ -6872,6 +6899,7 @@ function App() {
                           onChooseRoom={handleChooseJokerPlantRoom}
                           submittingRoomId={jokerPlantSubmittingRoomId}
                           onClose={() => { if (!jokerPlantSubmittingRoomId) setJokerPlantPickerOpen(false); }}
+                          language={language}
                         />
                       )}
 
@@ -6917,6 +6945,7 @@ function App() {
                           onChooseRoom={handleChooseAccompliceTrapRoom}
                           submittingRoomId={accompliceTrapSubmittingRoomId}
                           onClose={() => { if (!accompliceTrapSubmittingRoomId) setAccompliceTrapPickerOpen(false); }}
+                          language={language}
                         />
                       )}
 
@@ -6932,6 +6961,7 @@ function App() {
                             setChangeEvidencePickerOpen(false);
                             setChangeEvidenceTargetEvidenceId(null);
                           }}
+                          language={language}
                         />
                       )}
 
@@ -6944,6 +6974,7 @@ function App() {
                           targetNickname={pendingKillDecision.targetNickname}
                           resolving={resolvingKill}
                           onChoose={handleResolveKill}
+                          language={language}
                         />
                       )}
 
@@ -7348,7 +7379,7 @@ function App() {
                           <div style={{ fontSize: '32px', fontWeight: 900, color: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff' }}>
                             {trialTimeLeft ?? '--'}s
                           </div>
-                          <div aria-label="Trial time remaining" style={{ width: isMobile ? '100%' : '112px', height: '4px', margin: isMobile ? '5px 0 8px 0' : '5px 0 4px auto', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}><div style={{ height: '100%', background: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff', transformOrigin: 'right center', transform: `scaleX(${trialTimeLeft === null ? 1 : Math.max(0, Math.min(1, trialTimeLeft / TRIAL_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} /></div>
+                          <div aria-label={language === 'ru' ? 'Оставшееся время суда' : 'Trial time remaining'} style={{ width: isMobile ? '100%' : '112px', height: '4px', margin: isMobile ? '5px 0 8px 0' : '5px 0 4px auto', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}><div style={{ height: '100%', background: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff', transformOrigin: 'right center', transform: `scaleX(${trialTimeLeft === null ? 1 : Math.max(0, Math.min(1, trialTimeLeft / TRIAL_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} /></div>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: isMobile ? 'flex-start' : 'flex-end' }}>
                           <button onClick={() => selectTrialVote(null)} disabled={isEliminated || isObserver || trialData?.status !== 'voting' || trialData?.confirmedVoterIds?.includes(socket.id)} style={{ marginTop: '6px', padding: '7px 11px', borderRadius: '6px', border: trialDraftTargetId === null ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.16)', background: trialDraftTargetId === null ? 'rgba(255,255,255,0.17)' : 'rgba(255,255,255,0.04)', color: '#e2e8f0', cursor: 'pointer', boxShadow: trialDraftTargetId === null ? '0 0 20px rgba(255,255,255,0.25)' : 'none', animation: trialDraftTargetId === null ? 'trialSkipPulse 900ms ease-in-out infinite' : 'none', transition: 'all 0.25s ease-in-out' }}>⊘ {language === 'ru' ? 'ПРОПУСТИТЬ ГОЛОС' : 'SKIP VOTE'}</button>
                           <button onClick={() => setIsTrialChatOpen(open => !open)} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', cursor: 'pointer' }}>{language === 'ru' ? 'ЧАТ' : 'CHAT'} ({chatMessages.length})</button>
@@ -7420,6 +7451,7 @@ function App() {
                               officerTurnsRemaining={officerAbilityStatus?.turnsRemaining || 0}
                               onOfficerLock={() => handleOfficerLock(player.id)}
                               isSelf={isSelf}
+                              language={language}
                             />
                           );
                         }) : <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px' }}>{language === 'ru' ? 'Загрузка зашифрованных профилей агентов...' : 'Loading encrypted agent profiles...'}</p>}
@@ -7514,7 +7546,7 @@ function App() {
                       background: 'rgba(255,255,255,0.03)',
                       display: 'flex', flexDirection: 'column', gap: '14px', minHeight: isMobile ? 'auto' : '320px'
                     }}>
-                      <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>DATABASE DOSSIER</div>
+                      <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ БАЗЫ ДАННЫХ' : 'DATABASE DOSSIER'}</div>
                       {selectedTrialPlayer ? (() => {
                         const character = CHARACTERS.find(({ name }) => name === selectedTrialPlayer.character);
                         const dossier = character;
@@ -7533,9 +7565,9 @@ function App() {
                           <div style={{ fontSize: isMobile ? '19px' : '24px', fontWeight: 900, color: '#fff' }}>{selectedTrialPlayer.nickname}</div>
                           <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{character?.name?.toUpperCase() || (language === 'ru' ? 'НЕИЗВЕСТНЫЙ АГЕНТ' : 'UNKNOWN AGENT')}</div>
                           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '8px', fontSize: isMobile ? '12px' : '11px', color: '#c9d3e0', lineHeight: 1.5 }}>
-                            <span>REAL NAME: {dossier?.realName || 'CLASSIFIED'}</span><span>HEIGHT: {dossier?.height || '—'}</span>
-                            <span>WEIGHT: {dossier?.weight || '—'}</span><span>BLOOD: {dossier?.bloodType || '—'}</span>
-                            <span style={{ gridColumn: isMobile ? 'auto' : '1 / -1' }}>HOBBIES: {dossier?.hobbies || '—'}</span>
+                            <span>{language === 'ru' ? 'НАСТОЯЩЕЕ ИМЯ' : 'REAL NAME'}: {dossier?.realName || (language === 'ru' ? 'ЗАСЕКРЕЧЕНО' : 'CLASSIFIED')}</span><span>{language === 'ru' ? 'РОСТ' : 'HEIGHT'}: {dossier?.height || '—'}</span>
+                            <span>{language === 'ru' ? 'ВЕС' : 'WEIGHT'}: {dossier?.weight || '—'}</span><span>{language === 'ru' ? 'ГРУППА КРОВИ' : 'BLOOD'}: {dossier?.bloodType || '—'}</span>
+                            <span style={{ gridColumn: isMobile ? 'auto' : '1 / -1' }}>{language === 'ru' ? 'УВЛЕЧЕНИЯ' : 'HOBBIES'}: {dossier?.hobbies || '—'}</span>
                           </div>
                           </div>
                         </div>;
@@ -7604,24 +7636,24 @@ function App() {
                           </div>
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
-                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>EVIDENCE DOSSIER</p>
+                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ УЛИКИ' : 'EVIDENCE DOSSIER'}</p>
                               <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{selectedClue.text}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              FOUND IN: <span style={{ color: '#e2e8f0' }}>{selectedClue.roomName}</span>
+                              {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{selectedClue.roomName}</span>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              FOUND BY:
+                              {language === 'ru' ? 'НАЙДЕНО:' : 'FOUND BY:'}
                               <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 {selectedClue.foundBy.map((finder, idx) => (
                                   <span key={`${finder.nickname}_${idx}`} style={{ color: '#e2e8f0', fontSize: '12px' }}>
-                                    {finder.nickname} <span style={{ color: '#6272a4' }}>(Round {finder.round})</span>
+                                    {finder.nickname} <span style={{ color: '#6272a4' }}>({language === 'ru' ? `Раунд ${finder.round}` : `Round ${finder.round}`})</span>
                                   </span>
                                 ))}
                               </div>
                             </div>
                             <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', color: '#bdc7db', fontSize: '12px', lineHeight: 1.55 }}>
-                              {selectedClue.description || 'No further description available.'}
+                              {selectedClue.description || (language === 'ru' ? 'Дополнительное описание отсутствует.' : 'No further description available.')}
                             </div>
                           </div>
                         </>
@@ -7647,7 +7679,7 @@ function App() {
                               >
                                 <span style={{ fontSize: '13px' }}>{clue.text}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
-                                  {clue.roomName} · found by {clue.foundBy.map(f => f.nickname).join(', ')}
+                                  {clue.roomName} · {language === 'ru' ? 'найдено:' : 'found by'} {clue.foundBy.map(f => f.nickname).join(', ')}
                                 </span>
                               </div>
                               {/* Forensic Examiner only: "Verify Evidence Authenticity" — asks
@@ -7710,6 +7742,7 @@ function App() {
                   evidenceText={forensicVerifyResult.text}
                   isAuthentic={forensicVerifyResult.isAuthentic}
                   onClose={handleCloseForensicResult}
+                  language={language}
                 />
               )}
               {/* Warning popup for whoever just walked into a trapped room (see
@@ -7720,12 +7753,14 @@ function App() {
                 <TrapTriggeredModal
                   roomName={trapTriggeredInfo.roomName}
                   onClose={() => setTrapTriggeredInfo(null)}
+                  language={language}
                 />
               )}
               {forensicBodyExamineResult && (
                 <ForensicBodyExaminationModal
                   clue={forensicBodyExamineResult.clue}
                   onClose={handleCloseForensicBodyResult}
+                  language={language}
                 />
               )}
               {/* BODIES tab — every victim someone has actually discovered so far
@@ -7750,14 +7785,14 @@ function App() {
                           </div>
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
-                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>BODY</p>
+                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ТЕЛО' : 'BODY'}</p>
                               <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{selectedBody.nickname}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              FOUND IN: <span style={{ color: '#e2e8f0' }}>{selectedBody.roomName}</span>
+                              {language === 'ru' ? 'НАЙДЕНО В:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{selectedBody.roomName}</span>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              FOUND BY:
+                              {language === 'ru' ? 'НАЙДЕНО:' : 'FOUND BY:'}
                               <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 {(selectedBody.foundBy || []).length > 0
                                   ? selectedBody.foundBy.map((nickname, idx) => (
@@ -7798,7 +7833,7 @@ function App() {
                               </div>
                             )}
                             <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', color: '#bdc7db', fontSize: '12px', lineHeight: 1.55 }}>
-                              {selectedBody.description || 'The scene offers no further detail.'}
+                              {selectedBody.description || (language === 'ru' ? 'На месте происшествия больше ничего не обнаружено.' : 'The scene offers no further detail.')}
                             </div>
                           </div>
                         </>
@@ -8062,7 +8097,7 @@ function App() {
       {isNicknameSet && currentScreen === 'main' && (
         <button
           onClick={() => setShowSupportPopup(true)}
-          aria-label="Support the developer"
+          aria-label={language === 'ru' ? 'Поддержать разработчика' : 'Support the developer'}
           style={{
             position: 'fixed',
             right: '20px',
@@ -8121,11 +8156,13 @@ function App() {
           >
             <img
               src="https://files.catbox.moe/amibax.png"
-              alt="Developer"
+              alt={language === 'ru' ? 'Разработчик' : 'Developer'}
               style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', marginBottom: '14px' }}
             />
             <p style={{ color: '#e6e9ef', fontSize: '14px', lineHeight: 1.6, margin: '0 0 20px 0' }}>
-              I'm an indie developer working on this game. If you enjoy playing it, any support would mean a lot to me!
+              {language === 'ru'
+                ? 'Я инди-разработчик этой игры. Если вам нравится в неё играть, любая поддержка будет много значить для меня!'
+                : "I'm an indie developer working on this game. If you enjoy playing it, any support would mean a lot to me!"}
             </p>
             <a
               href="https://boosty.to/limxelstudio/donate"
@@ -8145,7 +8182,7 @@ function App() {
                 boxShadow: '0 8px 20px rgba(255, 42, 95, 0.35)'
               }}
             >
-              Support on Boosty
+              {language === 'ru' ? 'Поддержать на Boosty' : 'Support on Boosty'}
             </a>
             <div
               onClick={() => setShowSupportPopup(false)}
@@ -8158,7 +8195,7 @@ function App() {
                 textTransform: 'uppercase'
               }}
             >
-              Close
+              {language === 'ru' ? 'Закрыть' : 'Close'}
             </div>
           </div>
         </div>
