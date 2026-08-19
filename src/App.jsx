@@ -633,6 +633,33 @@ function translateBodyDescription(character, description, language) {
   return BODY_DESCRIPTIONS_RU[character] || description;
 }
 
+// --- CHARACTER HOBBIES: shown in the trial-phase "DATABASE DOSSIER" panel
+// (see CHARACTERS[].hobbies). Keyed by character name, same as
+// BODY_DESCRIPTIONS_RU above — CHARACTERS itself stays English-only since
+// `realName`/`height`/`weight`/`bloodType` are names/units that don't need
+// translation; only the free-text `hobbies` line does.
+const HOBBIES_RU = {
+  Creed: 'Участвует в аукционах цифрового искусства на миллионы долларов, коллекционирует винтажные люксовые часы, пьёт редкие красные вина.',
+  Karl: 'Занимается классическим фехтованием на именных стальных рапирах, посещает премьеры большой оперы, изучает генеалогию королевских династий.',
+  Anthonio: 'Кормит диких уток в своём бассейне, курит дорогие импортные сигары, управляет контрактами на вывоз мусора.',
+  James: 'Рубит тяжёлые металлические риффы на именной чёрной гитаре Explorer, реставрирует винтажные маслкары с двигателем V8, коллекционирует охотничьи винтовки.',
+  Cedric: 'Тренируется по тюремной системе воркаута, рисует эскизы монохромных татуировок, мастерит самодельные инструменты из металлолома.',
+  Lidy: 'Печёт домашние вишнёвые пироги, вяжет шерстяные свитера, читает детективные романы в мягкой обложке.',
+  May: 'Собирает светящиеся биолюминесцентные лесные грибы, плетёт венки из цветов, собирает блестящую пыльцу в маленькие стеклянные баночки.',
+  Gregory: 'Тренирует микрошвы на синтетической коже, коллекционирует исторические хирургические скальпели, изучает судебно-медицинскую анатомию человека.',
+  Onyx: 'Пишет меланхоличные стихи в запертом чёрном дневнике, коллекционирует виниловые пластинки midwest emo, любит бывать в одиночестве в тёмных дождливых местах.',
+  Max: 'Рисует углём хаотичные повторяющиеся узоры на стенах, разговаривает с невидимыми гостями, копит разноцветные рецептурные таблетки.',
+  Bea: 'Отрабатывает удары мечом с настоящей японской катаной, ведёт личный рукописный список мести, практикует интенсивную медитацию боевых искусств.',
+  Moonka: 'Пишет глубокие метафоричные стихи для литературного клуба, играет грустные классические мелодии на пианино, пишет программный код.'
+};
+
+// Character hobbies line for display — keyed by CHARACTERS[].name, falling
+// back to the raw English string for anything unrecognized.
+function translateHobbies(characterName, hobbies, language) {
+  if (language !== 'ru') return hobbies;
+  return HOBBIES_RU[characterName] || hobbies;
+}
+
 // --- TRIAL / GAME-OVER MESSAGE TRANSLATIONS: like translateRoomName above,
 // the server only ever sends English prose for these (see 'trial_result',
 // 'game_over' and 'code_submission_result' on the backend). Rather than
@@ -7798,7 +7825,7 @@ function App() {
                           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '8px', fontSize: isMobile ? '12px' : '11px', color: '#c9d3e0', lineHeight: 1.5 }}>
                             <span>{language === 'ru' ? 'НАСТОЯЩЕЕ ИМЯ' : 'REAL NAME'}: {dossier?.realName || (language === 'ru' ? 'ЗАСЕКРЕЧЕНО' : 'CLASSIFIED')}</span><span>{language === 'ru' ? 'РОСТ' : 'HEIGHT'}: {dossier?.height || '—'}</span>
                             <span>{language === 'ru' ? 'ВЕС' : 'WEIGHT'}: {dossier?.weight || '—'}</span><span>{language === 'ru' ? 'ГРУППА КРОВИ' : 'BLOOD'}: {dossier?.bloodType || '—'}</span>
-                            <span style={{ gridColumn: isMobile ? 'auto' : '1 / -1' }}>{language === 'ru' ? 'УВЛЕЧЕНИЯ' : 'HOBBIES'}: {dossier?.hobbies || '—'}</span>
+                            <span style={{ gridColumn: isMobile ? 'auto' : '1 / -1' }}>{language === 'ru' ? 'УВЛЕЧЕНИЯ' : 'HOBBIES'}: {translateHobbies(character?.name, dossier?.hobbies, language) || '—'}</span>
                           </div>
                           </div>
                         </div>;
