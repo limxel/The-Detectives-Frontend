@@ -124,28 +124,145 @@ const MAX_PLAYERS = 12;
 const TURN_DURATION_SECONDS = 30;
 const TRIAL_DURATION_SECONDS = 120;
 
-// --- LANGUAGES: selectable in Settings. Only English is actually wired up to
-// the UI text right now (see `language` state) — the rest are placeholders
-// for future localization, listed roughly by number of speakers worldwide.
+// --- LANGUAGES: selectable in Settings. Only English and Russian are
+// actually wired up to the UI text right now (see `language` state and
+// UI_TEXT below) — the rest are placeholders for future localization,
+// listed roughly by number of speakers worldwide.
 const APP_LANGUAGES = [
   { code: 'en', label: 'English' },
-  { code: 'zh', label: '中文' },
-  { code: 'hi', label: 'हिन्दी' },
-  { code: 'es', label: 'Español' },
-  { code: 'fr', label: 'Français' },
-  { code: 'ar', label: 'العربية' },
-  { code: 'bn', label: 'বাংলা' },
   { code: 'ru', label: 'Русский' },
-  { code: 'pt', label: 'Português' },
-  { code: 'ur', label: 'اردو' },
-  { code: 'id', label: 'Bahasa Indonesia' },
+  { code: 'es', label: 'Español' },
   { code: 'de', label: 'Deutsch' },
-  { code: 'ja', label: '日本語' },
-  { code: 'tr', label: 'Türkçe' },
-  { code: 'ko', label: '한국어' },
-  { code: 'vi', label: 'Tiếng Việt' },
-  { code: 'it', label: 'Italiano' }
+  { code: 'it', label: 'Italiano' },
+  { code: 'fr', label: 'Français' }
 ];
+
+// --- UI TEXT: localized strings for every screen up to (but not including)
+// the actual gameplay screen — nickname entry, main menu, play menu,
+// servers list, join-by-code, create server, lobby, settings, and the
+// dossier/rules screen. The gameplay screen itself (intro story, role
+// reveal, action/trial phases, etc.) is intentionally left untranslated
+// for now. Falls back to English for any language without a translation.
+const UI_TEXT = {
+  en: {
+    enterNickname: 'ENTER NICKNAME',
+    nicknamePlaceholder: 'YOUR CODE NAME...',
+    initializeTerminal: 'INITIALIZE TERMINAL',
+    launchCase: 'LAUNCH CASE',
+    settings: 'SETTINGS',
+    dossierRules: 'DOSSIER & RULES',
+    selectOperation: 'Select Operation',
+    publicLobbies: 'PUBLIC LOBBIES',
+    secureConnection: 'SECURE CONNECTION (CODE)',
+    establishHQ: 'ESTABLISH NEW HQ',
+    return: 'RETURN',
+    availableChannels: 'AVAILABLE ENCRYPTED CHANNELS',
+    scanningFrequencies: 'Scanning frequencies... No active channels found.',
+    idLabel: 'ID:',
+    join: 'JOIN',
+    back: 'BACK',
+    enterDecryptionKey: 'ENTER DECRYPTION KEY',
+    hexCodePlaceholder: '8-HEX CODE...',
+    establishLink: 'ESTABLISH LINK',
+    hqConfiguration: 'HQ CONFIGURATION',
+    publicBroadcast: 'PUBLIC BROADCAST',
+    publicBroadcastDesc: 'Listed in global frequency database. Open to all agents.',
+    covertChannel: 'COVERT CHANNEL',
+    covertChannelDesc: 'Encrypted overlay. Accessible strictly via direct terminal patch-in code.',
+    hqBase: 'HQ BASE',
+    preparing: 'PREPARING',
+    open: 'OPEN',
+    linkCode: 'LINK CODE:',
+    selectProfile: 'SELECT PROFILE NETOP (1 UNIQUE PER IDENTITY)',
+    taken: 'TAKEN',
+    cancelReady: 'CANCEL READY STATE',
+    confirmIdentity: 'CONFIRM IDENTITY (READY)',
+    startOperation: 'START OPERATION',
+    waitingForAgents: (count, min) => `WAITING FOR AGENTS (${count}/${min})`,
+    waitingForHost: 'Waiting for host to launch the operation...',
+    connectedChannels: 'CONNECTED CHANNELS',
+    requiresPlayers: 'Requires at least 5 players to start',
+    activeRolePool: 'ACTIVE ROLE POOL',
+    fullTag: '(FULL)',
+    baseTag: '(BASE)',
+    allRolesUnlocked: 'All special roles unlock past 7 players.',
+    rolesUnlockAt7: 'Special roles unlock past 7 players.',
+    youTag: '(YOU)',
+    hostTag: 'HOST',
+    profileLabel: 'Profile:',
+    selectingEllipsis: 'Selecting...',
+    ready: 'READY',
+    wait: 'WAIT',
+    disconnect: 'DISCONNECT',
+    terminalAdjustments: 'TERMINAL ADJUSTMENTS',
+    hqAmbientMusic: 'HQ AMBIENT MUSIC',
+    online: 'ONLINE',
+    muted: 'MUTED',
+    volumeLevel: 'VOLUME LEVEL',
+    dopamineCorner: 'DOPAMINE CORNER',
+    languages: 'LANGUAGES',
+    classifiedDossier: 'CLASSIFIED DOSSIER'
+  },
+  ru: {
+    enterNickname: 'ВВЕДИТЕ НИКНЕЙМ',
+    nicknamePlaceholder: 'ВАШ ПОЗЫВНОЙ...',
+    initializeTerminal: 'ЗАПУСТИТЬ ТЕРМИНАЛ',
+    launchCase: 'НАЧАТЬ ДЕЛО',
+    settings: 'НАСТРОЙКИ',
+    dossierRules: 'ДОСЬЕ И ПРАВИЛА',
+    selectOperation: 'Выберите операцию',
+    publicLobbies: 'ОТКРЫТЫЕ ЛОББИ',
+    secureConnection: 'ЗАЩИЩЁННОЕ ПОДКЛЮЧЕНИЕ (КОД)',
+    establishHQ: 'СОЗДАТЬ НОВЫЙ ШТАБ',
+    return: 'НАЗАД',
+    availableChannels: 'ДОСТУПНЫЕ ЗАШИФРОВАННЫЕ КАНАЛЫ',
+    scanningFrequencies: 'Сканирование частот... Активных каналов не найдено.',
+    idLabel: 'ID:',
+    join: 'ВОЙТИ',
+    back: 'НАЗАД',
+    enterDecryptionKey: 'ВВЕДИТЕ КЛЮЧ ДЕШИФРОВКИ',
+    hexCodePlaceholder: '8-СИМВОЛЬНЫЙ КОД...',
+    establishLink: 'УСТАНОВИТЬ СВЯЗЬ',
+    hqConfiguration: 'НАСТРОЙКА ШТАБА',
+    publicBroadcast: 'ПУБЛИЧНАЯ ТРАНСЛЯЦИЯ',
+    publicBroadcastDesc: 'Отображается в общей базе частот. Доступно всем агентам.',
+    covertChannel: 'СКРЫТЫЙ КАНАЛ',
+    covertChannelDesc: 'Зашифрованный канал. Доступ строго по прямому коду подключения терминала.',
+    hqBase: 'БАЗА ШТАБА',
+    preparing: 'ПОДГОТОВКА',
+    open: 'ОТКРЫТО',
+    linkCode: 'КОД СВЯЗИ:',
+    selectProfile: 'ВЫБЕРИТЕ ПРОФИЛЬ (1 УНИКАЛЬНЫЙ НА ЛИЧНОСТЬ)',
+    taken: 'ЗАНЯТО',
+    cancelReady: 'ОТМЕНИТЬ ГОТОВНОСТЬ',
+    confirmIdentity: 'ПОДТВЕРДИТЬ ЛИЧНОСТЬ (ГОТОВ)',
+    startOperation: 'НАЧАТЬ ОПЕРАЦИЮ',
+    waitingForAgents: (count, min) => `ОЖИДАНИЕ АГЕНТОВ (${count}/${min})`,
+    waitingForHost: 'Ожидание запуска операции хостом...',
+    connectedChannels: 'ПОДКЛЮЧЁННЫЕ КАНАЛЫ',
+    requiresPlayers: 'Требуется минимум 5 игроков для начала',
+    activeRolePool: 'АКТИВНЫЙ ПУЛ РОЛЕЙ',
+    fullTag: '(ПОЛНЫЙ)',
+    baseTag: '(БАЗОВЫЙ)',
+    allRolesUnlocked: 'Все специальные роли открываются после 7 игроков.',
+    rolesUnlockAt7: 'Специальные роли открываются после 7 игроков.',
+    youTag: '(ВЫ)',
+    hostTag: 'ХОСТ',
+    profileLabel: 'Профиль:',
+    selectingEllipsis: 'Выбор...',
+    ready: 'ГОТОВ',
+    wait: 'ОЖИДАНИЕ',
+    disconnect: 'ОТКЛЮЧИТЬСЯ',
+    terminalAdjustments: 'НАСТРОЙКИ ТЕРМИНАЛА',
+    hqAmbientMusic: 'ФОНОВАЯ МУЗЫКА ШТАБА',
+    online: 'ВКЛ',
+    muted: 'ВЫКЛ',
+    volumeLevel: 'УРОВЕНЬ ГРОМКОСТИ',
+    dopamineCorner: 'ДОФАМИНОВЫЙ УГОЛОК',
+    languages: 'ЯЗЫКИ',
+    classifiedDossier: 'СЕКРЕТНОЕ ДОСЬЕ'
+  }
+};
 
 // KEEP IN SYNC WITH backend/index.js — this dossier copy must match the
 // server-authoritative CHARACTERS roster used by generateForensicClue.
@@ -2939,6 +3056,14 @@ function App() {
   const [volume, setVolume] = useState(0.4);
   const [dopamineCorner, setDopamineCorner] = useState(false);
   const [language, setLanguage] = useState('en');
+  // Looks up a UI_TEXT key for the current language, falling back to English
+  // for any key not yet translated for that language. Values can be plain
+  // strings or functions (for strings that interpolate a variable, e.g. a
+  // player count) — call-sites pass through any extra args in that case.
+  const t = useCallback((key, ...args) => {
+    const entry = (UI_TEXT[language] && UI_TEXT[language][key] !== undefined) ? UI_TEXT[language][key] : UI_TEXT.en[key];
+    return typeof entry === 'function' ? entry(...args) : entry;
+  }, [language]);
   const [dopamineCornerMinimized, setDopamineCornerMinimized] = useState(false);
   const dopamineCornerVideoRef = useRef(null);
 
@@ -5557,11 +5682,11 @@ function App() {
           border: '1px solid rgba(255, 255, 255, 0.07)',
           boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
         }}>
-          <h1 style={{ fontSize: '32px', letterSpacing: '4px', marginBottom: '20px', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>ENTER NICKNAME</h1>
+          <h1 style={{ fontSize: '32px', letterSpacing: '4px', marginBottom: '20px', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>{t('enterNickname')}</h1>
           <form onSubmit={handleNicknameSubmit}>
             <input
               type="text"
-              placeholder="YOUR CODE NAME..."
+              placeholder={t('nicknamePlaceholder')}
               maxLength={15}
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -5580,7 +5705,7 @@ function App() {
                 boxSizing: 'border-box'
               }}
             />
-            <NeonButton type="submit" variant="success">INITIALIZE TERMINAL</NeonButton>
+            <NeonButton type="submit" variant="success">{t('initializeTerminal')}</NeonButton>
           </form>
         </div>
       )}
@@ -5656,27 +5781,27 @@ function App() {
             {/* --- SCREEN 1: MAIN MENU --- */}
             {currentScreen === 'main' && (
               <div style={{ display: 'flex', flexDirection: 'column', padding: '10px 0' }}>
-                <NeonButton variant="primary" onClick={() => setCurrentScreen('play_menu')}>LAUNCH CASE</NeonButton>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('settings')}>SETTINGS</NeonButton>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('tutorial')}>DOSSIER & RULES</NeonButton>
+                <NeonButton variant="primary" onClick={() => setCurrentScreen('play_menu')}>{t('launchCase')}</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('settings')}>{t('settings')}</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('tutorial')}>{t('dossierRules')}</NeonButton>
               </div>
             )}
 
             {/* --- SCREEN 2: GAME MODES --- */}
             {currentScreen === 'play_menu' && (
               <div>
-                <h3 style={{ marginBottom: '25px', color: '#8a99ad', fontSize: '14px', letterSpacing: '2px', textTransform: 'uppercase' }}>Select Operation</h3>
-                <NeonButton variant="primary" onClick={openServersList}>PUBLIC LOBBIES</NeonButton>
-                <NeonButton variant="primary" onClick={() => { setCurrentScreen('connect_code'); setErrorMessage(''); setInputCode(''); }}>SECURE CONNECTION (CODE)</NeonButton>
-                <NeonButton variant="success" onClick={() => setCurrentScreen('create_server')}>ESTABLISH NEW HQ</NeonButton>
-                <NeonButton variant="secondary" style={{ marginTop: '10px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />RETURN</NeonButton>
+                <h3 style={{ marginBottom: '25px', color: '#8a99ad', fontSize: '14px', letterSpacing: '2px', textTransform: 'uppercase' }}>{t('selectOperation')}</h3>
+                <NeonButton variant="primary" onClick={openServersList}>{t('publicLobbies')}</NeonButton>
+                <NeonButton variant="primary" onClick={() => { setCurrentScreen('connect_code'); setErrorMessage(''); setInputCode(''); }}>{t('secureConnection')}</NeonButton>
+                <NeonButton variant="success" onClick={() => setCurrentScreen('create_server')}>{t('establishHQ')}</NeonButton>
+                <NeonButton variant="secondary" style={{ marginTop: '10px' }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('return')}</NeonButton>
               </div>
             )}
 
             {/* --- SERVERS LIST --- */}
             {currentScreen === 'servers_list' && (
               <div>
-                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>AVAILABLE ENCRYPTED CHANNELS</h3>
+                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>{t('availableChannels')}</h3>
                 {errorMessage && <p style={{ color: '#ff2a5f', fontSize: '13px', margin: '0 0 15px 0', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '6px' }}><Icon name="alert" size={13} />{errorMessage}</p>}
                 <div style={{
                   maxHeight: '280px',
@@ -5686,7 +5811,7 @@ function App() {
                   background: 'rgba(0,0,0,0.2)'
                 }}>
                   {publicRooms.length === 0 ? (
-                    <p style={{ color: '#6272a4', padding: '30px', fontSize: '13px', fontStyle: 'italic' }}>Scanning frequencies... No active channels found.</p>
+                    <p style={{ color: '#6272a4', padding: '30px', fontSize: '13px', fontStyle: 'italic' }}>{t('scanningFrequencies')}</p>
                   ) : (
                     publicRooms.map((room) => (
                       <div key={room.id} style={{
@@ -5699,7 +5824,7 @@ function App() {
                       }}>
                         <div style={{ flex: 1, marginRight: '10px' }}>
                           <div style={{ fontWeight: 'bold', color: '#fff', fontSize: '14px', marginBottom: '2px' }}>{room.name}</div>
-                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>ID: {room.code}</div>
+                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{t('idLabel')} {room.code}</div>
                         </div>
                         <span style={{ color: '#8a99ad', fontSize: '13px', marginRight: '15px', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="users" size={13} />{room.playersCount}/{room.maxPlayers || MAX_PLAYERS}</span>
                         <button style={{
@@ -5712,22 +5837,22 @@ function App() {
                           fontWeight: '900',
                           letterSpacing: '1px',
                           cursor: 'pointer'
-                        }} onClick={() => socket.emit('join_by_code', { code: room.code, nickname })}>JOIN</button>
+                        }} onClick={() => socket.emit('join_by_code', { code: room.code, nickname })}>{t('join')}</button>
                       </div>
                     ))
                   )}
                 </div>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
               </div>
             )}
 
             {/* --- JOIN BY CODE --- */}
             {currentScreen === 'connect_code' && (
               <form onSubmit={handleJoinByCode}>
-                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>ENTER DECRYPTION KEY</h3>
+                <h3 style={{ marginBottom: '20px', letterSpacing: '2px', fontSize: '15px' }}>{t('enterDecryptionKey')}</h3>
                 <input
                   type="text"
-                  placeholder="8-HEX CODE..."
+                  placeholder={t('hexCodePlaceholder')}
                   maxLength={8}
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value.toUpperCase())}
@@ -5749,27 +5874,27 @@ function App() {
                 />
                 {errorMessage && <p style={{ color: '#ff2a5f', fontSize: '13px', margin: '0 0 15px 0', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '6px' }}><Icon name="alert" size={13} />{errorMessage}</p>}
                 <button type="submit" style={{ display: 'none' }} />
-                <NeonButton onClick={handleJoinByCode} variant="primary">ESTABLISH LINK</NeonButton>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+                <NeonButton onClick={handleJoinByCode} variant="primary">{t('establishLink')}</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
               </form>
             )}
 
             {/* --- CREATE SERVER --- */}
             {currentScreen === 'create_server' && (
               <div>
-                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>HQ CONFIGURATION</h3>
+                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>{t('hqConfiguration')}</h3>
 
                 <div style={{ marginBottom: '20px', textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '15px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                  <NeonButton variant="success" onClick={() => handleCreateRoom('public')} style={{ marginBottom: '8px' }}>PUBLIC BROADCAST</NeonButton>
-                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>Listed in global frequency database. Open to all agents.</p>
+                  <NeonButton variant="success" onClick={() => handleCreateRoom('public')} style={{ marginBottom: '8px' }}>{t('publicBroadcast')}</NeonButton>
+                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>{t('publicBroadcastDesc')}</p>
                 </div>
 
                 <div style={{ marginBottom: '25px', textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '15px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                  <NeonButton variant="danger" onClick={() => handleCreateRoom('private')} style={{ marginBottom: '8px' }}>COVERT CHANNEL</NeonButton>
-                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>Encrypted overlay. Accessible strictly via direct terminal patch-in code.</p>
+                  <NeonButton variant="danger" onClick={() => handleCreateRoom('private')} style={{ marginBottom: '8px' }}>{t('covertChannel')}</NeonButton>
+                  <p style={{ fontSize: '11px', color: '#8a99ad', margin: 0, paddingLeft: '5px' }}>{t('covertChannelDesc')}</p>
                 </div>
 
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('play_menu')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
               </div>
             )}
 
@@ -5779,7 +5904,7 @@ function App() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', flexWrap: 'wrap', gap: '10px' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <span style={{ fontSize: '10px', color: '#00ff87', letterSpacing: '2px', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="mapPin" size={12} />HQ BASE</span>
+                    <span style={{ fontSize: '10px', color: '#00ff87', letterSpacing: '2px', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="mapPin" size={12} />{t('hqBase')}</span>
                     <h2 style={{ color: '#fff', margin: '2px 0', fontSize: '20px' }}>{activeRoom.roomName}</h2>
                   </div>
 
@@ -5797,10 +5922,10 @@ function App() {
                       alignItems: 'center',
                       gap: '6px'
                     }}>
-                      <Icon name={isPreparing ? 'lock' : 'unlock'} size={12} /> {isPreparing ? 'PREPARING' : 'OPEN'}
+                      <Icon name={isPreparing ? 'lock' : 'unlock'} size={12} /> {isPreparing ? t('preparing') : t('open')}
                     </span>
                     <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 16px', borderRadius: '6px', border: '1px solid #00f0ff' }}>
-                      <span style={{ fontSize: '11px', color: '#8a99ad' }}>LINK CODE: </span>
+                      <span style={{ fontSize: '11px', color: '#8a99ad' }}>{t('linkCode')} </span>
                       <strong style={{ fontFamily: 'monospace', color: '#00f0ff', fontSize: '16px', letterSpacing: '2px' }}>{activeRoom.roomCode}</strong>
                     </div>
                   </div>
@@ -5810,7 +5935,7 @@ function App() {
 
                   {/* Character grid */}
                   <div style={{ flex: '2 1 500px', paddingBottom: '10px' }}>
-                    <h4 style={{ textAlign: 'left', margin: '0 0 15px 0', letterSpacing: '2px', color: '#8a99ad', fontSize: '12px' }}>SELECT PROFILE NETOP (1 UNIQUE PER IDENTITY)</h4>
+                    <h4 style={{ textAlign: 'left', margin: '0 0 15px 0', letterSpacing: '2px', color: '#8a99ad', fontSize: '12px' }}>{t('selectProfile')}</h4>
                     <div style={{
                       display: 'grid',
                       gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
@@ -5855,7 +5980,7 @@ function App() {
 
                             {isTaken && (
                               <div style={{ position: 'absolute', top: 5, right: 5, background: '#ff2a5f', color: '#000', fontSize: '8px', padding: '2px 4px', borderRadius: '3px', fontWeight: 'bold' }}>
-                                TAKEN
+                                {t('taken')}
                               </div>
                             )}
                           </div>
@@ -5870,7 +5995,7 @@ function App() {
                         disabled={!selectedChar}
                         onClick={handleReadySubmit}
                       >
-                        {isReady ? "CANCEL READY STATE" : "CONFIRM IDENTITY (READY)"}
+                        {isReady ? t('cancelReady') : t('confirmIdentity')}
                       </NeonButton>
                     ) : isHost ? (
                       // Room still open — only the host sees the start button
@@ -5879,12 +6004,12 @@ function App() {
                         disabled={!canStartPreparation}
                         onClick={handleStartPreparation}
                       >
-                        {canStartPreparation ? 'START OPERATION' : `WAITING FOR AGENTS (${activeRoom.players.length}/${MIN_PLAYERS})`}
+                        {canStartPreparation ? t('startOperation') : t('waitingForAgents', activeRoom.players.length, MIN_PLAYERS)}
                       </NeonButton>
                     ) : (
                       // Regular player waits for the host to launch preparation
                       <p style={{ fontSize: '12px', color: '#8a99ad', textAlign: 'center', letterSpacing: '1px', margin: '10px 0 0 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                        <Icon name="hourglass" size={13} /> Waiting for host to launch the operation...
+                        <Icon name="hourglass" size={13} /> {t('waitingForHost')}
                       </p>
                     )}
                   </div>
@@ -5892,7 +6017,7 @@ function App() {
                   {/* Sidebar */}
                   <div style={{ flex: '1 1 240px', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'left' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                      <h4 style={{ margin: 0, letterSpacing: '1px', fontSize: '12px', color: '#8a99ad' }}>CONNECTED CHANNELS</h4>
+                      <h4 style={{ margin: 0, letterSpacing: '1px', fontSize: '12px', color: '#8a99ad' }}>{t('connectedChannels')}</h4>
                       <span style={{
                         fontSize: '12px',
                         fontWeight: 'bold',
@@ -5909,12 +6034,12 @@ function App() {
                     </div>
                     {lobbyPlayerCount < MIN_PLAYERS && (
                       <p style={{ fontSize: '11px', color: '#ff9100', margin: '-10px 0 15px 0', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <Icon name="alert" size={12} /> Requires at least 5 players to start
+                        <Icon name="alert" size={12} /> {t('requiresPlayers')}
                       </p>
                     )}
                     <div style={{ marginBottom: '15px', padding: '10px', borderRadius: '6px', background: 'rgba(0,240,255,0.04)', border: '1px solid rgba(0,240,255,0.18)' }}>
                       <div style={{ fontSize: '10px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px', marginBottom: '7px' }}>
-                        ACTIVE ROLE POOL {lobbyPlayerCount > 7 ? '(FULL)' : '(BASE)'}
+                        {t('activeRolePool')} {lobbyPlayerCount > 7 ? t('fullTag') : t('baseTag')}
                       </div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {rolePoolPreview.map(({ name, count }) => (
@@ -5924,7 +6049,7 @@ function App() {
                         ))}
                       </div>
                       <div style={{ fontSize: '10px', color: '#8a99ad', marginTop: '7px' }}>
-                        {lobbyPlayerCount > 7 ? 'All special roles unlock past 7 players.' : 'Special roles unlock past 7 players.'}
+                        {lobbyPlayerCount > 7 ? t('allRolesUnlocked') : t('rolesUnlockAt7')}
                       </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -5940,11 +6065,11 @@ function App() {
                         }}>
                           <div>
                             <div style={{ fontWeight: 'bold', fontSize: '13px', color: '#fff' }}>
-                              {player.nickname} {player.id === socket.id && <span style={{ color: '#00f0ff', fontSize: '10px' }}>(YOU)</span>}
-                              {player.id === activeRoom.hostId && <span style={{ color: '#ffd700', fontSize: '10px', marginLeft: '4px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}><Icon name="crown" size={11} />HOST</span>}
+                              {player.nickname} {player.id === socket.id && <span style={{ color: '#00f0ff', fontSize: '10px' }}>{t('youTag')}</span>}
+                              {player.id === activeRoom.hostId && <span style={{ color: '#ffd700', fontSize: '10px', marginLeft: '4px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}><Icon name="crown" size={11} />{t('hostTag')}</span>}
                             </div>
                             <div style={{ fontSize: '11px', color: player.character ? '#00ff87' : '#8a99ad', marginTop: '2px' }}>
-                              Profile: {player.character ? player.character : 'Selecting...'}
+                              {t('profileLabel')} {player.character ? player.character : t('selectingEllipsis')}
                             </div>
                           </div>
                           <span style={{
@@ -5957,14 +6082,14 @@ function App() {
                             border: player.isReady ? '1px solid #00ff87' : '1px solid #ff2a5f',
                             transition: 'all 0.2s ease'
                           }}>
-                            {player.isReady ? 'READY' : 'WAIT'}
+                            {player.isReady ? t('ready') : t('wait')}
                           </span>
                         </div>
                       ))}
                     </div>
 
                     <div style={{ marginTop: '20px' }}>
-                      <NeonButton variant="secondary" onClick={handleLeaveLobby} style={{ padding: '10px', fontSize: '12px' }}>DISCONNECT</NeonButton>
+                      <NeonButton variant="secondary" onClick={handleLeaveLobby} style={{ padding: '10px', fontSize: '12px' }}>{t('disconnect')}</NeonButton>
                     </div>
                   </div>
 
@@ -5976,7 +6101,7 @@ function App() {
             {/* --- SCREEN: SETTINGS --- */}
             {currentScreen === 'settings' && (
               <div>
-                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>TERMINAL ADJUSTMENTS</h3>
+                <h3 style={{ marginBottom: '25px', letterSpacing: '2px', fontSize: '15px' }}>{t('terminalAdjustments')}</h3>
                 <div style={{
                   padding: '20px 15px',
                   background: 'rgba(0,0,0,0.2)',
@@ -5988,7 +6113,7 @@ function App() {
                   gap: '20px'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>HQ AMBIENT MUSIC</span>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('hqAmbientMusic')}</span>
                     <button
                       onClick={toggleMusic}
                       style={{
@@ -6004,12 +6129,12 @@ function App() {
                         boxShadow: isMusicPlaying ? '0 0 10px rgba(0, 255, 135, 0.2)' : '0 0 10px rgba(255, 42, 95, 0.2)'
                       }}
                     >
-                      {isMusicPlaying ? 'ONLINE' : 'MUTED'}
+                      {isMusicPlaying ? t('online') : t('muted')}
                     </button>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#8a99ad', fontWeight: 'bold', letterSpacing: '1px' }}>
-                      <span>VOLUME LEVEL</span>
+                      <span>{t('volumeLevel')}</span>
                       <span style={{ color: '#00f0ff' }}>{Math.round(volume * 100)}%</span>
                     </div>
                     <input
@@ -6026,7 +6151,7 @@ function App() {
                     />
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>DOPAMINE CORNER</span>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('dopamineCorner')}</span>
                     <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                       <input
                         type="checkbox"
@@ -6042,7 +6167,7 @@ function App() {
                     </label>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: 'left' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>LANGUAGES</span>
+                    <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('languages')}</span>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                       {APP_LANGUAGES.map((lang) => (
                         <button
@@ -6067,16 +6192,77 @@ function App() {
                     </div>
                   </div>
                 </div>
-                <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+                <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
               </div>
             )}
 
             {/* --- SCREEN: TUTORIAL --- */}
             {currentScreen === 'tutorial' && (
               <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
-            <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#00f0ff', fontSize: '20px', letterSpacing: '2px', flexShrink: 0 }}>CLASSIFIED DOSSIER</h3>
+            <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#00f0ff', fontSize: '20px', letterSpacing: '2px', flexShrink: 0 }}>{t('classifiedDossier')}</h3>
 
             <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingRight: '12px', fontSize: '13px', lineHeight: '1.6', color: '#bdc7db' }}>
+              {language === 'ru' ? (
+              <>
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. ХОДЫ И ВРЕМЯ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Агенты действуют <strong>строго по очереди</strong>. У каждого есть до <strong>30 секунд</strong>, чтобы выбрать сектор для обыска — как только они входят в комнату и видят, кто там, их ход вскоре завершается.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. ДВЕ ФАЗЫ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Фаза действий:</strong> скрытные манёвры и тактические действия.<br />
+                <strong>Фаза суда:</strong> сбор, сопоставление улик и голосование за устранение подозреваемого.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. ВЕНТИЛЯЦИОННЫЕ ХОДЫ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
+                Только <strong>Убийца</strong> имеет доступ к сети вентиляционных ходов, соединяющих определённые комнаты особняка попарно. Использование хода мгновенно перемещает его в связанную комнату в рамках того же хода — быстрый и бесшумный способ попасть в комнату или покинуть её, не идя по коридорам. Разрешён только <strong>один прыжок через вентиляцию за ход</strong>.
+              </p>
+              <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Известные соединения вентиляции:</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Главный зал</strong> (1-й этаж) ↔ <strong style={{ color: '#fff' }}>Спальня хозяев</strong> (2-й этаж)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Кухня</strong> ↔ <strong style={{ color: '#fff' }}>Оружейная</strong> (оба на 1-м этаже)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Винный погреб</strong> (1-й этаж) ↔ <strong style={{ color: '#fff' }}>Чердак</strong> (2-й этаж)</li>
+              </ul>
+
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. ДАННЫЕ И УЛИКИ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Оперативники находят подлинные следы. <strong>Сообщники подбрасывают сфабрикованные данные</strong> в журналы.
+              </p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                На каждом обнаруженном теле есть ровно один след телосложения или группы крови убийцы, зафиксированный в момент смерти — чем дольше тело остаётся неосмотренным, тем менее надёжным становится этот след. Чтобы собрать полный профиль, нужно осмотреть больше одного тела. Также есть небольшой шанс, что Убийца случайно обронит личную вещь своего персонажа в случайной комнате при убийстве — дополнительная улика, которую никто не подбрасывал специально.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. СПРЯТАТЬ ИЛИ ОСТАВИТЬ ТЕЛО НА ВИДУ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Сразу после убийства <strong>Убийца</strong> должен выбрать: <strong>Спрятать</strong> тело — оно останется скрытым, пока кто-то намеренно не начнёт его искать, но это использует прыжок через вентиляцию в этот ход, так что вентилировать в этот ход нельзя — или <strong>Оставить на виду</strong>, чтобы его увидел следующий, кто зайдёт в комнату, при этом вентиляция остаётся доступной для использования позже.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. ЛОВУШКИ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Сообщник</strong> может установить в комнате скрытую ловушку (<strong style={{ color: '#fff' }}>1 раз в 4 раунда</strong>). Первый агент, зашедший в эту комнату — обычным шагом или через вентиляцию — активирует её: ловушка срабатывает мгновенно, и этот агент лишается всех действий и способностей на весь следующий раунд, включая фазу действий и суд.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>7. АКТИВНЫЕ РОЛИ</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Убийца:</strong> устраняет цели (<strong style={{ color: '#fff' }}>1 за ход</strong>), затем решает, спрятать тело или оставить на виду.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Сообщник:</strong> искажает данные, сразу получает отчёты об убийствах и может установить ловушку в комнате (<strong style={{ color: '#fff' }}>1 раз в 4 раунда</strong>).</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Детектив:</strong> проверяет последнее известное местоположение подозреваемого во время суда (<strong style={{ color: '#fff' }}>1 раз в 2 раунда</strong>).</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Офицер:</strong> запирает подозреваемого в камере (1-й этаж, нижний правый угол особняка) на следующий раунд, изолируя его от всех действий в комнатах (<strong style={{ color: '#fff' }}>1 раз в 3 раунда</strong>).</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Криминалист:</strong> проверяет подлинность улики ИЛИ осматривает обнаруженное тело на предмет следа телосложения/группы крови убийцы — оба действия используют <strong style={{ color: '#fff' }}>общую перезарядку</strong>, доступную <strong style={{ color: '#fff' }}>раз в два раунда</strong>.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Джокер:</strong> побеждает, если раскрыт и казнён советом. Может подбросить личную улику в обыскиваемой комнате раз в 2 своих хода.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Невинный:</strong> без особых способностей. Ищет по особняку код отмены протокола, чтобы отменить карантин.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. ПРОТОКОЛ ПРИЗРАКА (ПОГИБШИЕ)</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 5px 0' }}>
+                Терминальная передача прервана, но доступ открывает <strong style={{ color: '#00ff87' }}>неограниченный спутниковый обзор карты</strong>. Наблюдайте за происходящим.
+              </p>
+              </>
+              ) : (
+              <>
               <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. TURNS & TIMING</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
                 Agents operate <strong>strictly in sequence</strong>. Each asset has up to <strong>30 seconds</strong> to pick a sector to search — the moment they move in and see who's there, their turn wraps up shortly after.
@@ -6133,9 +6319,11 @@ function App() {
               <p style={{ color: '#8a99ad', margin: '0 0 5px 0' }}>
                 Terminal transmission cut off, but overrides grant <strong style={{ color: '#00ff87' }}>Unrestricted Satellite Map Feed</strong>. Watch everything unfold.
               </p>
+              </>
+              )}
             </div>
 
-            <NeonButton variant="secondary" style={{ marginTop: '15px', flexShrink: 0 }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />BACK</NeonButton>
+            <NeonButton variant="secondary" style={{ marginTop: '15px', flexShrink: 0 }} onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
           </div>
         )}
 
