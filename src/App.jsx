@@ -2858,6 +2858,24 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Preload every character portrait, role sprite, and room backdrop as soon
+  // as the app mounts, instead of letting the browser fetch each one lazily
+  // the first time its <img> actually appears (role reveal, room move,
+  // character dossier, etc). Same idea as the Dopamine Corner video: warm
+  // the browser's own image cache up front so that when these images are
+  // finally shown, they render instantly with no pop-in / blank flash.
+  useEffect(() => {
+    const urlsToPreload = [
+      ...CHARACTERS.map((c) => c.url),
+      ...Object.values(ROLES).map((r) => r.sprite),
+      ...Object.values(ROOM_IMAGES)
+    ];
+    urlsToPreload.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []);
+
   // Mobile browsers (Chrome in particular) size `100vh` and `position: fixed`
   // against the "layout viewport", which is taller than what's actually
   // visible whenever the address bar / bottom toolbar is on screen — so a
@@ -2898,6 +2916,7 @@ function App() {
   const [volume, setVolume] = useState(0.4);
   const [dopamineCorner, setDopamineCorner] = useState(false);
   const [dopamineCornerMinimized, setDopamineCornerMinimized] = useState(false);
+  const dopamineCornerVideoRef = useRef(null);
 
   const [publicRooms, setPublicRooms] = useState([]);
   const [inputCode, setInputCode] = useState('');
@@ -6088,61 +6107,74 @@ function App() {
           overflow: 'hidden'
         }}>
 
-          {/* --- DOPAMINE CORNER: looping muted video shown only during other
-               players' turns (action phase, not your own turn). Click to
+          {/* --- DOPAMINE CORNER: looping muted video, only visible during other
+               players' turns (action phase, not your own turn). The <video>
+               stays mounted and playing continuously the whole time this
+               setting is on and we're on the game screen — only its
+               visibility toggles with the turn, so there's no re-fetch /
+               re-decode delay each time it's supposed to appear. Click to
                minimize into a small tab; click the tab to bring it back. --- */}
-          {dopamineCorner && displayPhase === 'action' && currentTurnPlayerId && currentTurnPlayerId !== socket.id && (
-            dopamineCornerMinimized ? (
-              <div
-                onClick={() => setDopamineCornerMinimized(false)}
-                role="button"
-                aria-label="Expand Dopamine Corner"
-                style={{
-                  position: 'fixed',
-                  top: '16px',
-                  right: '16px',
-                  zIndex: 9500,
-                  padding: '8px 12px',
-                  borderRadius: '8px',
-                  background: 'rgba(18, 18, 28, 0.9)',
-                  border: '1px solid rgba(0, 240, 255, 0.4)',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
-                  color: '#00f0ff',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
-                  letterSpacing: '1px',
-                  cursor: 'pointer',
-                  userSelect: 'none'
-                }}
-              >
-                ▶ DOPAMINE CORNER
-              </div>
-            ) : (
-              <video
-                key={DOPAMINE_CORNER_VIDEO}
-                src={DOPAMINE_CORNER_VIDEO}
-                autoPlay
-                loop
-                muted
-                playsInline
-                onClick={() => setDopamineCornerMinimized(true)}
-                aria-label="Minimize Dopamine Corner"
-                style={{
-                  position: 'fixed',
-                  top: '16px',
-                  right: '16px',
-                  zIndex: 9500,
-                  width: 'clamp(120px, 20vw, 340px)',
-                  height: 'auto',
-                  borderRadius: '10px',
-                  border: '1px solid rgba(0, 240, 255, 0.4)',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.6), 0 0 20px rgba(0,240,255,0.15)',
-                  cursor: 'pointer',
-                  display: 'block'
-                }}
-              />
-            )
-          )}
+          {dopamineCorner && (() => {
+            const dopamineCornerVisible = displayPhase === 'action' && currentTurnPlayerId && currentTurnPlayerId !== socket.id;
+            return (
+              <>
+                <div
+                  onClick={() => setDopamineCornerMinimized(false)}
+                  role="button"
+                  aria-label="Expand Dopamine Corner"
+                  style={{
+                    position: 'fixed',
+                    top: '16px',
+                    right: '16px',
+                    zIndex: 9500,
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    background: 'rgba(18, 18, 28, 0.9)',
+                    border: '1px solid rgba(0, 240, 255, 0.4)',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
+                    color: '#00f0ff',
+                    fontSize: '11px',
+                    fontWeight: 'bold',
+                    letterSpacing: '1px',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    opacity: dopamineCornerVisible && dopamineCornerMinimized ? 1 : 0,
+                    pointerEvents: dopamineCornerVisible && dopamineCornerMinimized ? 'auto' : 'none',
+                    transition: 'opacity 0.15s ease'
+                  }}
+                >
+                  ▶ DOPAMINE CORNER
+                </div>
+                <video
+                  ref={dopamineCornerVideoRef}
+                  src={DOPAMINE_CORNER_VIDEO}
+                  preload="auto"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  onClick={() => setDopamineCornerMinimized(true)}
+                  aria-label="Minimize Dopamine Corner"
+                  style={{
+                    position: 'fixed',
+                    top: '16px',
+                    right: '16px',
+                    zIndex: 9500,
+                    width: 'clamp(120px, 20vw, 340px)',
+                    height: 'auto',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(0, 240, 255, 0.4)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.6), 0 0 20px rgba(0,240,255,0.15)',
+                    cursor: 'pointer',
+                    display: 'block',
+                    opacity: dopamineCornerVisible && !dopamineCornerMinimized ? 1 : 0,
+                    pointerEvents: dopamineCornerVisible && !dopamineCornerMinimized ? 'auto' : 'none',
+                    transition: 'opacity 0.15s ease'
+                  }}
+                />
+              </>
+            );
+          })()}
 
           {/* Waiting for other players to load */}
           {gamePhase === 'loading' && (
