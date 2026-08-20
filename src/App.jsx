@@ -3464,9 +3464,9 @@ function App() {
   // 'trap_debuff_blocked' rejection that slips through anyway.
   const [trapDebuffActive, setTrapDebuffActive] = useState(false);
   const [forensicReportUnlocked, setForensicReportUnlocked] = useState(false);
-  // Non-null while this player is carrying Neurotoxin-7 (see 'item:interact:
-  // result'), used purely for a small UI badge — the server remains
-  // authoritative for every actual gameplay effect of the item.
+  // Non-null while this player is carrying Neurotoxin-7 (see the `neurotoxin`
+  // field on 'investigate_result'), used purely for a small UI badge — the
+  // server remains authoritative for every actual gameplay effect of the item.
   const [neurotoxinCarried, setNeurotoxinCarried] = useState(null); // { killsInCurrentRound } | null
   const [forensicSavedReport, setForensicSavedReport] = useState(null); // { bodyId, bodyNickname, roomName, type, value, savedAtRound }
   // --- BODIES TAB (Trial phase): mirrors the CLUES board above, but reads
@@ -3667,8 +3667,8 @@ function App() {
   }, []);
 
   // Neurotoxin-7 pickup popup: shown once, centered, instead of a regular
-  // toast, when 'item:interact:result' comes back successful (see
-  // onItemInteractResult). Auto-dismisses on its own, or on click.
+  // toast, when 'investigate_result' comes back with `neurotoxin.outcome ===
+  // 'picked_up'` (see onInvestigateResult). Auto-dismisses on its own, or on click.
   const [neurotoxinPopup, setNeurotoxinPopup] = useState(null); // { message } | null
   const neurotoxinPopupTimeoutRef = useRef(null);
   const showNeurotoxinPopup = useCallback((message) => {
@@ -5306,29 +5306,10 @@ function App() {
       return languageRef.current === 'ru' ? pair.ru : pair.en;
     }
 
-    // Response to 'item:interact': either the pickup succeeded (role was
-    // eligible) or the syringe was too hazardous for this role to touch.
-    function onItemInteractResult(data) {
-      if (data.itemId !== 'item_neurotoxin') return;
-      console.log('CLIENT item:interact:result:', data);
-      if (data.success) {
-        // Pickup succeeded: a popup instead of the usual toast, plus the
-        // persistent top-left carrier badge (see neurotoxinCarried below).
-        showNeurotoxinPopup(pickLocalizedMessage(data.message));
-        setNeurotoxinCarried({ killsInCurrentRound: 0 });
-        setRevealedRoom(previous => (previous ? { ...previous, neurotoxinPresent: false } : previous));
-      } else {
-        // Pickup failed (role not eligible) — stays a regular toast.
-        pushToast(pickLocalizedMessage(data.message));
-      }
-    }
-
-    // Broadcast to the rest of the room when someone else picks up the
-    // syringe — hides it from anyone still viewing that room.
-    function onMapItemRemoved(data) {
-      if (data.itemId !== 'item_neurotoxin') return;
-      setRevealedRoom(previous => (previous ? { ...previous, neurotoxinPresent: false } : previous));
-    }
+    // NOTE: Neurotoxin-7 pickup is resolved entirely inside 'investigate_result'
+    // (see onInvestigateResult's `neurotoxin` handling above) — the backend has
+    // no handler for a separate 'item:interact' event, so this event and its
+    // reply were removed here as dead code that never actually fired.
 
     // Fatal-hit result: only fires with negated: true when the Accomplice/
     // Joker passive shield actually triggered.
@@ -5590,8 +5571,6 @@ function App() {
     socket.on('check_room_result', onCheckRoomResult);
     socket.on('mark_room_status', onMarkRoomStatus);
     socket.on('search_body_result', onSearchBodyResult);
-    socket.on('item:interact:result', onItemInteractResult);
-    socket.on('map:item_removed', onMapItemRemoved);
     socket.on('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
     socket.on('kill_options', onKillOptions);
     socket.on('kill_resolved', onKillResolved);
@@ -5659,8 +5638,6 @@ function App() {
       socket.off('check_room_result', onCheckRoomResult);
       socket.off('mark_room_status', onMarkRoomStatus);
       socket.off('search_body_result', onSearchBodyResult);
-      socket.off('item:interact:result', onItemInteractResult);
-      socket.off('map:item_removed', onMapItemRemoved);
       socket.off('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
       socket.off('kill_options', onKillOptions);
       socket.off('kill_resolved', onKillResolved);
@@ -5859,17 +5836,10 @@ function App() {
     socket.emit('search_body', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
   };
 
-  // Any role may attempt this — the server is the one that actually decides
-  // whether the role is allowed to carry Neurotoxin-7 (see 'item:interact:
-  // result' / onItemInteractResult). NOT gated on roomActionTaken: picking
-  // up the syringe is its own action, independent of SEARCH FOR BODY /
-  // INVESTIGATE ROOM above.
-  const handleInteractItem = () => {
-    if (!gameRoomCodeRef.current || !revealedRoom?.neurotoxinPresent) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : "You're still recovering from the trap — no actions this round."); return; }
-    playAbilityUseSound(0.75);
-    socket.emit('item:interact', { code: gameRoomCodeRef.current, itemId: 'item_neurotoxin' });
-  };
+  // NOTE: Neurotoxin-7 pickup used to be a separate action via 'item:interact',
+  // but the backend now folds it entirely into 'investigate_room' (see
+  // handleInvestigateRoom above and onInvestigateResult's `neurotoxin`
+  // handling) — that standalone handler was removed as dead code.
 
   // Innocent-only: "CHECK ROOM" (Mark Room). A SEPARATE ability from
   // INVESTIGATE ROOM/SEARCH FOR BODY above — not gated on roomActionTaken, so
@@ -7730,23 +7700,15 @@ function App() {
                                   >
                                     {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : 'INVESTIGATE ROOM'}
                                   </NeonButton>
-                                  {/* Neurotoxin-7: NOT gated on roomActionTaken — picking up the
-                                      syringe is a separate action from SEARCH FOR BODY/INVESTIGATE
-                                      ROOM above. Only shown while the item is actually still here
-                                      (see revealedRoom.neurotoxinPresent, set by 'room_entered' and
-                                      cleared the instant it's picked up — by anyone — via
-                                      'item:interact:result' / 'map:item_removed'). The server alone
-                                      decides whether this player's role is actually allowed to take
-                                      it (see handleInteractItem / onItemInteractResult). */}
-                                  {revealedRoom?.neurotoxinPresent && (
-                                    <NeonButton
-                                      variant="primary"
-                                      style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', gap: '8px' }}
-                                      onClick={handleInteractItem}
-                                    >
-                                      <Icon name="flask" size={14} /> {language === 'ru' ? 'ПОДНЯТЬ НЕЙРОТОКСИН-7' : 'PICK UP NEUROTOXIN-7'}
-                                    </NeonButton>
-                                  )}
+                                  {/* NOTE: Neurotoxin-7 no longer has a standalone pickup button —
+                                      the server folds the pickup (or the reason it failed) directly
+                                      into INVESTIGATE ROOM above and reports it via the `neurotoxin`
+                                      field on 'investigate_result' (see onInvestigateResult), which
+                                      pops the dedicated NEUROTOXIN-7 popup and sets the top-left
+                                      carrier badge. This dead button used to be gated on
+                                      revealedRoom.neurotoxinPresent, a flag the server never actually
+                                      sent — so it could never render, making the syringe look like it
+                                      had already vanished from the room before anyone searched it. */}
                                   {/* Innocent-only: "CHECK ROOM" (Mark Room) — a SEPARATE ability
                                       from the two above, not gated on roomActionTaken so it can be
                                       used after SEARCH FOR BODY too. It IS, however, gated on
