@@ -5165,8 +5165,24 @@ function App() {
     // unless `type === 'fragment'`. `evidence` (anything the Joker has planted
     // here) only ever arrives THROUGH this event — i.e. only once the player
     // actually clicks INVESTIGATE ROOM, never just from walking in.
-    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence }) {
-      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence });
+    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence, neurotoxin }) {
+      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence, neurotoxin });
+
+      // --- NEUROTOXIN-7: pickup is folded into 'investigate_room' server-side
+      // (see the backend's investigate_room handler) — this is the ONLY place
+      // a pickup/blocked-pickup result for it ever arrives. Previously this
+      // field was silently dropped here, so the syringe would vanish from the
+      // room (server marks it pickedUp / leaves it in place) with zero
+      // feedback to the player. 'picked_up' gets the dedicated popup (same
+      // one item:interact:result uses); the other outcomes get a normal toast.
+      if (neurotoxin) {
+        if (neurotoxin.outcome === 'picked_up') {
+          showNeurotoxinPopup(pickLocalizedMessage(neurotoxin.message));
+          setNeurotoxinCarried({ killsInCurrentRound: 0 });
+        } else if (neurotoxin.outcome === 'restricted_role' || neurotoxin.outcome === 'already_carrying') {
+          pushToast(pickLocalizedMessage(neurotoxin.message));
+        }
+      }
       if (type === 'fragment') {
         setCodeTotalDigits(totalDigits ?? null);
         setFoundFragments(prev => prev.some(f => f.position === position)
