@@ -22,7 +22,7 @@ const INTRO_TYPING_LOOP_SOUND = 'https://files.catbox.moe/svl419.mp3';
 const ABILITY_USE_SOUND = 'https://files.catbox.moe/nhfdld.mp3';
 const VICTORY_SOUND = 'https://files.catbox.moe/9e3gv6.mp3';
 const MURDER_SOUND = 'https://files.catbox.moe/nzupgt.mp3';
-const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/jp8f3r.mp4';
+const DOPAMINE_CORNER_VIDEO = 'https://files.catbox.moe/eq3fwd.gif';
 
 // Master volume, controlled by the settings slider. Kept outside the component
 // so it's visible both to module-level functions (Web Audio effects) and to the
@@ -3464,9 +3464,9 @@ function App() {
   // 'trap_debuff_blocked' rejection that slips through anyway.
   const [trapDebuffActive, setTrapDebuffActive] = useState(false);
   const [forensicReportUnlocked, setForensicReportUnlocked] = useState(false);
-  // Non-null while this player is carrying Neurotoxin-7 (see the `neurotoxin`
-  // field on 'investigate_result'), used purely for a small UI badge — the
-  // server remains authoritative for every actual gameplay effect of the item.
+  // Non-null while this player is carrying Neurotoxin-7 (see 'item:interact:
+  // result'), used purely for a small UI badge — the server remains
+  // authoritative for every actual gameplay effect of the item.
   const [neurotoxinCarried, setNeurotoxinCarried] = useState(null); // { killsInCurrentRound } | null
   const [forensicSavedReport, setForensicSavedReport] = useState(null); // { bodyId, bodyNickname, roomName, type, value, savedAtRound }
   // --- BODIES TAB (Trial phase): mirrors the CLUES board above, but reads
@@ -3664,6 +3664,23 @@ function App() {
   const pushToast = useCallback((message) => {
     const id = ++toastIdRef.current;
     setToasts(prev => [...prev, { id, message, leaving: false }]);
+  }, []);
+
+  // Neurotoxin-7 pickup popup: shown once, centered, instead of a regular
+  // toast, when 'item:interact:result' comes back successful (see
+  // onItemInteractResult). Auto-dismisses on its own, or on click.
+  const [neurotoxinPopup, setNeurotoxinPopup] = useState(null); // { message } | null
+  const neurotoxinPopupTimeoutRef = useRef(null);
+  const showNeurotoxinPopup = useCallback((message) => {
+    if (neurotoxinPopupTimeoutRef.current) clearTimeout(neurotoxinPopupTimeoutRef.current);
+    setNeurotoxinPopup({ message });
+    neurotoxinPopupTimeoutRef.current = setTimeout(() => {
+      setNeurotoxinPopup(null);
+    }, 3200);
+  }, []);
+  const dismissNeurotoxinPopup = useCallback(() => {
+    if (neurotoxinPopupTimeoutRef.current) clearTimeout(neurotoxinPopupTimeoutRef.current);
+    setNeurotoxinPopup(null);
   }, []);
   // Dismisses a toast on click — the only way a toast goes away. Plays the
   // exit animation first, then drops it from state once that's finished.
@@ -5148,8 +5165,8 @@ function App() {
     // unless `type === 'fragment'`. `evidence` (anything the Joker has planted
     // here) only ever arrives THROUGH this event — i.e. only once the player
     // actually clicks INVESTIGATE ROOM, never just from walking in.
-    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence, neurotoxin }) {
-      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence, neurotoxin });
+    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence }) {
+      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence });
       if (type === 'fragment') {
         setCodeTotalDigits(totalDigits ?? null);
         setFoundFragments(prev => prev.some(f => f.position === position)
@@ -5180,18 +5197,6 @@ function App() {
           ? { ...previous, evidence }
           : previous);
         evidence.forEach(item => pushToast(languageRef.current === 'ru' ? `Найдена улика: ${translateEvidenceName(item.text, languageRef.current)}` : `Evidence found: ${item.text}`));
-      }
-
-      // Neurotoxin-7 is now resolved server-side as part of 'investigate_room'
-      // itself (see the backend's inline comment on this same field) — there is
-      // no standalone pickup step any more, so this is the only place the
-      // player ever learns about it. `neurotoxin` is only ever attached to the
-      // actual searcher's own result, so no selfFound-style branching is needed.
-      if (neurotoxin) {
-        pushToast(pickLocalizedMessage(neurotoxin.message));
-        if (neurotoxin.outcome === 'picked_up') {
-          setNeurotoxinCarried({ killsInCurrentRound: 0 });
-        }
       }
     }
 
@@ -5283,6 +5288,23 @@ function App() {
     // every Neurotoxin-7 message arrives pre-paired from the server.
     function pickLocalizedMessage(pair) {
       return languageRef.current === 'ru' ? pair.ru : pair.en;
+    }
+
+    // Response to 'item:interact': either the pickup succeeded (role was
+    // eligible) or the syringe was too hazardous for this role to touch.
+    function onItemInteractResult(data) {
+      if (data.itemId !== 'item_neurotoxin') return;
+      console.log('CLIENT item:interact:result:', data);
+      if (data.success) {
+        // Pickup succeeded: a popup instead of the usual toast, plus the
+        // persistent top-left carrier badge (see neurotoxinCarried below).
+        showNeurotoxinPopup(pickLocalizedMessage(data.message));
+        setNeurotoxinCarried({ killsInCurrentRound: 0 });
+        setRevealedRoom(previous => (previous ? { ...previous, neurotoxinPresent: false } : previous));
+      } else {
+        // Pickup failed (role not eligible) — stays a regular toast.
+        pushToast(pickLocalizedMessage(data.message));
+      }
     }
 
     // Broadcast to the rest of the room when someone else picks up the
@@ -5552,6 +5574,7 @@ function App() {
     socket.on('check_room_result', onCheckRoomResult);
     socket.on('mark_room_status', onMarkRoomStatus);
     socket.on('search_body_result', onSearchBodyResult);
+    socket.on('item:interact:result', onItemInteractResult);
     socket.on('map:item_removed', onMapItemRemoved);
     socket.on('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
     socket.on('kill_options', onKillOptions);
@@ -5620,6 +5643,7 @@ function App() {
       socket.off('check_room_result', onCheckRoomResult);
       socket.off('mark_room_status', onMarkRoomStatus);
       socket.off('search_body_result', onSearchBodyResult);
+      socket.off('item:interact:result', onItemInteractResult);
       socket.off('map:item_removed', onMapItemRemoved);
       socket.off('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
       socket.off('kill_options', onKillOptions);
@@ -5817,6 +5841,18 @@ function App() {
     setRoomActionTaken(true);
     playAbilityUseSound(0.75);
     socket.emit('search_body', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
+  };
+
+  // Any role may attempt this — the server is the one that actually decides
+  // whether the role is allowed to carry Neurotoxin-7 (see 'item:interact:
+  // result' / onItemInteractResult). NOT gated on roomActionTaken: picking
+  // up the syringe is its own action, independent of SEARCH FOR BODY /
+  // INVESTIGATE ROOM above.
+  const handleInteractItem = () => {
+    if (!gameRoomCodeRef.current || !revealedRoom?.neurotoxinPresent) return;
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : "You're still recovering from the trap — no actions this round."); return; }
+    playAbilityUseSound(0.75);
+    socket.emit('item:interact', { code: gameRoomCodeRef.current, itemId: 'item_neurotoxin' });
   };
 
   // Innocent-only: "CHECK ROOM" (Mark Room). A SEPARATE ability from
@@ -6776,14 +6812,10 @@ function App() {
                 >
                   ▶ {language === 'ru' ? 'ДОФАМИНОВЫЙ УГОЛОК' : 'DOPAMINE CORNER'}
                 </div>
-                <video
+                <img
                   ref={dopamineCornerVideoRef}
                   src={DOPAMINE_CORNER_VIDEO}
-                  preload="auto"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
+                  alt=""
                   onClick={() => setDopamineCornerMinimized(true)}
                   aria-label={language === 'ru' ? 'Свернуть дофаминовый уголок' : 'Minimize Dopamine Corner'}
                   style={{
@@ -7022,6 +7054,93 @@ function App() {
                       );
                     })}
                   </div>
+                </div>
+              )}
+
+              {/* --- NEUROTOXIN-7 PICKUP POPUP: centered, replaces the toast for
+                   a successful pickup only (failed attempts still toast). Click
+                   anywhere on the backdrop to dismiss early, or it auto-closes. --- */}
+              {neurotoxinPopup && (
+                <div
+                  onClick={dismissNeurotoxinPopup}
+                  role="button"
+                  aria-label={language === 'ru' ? 'Закрыть' : 'Dismiss'}
+                  style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 9600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(0, 0, 0, 0.45)',
+                    backdropFilter: 'blur(2px)',
+                    cursor: 'pointer',
+                    animation: 'trialCardEnter 220ms cubic-bezier(0.16, 1, 0.3, 1)'
+                  }}
+                >
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '26px 32px',
+                      borderRadius: '16px',
+                      border: '1px solid rgba(163, 255, 90, 0.45)',
+                      background: 'rgba(8, 14, 8, 0.96)',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(163,255,90,0.15)',
+                      maxWidth: 'min(320px, calc(100vw - 40px))',
+                      textAlign: 'center'
+                    }}
+                  >
+                    <div style={{
+                      width: '52px',
+                      height: '52px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(163, 255, 90, 0.12)',
+                      border: '1px solid rgba(163, 255, 90, 0.4)'
+                    }}>
+                      <Icon name="flask" size={24} color="#a3ff5a" />
+                    </div>
+                    <p style={{ margin: 0, fontSize: '11px', letterSpacing: '2px', color: '#a3ff5a', fontWeight: 'bold' }}>
+                      {language === 'ru' ? 'НЕЙРОТОКСИН-7' : 'NEUROTOXIN-7'}
+                    </p>
+                    <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: '#e2e8f0' }}>
+                      {neurotoxinPopup.message}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* --- NEUROTOXIN-7 CARRIER BADGE: persistent top-left indicator
+                   while the player holds an unconsumed dose (cleared once both
+                   charges are used or the shield is triggered — see
+                   setNeurotoxinCarried callers). --- */}
+              {neurotoxinCarried && (
+                <div style={{
+                  position: 'fixed',
+                  top: '16px',
+                  left: '16px',
+                  zIndex: 9500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 14px',
+                  borderRadius: '10px',
+                  background: 'rgba(8, 14, 8, 0.9)',
+                  border: '1px solid rgba(163, 255, 90, 0.4)',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.5), 0 0 16px rgba(163,255,90,0.12)',
+                  color: '#a3ff5a',
+                  fontSize: '11px',
+                  fontWeight: 'bold',
+                  letterSpacing: '1px'
+                }}>
+                  <Icon name="flask" size={14} />
+                  <span>{language === 'ru' ? 'НЕЙРОТОКСИН-7' : 'NEUROTOXIN-7'}</span>
                 </div>
               )}
 
@@ -7595,6 +7714,23 @@ function App() {
                                   >
                                     {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : 'INVESTIGATE ROOM'}
                                   </NeonButton>
+                                  {/* Neurotoxin-7: NOT gated on roomActionTaken — picking up the
+                                      syringe is a separate action from SEARCH FOR BODY/INVESTIGATE
+                                      ROOM above. Only shown while the item is actually still here
+                                      (see revealedRoom.neurotoxinPresent, set by 'room_entered' and
+                                      cleared the instant it's picked up — by anyone — via
+                                      'item:interact:result' / 'map:item_removed'). The server alone
+                                      decides whether this player's role is actually allowed to take
+                                      it (see handleInteractItem / onItemInteractResult). */}
+                                  {revealedRoom?.neurotoxinPresent && (
+                                    <NeonButton
+                                      variant="primary"
+                                      style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', gap: '8px' }}
+                                      onClick={handleInteractItem}
+                                    >
+                                      <Icon name="flask" size={14} /> {language === 'ru' ? 'ПОДНЯТЬ НЕЙРОТОКСИН-7' : 'PICK UP NEUROTOXIN-7'}
+                                    </NeonButton>
+                                  )}
                                   {/* Innocent-only: "CHECK ROOM" (Mark Room) — a SEPARATE ability
                                       from the two above, not gated on roomActionTaken so it can be
                                       used after SEARCH FOR BODY too. It IS, however, gated on
