@@ -3464,9 +3464,9 @@ function App() {
   // 'trap_debuff_blocked' rejection that slips through anyway.
   const [trapDebuffActive, setTrapDebuffActive] = useState(false);
   const [forensicReportUnlocked, setForensicReportUnlocked] = useState(false);
-  // Non-null while this player is carrying Neurotoxin-7 (see 'item:interact:
-  // result'), used purely for a small UI badge — the server remains
-  // authoritative for every actual gameplay effect of the item.
+  // Non-null while this player is carrying Neurotoxin-7 (see the `neurotoxin`
+  // field on 'investigate_result'), used purely for a small UI badge — the
+  // server remains authoritative for every actual gameplay effect of the item.
   const [neurotoxinCarried, setNeurotoxinCarried] = useState(null); // { killsInCurrentRound } | null
   const [forensicSavedReport, setForensicSavedReport] = useState(null); // { bodyId, bodyNickname, roomName, type, value, savedAtRound }
   // --- BODIES TAB (Trial phase): mirrors the CLUES board above, but reads
@@ -5148,8 +5148,8 @@ function App() {
     // unless `type === 'fragment'`. `evidence` (anything the Joker has planted
     // here) only ever arrives THROUGH this event — i.e. only once the player
     // actually clicks INVESTIGATE ROOM, never just from walking in.
-    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence }) {
-      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence });
+    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence, neurotoxin }) {
+      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence, neurotoxin });
       if (type === 'fragment') {
         setCodeTotalDigits(totalDigits ?? null);
         setFoundFragments(prev => prev.some(f => f.position === position)
@@ -5180,6 +5180,18 @@ function App() {
           ? { ...previous, evidence }
           : previous);
         evidence.forEach(item => pushToast(languageRef.current === 'ru' ? `Найдена улика: ${translateEvidenceName(item.text, languageRef.current)}` : `Evidence found: ${item.text}`));
+      }
+
+      // Neurotoxin-7 is now resolved server-side as part of 'investigate_room'
+      // itself (see the backend's inline comment on this same field) — there is
+      // no standalone pickup step any more, so this is the only place the
+      // player ever learns about it. `neurotoxin` is only ever attached to the
+      // actual searcher's own result, so no selfFound-style branching is needed.
+      if (neurotoxin) {
+        pushToast(pickLocalizedMessage(neurotoxin.message));
+        if (neurotoxin.outcome === 'picked_up') {
+          setNeurotoxinCarried({ killsInCurrentRound: 0 });
+        }
       }
     }
 
@@ -5271,18 +5283,6 @@ function App() {
     // every Neurotoxin-7 message arrives pre-paired from the server.
     function pickLocalizedMessage(pair) {
       return languageRef.current === 'ru' ? pair.ru : pair.en;
-    }
-
-    // Response to 'item:interact': either the pickup succeeded (role was
-    // eligible) or the syringe was too hazardous for this role to touch.
-    function onItemInteractResult(data) {
-      if (data.itemId !== 'item_neurotoxin') return;
-      console.log('CLIENT item:interact:result:', data);
-      pushToast(pickLocalizedMessage(data.message));
-      if (data.success) {
-        setNeurotoxinCarried({ killsInCurrentRound: 0 });
-        setRevealedRoom(previous => (previous ? { ...previous, neurotoxinPresent: false } : previous));
-      }
     }
 
     // Broadcast to the rest of the room when someone else picks up the
@@ -5552,7 +5552,6 @@ function App() {
     socket.on('check_room_result', onCheckRoomResult);
     socket.on('mark_room_status', onMarkRoomStatus);
     socket.on('search_body_result', onSearchBodyResult);
-    socket.on('item:interact:result', onItemInteractResult);
     socket.on('map:item_removed', onMapItemRemoved);
     socket.on('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
     socket.on('kill_options', onKillOptions);
@@ -5621,7 +5620,6 @@ function App() {
       socket.off('check_room_result', onCheckRoomResult);
       socket.off('mark_room_status', onMarkRoomStatus);
       socket.off('search_body_result', onSearchBodyResult);
-      socket.off('item:interact:result', onItemInteractResult);
       socket.off('map:item_removed', onMapItemRemoved);
       socket.off('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
       socket.off('kill_options', onKillOptions);
@@ -5819,18 +5817,6 @@ function App() {
     setRoomActionTaken(true);
     playAbilityUseSound(0.75);
     socket.emit('search_body', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
-  };
-
-  // Any role may attempt this — the server is the one that actually decides
-  // whether the role is allowed to carry Neurotoxin-7 (see 'item:interact:
-  // result' / onItemInteractResult). NOT gated on roomActionTaken: picking
-  // up the syringe is its own action, independent of SEARCH FOR BODY /
-  // INVESTIGATE ROOM above.
-  const handleInteractItem = () => {
-    if (!gameRoomCodeRef.current || !revealedRoom?.neurotoxinPresent) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : "You're still recovering from the trap — no actions this round."); return; }
-    playAbilityUseSound(0.75);
-    socket.emit('item:interact', { code: gameRoomCodeRef.current, itemId: 'item_neurotoxin' });
   };
 
   // Innocent-only: "CHECK ROOM" (Mark Room). A SEPARATE ability from
@@ -7609,23 +7595,6 @@ function App() {
                                   >
                                     {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : 'INVESTIGATE ROOM'}
                                   </NeonButton>
-                                  {/* Neurotoxin-7: NOT gated on roomActionTaken — picking up the
-                                      syringe is a separate action from SEARCH FOR BODY/INVESTIGATE
-                                      ROOM above. Only shown while the item is actually still here
-                                      (see revealedRoom.neurotoxinPresent, set by 'room_entered' and
-                                      cleared the instant it's picked up — by anyone — via
-                                      'item:interact:result' / 'map:item_removed'). The server alone
-                                      decides whether this player's role is actually allowed to take
-                                      it (see handleInteractItem / onItemInteractResult). */}
-                                  {revealedRoom?.neurotoxinPresent && (
-                                    <NeonButton
-                                      variant="primary"
-                                      style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', gap: '8px' }}
-                                      onClick={handleInteractItem}
-                                    >
-                                      <Icon name="flask" size={14} /> {language === 'ru' ? 'ПОДНЯТЬ НЕЙРОТОКСИН-7' : 'PICK UP NEUROTOXIN-7'}
-                                    </NeonButton>
-                                  )}
                                   {/* Innocent-only: "CHECK ROOM" (Mark Room) — a SEPARATE ability
                                       from the two above, not gated on roomActionTaken so it can be
                                       used after SEARCH FOR BODY too. It IS, however, gated on
