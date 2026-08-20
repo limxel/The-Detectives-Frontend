@@ -3105,118 +3105,6 @@ function TrapTriggeredModal({ roomName, onClose, language }) {
   );
 }
 
-// --- NEUROTOXIN-7 FOUND — the popup shown when INVESTIGATE ROOM turns up a
-// syringe (see the `neurotoxin` field on 'investigate_result' server-side).
-// There is no separate pickup button any more: whatever happened (picked up,
-// too hazardous for this role, or already carrying one — the "one dose at a
-// time" blocker) is already decided by the server by the time this fires, so
-// this is purely informational, same dismiss pattern as
-// ForensicVerifyResultModal/TrapTriggeredModal above. `message` is the
-// server-sent { en, ru } pair; `effect` ('double_kill' | 'shield') is only
-// present when `outcome === 'picked_up'` and drives the extra explainer line
-// underneath it.
-function NeurotoxinFoundModal({ outcome, message, effect, onClose, language }) {
-  const accent = outcome === 'picked_up' ? '#a3ff6b' : (outcome === 'already_carrying' ? '#ffb974' : '#ff2a5f');
-  const accentSoft = outcome === 'picked_up' ? 'rgba(163,255,107,0.35)' : (outcome === 'already_carrying' ? 'rgba(255,185,116,0.35)' : 'rgba(255,42,95,0.35)');
-  const accentGlow = outcome === 'picked_up' ? 'rgba(163,255,107,0.12)' : (outcome === 'already_carrying' ? 'rgba(255,185,116,0.12)' : 'rgba(255,42,95,0.12)');
-
-  const titles = {
-    picked_up: { en: 'NEUROTOXIN-7 ACQUIRED', ru: 'НЕЙРОТОКСИН-7 ПОЛУЧЕН' },
-    restricted_role: { en: 'NEUROTOXIN-7 FOUND', ru: 'НЕЙРОТОКСИН-7 НАЙДЕН' },
-    already_carrying: { en: 'ANOTHER SYRINGE FOUND', ru: 'НАЙДЕН ЕЩЁ ОДИН ШПРИЦ' }
-  };
-  const title = titles[outcome] || titles.restricted_role;
-
-  const effectExplainers = {
-    double_kill: {
-      en: 'This lets you make two kills in a single round instead of one — the syringe is used up the moment the second kill lands.',
-      ru: 'Это позволяет совершить два убийства за один раунд вместо одного — шприц расходуется в момент второго убийства.'
-    },
-    shield: {
-      en: 'It acts as a one-time passive shield: the next fatal blow against you — from the Killer or a council execution — will be negated instead, and the syringe is used up.',
-      ru: 'Он работает как одноразовый пассивный щит: следующий смертельный удар по вам — от Убийцы или казни по решению совета — будет нейтрализован, а шприц израсходован.'
-    }
-  };
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(4, 8, 4, 0.9)',
-        backdropFilter: 'blur(16px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '24px',
-        zIndex: 50,
-        animation: 'roomPeekIn 380ms cubic-bezier(0.16, 1, 0.3, 1)'
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          width: 'min(460px, 100%)',
-          background: 'linear-gradient(145deg, rgba(10, 14, 8, 0.97) 0%, rgba(6, 8, 5, 0.98) 100%)',
-          border: `1px solid ${accentSoft}`,
-          borderRadius: '22px',
-          boxShadow: `0 28px 90px rgba(0, 0, 0, 0.55), 0 0 60px ${accentGlow}`,
-          padding: '26px',
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-          animation: 'roomPeekIn 420ms cubic-bezier(0.16, 1, 0.3, 1)'
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Icon name="flask" size={20} color={accent} />
-          <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: accent }}>
-              {language === 'ru' ? 'НАХОДКА В КОМНАТЕ' : 'ROOM FINDING'}
-            </p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#f2f7ef', letterSpacing: '1px' }}>
-              {language === 'ru' ? title.ru : title.en}
-            </h3>
-          </div>
-        </div>
-
-        {message && (
-          <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#bdc7db' }}>
-            {language === 'ru' ? message.ru : message.en}
-          </p>
-        )}
-
-        {outcome === 'picked_up' && effect && effectExplainers[effect] && (
-          <p style={{ margin: 0, fontSize: '12px', lineHeight: 1.55, color: '#9fb0a4', borderTop: `1px solid ${accentSoft}`, paddingTop: '12px' }}>
-            {language === 'ru' ? effectExplainers[effect].ru : effectExplainers[effect].en}
-          </p>
-        )}
-
-        <button
-          onClick={onClose}
-          style={{
-            alignSelf: 'flex-end',
-            padding: '9px 18px',
-            borderRadius: '8px',
-            border: `1px solid ${accentSoft}`,
-            background: accentGlow,
-            color: accent,
-            fontSize: '11px',
-            fontWeight: 800,
-            letterSpacing: '1px',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease'
-          }}
-        >
-          {language === 'ru' ? 'ЗАКРЫТЬ' : 'CLOSE'}
-        </button>
-      </div>
-    </div>
-  );
-}
-
 function ForensicBodyExaminationModal({ clue, onClose, language }) {
   const getSentence = () => {
     if (!clue) return language === 'ru' ? 'Улика недоступна.' : 'No clue available.';
@@ -3576,16 +3464,10 @@ function App() {
   // 'trap_debuff_blocked' rejection that slips through anyway.
   const [trapDebuffActive, setTrapDebuffActive] = useState(false);
   const [forensicReportUnlocked, setForensicReportUnlocked] = useState(false);
-  // Non-null while this player is carrying Neurotoxin-7 (see
-  // 'investigate_result' -> neurotoxin.outcome === 'picked_up'), used purely
-  // for a small UI badge — the server remains authoritative for every actual
-  // gameplay effect of the item.
+  // Non-null while this player is carrying Neurotoxin-7 (see 'item:interact:
+  // result'), used purely for a small UI badge — the server remains
+  // authoritative for every actual gameplay effect of the item.
   const [neurotoxinCarried, setNeurotoxinCarried] = useState(null); // { killsInCurrentRound } | null
-  // Non-null while the "you found Neurotoxin-7" popup is on screen (see
-  // NeurotoxinFoundModal below) — set from the `neurotoxin` field on
-  // 'investigate_result', which now folds the syringe's discovery into
-  // INVESTIGATE ROOM instead of a separate pickup button/event.
-  const [neurotoxinFoundPopup, setNeurotoxinFoundPopup] = useState(null); // { outcome, message, effect } | null
   const [forensicSavedReport, setForensicSavedReport] = useState(null); // { bodyId, bodyNickname, roomName, type, value, savedAtRound }
   // --- BODIES TAB (Trial phase): mirrors the CLUES board above, but reads
   // from trialFindings.bodies (set once per trial via 'phase_state' /
@@ -5265,13 +5147,9 @@ function App() {
     // based on role — the client never had, and never needs, the digit itself
     // unless `type === 'fragment'`. `evidence` (anything the Joker has planted
     // here) only ever arrives THROUGH this event — i.e. only once the player
-    // actually clicks INVESTIGATE ROOM, never just from walking in. `neurotoxin`
-    // arrives the same way: Neurotoxin-7 has no standalone pickup button any
-    // more, so a syringe sitting in this room is resolved as part of this same
-    // result and surfaced as a popup (see NeurotoxinFoundModal) instead of a
-    // plain toast.
-    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence, neurotoxin }) {
-      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence, neurotoxin });
+    // actually clicks INVESTIGATE ROOM, never just from walking in.
+    function onInvestigateResult({ roomId, type, digit, position, totalDigits, foundBy, selfFound, evidence }) {
+      console.log('CLIENT investigate_result:', { roomId, type, position, totalDigits, foundBy, selfFound, evidence });
       if (type === 'fragment') {
         setCodeTotalDigits(totalDigits ?? null);
         setFoundFragments(prev => prev.some(f => f.position === position)
@@ -5302,16 +5180,6 @@ function App() {
           ? { ...previous, evidence }
           : previous);
         evidence.forEach(item => pushToast(languageRef.current === 'ru' ? `Найдена улика: ${translateEvidenceName(item.text, languageRef.current)}` : `Evidence found: ${item.text}`));
-      }
-
-      // Neurotoxin-7: pop up a dedicated notification instead of a toast —
-      // this is the one and only place the syringe is ever discovered now.
-      if (neurotoxin) {
-        playTrashFoundSound(0.18);
-        setNeurotoxinFoundPopup(neurotoxin);
-        if (neurotoxin.outcome === 'picked_up') {
-          setNeurotoxinCarried({ killsInCurrentRound: 0 });
-        }
       }
     }
 
@@ -5405,10 +5273,24 @@ function App() {
       return languageRef.current === 'ru' ? pair.ru : pair.en;
     }
 
-    // Neurotoxin-7 no longer has a standalone pickup button/event — its
-    // discovery is folded into 'investigate_room' (see onInvestigateResult
-    // below), which pops up a dedicated NeurotoxinFoundModal instead of a
-    // plain toast.
+    // Response to 'item:interact': either the pickup succeeded (role was
+    // eligible) or the syringe was too hazardous for this role to touch.
+    function onItemInteractResult(data) {
+      if (data.itemId !== 'item_neurotoxin') return;
+      console.log('CLIENT item:interact:result:', data);
+      pushToast(pickLocalizedMessage(data.message));
+      if (data.success) {
+        setNeurotoxinCarried({ killsInCurrentRound: 0 });
+        setRevealedRoom(previous => (previous ? { ...previous, neurotoxinPresent: false } : previous));
+      }
+    }
+
+    // Broadcast to the rest of the room when someone else picks up the
+    // syringe — hides it from anyone still viewing that room.
+    function onMapItemRemoved(data) {
+      if (data.itemId !== 'item_neurotoxin') return;
+      setRevealedRoom(previous => (previous ? { ...previous, neurotoxinPresent: false } : previous));
+    }
 
     // Fatal-hit result: only fires with negated: true when the Accomplice/
     // Joker passive shield actually triggered.
@@ -5670,6 +5552,8 @@ function App() {
     socket.on('check_room_result', onCheckRoomResult);
     socket.on('mark_room_status', onMarkRoomStatus);
     socket.on('search_body_result', onSearchBodyResult);
+    socket.on('item:interact:result', onItemInteractResult);
+    socket.on('map:item_removed', onMapItemRemoved);
     socket.on('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
     socket.on('kill_options', onKillOptions);
     socket.on('kill_resolved', onKillResolved);
@@ -5737,6 +5621,8 @@ function App() {
       socket.off('check_room_result', onCheckRoomResult);
       socket.off('mark_room_status', onMarkRoomStatus);
       socket.off('search_body_result', onSearchBodyResult);
+      socket.off('item:interact:result', onItemInteractResult);
+      socket.off('map:item_removed', onMapItemRemoved);
       socket.off('player:takeFatalHit:result', onPlayerTakeFatalHitResult);
       socket.off('kill_options', onKillOptions);
       socket.off('kill_resolved', onKillResolved);
@@ -5935,10 +5821,17 @@ function App() {
     socket.emit('search_body', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
   };
 
-  // Neurotoxin-7 no longer has a standalone pickup action — a syringe
-  // sitting in the room is resolved automatically as part of
-  // handleInvestigateRoom / 'investigate_room' above (see onInvestigateResult
-  // and NeurotoxinFoundModal).
+  // Any role may attempt this — the server is the one that actually decides
+  // whether the role is allowed to carry Neurotoxin-7 (see 'item:interact:
+  // result' / onItemInteractResult). NOT gated on roomActionTaken: picking
+  // up the syringe is its own action, independent of SEARCH FOR BODY /
+  // INVESTIGATE ROOM above.
+  const handleInteractItem = () => {
+    if (!gameRoomCodeRef.current || !revealedRoom?.neurotoxinPresent) return;
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : "You're still recovering from the trap — no actions this round."); return; }
+    playAbilityUseSound(0.75);
+    socket.emit('item:interact', { code: gameRoomCodeRef.current, itemId: 'item_neurotoxin' });
+  };
 
   // Innocent-only: "CHECK ROOM" (Mark Room). A SEPARATE ability from
   // INVESTIGATE ROOM/SEARCH FOR BODY above — not gated on roomActionTaken, so
@@ -7716,10 +7609,23 @@ function App() {
                                   >
                                     {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : 'INVESTIGATE ROOM'}
                                   </NeonButton>
-                                  {/* Neurotoxin-7 no longer has its own button — a syringe sitting
-                                      in this room is now discovered and resolved automatically as
-                                      part of INVESTIGATE ROOM above (see onInvestigateResult /
-                                      NeurotoxinFoundModal). */}
+                                  {/* Neurotoxin-7: NOT gated on roomActionTaken — picking up the
+                                      syringe is a separate action from SEARCH FOR BODY/INVESTIGATE
+                                      ROOM above. Only shown while the item is actually still here
+                                      (see revealedRoom.neurotoxinPresent, set by 'room_entered' and
+                                      cleared the instant it's picked up — by anyone — via
+                                      'item:interact:result' / 'map:item_removed'). The server alone
+                                      decides whether this player's role is actually allowed to take
+                                      it (see handleInteractItem / onItemInteractResult). */}
+                                  {revealedRoom?.neurotoxinPresent && (
+                                    <NeonButton
+                                      variant="primary"
+                                      style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', gap: '8px' }}
+                                      onClick={handleInteractItem}
+                                    >
+                                      <Icon name="flask" size={14} /> {language === 'ru' ? 'ПОДНЯТЬ НЕЙРОТОКСИН-7' : 'PICK UP NEUROTOXIN-7'}
+                                    </NeonButton>
+                                  )}
                                   {/* Innocent-only: "CHECK ROOM" (Mark Room) — a SEPARATE ability
                                       from the two above, not gated on roomActionTaken so it can be
                                       used after SEARCH FOR BODY too. It IS, however, gated on
@@ -8209,20 +8115,6 @@ function App() {
                 <TrapTriggeredModal
                   roomName={trapTriggeredInfo.roomName}
                   onClose={() => setTrapTriggeredInfo(null)}
-                  language={language}
-                />
-              )}
-              {/* Neurotoxin-7 discovery popup — fires from 'investigate_room'
-                  now that the syringe has no standalone pickup button (see
-                  onInvestigateResult). Rendered independently, same pattern
-                  as the two popups above, so it stays up regardless of which
-                  panel is open. */}
-              {neurotoxinFoundPopup && (
-                <NeurotoxinFoundModal
-                  outcome={neurotoxinFoundPopup.outcome}
-                  message={neurotoxinFoundPopup.message}
-                  effect={neurotoxinFoundPopup.effect}
-                  onClose={() => setNeurotoxinFoundPopup(null)}
                   language={language}
                 />
               )}
