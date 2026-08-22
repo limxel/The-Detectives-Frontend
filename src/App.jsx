@@ -6620,20 +6620,30 @@ function App() {
             <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingRight: '12px', fontSize: '13px', lineHeight: '1.6', color: '#bdc7db' }}>
               {language === 'ru' ? (
               <>
-              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. ХОДЫ И ВРЕМЯ</p>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. ЛОББИ, ПЕРСОНАЖИ И СТАРТ</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Агенты действуют <strong>строго по очереди</strong>. У каждого есть до <strong>30 секунд</strong>, чтобы выбрать сектор для обыска — как только они входят в комнату и видят, кто там, их ход вскоре завершается.
+                Комната рассчитана на <strong>5–12 агентов</strong>. Каждый выбирает одного из 12 уникальных персонажей — один и тот же персонаж не может принадлежать двум игрокам одновременно, но выбор свободно меняется до нажатия «Готов». Хост запускает подготовку кнопкой <strong>START OPERATION</strong>: вход в комнату блокируется, и все переключают готовность. В момент, когда готовы <strong>абсолютно все</strong>, автоматически стартует <strong>5-секундный отсчёт</strong> — если кто-то передумает, отсчёт тут же отменяется.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. ДВЕ ФАЗЫ</p>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. ЗАГРУЗКА И РАСКРЫТИЕ РОЛИ</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                <strong>Фаза действий:</strong> скрытные манёвры и тактические действия.<br />
-                <strong>Фаза суда:</strong> сбор, сопоставление улик и голосование за устранение подозреваемого.
+                Текст интро запускается только когда о загрузке отчитались <strong>все игроки</strong> — если чья-то вкладка свёрнута и застряла, сервер ждёт <strong>15 секунд</strong> и запускает игру принудительно, чтобы никто не мог заблокировать лобби навсегда. Роль назначается именно в этот момент и раскрывается <strong>только вам лично</strong> — сервер никому больше её не сообщает. Сама игра стартует аналогично: только когда все подтвердили, что досмотрели экран роли (снова с 15-секундной страховкой).
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. ВЕНТИЛЯЦИОННЫЕ ХОДЫ</p>
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. ХОДЫ И ВРЕМЯ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Агенты действуют <strong>строго по очереди</strong>, порядок ходов перемешивается заново <strong>каждый раунд</strong> (и гарантированно отличается от прошлого раунда). У каждого есть до <strong>30 секунд</strong> на выбор сектора для обыска — это жёсткий серверный таймер. За ход разрешён <strong>ровно один обыск комнаты</strong>, но ход не заканчивается автоматически сразу после этого: вы остаётесь внутри, чтобы действовать, пока не нажмёте «Завершить ход» или не истечёт время. Если время истекло, а комната так и не выбрана — вас всё равно случайно поместят в одну из комнат для учёта. Если комната уже выбрана — ход просто завершается там, где вы есть. Штрафа нет ни в одном из случаев. <strong style={{ color: '#fff' }}>Карту особняка видит только тот, чей сейчас ход</strong> — все остальные живые агенты в это время видят лишь обратный отсчёт и обобщённую надпись «Агент действует», без карты и без возможности подглядеть комнаты, пока не наступит их собственный ход.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. ДВЕ ФАЗЫ РАУНДА</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Фаза действий:</strong> скрытные манёвры и тактические действия, пока не сходят все живые агенты.<br />
+                <strong>Фаза суда:</strong> короткое затемнение (~1,5 сек) → объявление и сводка по делу (~6 сек, показывает найденные тела и улики) → голосование (до 120 секунд, но завершается досрочно, как только зафиксировались все) → разрешение итога (~3,5 сек) → новый раунд или конец игры.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. ВЕНТИЛЯЦИОННЫЕ ХОДЫ</p>
               <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
-                Только <strong>Убийца</strong> имеет доступ к сети вентиляционных ходов, соединяющих определённые комнаты особняка попарно. Использование хода мгновенно перемещает его в связанную комнату в рамках того же хода — быстрый и бесшумный способ попасть в комнату или покинуть её, не идя по коридорам. Разрешён только <strong>один прыжок через вентиляцию за ход</strong>.
+                Только <strong>Убийца</strong> имеет доступ к сети вентиляционных ходов, соединяющих определённые комнаты особняка попарно. Нужно уже находиться в одной из этих комнат, чтобы прыгнуть. Прыжок — это мгновенное перемещение <strong>в дополнение</strong> к обычному обыску, а не вместо него, и заново открывает действия в новой комнате (включая возможный триггер ловушки там). Разрешён только <strong>один прыжок через вентиляцию за ход</strong>.
               </p>
               <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Известные соединения вентиляции:</p>
               <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
@@ -6641,58 +6651,121 @@ function App() {
                 <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Кухня</strong> ↔ <strong style={{ color: '#fff' }}>Оружейная</strong> (оба на 1-м этаже)</li>
                 <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Винный погреб</strong> (1-й этаж) ↔ <strong style={{ color: '#fff' }}>Чердак</strong> (2-й этаж)</li>
               </ul>
-
-
-              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. ДАННЫЕ И УЛИКИ</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Оперативники находят подлинные следы. <strong>Сообщники подбрасывают сфабрикованные данные</strong> в журналы.
-              </p>
-              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                На каждом обнаруженном теле есть ровно один след телосложения или группы крови убийцы, зафиксированный в момент смерти — чем дольше тело остаётся неосмотренным, тем менее надёжным становится этот след. Чтобы собрать полный профиль, нужно осмотреть больше одного тела. Также есть небольшой шанс, что Убийца случайно обронит личную вещь своего персонажа в случайной комнате при убийстве — дополнительная улика, которую никто не подбрасывал специально.
+                Кроме двух обыскиваемых этажей (по 10 комнат каждый) в особняке есть запертая <strong style={{ color: '#fff' }}>Камера содержания</strong> (1-й этаж, нижний правый угол — только для эффекта способности Офицера) и подвальная <strong style={{ color: '#fff' }}>Комната пыток</strong> — чисто атмосферная, но проходимая как обычная комната.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. СПРЯТАТЬ ИЛИ ОСТАВИТЬ ТЕЛО НА ВИДУ</p>
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. ДЕЙСТВИЯ В КОМНАТЕ: ОБЫСК И ПОИСК ТЕЛА</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Сразу после убийства <strong>Убийца</strong> должен выбрать: <strong>Спрятать</strong> тело — оно останется скрытым, пока кто-то намеренно не начнёт его искать, но это использует прыжок через вентиляцию в этот ход, так что вентилировать в этот ход нельзя — или <strong>Оставить на виду</strong>, чтобы его увидел следующий, кто зайдёт в комнату, при этом вентиляция остаётся доступной для использования позже.
+                За один визит в комнату доступно только <strong>одно</strong> из двух действий — <strong>«Обыскать комнату»</strong> или <strong>«Искать тело»</strong> — что бы вы ни нажали первым, второе блокируется до захода в другую комнату (новый обыск или прыжок через вент). «Обыскать комнату» ищет цифру кода (см. пункт 7) и заодно вскрывает любую подброшенную улику или лежащий здесь Нейротоксин-7 — отдельных кнопок для этого нет.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. ЛОВУШКИ</p>
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>7. ЦИФРОВОЙ КОД ОТМЕНЫ ПРОТОКОЛА</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                <strong>Сообщник</strong> может установить в комнате скрытую ловушку (<strong style={{ color: '#fff' }}>1 раз в 4 раунда</strong>). Первый агент, зашедший в эту комнату — обычным шагом или через вентиляцию — активирует её: ловушка срабатывает мгновенно, и этот агент лишается всех действий и способностей на весь следующий раунд, включая фазу действий и суд.
+                Длина кода зависит от числа Невинных в лобби: <strong style={{ color: '#fff' }}>4 цифры за 1-го Невинного, +1 цифра за каждого следующего, максимум 10</strong>. Каждая цифра спрятана в своей случайной комнате на весь матч. Реальную цифру (и её позицию в коде) при обыске получают только <strong>Невинные</strong>, и мгновенно узнаёт вся их команда — все остальные роли получают одинаковый пустой результат, реальна там цифра или нет. Отдельная способность <strong>«Проверить комнату»</strong> (перезарядка <strong style={{ color: '#fff' }}>2 раунда</strong>, требует, чтобы обыск этой комнаты уже был сделан в этот ход) анонимно помечает комнату как чистую для всей команды Невинных — но если цифра реально там, комната никогда не помечается чистой, а сама цифра всё равно не раскрывается этой способностью.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>7. АКТИВНЫЕ РОЛИ</p>
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. СПРЯТАТЬ ИЛИ ОСТАВИТЬ ТЕЛО НА ВИДУ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Сразу после убийства <strong>Убийца</strong> должен выбрать: <strong>Спрятать</strong> тело — оно останется скрытым, пока кто-то намеренно не начнёт его искать, но это использует прыжок через вентиляцию в этот ход, так что вентилировать в этот ход нельзя — или <strong>Оставить на виду</strong>, чтобы его увидел следующий, кто зайдёт в комнату, при этом вентиляция остаётся доступной для использования позже. Если решение так и не принято до конца хода, сервер сам выбирает «Оставить на виду» — тело никогда не теряется молча. На каждое убийство есть также <strong style={{ color: '#fff' }}>шанс 50%</strong>, что Убийца случайно обронит личную вещь своего персонажа в случайной комнате где угодно в особняке (необязательно в комнате убийства) — об этом узнаёт только сам Убийца и, если он есть в игре, Сообщник.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. ОБНАРУЖЕНИЕ ТЕЛ — ВАЖНАЯ ДЕТАЛЬ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                В тот момент, когда кто-то успешно находит <strong>спрятанное</strong> тело через «Искать тело», оно перестаёт быть спрятанным <strong>навсегда, до конца матча</strong> — с этого момента любой, кто просто зайдёт в комнату (включая наблюдателей, просматривающих её), увидит его без поиска, спрятать обратно нельзя. Каждый, кто хоть раз увидел тело, навсегда попадает в список нашедших и позже отображается в сводке суда. Пока в особняке остаётся <strong>хотя бы одно необнаруженное</strong> тело, терминал выхода Невинных полностью отказывается принимать код, каким бы верным он ни был — но игра никогда не подсказывает, кто пропал и где. Казнённый советом игрок — противоположный случай: тело для него не создаётся вообще, искать нечего.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#bdef13', margin: '0 0 6px 0', letterSpacing: '1px' }}>10. КРИМИНАЛИСТИЧЕСКИЕ СЛЕДЫ НА ТЕЛАХ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                На каждом теле в момент его появления фиксируется ровно один тип следа — группа крови, категория роста или категория веса, по очереди — отражающий реальные характеристики настоящего Убийцы. Значение зафиксировано навсегда и не меняется со временем. Извлечь его может только <strong>Криминалист</strong> через «Осмотреть тело», только во время суда, и только на уже обнаруженном теле. Поскольку с одного тела раскрывается лишь одна категория, для полного профиля нужно осмотреть несколько разных тел за матч.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>11. УЛИКИ И ОБЩАЯ ДОСКА</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Оперативники находят подлинные следы, оставленные случайно. <strong>Сообщник</strong> может подделать уже найденную улику, подставив выбранного игрока — фальшивка при этом намеренно <strong>исчезает с общей доски</strong> и с этого момента видна только тому, кто лично повторно обыщет именно эту комнату. <strong>Джокер</strong> подбрасывает улики в стиле собственного персонажа осознанно — они, наоборот, попадают на общую доску сразу после обнаружения. Найденное тело/улика не исчезают и не «истекают» при смене раунда — они навсегда остаются доступными в этой комнате и в сводке.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#e040fb', margin: '0 0 6px 0', letterSpacing: '1px' }}>12. НЕЙРОТОКСИН-7</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Ограниченное число шприцев (1–3 в зависимости от числа игроков) прячется в случайных комнатах и находится через обычный обыск. Трогать его могут только <strong>Убийца, Сообщник и Джокер</strong> — остальным он «слишком опасен» и остаётся на месте. Носить с собой можно только один за раз. У <strong>Убийцы</strong> он поднимает лимит убийств до <strong style={{ color: '#fff' }}>двух за раунд</strong> и расходуется после второго убийства. У <strong>Сообщника/Джокера</strong> он работает как <strong>пассивный щит</strong>: полностью нейтрализует ближайшую прямую атаку Убийцы и расходуется при срабатывании — но неудачная атака на защищённую цель всё равно сжигает у Убийцы <strong>весь ресурс убийств на раунд</strong>, даже если у него самого есть свой неизрасходованный шприц. Щит не спасает от казни советом.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>13. ЛОВУШКИ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Сообщник</strong> может установить в комнате скрытую ловушку (<strong style={{ color: '#fff' }}>1 раз в 4 раунда</strong>). Первый агент любой роли, зашедший в эту комнату — обычным шагом или через вентиляцию — активирует её: ловушка срабатывает мгновенно и расходуется, а этот агент лишается вообще всех действий и способностей на весь следующий раунд, включая фазу действий и суд (даже терминал выхода откажет ему во вводе). Убийца приватно узнаёт, где его Сообщник поставил ловушку.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>14. АКТИВНЫЕ РОЛИ ПОДРОБНО</p>
               <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Убийца:</strong> устраняет цели (<strong style={{ color: '#fff' }}>1 за ход</strong>), затем решает, спрятать тело или оставить на виду.</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Сообщник:</strong> искажает данные, сразу получает отчёты об убийствах и может установить ловушку в комнате (<strong style={{ color: '#fff' }}>1 раз в 4 раунда</strong>).</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Детектив:</strong> проверяет последнее известное местоположение подозреваемого во время суда (<strong style={{ color: '#fff' }}>1 раз в 2 раунда</strong>).</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Офицер:</strong> запирает подозреваемого в камере (1-й этаж, нижний правый угол особняка) на следующий раунд, изолируя его от всех действий в комнатах (<strong style={{ color: '#fff' }}>1 раз в 3 раунда</strong>).</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Криминалист:</strong> проверяет подлинность улики ИЛИ осматривает обнаруженное тело на предмет следа телосложения/группы крови убийцы — оба действия используют <strong style={{ color: '#fff' }}>общую перезарядку</strong>, доступную <strong style={{ color: '#fff' }}>раз в два раунда</strong>.</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Джокер:</strong> побеждает, если раскрыт и казнён советом. Может подбросить личную улику в обыскиваемой комнате раз в 2 своих хода.</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Невинный:</strong> без особых способностей. Ищет по особняку код отмены протокола, чтобы отменить карантин.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Убийца:</strong> устраняет цели (<strong style={{ color: '#fff' }}>1 за ход</strong>, 2 с Нейротоксином), затем решает судьбу тела, имеет доступ к вентиляции.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Сообщник</strong> (от 8 игроков): может подделать уже найденную улику, подставив игрока (<strong style={{ color: '#fff' }}>1 раз в 3 своих хода</strong>), и установить ловушку в комнате (<strong style={{ color: '#fff' }}>1 раз в 4 раунда</strong>). Приватно узнаёт об оговорках Убийцы.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Детектив:</strong> во время суда проверяет, в какой комнате выбранный игрок завершил <em>предыдущий</em> ход — снимок фиксируется в момент начала суда (<strong style={{ color: '#fff' }}>1 раз в 2 раунда</strong>). Себя проверить нельзя. Результат виден только вам.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Офицер:</strong> во время суда планирует запереть подозреваемого (или <em>себя самого</em>) в Камере содержания на весь <em>следующий</em> раунд (<strong style={{ color: '#fff' }}>1 раз в 3 раунда</strong>). Запертый игрок полностью невидим для всех, включая наблюдателей, и лишён любых действий и способностей весь раунд.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Криминалист</strong> (от 8 игроков): «Проверить подлинность улики» (реальна или сфабрикована) ИЛИ «Осмотреть тело» на след Убийцы — оба действия делят <strong style={{ color: '#fff' }}>одну общую перезарядку в 1 раунд</strong>. Повторный запрос уже осмотренного тела бесплатен — результат кешируется.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Джокер</strong> (от 8 игроков): побеждает <em>только</em> если казнён советом — никак иначе. Может подбросить личную улику в <em>любую</em> комнату особняка (<strong style={{ color: '#fff' }}>1 раз в 2 своих хода</strong>). Единственная роль, которой разрешено голосовать за себя на суде.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Невинный:</strong> без наступательных способностей. Ищет по особняку цифры кода отмены протокола (общие для всей команды) и может анонимно помечать проверенные комнаты (<strong style={{ color: '#fff' }}>1 раз в 2 раунда</strong>). Только Невинные могут ввести собранный код и выиграть матч.</li>
               </ul>
 
-              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. ПРОТОКОЛ ПРИЗРАКА (ПОГИБШИЕ)</p>
-              <p style={{ color: '#8a99ad', margin: '0 0 5px 0' }}>
-                Терминальная передача прервана, но доступ открывает <strong style={{ color: '#00ff87' }}>неограниченный спутниковый обзор карты</strong>. Наблюдайте за происходящим.
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>15. ГОЛОСОВАНИЕ И ИТОГИ СУДА</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Каждый активный игрок голосует за конкретного подозреваемого или явно за <strong>пропуск</strong>; голосовать за себя нельзя — кроме Джокера. Голос засчитывается только зафиксированным, но его можно свободно менять до истечения таймера или до того, как зафиксируются все. Кандидат казнён, только если у него <strong>строго больше всех</strong> голосов, нет ничьей за первое место, и его результат строго превышает пропуск — иначе в этом раунде никого не казнят. Казнённый игрок не оставляет тела.
               </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>16. УСЛОВИЯ ПОБЕДЫ</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Невинный вводит верный код на суде при отсутствии необнаруженных тел — <strong style={{ color: '#00ff87' }}>победа Невинных</strong>.</li>
+                <li style={{ marginBottom: '6px' }}>Совет казнит <strong style={{ color: '#ff2a5f' }}>Убийцу</strong> — немедленная <strong style={{ color: '#00ff87' }}>победа Невинных</strong>, независимо от числа выживших.</li>
+                <li style={{ marginBottom: '6px' }}>Совет казнит <strong style={{ color: '#e040fb' }}>Джокера</strong> — он побеждает в одиночку.</li>
+                <li style={{ marginBottom: '6px' }}>Число активных мирных игроков опускается до уровня или ниже числа активных членов команды Убийцы (Убийца + Сообщник) — немедленная <strong style={{ color: '#ff2a5f' }}>победа команды Убийцы</strong>. Джокер не учитывается ни в одну из сторон этого подсчёта.</li>
+                <li style={{ marginBottom: '6px' }}>Вся команда Убийцы покинула матч, а мирные остались — по умолчанию <strong style={{ color: '#00ff87' }}>победа Невинных</strong>.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>17. ПРОТОКОЛ ПРИЗРАКА (ПОГИБШИЕ)</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Терминальная передача прервана, но доступ открывает <strong style={{ color: '#00ff87' }}>неограниченный спутниковый обзор карты</strong> — можно свободно просматривать любую комнату вживую, но не действовать. Чат заблокирован для погибших/наблюдателей именно во время фазы суда, но доступен в остальное время.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>18. МЕЛКИЕ ФИШКИ, О КОТОРЫХ ЛЕГКО ЗАБЫТЬ</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 5px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Найденная цифра сопровождается её точной позицией в коде — команда собирает код по порядку, а не гадает.</li>
+                <li style={{ marginBottom: '6px' }}>Случайно оброненная улика Убийцы может оказаться в любой комнате особняка, включая ту, где ещё никто не был.</li>
+                <li style={{ marginBottom: '6px' }}>Подделанная Сообщником улика никогда не появляется на общей доске — только для того, кто лично обыщет ту же комнату.</li>
+                <li style={{ marginBottom: '6px' }}>Офицер может запереть в камере <em>самого себя</em> — запрета на это нет, в отличие от способности Детектива.</li>
+                <li style={{ marginBottom: '6px' }}>Обе способности Криминалиста делят одну перезарядку — использовав одну, вторая тоже уходит в кулдаун.</li>
+                <li style={{ marginBottom: '6px' }}>Щит Нейротоксина-7 никогда не спасает от голосования совета — только от прямой атаки Убийцы.</li>
+                <li style={{ marginBottom: '6px' }}>Сервер технически рассылает личность запертого в Камере содержания игрока всем клиентам (не только Офицеру), но интерфейс её нигде не отображает — на экране видно только «это я?», поэтому на практике никто, кроме самого запертого, не узнаёт, кто внутри.</li>
+                <li style={{ marginBottom: '6px' }}>Если вы явно не выбрали персонажа, но нажали «Готов» с персонажем, уже приложенным к этому запросу, сервер молча примет тот персонаж, что пришёл вместе с переключением готовности.</li>
+                <li style={{ marginBottom: '6px' }}>Пропуск текста интро реально происходит только тогда, когда за него проголосуют абсолютно все игроки — не большинство.</li>
+                <li style={{ marginBottom: '6px' }}>Наблюдая любую комнату (как наблюдатель или устранённый), при изменениях там (найдено тело, подброшена улика, зашли/вышли игроки) ваш вид обновляется в реальном времени — заново выбирать комнату не нужно.</li>
+                <li style={{ marginBottom: '6px' }}>Приватный код комнаты — это 8-символьный HEX-код (буквы и цифры, регистр не важен), а не просто число.</li>
+              </ul>
               </>
               ) : (
               <>
-              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. TURNS & TIMING</p>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. LOBBY, CHARACTERS & LAUNCH</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Agents operate <strong>strictly in sequence</strong>. Each asset has up to <strong>30 seconds</strong> to pick a sector to search — the moment they move in and see who's there, their turn wraps up shortly after.
+                Rooms hold <strong>5–12 agents</strong>. Each picks one of 12 unique characters — no two players can hold the same one, but you can freely swap until you hit Ready. The host locks the room and enters preparation via <strong>START OPERATION</strong>, then everyone toggles ready. The instant <strong>every single player</strong> is ready, a <strong>5-second countdown</strong> starts automatically — anyone un-readying cancels it immediately.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. TWO PHASE PARADIGM</p>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. LOADING & ROLE REVEAL</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                <strong>Action Phase:</strong> Ghost maneuvers and tactical execution.<br />
-                <strong>Trial Phase:</strong> Assembly, evidence triangulation, and asset termination votes.
+                The intro text only starts once <strong>every player</strong> has reported in as loaded — if a tab is backgrounded and stalls, the server waits <strong>15 seconds</strong> then force-starts anyway, so nobody can soft-lock the lobby. Your role is assigned at that exact moment and revealed <strong>only to you</strong> — the server never tells anyone else. The match itself starts the same way: only once everyone has confirmed they finished watching the role screen (same 15-second safety net).
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. VENTILATION SHORTCUTS</p>
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. TURNS & TIMING</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Agents operate <strong>strictly in sequence</strong>, and the turn order is reshuffled every round (guaranteed different from last round's). Each asset has up to <strong>30 seconds</strong> — a hard server-side timer — to pick a sector to search. You get <strong>exactly one search per turn</strong>, but the turn doesn't auto-end the moment you search — you stay in the room until you End Turn or the clock runs out. Time out without ever picking a room and you're randomly dropped into one anyway; time out after picking one and the turn simply ends where you are. Neither carries a penalty. <strong style={{ color: '#fff' }}>The mansion map is only ever visible to whoever's turn it currently is</strong> — every other living agent just sees the countdown and a generic "AN AGENT IS ACTING" label, with no map and no way to peek any room, until their own turn comes up.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. TWO PHASES PER ROUND</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Action Phase:</strong> ghost maneuvers and tactical execution until every living agent has moved.<br />
+                <strong>Trial Phase:</strong> a brief blackout (~1.5s) → case announcement with a findings recap (~6s) → voting (up to 120s, resolves early once everyone's locked in) → resolution (~3.5s) → a new round or game over.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. VENTILATION SHORTCUTS</p>
               <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
-                The <strong>Killer</strong> alone can access a network of vent shortcuts linking specific mansion rooms in pairs. Using one instantly relocates them to the linked room as part of the same turn — a fast, silent way to reach or leave a scene without walking the halls. Only <strong>one vent hop is allowed per turn</strong>.
+                The <strong>Killer</strong> alone can access a network of vent shortcuts linking specific mansion rooms in pairs. You must already be standing in one to hop. A hop is instant and comes <strong>on top of</strong> your normal search, not instead of it, and re-arms your room options in the destination (including any waiting trap there). Only <strong>one vent hop is allowed per turn</strong>.
               </p>
               <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Known vent connections:</p>
               <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
@@ -6700,41 +6773,94 @@ function App() {
                 <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Kitchen</strong> ↔ <strong style={{ color: '#fff' }}>Armory</strong> (both 1st floor)</li>
                 <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Wine Cellar</strong> (1st floor) ↔ <strong style={{ color: '#fff' }}>Attic</strong> (2nd floor)</li>
               </ul>
-
-
-              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. DATA & INTEL</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Operatives recover genuine footprints. <strong>Accomplices feed fabricated data streams</strong> into the logs.
-              </p>
-              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Every discovered body carries exactly one trace of its killer's build or blood type, fixed the moment they died — the longer a body goes unexamined, the less reliable that trace becomes. Piecing together a full profile takes more than one body. There's also a flat chance the Killer accidentally drops one of their own character's personal items in a random room on any kill — an extra clue nobody planted on purpose.
+                Beyond the two searchable floors (10 rooms each), the mansion also has a locked <strong style={{ color: '#fff' }}>Holding Cell</strong> (1st floor, bottom-right corner — only relevant to the Officer's ability) and a basement <strong style={{ color: '#fff' }}>Torture Room</strong> — purely atmospheric, but walkable like any normal room.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. HIDE OR EXPOSE THE BODY</p>
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. ROOM ACTIONS: INVESTIGATE VS. SEARCH FOR BODY</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Right after a kill, the <strong>Killer</strong> must choose: <strong>Hide</strong> the body — it stays concealed until someone deliberately searches for it, but this uses up the turn's vent hop, so no venting that turn — or <strong>Expose</strong> it, leaving it in plain sight for whoever walks in next, while still keeping the vent free to use afterward.
+                Each room visit gives you exactly <strong>one</strong> of two options — <strong>Investigate Room</strong> or <strong>Search for Body</strong> — whichever you pick first locks out the other until you enter a different room (a fresh search or a vent hop). Investigate Room also handles finding any planted evidence or a Neurotoxin-7 syringe sitting there — no separate buttons for those.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. TRAPS</p>
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>7. THE DIGITAL OVERRIDE CODE</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                The <strong>Accomplice</strong> can rig a room with a hidden trap (<strong style={{ color: '#fff' }}>1 per 4 rounds</strong>). The first agent who walks into that room — whether via a normal move or a vent hop — sets it off: the trap is consumed instantly and that agent is locked out of every action and ability for their entire next round, action phase and Trial alike.
+                Code length scales with the number of Innocents in the lobby: <strong style={{ color: '#fff' }}>4 digits for 1 Innocent, +1 per additional one, capped at 10</strong>. Each digit is hidden in its own random room for the whole match. Only <strong>Innocents</strong> ever get a real digit (plus its exact position) from Investigating a room that has one, and the moment one does, the whole team is told instantly — every other role gets the identical empty result whether or not a digit is really there. A separate <strong>Check Room</strong> ability (<strong style={{ color: '#fff' }}>2-round cooldown</strong>, requires that room to already be investigated this turn) anonymously marks a room clean for the whole Innocent team — but a room that genuinely holds a digit is never marked clean, and this ability never reveals the digit itself.
               </p>
 
-              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>7. ACTIVE ROLES IN THE FIELD</p>
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. HIDE OR EXPOSE THE BODY</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Right after a kill, the <strong>Killer</strong> must choose: <strong>Hide</strong> the body — it stays concealed until someone deliberately searches for it, but this uses up the turn's vent hop, so no venting that turn — or <strong>Expose</strong> it, leaving it in plain sight for whoever walks in next, while still keeping the vent free to use afterward. If the decision is never made, the server defaults to Expose — a body is never silently lost. Every kill also carries a flat <strong style={{ color: '#fff' }}>50% chance</strong> the Killer accidentally drops one of their own character's items somewhere random in the mansion, not necessarily the murder room — only the Killer (and, if in play, the Accomplice) is ever told.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. BODY DISCOVERY — THE DETAIL THAT MATTERS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                The instant anyone successfully finds a <strong>hidden</strong> body via Search for Body, it stops being hidden <strong>permanently, for the rest of the match</strong> — from then on anyone who simply walks into that room (including a spectator peeking it) sees it with no search required, and it can never be re-hidden. Everyone who's ever laid eyes on it is credited as a finder and shows up later in the Trial recap. As long as <strong>even one</strong> body anywhere in the mansion remains undiscovered, the Innocents' exit terminal refuses the code outright, correct or not — but the game never hints who's missing or where. A council-executed player is the opposite case: no body is ever generated for them at all.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#bdef13', margin: '0 0 6px 0', letterSpacing: '1px' }}>10. FORENSIC TRACES ON BODIES</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                The instant a body is created it's assigned exactly one fixed trace type — blood type, height category, or weight category, cycling — reflecting the real Killer's actual character stats, permanently, from that moment on. Only the <strong>Forensic Examiner</strong> can pull it out, via Examine Body, only during Trial, and only on an already-discovered body. Since one body only ever reveals one category, you need several different bodies over the match to build a full profile.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>11. EVIDENCE & THE SHARED CLUES BOARD</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Operatives recover genuine footprints left by accident. The <strong>Accomplice</strong> can doctor an already-found piece of evidence to frame a chosen player — the fake deliberately <strong>vanishes from the shared board</strong> the moment it's altered, staying visible only to whoever personally re-investigates that exact room. The <strong>Joker</strong>, by contrast, plants evidence deliberately styled after their own character — those genuinely join the shared board once found. A found body or clue never disappears or "expires" on a new round — it stays permanently viewable in that room and in the recap.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#e040fb', margin: '0 0 6px 0', letterSpacing: '1px' }}>12. NEUROTOXIN-7</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                A limited number of syringes (1–3, scaled to lobby size) are hidden in random rooms and found via a normal Investigate Room. Only the <strong>Killer, Accomplice, and Joker</strong> may touch it — it's "too hazardous" for anyone else and stays put. Only one can be carried at a time. For the <strong>Killer</strong> it raises the kill limit to <strong style={{ color: '#fff' }}>two per round</strong>, consumed after the second kill lands. For the <strong>Accomplice/Joker</strong> it's a <strong>passive shield</strong> that fully negates the Killer's next direct attack and is consumed on trigger — but a failed attempt on a shielded target still burns the Killer's <strong>entire round's</strong> kill capacity, even if they're carrying their own unconsumed syringe. The shield never protects against a council execution.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>13. TRAPS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                The <strong>Accomplice</strong> can rig a room with a hidden trap (<strong style={{ color: '#fff' }}>1 per 4 rounds</strong>). The first agent of any role who walks into that room — normal move or vent hop — sets it off instantly and consumes it, and that agent loses every action and ability for their entire next round, action phase and Trial alike, including the exit terminal. The Killer is privately notified where their Accomplice set it.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>14. ACTIVE ROLES IN DEPTH</p>
               <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Killer:</strong> Neutralizes targets (<strong style={{ color: '#fff' }}>1/turn</strong>), then chooses to hide or expose the body.</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Accomplice:</strong> Scrambles feeds, receives immediate kill reports, and can plant a trap in a room (<strong style={{ color: '#fff' }}>1 per 4 rounds</strong>).</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Detective:</strong> Checks a suspect's last known location during the Trial (<strong style={{ color: '#fff' }}>1 per 2 rounds</strong>).</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Officer:</strong> Locks a suspect in the Holding Cell (1st floor, bottom-right corner of the mansion) for the following round, isolating them from all room actions (<strong style={{ color: '#fff' }}>1 per 3 rounds</strong>).</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Forensic:</strong> Verifies a piece of evidence's authenticity, OR examines a discovered body for a trace of the killer's build/blood type — both draw from the <strong style={{ color: '#fff' }}>same shared cooldown</strong>, available <strong style={{ color: '#fff' }}>once every other round</strong>.</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Joker:</strong> Wins if compromised and executed by the council. Can plant a piece of personal evidence in a searched room once every 2 of their turns.</li>
-                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Innocent:</strong> No special power. Search the mansion for the override code to cancel the protocol and escape the quarantine.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Killer:</strong> neutralizes targets (<strong style={{ color: '#fff' }}>1/turn</strong>, 2 with Neurotoxin-7), then decides the body's fate, and alone has vent access.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Accomplice</strong> (8+ players): can doctor already-found evidence to frame a player (<strong style={{ color: '#fff' }}>1 per 3 own turns</strong>) and rig a trap (<strong style={{ color: '#fff' }}>1 per 4 rounds</strong>). Privately learns of the Killer's slip-ups.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Detective:</strong> during Trial, reveals which room a chosen player ended their <em>previous</em> turn in — frozen the instant Trial begins (<strong style={{ color: '#fff' }}>1 per 2 rounds</strong>). Can't target yourself. Result is private to you.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Officer:</strong> during Trial, schedules a suspect (or <em>yourself</em>) to be locked in the Holding Cell for the <em>next</em> round (<strong style={{ color: '#fff' }}>1 per 3 rounds</strong>). A locked player is completely invisible to everyone, including spectators, and loses every action/ability all round.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Forensic</strong> (8+ players): Verify Evidence Authenticity (genuine vs. fabricated) OR Examine a Body for the Killer's trace — both share <strong style={{ color: '#fff' }}>one cooldown, 1 round</strong>. Re-checking an already-examined body is free — the report is cached.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Joker</strong> (8+ players): wins <em>only</em> if executed by council — nothing else counts. Can plant personal evidence in <em>any</em> room (<strong style={{ color: '#fff' }}>1 per 2 own turns</strong>). The only role allowed to vote for itself at Trial.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Innocent:</strong> no offensive power. Searches the mansion for the shared override code digits and can anonymously mark checked rooms (<strong style={{ color: '#fff' }}>1 per 2 rounds</strong>). Only Innocents can submit the code to win.</li>
               </ul>
 
-              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. SPECTER PROTOCOL (DECEASED)</p>
-              <p style={{ color: '#8a99ad', margin: '0 0 5px 0' }}>
-                Terminal transmission cut off, but overrides grant <strong style={{ color: '#00ff87' }}>Unrestricted Satellite Map Feed</strong>. Watch everything unfold.
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>15. VOTING & TRIAL RESOLUTION</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Every active player votes for a specific suspect or an explicit <strong>Skip</strong>; nobody can vote for themselves except the Joker. A vote only counts once locked in, and can be freely relocked until the timer runs out or everyone's locked. A candidate is only executed if they have <strong>strictly the most</strong> votes, with no tie for first, and strictly beat Skip — otherwise nobody is executed that round. An executed player leaves no body.
               </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>16. WIN CONDITIONS</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>An Innocent submits the correct code at Trial with no undiscovered bodies — <strong style={{ color: '#00ff87' }}>Innocents win</strong>.</li>
+                <li style={{ marginBottom: '6px' }}>The council executes the <strong style={{ color: '#ff2a5f' }}>Killer</strong> — immediate <strong style={{ color: '#00ff87' }}>Innocent victory</strong>, regardless of survivor count.</li>
+                <li style={{ marginBottom: '6px' }}>The council executes the <strong style={{ color: '#e040fb' }}>Joker</strong> — the Joker wins solo.</li>
+                <li style={{ marginBottom: '6px' }}>Active peaceful players drop to at or below the active Killer-team count (Killer + Accomplice) — immediate <strong style={{ color: '#ff2a5f' }}>Killer-team victory</strong>. The Joker is excluded from both sides of this count.</li>
+                <li style={{ marginBottom: '6px' }}>The entire Killer team leaves the match while peaceful players remain — <strong style={{ color: '#00ff87' }}>Innocents win</strong> by default.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>17. SPECTER PROTOCOL (DECEASED)</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Terminal transmission cut off, but overrides grant <strong style={{ color: '#00ff87' }}>Unrestricted Satellite Map Feed</strong> — free-roam live viewing of any room, but no acting. Chat is locked for the deceased/observers specifically during the Trial phase, and open again outside it.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>18. SMALL DETAILS EASY TO FORGET</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 5px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>A found digit comes with its exact position in the code — the team assembles it in order rather than guessing.</li>
+                <li style={{ marginBottom: '6px' }}>The Killer's accidental clue can land in any searchable room, including ones nobody's visited yet.</li>
+                <li style={{ marginBottom: '6px' }}>Evidence the Accomplice has doctored never appears on the shared board — only to whoever personally re-investigates that room.</li>
+                <li style={{ marginBottom: '6px' }}>The Officer can lock <em>themselves</em> in the Holding Cell — no rule against it, unlike the Detective's self-target restriction.</li>
+                <li style={{ marginBottom: '6px' }}>The Forensic Examiner's two abilities share one cooldown — using either puts both on cooldown.</li>
+                <li style={{ marginBottom: '6px' }}>The Neurotoxin-7 shield never protects against a council vote — only against the Killer's direct attack.</li>
+                <li style={{ marginBottom: '6px' }}>The server technically broadcasts the Holding Cell occupant's identity to every client (not just the Officer), but the interface never displays it — it's only ever checked against "is this me?", so in practice nobody but the confined player learns who's inside.</li>
+                <li style={{ marginBottom: '6px' }}>If you never explicitly picked a character but hit Ready anyway with one already attached to that request, the server silently accepts whichever character came along with the Ready toggle.</li>
+                <li style={{ marginBottom: '6px' }}>The intro text only actually skips once every single player has voted to skip it — not a majority.</li>
+                <li style={{ marginBottom: '6px' }}>While spectating any room (as an observer or eliminated player), your view updates live the instant something changes there (a body found, evidence planted, players entering/leaving) — no need to re-select the room.</li>
+                <li style={{ marginBottom: '6px' }}>A private room's join code is an 8-character hex code (letters and digits, case-insensitive) — not a plain number.</li>
+              </ul>
               </>
               )}
             </div>
