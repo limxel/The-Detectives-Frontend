@@ -3444,7 +3444,7 @@ function App() {
   // forensicVerifyingId tracks which clue currently has a request in flight
   // (so its own "Verify" button can show a loading state); forensicVerifyResult
   // holds the last answer received, shown in a small result modal.
-  const [forensicVerifyStatus, setForensicVerifyStatus] = useState(null); // { available, turnsRemaining }
+  const [forensicVerifyStatus, setForensicVerifyStatus] = useState(null); // { available, roundsRemaining } — shared cooldown is round-based, same as Detective/Officer/Mark Room
   const [forensicVerifyingId, setForensicVerifyingId] = useState(null);
   const [forensicVerifyResult, setForensicVerifyResult] = useState(null); // { evidenceId, text, isAuthentic } | null
   const [forensicBodyExamineResult, setForensicBodyExamineResult] = useState(null); // { bodyId, clue } | null
@@ -5448,41 +5448,43 @@ function App() {
     // Private to the Forensic Examiner only: whether either Forensic ability is
     // off cooldown. The server emits the same status payload for both
     // 'verify_evidence' and 'examine_body' under a shared round-based tracker.
-    function onForensicAbilityStatus({ available, turnsRemaining }) {
-      setForensicVerifyStatus({ available: Boolean(available), turnsRemaining: turnsRemaining ?? 0 });
+    function onForensicAbilityStatus({ available, roundsRemaining }) {
+      setForensicVerifyStatus({ available: Boolean(available), roundsRemaining: roundsRemaining ?? 0 });
     }
 
-    function onForensicVerifyStatus({ available, turnsRemaining }) {
-      onForensicAbilityStatus({ available, turnsRemaining });
+    function onForensicVerifyStatus({ available, roundsRemaining }) {
+      onForensicAbilityStatus({ available, roundsRemaining });
     }
 
     // Forensic Examiner only: the server's answer to a single 'verify_evidence'
     // request (see handleVerifyEvidence). A cooldown rejection updates the
-    // status badge and shows a toast just like the Joker's planting cooldown;
-    // any other failure (e.g. the clue vanished from the board in the
-    // meantime) just silently clears the loading state with no result shown.
-    function onVerifyEvidenceResult({ success, reason, turnsRemaining, evidenceId, text, isAuthentic }) {
-      console.log('CLIENT verify_evidence_result:', { success, reason, turnsRemaining, evidenceId, text, isAuthentic });
+    // status badge and shows a toast just like the Detective's/Officer's
+    // round-based cooldowns (this shared cooldown is round-based, not tied to
+    // the Forensic's own turns); any other failure (e.g. the clue vanished
+    // from the board in the meantime) just silently clears the loading state
+    // with no result shown.
+    function onVerifyEvidenceResult({ success, reason, roundsRemaining, evidenceId, text, isAuthentic }) {
+      console.log('CLIENT verify_evidence_result:', { success, reason, roundsRemaining, evidenceId, text, isAuthentic });
       setForensicVerifyingId(null);
       if (success) {
-        setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 3 });
+        setForensicVerifyStatus({ available: false, roundsRemaining: roundsRemaining ?? 3 });
         setForensicVerifyResult({ evidenceId, text, isAuthentic });
       } else if (reason === 'cooldown') {
-        setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(languageRef.current === 'ru' ? `Проверка улики на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Evidence verification is on cooldown for ${turnsRemaining} more turn(s).`);
+        setForensicVerifyStatus({ available: false, roundsRemaining: roundsRemaining ?? 0 });
+        pushToast(languageRef.current === 'ru' ? `Проверка улики на перезарядке ещё ${roundsRemaining} раунд(а/ов).` : `Evidence verification is on cooldown for ${roundsRemaining} more round(s).`);
       }
     }
 
-    function onExamineBodyResult({ success, reason, turnsRemaining, clue, bodyId, report }) {
-      console.log('CLIENT examine_body_result:', { success, reason, turnsRemaining, clue, bodyId, report });
+    function onExamineBodyResult({ success, reason, roundsRemaining, clue, bodyId, report }) {
+      console.log('CLIENT examine_body_result:', { success, reason, roundsRemaining, clue, bodyId, report });
       if (success) {
-        setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
+        setForensicVerifyStatus({ available: false, roundsRemaining: roundsRemaining ?? 0 });
         setForensicSavedReport(report || null);
         setForensicReportUnlocked(true);
         setForensicBodyExamineResult({ bodyId, clue });
       } else if (reason === 'cooldown') {
-        setForensicVerifyStatus({ available: false, turnsRemaining: turnsRemaining ?? 0 });
-        pushToast(languageRef.current === 'ru' ? `Осмотр тела на перезарядке ещё ${turnsRemaining} ход(а/ов).` : `Body examination is on cooldown for ${turnsRemaining} more turn(s).`);
+        setForensicVerifyStatus({ available: false, roundsRemaining: roundsRemaining ?? 0 });
+        pushToast(languageRef.current === 'ru' ? `Осмотр тела на перезарядке ещё ${roundsRemaining} раунд(а/ов).` : `Body examination is on cooldown for ${roundsRemaining} more round(s).`);
       } else if (reason === 'invalid_body') {
         pushToast(languageRef.current === 'ru' ? 'Это тело сейчас нельзя осмотреть.' : 'That body cannot be examined right now.');
       }
@@ -8290,8 +8292,8 @@ function App() {
                                       ? (language === 'ru' ? 'ПРОВЕРКА…' : 'VERIFYING…')
                                       : onCooldown
                                         ? (language === 'ru'
-                                            ? `ПРОВЕРИТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.turnsRemaining} ХОД${forensicVerifyStatus.turnsRemaining === 1 ? '' : (forensicVerifyStatus.turnsRemaining >= 2 && forensicVerifyStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                            : `VERIFY (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                            ? `ПРОВЕРИТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.roundsRemaining} РАУНД${forensicVerifyStatus.roundsRemaining === 1 ? '' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                            : `VERIFY (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
                                         : (language === 'ru' ? 'ПРОВЕРИТЬ' : 'VERIFY')}
                                   </button>
                                 );
@@ -8385,8 +8387,8 @@ function App() {
                                 >
                                   {forensicVerifyStatus?.available === false
                                     ? (language === 'ru'
-                                        ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.turnsRemaining} ХОД${forensicVerifyStatus.turnsRemaining === 1 ? '' : (forensicVerifyStatus.turnsRemaining >= 2 && forensicVerifyStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                        : `EXAMINE (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                        ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.roundsRemaining} РАУНД${forensicVerifyStatus.roundsRemaining === 1 ? '' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                        : `EXAMINE (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
                                     : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : 'EXAMINE BODY')}
                                 </button>
                                 {forensicReportUnlocked && (
@@ -8449,8 +8451,8 @@ function App() {
                                   >
                                     {forensicVerifyStatus?.available === false
                                       ? (language === 'ru'
-                                          ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.turnsRemaining} ХОД${forensicVerifyStatus.turnsRemaining === 1 ? '' : (forensicVerifyStatus.turnsRemaining >= 2 && forensicVerifyStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                          : `EXAMINE (${forensicVerifyStatus.turnsRemaining} TURN${forensicVerifyStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                          ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.roundsRemaining} РАУНД${forensicVerifyStatus.roundsRemaining === 1 ? '' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
+                                          : `EXAMINE (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
                                       : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : 'EXAMINE BODY')}
                                   </button>
                                   {forensicReportUnlocked && (
