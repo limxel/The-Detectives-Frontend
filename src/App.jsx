@@ -346,58 +346,72 @@ const ROLES = {
   Killer: {
     label: 'KILLER',
     labelRu: 'УБИЙЦА',
+    labelUk: 'ВБИВЦЯ',
     color: '#ff2a5f',
     sprite: 'https://i.postimg.cc/K8WMPW4s/15c3aab1-6af8-4f71-8190-91a3017ae631.jpg',
     description: 'Eliminate targets under cover of night. One strike per turn.',
-    descriptionRu: 'Устраняйте цели под покровом ночи. Один удар за ход.'
+    descriptionRu: 'Устраняйте цели под покровом ночи. Один удар за ход.',
+    descriptionUk: 'Усувайте цілі під покровом ночі. Один удар за хід.'
   },
   Accomplice: {
     label: 'ACCOMPLICE',
     labelRu: 'СООБЩНИК',
+    labelUk: 'СПІВУЧАСНИК',
     color: '#ff2a5f',
     sprite: 'https://i.postimg.cc/FH6Ly61T/1bff526b-381a-4464-8439-bcb173ddda17.jpg',
     description: 'Scramble the evidence feeds. You receive the Killer\'s reports.',
-    descriptionRu: 'Искажайте потоки улик. Вы получаете отчёты Убийцы.'
+    descriptionRu: 'Искажайте потоки улик. Вы получаете отчёты Убийцы.',
+    descriptionUk: 'Спотворюйте потоки доказів. Ви отримуєте звіти Вбивці.'
   },
   Innocent: {
     label: 'INNOCENT',
     labelRu: 'НЕВИННЫЙ',
+    labelUk: 'НЕВИННИЙ',
     color: '#00ff87',
     sprite: 'https://i.postimg.cc/sgLhYL1N/bb4a6ebf-afab-4e2a-bee8-df0067360ba6.jpg',
     description: 'Search the mansion for the override code. Find it, and escape quarantine.',
-    descriptionRu: 'Ищите по особняку код отмены протокола. Найдите его — и выберитесь из карантина.'
+    descriptionRu: 'Ищите по особняку код отмены протокола. Найдите его — и выберитесь из карантина.',
+    descriptionUk: 'Шукайте по особняку код скасування протоколу. Знайдіть його — і вийдіть з карантину.'
   },
   Detective: {
     label: 'DETECTIVE',
     labelRu: 'ДЕТЕКТИВ',
+    labelUk: 'ДЕТЕКТИВ',
     color: '#00f0ff',
     sprite: 'https://i.postimg.cc/vZKVrKDK/082786d9-31b4-474f-acba-562a20ec018a.jpg',
     description: 'Shadow a profile\'s network path. One trace per turn.',
-    descriptionRu: 'Отслеживайте сетевой путь подозреваемого. Одна проверка за ход.'
+    descriptionRu: 'Отслеживайте сетевой путь подозреваемого. Одна проверка за ход.',
+    descriptionUk: 'Відстежуйте мережевий шлях підозрюваного. Одна перевірка за хід.'
   },
   Officer: {
     label: 'OFFICER',
     labelRu: 'ОФИЦЕР',
+    labelUk: 'ОФІЦЕР',
     color: '#00f0ff',
     sprite: 'https://i.postimg.cc/vZKVrKDk/dc83107d-3ed0-46d0-84ac-72ceb725ebf4.jpg',
     description: 'Shield an ally from harm. One protocol lock every 3 turns.',
-    descriptionRu: 'Защищайте союзника от опасности. Один протокольный захват раз в 3 хода.'
+    descriptionRu: 'Защищайте союзника от опасности. Один протокольный захват раз в 3 хода.',
+    descriptionUk: 'Захищайте союзника від небезпеки. Одне протокольне блокування раз на 3 ходи.'
   },
   Forensic: {
     label: 'FORENSIC',
     labelRu: 'КРИМИНАЛИСТ',
+    labelUk: 'КРИМІНАЛІСТ',
     color: '#00f0ff',
     sprite: 'https://i.postimg.cc/fRP9cPk1/d9a46ad6-0508-43b9-bd5a-28e1e378bf48.jpg',
     description: 'Authenticate telemetry validity. One analysis every 2 turns.',
-    descriptionRu: 'Проверяйте подлинность телеметрии. Один анализ раз в 2 хода.'
+    descriptionRu: 'Проверяйте подлинность телеметрии. Один анализ раз в 2 хода.',
+    descriptionUk: 'Перевіряйте автентичність телеметрії. Один аналіз раз на 2 ходи.'
   },
   Joker: {
     label: 'JOKER',
     labelRu: 'ДЖОКЕР',
+    labelUk: 'ДЖОКЕР',
     color: '#e040fb',
     sprite: 'https://i.postimg.cc/Cx2qG2dr/12d256b6-17de-4a39-b551-44760940de79.jpg',
     description: 'Wanted dead. You win if the council votes to execute you. Plant a piece of personal evidence in a searched room once every 2 turns.',
-    descriptionRu: 'Разыскивается для устранения. Вы побеждаете, если совет проголосует за вашу казнь. Подбрасывайте личную улику в обысканной комнате раз в 2 хода.'
+    descriptionRu: 'Разыскивается для устранения. Вы побеждаете, если совет проголосует за вашу казнь. Подбрасывайте личную улику в обысканной комнате раз в 2 хода.',
+    descriptionUk: 'Розшукується для усунення. Ви перемагаєте, якщо рада проголосує за вашу страту. Підкидайте особисту доказ у обшуканій кімнаті раз на 2 ходи.'
   }
 };
 
@@ -3357,6 +3371,8 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
         <>
           {language === 'ru'
             ? <>Следы крови на месте преступления не совпадают с кровью жертвы — обнаружен тип <strong style={{ color: '#8be7ff' }}>{clue.value}</strong>.</>
+            : language === 'uk'
+            ? <>Сліди крові на місці злочину не збігаються з кров'ю жертви — виявлено тип <strong style={{ color: '#8be7ff' }}>{clue.value}</strong>.</>
             : <>Blood traces at the scene don't match the victim's — type <strong style={{ color: '#8be7ff' }}>{clue.value}</strong> found.</>}
         </>
       );
@@ -3365,29 +3381,41 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
       if (clue.value === 'tall') {
         return language === 'ru'
           ? <>Угол раны указывает, что нападавший был <strong style={{ color: '#8be7ff' }}>выше</strong> жертвы.</>
+          : language === 'uk'
+          ? <>Кут рани вказує, що нападник був <strong style={{ color: '#8be7ff' }}>вищим</strong> за жертву.</>
           : <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>taller</strong> than the victim.</>;
       }
       if (clue.value === 'short') {
         return language === 'ru'
           ? <>Угол раны указывает, что нападавший был <strong style={{ color: '#8be7ff' }}>ниже</strong> жертвы.</>
+          : language === 'uk'
+          ? <>Кут рани вказує, що нападник був <strong style={{ color: '#8be7ff' }}>нижчим</strong> за жертву.</>
           : <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>shorter</strong> than the victim.</>;
       }
       return language === 'ru'
         ? <>Угол раны не показывает заметной разницы — нападавший, вероятно, был <strong style={{ color: '#8be7ff' }}>среднего роста</strong>.</>
+        : language === 'uk'
+        ? <>Кут рани не показує помітної різниці — нападник, ймовірно, був <strong style={{ color: '#8be7ff' }}>середнього зросту</strong>.</>
         : <>Wound angle shows no notable difference — the attacker was likely of <strong style={{ color: '#8be7ff' }}>average height</strong>.</>;
     }
     if (clue.value === 'heavy') {
       return language === 'ru'
         ? <>Характер повреждений указывает на <strong style={{ color: '#8be7ff' }}>значительную физическую силу</strong>.</>
+        : language === 'uk'
+        ? <>Характер пошкоджень вказує на <strong style={{ color: '#8be7ff' }}>значну фізичну силу</strong>.</>
         : <>The nature of the injuries suggests <strong style={{ color: '#8be7ff' }}>significant physical strength</strong>.</>;
     }
     if (clue.value === 'light') {
       return language === 'ru'
         ? <>Характер повреждений указывает на <strong style={{ color: '#8be7ff' }}>умеренное, более лёгкое телосложение</strong>.</>
+        : language === 'uk'
+        ? <>Характер пошкоджень вказує на <strong style={{ color: '#8be7ff' }}>помірну, легшу статуру</strong>.</>
         : <>The nature of the injuries suggests a <strong style={{ color: '#8be7ff' }}>moderate, lighter build</strong>.</>;
     }
     return language === 'ru'
       ? <>Характер повреждений не указывает на необычно сильного или лёгкого нападавшего — вероятно, <strong style={{ color: '#8be7ff' }}>среднее телосложение</strong>.</>
+      : language === 'uk'
+      ? <>Характер пошкоджень не вказує на незвично сильного чи легкого нападника — ймовірно, <strong style={{ color: '#8be7ff' }}>середня статура</strong>.</>
       : <>The nature of the injuries doesn't point to an unusually strong or light attacker — likely an <strong style={{ color: '#8be7ff' }}>average build</strong>.</>;
   };
 
@@ -6706,7 +6734,7 @@ function App() {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {rolePoolPreview.map(({ name, count }) => (
                           <span key={name} style={{ fontSize: '10px', padding: '3px 6px', borderRadius: '4px', color: ROLES[name].color, border: `1px solid ${ROLES[name].color}`, background: 'rgba(0,0,0,0.25)' }}>
-                            {language === 'ru' ? ROLES[name].labelRu : ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
+                            {language === 'ru' ? ROLES[name].labelRu : language === 'uk' ? ROLES[name].labelUk : ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
                           </span>
                         ))}
                       </div>
@@ -6984,6 +7012,128 @@ function App() {
                 <li style={{ marginBottom: '6px' }}>Пропуск текста интро реально происходит только тогда, когда за него проголосуют абсолютно все игроки — не большинство.</li>
                 <li style={{ marginBottom: '6px' }}>Наблюдая любую комнату (как наблюдатель или устранённый), при изменениях там (найдено тело, подброшена улика, зашли/вышли игроки) ваш вид обновляется в реальном времени — заново выбирать комнату не нужно.</li>
                 <li style={{ marginBottom: '6px' }}>Приватный код комнаты — это 8-символьный HEX-код (буквы и цифры, регистр не важен), а не просто число.</li>
+              </ul>
+              </>
+              ) : language === 'uk' ? (
+              <>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. ЛОБІ, ПЕРСОНАЖІ ТА СТАРТ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Кімната розрахована на <strong>5–12 агентів</strong>. Кожен обирає одного з 12 унікальних персонажів — один і той самий персонаж не може належати двом гравцям одночасно, але вибір вільно змінюється до натискання «Готовий». Хост запускає підготовку кнопкою <strong>START OPERATION</strong>: вхід до кімнати блокується, і всі перемикають готовність. У момент, коли готові <strong>абсолютно всі</strong>, автоматично стартує <strong>5-секундний відлік</strong> — якщо хтось передумає, відлік одразу скасовується.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. ЗАВАНТАЖЕННЯ ТА РОЗКРИТТЯ РОЛІ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Текст інтро запускається лише тоді, коли про завантаження відзвітували <strong>всі гравці</strong> — якщо чиясь вкладка згорнута і застрягла, сервер чекає <strong>15 секунд</strong> і примусово запускає гру, щоб ніхто не міг заблокувати лобі назавжди. Роль призначається саме в цю мить і розкривається <strong>лише вам особисто</strong> — сервер більше нікому її не повідомляє. Сама гра стартує так само: лише коли всі підтвердили, що переглянули екран ролі (знову з 15-секундною страховкою).
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. ХОДИ ТА ЧАС</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Агенти діють <strong>строго по черзі</strong>, порядок ходів перемішується заново <strong>кожен раунд</strong> (і гарантовано відрізняється від минулого раунду). У кожного є до <strong>30 секунд</strong> на вибір сектора для обшуку — це жорсткий серверний таймер. За хід дозволено <strong>рівно один обшук кімнати</strong>, але хід не завершується автоматично одразу після цього: ви лишаєтеся всередині, щоб діяти, поки не натиснете «Завершити хід» або не мине час. Якщо час минув, а кімнату так і не обрано — вас все одно випадково розмістять в одній із кімнат для обліку. Якщо кімнату вже обрано — хід просто завершується там, де ви є. Штрафу немає в жодному з випадків. <strong style={{ color: '#fff' }}>Карту особняка бачить лише той, чий зараз хід</strong> — усі інші живі агенти в цей час бачать лише зворотний відлік і узагальнений напис «Агент діє», без карти й без можливості підглянути кімнати, поки не настане їхній власний хід.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. ДВІ ФАЗИ РАУНДУ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Фаза дій:</strong> потайні маневри й тактичні дії, поки не сходять усі живі агенти.<br />
+                <strong>Фаза суду:</strong> коротке затемнення (~1,5 сек) → оголошення та зведення по справі (~6 сек, показує знайдені тіла й докази) → голосування (до 120 секунд, але завершується достроково, щойно зафіксувалися всі) → розв'язання підсумку (~3,5 сек) → новий раунд або кінець гри.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. ВЕНТИЛЯЦІЙНІ ХОДИ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
+                Лише <strong>Вбивця</strong> має доступ до мережі вентиляційних ходів, що з'єднують певні кімнати особняка попарно. Потрібно вже перебувати в одній із цих кімнат, щоб стрибнути. Стрибок — це миттєве переміщення <strong>на додачу</strong> до звичайного обшуку, а не замість нього, і заново відкриває дії в новій кімнаті (включно з можливим спрацюванням пастки там). Дозволено лише <strong>один стрибок через вентиляцію за хід</strong>.
+              </p>
+              <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Відомі з'єднання вентиляції:</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Головна зала</strong> (1-й поверх) ↔ <strong style={{ color: '#fff' }}>Спальня господарів</strong> (2-й поверх)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Кухня</strong> ↔ <strong style={{ color: '#fff' }}>Зброярня</strong> (обидві на 1-му поверсі)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Винний погріб</strong> (1-й поверх) ↔ <strong style={{ color: '#fff' }}>Горище</strong> (2-й поверх)</li>
+              </ul>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Окрім двох обшукуваних поверхів (по 10 кімнат кожен), в особняку є замкнена <strong style={{ color: '#fff' }}>Камера утримання</strong> (1-й поверх, нижній правий кут — лише для ефекту здібності Офіцера) і підвальна <strong style={{ color: '#fff' }}>Катівня</strong> — суто атмосферна, але прохідна як звичайна кімната.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. ДІЇ В КІМНАТІ: ОБШУК І ПОШУК ТІЛА</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                За один візит до кімнати доступна лише <strong>одна</strong> з двох дій — <strong>«Обшукати кімнату»</strong> або <strong>«Шукати тіло»</strong> — що б ви не натиснули першим, друге блокується до заходу в іншу кімнату (новий обшук або стрибок через вент). «Обшукати кімнату» шукає цифру коду (див. пункт 7) і заодно розкриває будь-який підкинутий доказ або Нейротоксин-7, що лежить тут — окремих кнопок для цього немає.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>7. ЦИФРОВИЙ КОД СКАСУВАННЯ ПРОТОКОЛУ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Довжина коду залежить від кількості Невинних у лобі: <strong style={{ color: '#fff' }}>4 цифри за 1-го Невинного, +1 цифра за кожного наступного, максимум 10</strong>. Кожна цифра захована у своїй випадковій кімнаті на весь матч. Реальну цифру (і її позицію в коді) під час обшуку отримують лише <strong>Невинні</strong>, і миттєво дізнається вся їхня команда — усі інші ролі отримують однаковий порожній результат, реальна там цифра чи ні. Окрема здібність <strong>«Перевірити кімнату»</strong> (перезарядка <strong style={{ color: '#fff' }}>2 раунди</strong>, потребує, щоб обшук цієї кімнати вже було зроблено цього ходу) анонімно позначає кімнату як чисту для всієї команди Невинних — але якщо цифра реально там, кімната ніколи не позначається чистою, а сама цифра все одно не розкривається цією здібністю.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. СХОВАТИ АБО ЗАЛИШИТИ ТІЛО НА ВИДУ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Одразу після вбивства <strong>Вбивця</strong> повинен обрати: <strong>Сховати</strong> тіло — воно залишиться прихованим, поки хтось навмисно не почне його шукати, але це використає стрибок через вентиляцію цього ходу, тож вентилювати цього ходу не можна — або <strong>Залишити на видноті</strong>, щоб його побачив наступний, хто зайде в кімнату, при цьому вентиляція залишається доступною для використання пізніше. Якщо рішення так і не прийнято до кінця ходу, сервер сам обирає «Залишити на видноті» — тіло ніколи не втрачається мовчки. На кожне вбивство є також <strong style={{ color: '#fff' }}>шанс 50%</strong>, що Вбивця випадково впустить особисту річ свого персонажа у випадковій кімнаті будь-де в особняку (необов'язково в кімнаті вбивства) — про це дізнається лише сам Вбивця і, якщо він є у грі, Спільник.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. ВИЯВЛЕННЯ ТІЛ — ВАЖЛИВА ДЕТАЛЬ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                У ту мить, коли хтось успішно знаходить <strong>приховане</strong> тіло через «Шукати тіло», воно перестає бути прихованим <strong>назавжди, до кінця матчу</strong> — з цього моменту будь-хто, хто просто зайде в кімнату (включно зі спостерігачами, що переглядають її), побачить його без пошуку, сховати назад не можна. Кожен, хто хоч раз побачив тіло, назавжди потрапляє до списку тих, хто знайшов, і пізніше відображається у зведенні суду. Поки в особняку залишається <strong>хоча б одне невиявлене</strong> тіло, термінал виходу Невинних повністю відмовляється приймати код, яким би вірним він не був — але гра ніколи не підказує, хто пропав і де. Страчений радою гравець — протилежний випадок: тіло для нього взагалі не створюється, шукати нічого.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#bdef13', margin: '0 0 6px 0', letterSpacing: '1px' }}>10. КРИМІНАЛІСТИЧНІ СЛІДИ НА ТІЛАХ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                На кожному тілі в момент його появи фіксується рівно один тип сліду — група крові, категорія зросту або категорія ваги, по черзі — що відображає реальні характеристики справжнього Вбивці. Значення зафіксоване назавжди і не змінюється з часом. Видобути його може лише <strong>Криміналіст</strong> через «Оглянути тіло», лише під час суду, і лише на вже виявленому тілі. Оскільки з одного тіла розкривається лише одна категорія, для повного профілю потрібно оглянути кілька різних тіл за матч.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>11. ДОКАЗИ ТА СПІЛЬНА ДОШКА</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Оперативники знаходять справжні сліди, залишені випадково. <strong>Спільник</strong> може підробити вже знайдений доказ, підставивши обраного гравця — фальшивка при цьому навмисно <strong>зникає зі спільної дошки</strong> і з цього моменту видима лише тому, хто особисто повторно обшукає саме цю кімнату. <strong>Джокер</strong> підкидає докази у стилі власного персонажа свідомо — вони, навпаки, потрапляють на спільну дошку одразу після виявлення. Знайдене тіло/доказ не зникають і не «спливають» при зміні раунду — вони назавжди залишаються доступними в цій кімнаті та в зведенні.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#e040fb', margin: '0 0 6px 0', letterSpacing: '1px' }}>12. НЕЙРОТОКСИН-7</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Обмежена кількість шприців (1–3 залежно від кількості гравців) ховається у випадкових кімнатах і знаходиться через звичайний обшук. Торкатися його можуть лише <strong>Вбивця, Спільник і Джокер</strong> — для інших він «занадто небезпечний» і залишається на місці. Носити з собою можна лише один за раз. У <strong>Вбивці</strong> він піднімає ліміт вбивств до <strong style={{ color: '#fff' }}>двох за раунд</strong> і витрачається після другого вбивства. У <strong>Спільника/Джокера</strong> він працює як <strong>пасивний щит</strong>: повністю нейтралізує найближчу пряму атаку Вбивці і витрачається при спрацюванні — але невдала атака на захищену ціль все одно спалює у Вбивці <strong>весь ресурс вбивств на раунд</strong>, навіть якщо в нього самого є свій невитрачений шприц. Щит не рятує від страти радою.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>13. ПАСТКИ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Спільник</strong> може встановити в кімнаті приховану пастку (<strong style={{ color: '#fff' }}>1 раз на 4 раунди</strong>). Перший агент будь-якої ролі, що зайшов до цієї кімнати — звичайним кроком або через вентиляцію — активує її: пастка спрацьовує миттєво і витрачається, а цей агент втрачає взагалі всі дії та здібності на весь наступний раунд, включно з фазою дій і судом (навіть термінал виходу відмовить йому у введенні). Вбивця приватно дізнається, де його Спільник поставив пастку.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>14. АКТИВНІ РОЛІ ДОКЛАДНО</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Вбивця:</strong> усуває цілі (<strong style={{ color: '#fff' }}>1 за хід</strong>, 2 з Нейротоксином), потім вирішує долю тіла, має доступ до вентиляції.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Спільник</strong> (від 8 гравців): може підробити вже знайдений доказ, підставивши гравця (<strong style={{ color: '#fff' }}>1 раз на 3 своїх ходи</strong>), і встановити пастку в кімнаті (<strong style={{ color: '#fff' }}>1 раз на 4 раунди</strong>). Приватно дізнається про помилки Вбивці.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Детектив:</strong> під час суду перевіряє, в якій кімнаті обраний гравець завершив <em>попередній</em> хід — знімок фіксується в момент початку суду (<strong style={{ color: '#fff' }}>1 раз на 2 раунди</strong>). Себе перевірити не можна. Результат видно лише вам.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Офіцер:</strong> під час суду планує замкнути підозрюваного (або <em>самого себе</em>) в Камері утримання на весь <em>наступний</em> раунд (<strong style={{ color: '#fff' }}>1 раз на 3 раунди</strong>). Замкнений гравець повністю невидимий для всіх, включно зі спостерігачами, і позбавлений будь-яких дій і здібностей весь раунд.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Криміналіст</strong> (від 8 гравців): «Перевірити автентичність доказу» (реальний чи сфабрикований) АБО «Оглянути тіло» на слід Вбивці — обидві дії ділять <strong style={{ color: '#fff' }}>одну спільну перезарядку в 1 раунд</strong>. Повторний запит вже оглянутого тіла безкоштовний — результат кешується.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Джокер</strong> (від 8 гравців): перемагає <em>лише</em> якщо страчений радою — жодним іншим чином. Може підкинути особистий доказ у <em>будь-яку</em> кімнату особняка (<strong style={{ color: '#fff' }}>1 раз на 2 своїх ходи</strong>). Єдина роль, якій дозволено голосувати за себе на суді.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Невинний:</strong> без наступальних здібностей. Шукає по особняку цифри коду скасування протоколу (спільні для всієї команди) і може анонімно позначати перевірені кімнати (<strong style={{ color: '#fff' }}>1 раз на 2 раунди</strong>). Лише Невинні можуть ввести зібраний код і виграти матч.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>15. ГОЛОСУВАННЯ ТА ПІДСУМКИ СУДУ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Кожен активний гравець голосує за конкретного підозрюваного або явно за <strong>пропуск</strong>; голосувати за себе не можна — крім Джокера. Голос зараховується лише зафіксований, але його можна вільно змінювати до закінчення таймера або поки не зафіксувалися всі. Кандидата страчено, лише якщо в нього <strong>строго найбільше</strong> голосів, немає нічиєї за перше місце, і його результат строго перевищує пропуск — інакше цього раунду нікого не страчують. Страчений гравець не залишає тіла.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>16. УМОВИ ПЕРЕМОГИ</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Невинний вводить правильний код на суді за відсутності невиявлених тіл — <strong style={{ color: '#00ff87' }}>перемога Невинних</strong>.</li>
+                <li style={{ marginBottom: '6px' }}>Рада страчує <strong style={{ color: '#ff2a5f' }}>Вбивцю</strong> — негайна <strong style={{ color: '#00ff87' }}>перемога Невинних</strong>, незалежно від кількості вцілілих.</li>
+                <li style={{ marginBottom: '6px' }}>Рада страчує <strong style={{ color: '#e040fb' }}>Джокера</strong> — він перемагає одноосібно.</li>
+                <li style={{ marginBottom: '6px' }}>Кількість активних мирних гравців опускається до рівня або нижче кількості активних членів команди Вбивці (Вбивця + Спільник) — негайна <strong style={{ color: '#ff2a5f' }}>перемога команди Вбивці</strong>. Джокер не враховується в жодну зі сторін цього підрахунку.</li>
+                <li style={{ marginBottom: '6px' }}>Уся команда Вбивці покинула матч, а мирні залишилися — за замовчуванням <strong style={{ color: '#00ff87' }}>перемога Невинних</strong>.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>17. ПРОТОКОЛ ПРИВИДА (ЗАГИБЛІ)</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Термінальну передачу перервано, але доступ відкриває <strong style={{ color: '#00ff87' }}>необмежений супутниковий огляд карти</strong> — можна вільно переглядати будь-яку кімнату наживо, але не діяти. Чат заблокований для загиблих/спостерігачів саме під час фази суду, але доступний в інший час.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>18. ДРІБНІ ДЕТАЛІ, ПРО ЯКІ ЛЕГКО ЗАБУТИ</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 5px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Знайдена цифра супроводжується її точною позицією в коді — команда збирає код по порядку, а не вгадує.</li>
+                <li style={{ marginBottom: '6px' }}>Випадково впущений доказ Вбивці може опинитися в будь-якій кімнаті особняка, включно з тією, де ще ніхто не був.</li>
+                <li style={{ marginBottom: '6px' }}>Підроблений Спільником доказ ніколи не з'являється на спільній дошці — лише для того, хто особисто обшукає ту саму кімнату.</li>
+                <li style={{ marginBottom: '6px' }}>Офіцер може замкнути в камері <em>самого себе</em> — заборони на це немає, на відміну від здібності Детектива.</li>
+                <li style={{ marginBottom: '6px' }}>Обидві здібності Криміналіста ділять одну перезарядку — використавши одну, друга теж іде на перезарядку.</li>
+                <li style={{ marginBottom: '6px' }}>Щит Нейротоксину-7 ніколи не рятує від голосування ради — лише від прямої атаки Вбивці.</li>
+                <li style={{ marginBottom: '6px' }}>Сервер технічно розсилає особу замкненого в Камері утримання гравця всім клієнтам (не лише Офіцеру), але інтерфейс її ніде не відображає — на екрані видно лише «це я?», тому на практиці ніхто, крім самого замкненого, не дізнається, хто всередині.</li>
+                <li style={{ marginBottom: '6px' }}>Якщо ви явно не обрали персонажа, але натиснули «Готовий» із персонажем, уже прикріпленим до цього запиту, сервер мовчки прийме той персонаж, що прийшов разом із перемиканням готовності.</li>
+                <li style={{ marginBottom: '6px' }}>Пропуск тексту інтро насправді відбувається лише тоді, коли за нього проголосують абсолютно всі гравці — не більшість.</li>
+                <li style={{ marginBottom: '6px' }}>Спостерігаючи будь-яку кімнату (як спостерігач або усунений), при змінах там (знайдено тіло, підкинуто доказ, зайшли/вийшли гравці) ваш вигляд оновлюється в реальному часі — заново обирати кімнату не потрібно.</li>
+                <li style={{ marginBottom: '6px' }}>Приватний код кімнати — це 8-символьний HEX-код (літери й цифри, регістр не важливий), а не просто число.</li>
               </ul>
               </>
               ) : (
@@ -7267,6 +7417,8 @@ function App() {
                   >
                     {language === 'ru'
                       ? (hasVotedSkip ? 'ГОЛОС ОТДАН' : 'ПРОПУСТИТЬ ▸')
+                      : language === 'uk'
+                      ? (hasVotedSkip ? 'ГОЛОС ВІДДАНО' : 'ПРОПУСТИТИ ▸')
                       : (hasVotedSkip ? 'VOTE CAST' : 'SKIP ▸')}
                   </button>
                 </div>
@@ -7310,7 +7462,7 @@ function App() {
                     {(roleRevealStage === 'sprite' || roleRevealStage === 'label') && (
                       <img
                         src={activeRoleData.sprite}
-                        alt={language === 'ru' ? activeRoleData.labelRu : activeRoleData.label}
+                        alt={language === 'ru' ? activeRoleData.labelRu : language === 'uk' ? activeRoleData.labelUk : activeRoleData.label}
                         style={{
                           width: '220px',
                           height: '220px',
@@ -7336,7 +7488,7 @@ function App() {
                           fontFamily: 'Georgia, serif',
                           fontStyle: 'italic'
                         }}>
-                          {language === 'ru' ? activeRoleData.labelRu : activeRoleData.label}
+                          {language === 'ru' ? activeRoleData.labelRu : language === 'uk' ? activeRoleData.labelUk : activeRoleData.label}
                         </h2>
                         <p style={{
                           maxWidth: '380px',
@@ -7346,7 +7498,7 @@ function App() {
                           color: '#bdc7db',
                           letterSpacing: '0.5px'
                         }}>
-                          {language === 'ru' ? activeRoleData.descriptionRu : activeRoleData.description}
+                          {language === 'ru' ? activeRoleData.descriptionRu : language === 'uk' ? activeRoleData.descriptionUk : activeRoleData.description}
                         </p>
                       </div>
                     )}
@@ -8775,7 +8927,7 @@ function App() {
                     {entry.nickname}{entry.isEliminated ? (language === 'ru' ? ' (устранён)' : language === 'uk' ? " (усунений)" : ' (eliminated)') : ''}
                   </span>
                   <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '1px', color: ROLES[entry.role]?.color || '#8a99ad' }}>
-                    {(language === 'ru' ? ROLES[entry.role]?.labelRu : ROLES[entry.role]?.label) || entry.role || (language === 'ru' ? 'НЕИЗВЕСТНО' : language === 'uk' ? "НЕВІДОМО" : 'UNKNOWN')}
+                    {(language === 'ru' ? ROLES[entry.role]?.labelRu : language === 'uk' ? ROLES[entry.role]?.labelUk : ROLES[entry.role]?.label) || entry.role || (language === 'ru' ? 'НЕИЗВЕСТНО' : language === 'uk' ? "НЕВІДОМО" : 'UNKNOWN')}
                   </span>
                 </div>
               ))}
