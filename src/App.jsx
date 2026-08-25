@@ -5944,7 +5944,9 @@ function App() {
       console.log('CLIENT kill_resolved:', { action, roomId, targetId, killerClue });
       setPendingKillDecision(null);
       setResolvingKill(false);
-      // Killer-only: the server rolled the 50% chance and decided a personal
+      // Killer-only: the server rolled its dynamic drop-chance (scales with
+      // lobby size and kills-so-far, see getEvidenceDropChance on the
+      // backend) and decided a personal
       // item was accidentally left behind (see 'resolve_kill' server-side).
       // Nobody else's client ever receives this — it's private to the Killer,
       // same treatment as the joker_evidence_result toast below.
@@ -7220,7 +7222,7 @@ function App() {
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. СПРЯТАТЬ ИЛИ ОСТАВИТЬ ТЕЛО НА ВИДУ</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Сразу после убийства <strong>Убийца</strong> должен выбрать: <strong>Спрятать</strong> тело — оно останется скрытым, пока кто-то намеренно не начнёт его искать, но это использует прыжок через вентиляцию в этот ход, так что вентилировать в этот ход нельзя — или <strong>Оставить на виду</strong>, чтобы его увидел следующий, кто зайдёт в комнату, при этом вентиляция остаётся доступной для использования позже. Если решение так и не принято до конца хода, сервер сам выбирает «Оставить на виду» — тело никогда не теряется молча. На каждое убийство есть также <strong style={{ color: '#fff' }}>шанс 50%</strong>, что Убийца случайно обронит личную вещь своего персонажа в случайной комнате где угодно в особняке (необязательно в комнате убийства) — об этом узнаёт только сам Убийца и, если он есть в игре, Сообщник.
+                Сразу после убийства <strong>Убийца</strong> должен выбрать: <strong>Спрятать</strong> тело — оно останется скрытым, пока кто-то намеренно не начнёт его искать, но это использует прыжок через вентиляцию в этот ход, так что вентилировать в этот ход нельзя — или <strong>Оставить на виду</strong>, чтобы его увидел следующий, кто зайдёт в комнату, при этом вентиляция остаётся доступной для использования позже. Если решение так и не принято до конца хода, сервер сам выбирает «Оставить на виду» — тело никогда не теряется молча. На каждое убийство есть также шанс, что Убийца случайно обронит личную вещь своего персонажа в случайной комнате где угодно в особняке (необязательно в комнате убийства) — об этом узнаёт только сам Убийца и, если он есть в игре, Сообщник. Шанс не фиксирован: он зависит от размера лобби (<strong style={{ color: '#fff' }}>от 65% при 5 агентах до 30% при 12</strong>) и растёт с каждым следующим убийством за матч (<strong style={{ color: '#fff' }}>+10% за предыдущее убийство, максимум +25%</strong>) — первая жертва самая «чистая», а к финалу матча улики оставляют почти гарантированно.
               </p>
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. ОБНАРУЖЕНИЕ ТЕЛ — ВАЖНАЯ ДЕТАЛЬ</p>
@@ -7342,7 +7344,7 @@ function App() {
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. СХОВАТИ АБО ЗАЛИШИТИ ТІЛО НА ВИДУ</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Одразу після вбивства <strong>Вбивця</strong> повинен обрати: <strong>Сховати</strong> тіло — воно залишиться прихованим, поки хтось навмисно не почне його шукати, але це використає стрибок через вентиляцію цього ходу, тож вентилювати цього ходу не можна — або <strong>Залишити на видноті</strong>, щоб його побачив наступний, хто зайде в кімнату, при цьому вентиляція залишається доступною для використання пізніше. Якщо рішення так і не прийнято до кінця ходу, сервер сам обирає «Залишити на видноті» — тіло ніколи не втрачається мовчки. На кожне вбивство є також <strong style={{ color: '#fff' }}>шанс 50%</strong>, що Вбивця випадково впустить особисту річ свого персонажа у випадковій кімнаті будь-де в особняку (необов'язково в кімнаті вбивства) — про це дізнається лише сам Вбивця і, якщо він є у грі, Спільник.
+                Одразу після вбивства <strong>Вбивця</strong> повинен обрати: <strong>Сховати</strong> тіло — воно залишиться прихованим, поки хтось навмисно не почне його шукати, але це використає стрибок через вентиляцію цього ходу, тож вентилювати цього ходу не можна — або <strong>Залишити на видноті</strong>, щоб його побачив наступний, хто зайде в кімнату, при цьому вентиляція залишається доступною для використання пізніше. Якщо рішення так і не прийнято до кінця ходу, сервер сам обирає «Залишити на видноті» — тіло ніколи не втрачається мовчки. На кожне вбивство є також шанс, що Вбивця випадково впустить особисту річ свого персонажа у випадковій кімнаті будь-де в особняку (необов'язково в кімнаті вбивства) — про це дізнається лише сам Вбивця і, якщо він є у грі, Спільник. Шанс не фіксований: він залежить від розміру лобі (<strong style={{ color: '#fff' }}>від 65% при 5 агентах до 30% при 12</strong>) і зростає з кожним наступним вбивством за матч (<strong style={{ color: '#fff' }}>+10% за попереднє вбивство, максимум +25%</strong>) — перша жертва найчистіша, а до фіналу матчу докази лишаються майже гарантовано.
               </p>
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. ВИЯВЛЕННЯ ТІЛ — ВАЖЛИВА ДЕТАЛЬ</p>
@@ -7464,7 +7466,7 @@ function App() {
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. OCULTAR O EXPONER EL CUERPO</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Justo después de un asesinato, el <strong>Asesino</strong> debe elegir: <strong>Ocultar</strong> el cuerpo — permanece escondido hasta que alguien lo busque deliberadamente, pero esto consume el salto de conducto de ese turno, así que no se puede usar el conducto ese turno — o <strong>Exponerlo</strong>, dejándolo a la vista de quien entre después, mientras el conducto sigue libre para usarse más tarde. Si nunca se toma la decisión, el servidor opta por Exponer de forma predeterminada — un cuerpo nunca se pierde silenciosamente. Cada asesinato también conlleva una probabilidad fija del <strong style={{ color: '#fff' }}>50%</strong> de que el Asesino deje caer accidentalmente uno de los objetos de su propio personaje en algún lugar aleatorio de la mansión, no necesariamente en la sala del crimen — solo se informa al Asesino (y, si está en juego, al Cómplice).
+                Justo después de un asesinato, el <strong>Asesino</strong> debe elegir: <strong>Ocultar</strong> el cuerpo — permanece escondido hasta que alguien lo busque deliberadamente, pero esto consume el salto de conducto de ese turno, así que no se puede usar el conducto ese turno — o <strong>Exponerlo</strong>, dejándolo a la vista de quien entre después, mientras el conducto sigue libre para usarse más tarde. Si nunca se toma la decisión, el servidor opta por Exponer de forma predeterminada — un cuerpo nunca se pierde silenciosamente. Cada asesinato también conlleva una probabilidad de que el Asesino deje caer accidentalmente uno de los objetos de su propio personaje en algún lugar aleatorio de la mansión, no necesariamente en la sala del crimen — solo se informa al Asesino (y, si está en juego, al Cómplice). La probabilidad no es fija: depende del tamaño de la sala (<strong style={{ color: '#fff' }}>del 65% con 5 agentes al 30% con 12</strong>) y aumenta con cada asesinato ya resuelto en la partida (<strong style={{ color: '#fff' }}>+10% por asesinato previo, máximo +25%</strong>) — la primera víctima es la más "limpia" y hacia el final de la partida la evidencia queda casi garantizada.
               </p>
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. DESCUBRIMIENTO DE CUERPOS — EL DETALLE QUE IMPORTA</p>
@@ -7586,7 +7588,7 @@ function App() {
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. HIDE OR EXPOSE THE BODY</p>
               <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
-                Right after a kill, the <strong>Killer</strong> must choose: <strong>Hide</strong> the body — it stays concealed until someone deliberately searches for it, but this uses up the turn's vent hop, so no venting that turn — or <strong>Expose</strong> it, leaving it in plain sight for whoever walks in next, while still keeping the vent free to use afterward. If the decision is never made, the server defaults to Expose — a body is never silently lost. Every kill also carries a flat <strong style={{ color: '#fff' }}>50% chance</strong> the Killer accidentally drops one of their own character's items somewhere random in the mansion, not necessarily the murder room — only the Killer (and, if in play, the Accomplice) is ever told.
+                Right after a kill, the <strong>Killer</strong> must choose: <strong>Hide</strong> the body — it stays concealed until someone deliberately searches for it, but this uses up the turn's vent hop, so no venting that turn — or <strong>Expose</strong> it, leaving it in plain sight for whoever walks in next, while still keeping the vent free to use afterward. If the decision is never made, the server defaults to Expose — a body is never silently lost. Every kill also carries a chance the Killer accidentally drops one of their own character's items somewhere random in the mansion, not necessarily the murder room — only the Killer (and, if in play, the Accomplice) is ever told. The chance isn't fixed: it depends on lobby size (<strong style={{ color: '#fff' }}>65% at 5 agents down to 30% at 12</strong>) and climbs with every kill already resolved this match (<strong style={{ color: '#fff' }}>+10% per prior kill, capped at +25%</strong>) — the first victim is the "cleanest" and evidence becomes almost guaranteed by the endgame.
               </p>
 
               <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. BODY DISCOVERY — THE DETAIL THAT MATTERS</p>
@@ -7700,8 +7702,11 @@ function App() {
                   aria-label={language === 'ru' ? 'Развернуть дофаминовый уголок' : language === 'uk' ? "Розгорнути дофаміновий куточок" : language === 'es' ? 'Expandir el rincón de dopamina' : 'Expand Dopamine Corner'}
                   style={{
                     position: 'fixed',
-                    top: '16px',
-                    right: '16px',
+                    // Left corner (moved from the right). Nudged down when the
+                    // Neurotoxin-7 carrier badge is also occupying the top-left
+                    // slot, so the two never overlap.
+                    top: neurotoxinCarried ? '64px' : '16px',
+                    left: '16px',
                     zIndex: 9500,
                     padding: '8px 12px',
                     borderRadius: '8px',
@@ -7729,8 +7734,10 @@ function App() {
                   aria-label={language === 'ru' ? 'Свернуть дофаминовый уголок' : language === 'uk' ? "Згорнути дофаміновий куточок" : language === 'es' ? 'Minimizar el rincón de dopamina' : 'Minimize Dopamine Corner'}
                   style={{
                     position: 'fixed',
-                    top: '16px',
-                    right: '16px',
+                    // Left corner (moved from the right), same neurotoxin-badge
+                    // collision offset as the minimized tab above.
+                    top: neurotoxinCarried ? '64px' : '16px',
+                    left: '16px',
                     zIndex: 9500,
                     width: 'clamp(120px, 20vw, 340px)',
                     height: 'auto',
