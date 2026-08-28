@@ -124,10 +124,11 @@ const MAX_PLAYERS = 12;
 const TURN_DURATION_SECONDS = 30;
 const TRIAL_DURATION_SECONDS = 120;
 
-// --- LANGUAGES: selectable in Settings. Only English and Russian are
-// actually wired up to the UI text right now (see `language` state and
-// UI_TEXT below) — the rest are placeholders for future localization,
-// listed roughly by number of speakers worldwide.
+// --- LANGUAGES: selectable in Settings. English, Russian, Ukrainian,
+// Spanish, and German are actually wired up to the UI text right now (see
+// `language` state and UI_TEXT below) — Italian and French remain
+// placeholders for future localization, listed roughly by number of
+// speakers worldwide.
 const APP_LANGUAGES = [
   { code: 'en', label: 'English' },
   { code: 'ru', label: 'Русский' },
@@ -400,6 +401,134 @@ const UI_TEXT = {
     supportPopupDesc: '¿Encontraste un error en el juego o tienes un problema? Escríbenos a este correo:',
     copyEmail: 'COPIAR CORREO',
     emailCopied: '¡COPIADO!'
+  },
+  de: {
+    enterNickname: 'SPITZNAMEN EINGEBEN',
+    nicknamePlaceholder: 'DEIN CODENAME...',
+    initializeTerminal: 'TERMINAL INITIALISIEREN',
+    launchCase: 'FALL STARTEN',
+    settings: 'EINSTELLUNGEN',
+    dossierRules: 'DOSSIER & REGELN',
+    selectOperation: 'Operation auswählen',
+    publicLobbies: 'ÖFFENTLICHE LOBBYS',
+    secureConnection: 'SICHERE VERBINDUNG (CODE)',
+    establishHQ: 'NEUES HQ ERRICHTEN',
+    return: 'ZURÜCK',
+    availableChannels: 'VERFÜGBARE VERSCHLÜSSELTE KANÄLE',
+    scanningFrequencies: 'Frequenzen werden gescannt... Keine aktiven Kanäle gefunden.',
+    idLabel: 'ID:',
+    join: 'BEITRETEN',
+    back: 'ZURÜCK',
+    enterDecryptionKey: 'ENTSCHLÜSSELUNGSCODE EINGEBEN',
+    hexCodePlaceholder: '8-STELLIGER HEX-CODE...',
+    establishLink: 'VERBINDUNG HERSTELLEN',
+    hqConfiguration: 'HQ-KONFIGURATION',
+    publicBroadcast: 'ÖFFENTLICHE ÜBERTRAGUNG',
+    publicBroadcastDesc: 'Wird in der globalen Frequenzdatenbank gelistet. Offen für alle Agenten.',
+    covertChannel: 'VERDECKTER KANAL',
+    covertChannelDesc: 'Verschlüsselte Überlagerung. Zugang nur über direkten Terminal-Verbindungscode.',
+    hqBase: 'HQ-BASIS',
+    preparing: 'VORBEREITUNG',
+    open: 'OFFEN',
+    linkCode: 'VERBINDUNGSCODE:',
+    selectProfile: 'PROFIL AUSWÄHLEN (1 EINZIGARTIG PRO IDENTITÄT)',
+    taken: 'VERGEBEN',
+    cancelReady: 'BEREITSCHAFT ABBRECHEN',
+    confirmIdentity: 'IDENTITÄT BESTÄTIGEN (BEREIT)',
+    startOperation: 'OPERATION STARTEN',
+    waitingForAgents: (count, min) => `WARTEN AUF AGENTEN (${count}/${min})`,
+    waitingForHost: 'Warten, bis der Host die Operation startet...',
+    connectedChannels: 'VERBUNDENE KANÄLE',
+    requiresPlayers: 'Mindestens 5 Spieler zum Start erforderlich',
+    activeRolePool: 'AKTIVER ROLLENPOOL',
+    fullTag: '(VOLL)',
+    baseTag: '(BASIS)',
+    allRolesUnlocked: 'Alle Sonderrollen werden ab 7 Spielern freigeschaltet.',
+    rolesUnlockAt7: 'Sonderrollen werden ab 7 Spielern freigeschaltet.',
+    youTag: '(DU)',
+    hostTag: 'HOST',
+    profileLabel: 'Profil:',
+    selectingEllipsis: 'Auswahl läuft...',
+    ready: 'BEREIT',
+    wait: 'WARTEN',
+    disconnect: 'TRENNEN',
+    terminalAdjustments: 'TERMINALEINSTELLUNGEN',
+    hqAmbientMusic: 'HQ-HINTERGRUNDMUSIK',
+    online: 'AN',
+    muted: 'STUMM',
+    volumeLevel: 'LAUTSTÄRKE',
+    dopamineCorner: 'DOPAMIN-ECKE',
+    languages: 'SPRACHEN',
+    classifiedDossier: 'GEHEIMES DOSSIER',
+    supportButton: 'SUPPORT',
+    supportPopupTitle: 'BRAUCHST DU HILFE?',
+    supportPopupDesc: 'Einen Bug im Spiel gefunden oder ein Problem? Schreib uns an diese E-Mail:',
+    copyEmail: 'E-MAIL KOPIEREN',
+    emailCopied: 'KOPIERT!'
+  },
+  fr: {
+    enterNickname: 'ENTREZ VOTRE PSEUDO',
+    nicknamePlaceholder: 'VOTRE NOM DE CODE...',
+    initializeTerminal: 'INITIALISER LE TERMINAL',
+    launchCase: "LANCER L'AFFAIRE",
+    settings: 'PARAMÈTRES',
+    dossierRules: 'DOSSIER ET RÈGLES',
+    selectOperation: 'Sélectionner une opération',
+    publicLobbies: 'SALONS PUBLICS',
+    secureConnection: 'CONNEXION SÉCURISÉE (CODE)',
+    establishHQ: 'CRÉER UN NOUVEAU QG',
+    return: 'RETOUR',
+    availableChannels: 'CANAUX CHIFFRÉS DISPONIBLES',
+    scanningFrequencies: 'Recherche de fréquences... Aucun canal actif trouvé.',
+    idLabel: 'ID :',
+    join: 'REJOINDRE',
+    back: 'RETOUR',
+    enterDecryptionKey: 'ENTREZ LA CLÉ DE DÉCHIFFREMENT',
+    hexCodePlaceholder: 'CODE HEX À 8 CARACTÈRES...',
+    establishLink: 'ÉTABLIR LA LIAISON',
+    hqConfiguration: 'CONFIGURATION DU QG',
+    publicBroadcast: 'DIFFUSION PUBLIQUE',
+    publicBroadcastDesc: 'Répertorié dans la base de données mondiale des fréquences. Ouvert à tous les agents.',
+    covertChannel: 'CANAL SECRET',
+    covertChannelDesc: 'Superposition chiffrée. Accessible uniquement via un code de connexion directe au terminal.',
+    hqBase: 'BASE DU QG',
+    preparing: 'PRÉPARATION',
+    open: 'OUVERT',
+    linkCode: 'CODE DE LIAISON :',
+    selectProfile: 'SÉLECTIONNEZ UN PROFIL (1 UNIQUE PAR IDENTITÉ)',
+    taken: 'PRIS',
+    cancelReady: 'ANNULER LA PRÉPARATION',
+    confirmIdentity: "CONFIRMER L'IDENTITÉ (PRÊT)",
+    startOperation: "LANCER L'OPÉRATION",
+    waitingForAgents: (count, min) => `EN ATTENTE D'AGENTS (${count}/${min})`,
+    waitingForHost: "En attente que l'hôte lance l'opération...",
+    connectedChannels: 'CANAUX CONNECTÉS',
+    requiresPlayers: 'Au moins 5 joueurs requis pour commencer',
+    activeRolePool: 'BASSIN DE RÔLES ACTIF',
+    fullTag: '(COMPLET)',
+    baseTag: '(DE BASE)',
+    allRolesUnlocked: 'Tous les rôles spéciaux se débloquent à partir de 7 joueurs.',
+    rolesUnlockAt7: 'Les rôles spéciaux se débloquent à partir de 7 joueurs.',
+    youTag: '(VOUS)',
+    hostTag: 'HÔTE',
+    profileLabel: 'Profil :',
+    selectingEllipsis: 'Sélection...',
+    ready: 'PRÊT',
+    wait: 'ATTENDRE',
+    disconnect: 'DÉCONNEXION',
+    terminalAdjustments: 'RÉGLAGES DU TERMINAL',
+    hqAmbientMusic: "MUSIQUE D'AMBIANCE DU QG",
+    online: 'ACTIVÉ',
+    muted: 'COUPÉ',
+    volumeLevel: 'NIVEAU DE VOLUME',
+    dopamineCorner: 'COIN DOPAMINE',
+    languages: 'LANGUES',
+    classifiedDossier: 'DOSSIER CLASSIFIÉ',
+    supportButton: 'SOUTIEN',
+    supportPopupTitle: "BESOIN D'AIDE ?",
+    supportPopupDesc: 'Vous avez trouvé un bug dans le jeu ou rencontrez un problème ? Écrivez-nous à cette adresse :',
+    copyEmail: "COPIER L'E-MAIL",
+    emailCopied: 'COPIÉ !'
   }
 };
 
@@ -432,7 +561,11 @@ const ROLES = {
     descriptionRu: 'Устраняйте цели под покровом ночи. Один удар за ход.',
     descriptionUk: 'Усувайте цілі під покровом ночі. Один удар за хід.',
     labelEs: 'ASESINO',
-    descriptionEs: 'Elimina objetivos al amparo de la noche. Un golpe por turno.'
+    descriptionEs: 'Elimina objetivos al amparo de la noche. Un golpe por turno.',
+    labelDe: 'MÖRDER',
+    descriptionDe: 'Schalte Ziele im Schutz der Nacht aus. Ein Schlag pro Zug.',
+    labelFr: 'TUEUR',
+    descriptionFr: 'Éliminez des cibles sous le couvert de la nuit. Un coup par tour.'
   },
   Accomplice: {
     label: 'ACCOMPLICE',
@@ -444,7 +577,11 @@ const ROLES = {
     descriptionRu: 'Искажайте потоки улик. Вы получаете отчёты Убийцы.',
     descriptionUk: 'Спотворюйте потоки доказів. Ви отримуєте звіти Вбивці.',
     labelEs: 'CÓMPLICE',
-    descriptionEs: 'Distorsiona los reportes de evidencia. Recibes los informes del Asesino.'
+    descriptionEs: 'Distorsiona los reportes de evidencia. Recibes los informes del Asesino.',
+    labelDe: 'KOMPLIZE',
+    descriptionDe: 'Verfälsche die Beweisberichte. Du erhältst die Berichte des Mörders.',
+    labelFr: 'COMPLICE',
+    descriptionFr: "Brouillez les flux de preuves. Vous recevez les rapports du Tueur."
   },
   Innocent: {
     label: 'INNOCENT',
@@ -456,7 +593,11 @@ const ROLES = {
     descriptionRu: 'Ищите по особняку код отмены протокола. Найдите его — и выберитесь из карантина.',
     descriptionUk: 'Шукайте по особняку код скасування протоколу. Знайдіть його — і вийдіть з карантину.',
     labelEs: 'INOCENTE',
-    descriptionEs: 'Busca en la mansión el código de anulación. Encuéntralo y escapa de la cuarentena.'
+    descriptionEs: 'Busca en la mansión el código de anulación. Encuéntralo y escapa de la cuarentena.',
+    labelDe: 'UNSCHULDIGER',
+    descriptionDe: 'Durchsuche das Anwesen nach dem Freigabecode. Finde ihn und entkomme der Quarantäne.',
+    labelFr: 'INNOCENT',
+    descriptionFr: "Fouillez le manoir à la recherche du code de remplacement. Trouvez-le et échappez à la quarantaine."
   },
   Detective: {
     label: 'DETECTIVE',
@@ -468,7 +609,11 @@ const ROLES = {
     descriptionRu: 'Отслеживайте сетевой путь подозреваемого. Одна проверка за ход.',
     descriptionUk: 'Відстежуйте мережевий шлях підозрюваного. Одна перевірка за хід.',
     labelEs: 'DETECTIVE',
-    descriptionEs: 'Rastrea la trayectoria de red de un sospechoso. Una comprobación por turno.'
+    descriptionEs: 'Rastrea la trayectoria de red de un sospechoso. Una comprobación por turno.',
+    labelDe: 'DETEKTIV',
+    descriptionDe: 'Verfolge den Netzwerkpfad eines Profils. Eine Ortung pro Zug.',
+    labelFr: 'DÉTECTIVE',
+    descriptionFr: "Filez le parcours réseau d'un profil. Un repérage par tour."
   },
   Officer: {
     label: 'OFFICER',
@@ -480,7 +625,11 @@ const ROLES = {
     descriptionRu: 'Защищайте союзника от опасности. Один протокольный захват раз в 3 хода.',
     descriptionUk: 'Захищайте союзника від небезпеки. Одне протокольне блокування раз на 3 ходи.',
     labelEs: 'OFICIAL',
-    descriptionEs: 'Protege a un aliado del peligro. Un bloqueo de protocolo cada 3 turnos.'
+    descriptionEs: 'Protege a un aliado del peligro. Un bloqueo de protocolo cada 3 turnos.',
+    labelDe: 'OFFIZIER',
+    descriptionDe: 'Beschütze einen Verbündeten vor Schaden. Eine Protokollsperre alle 3 Züge.',
+    labelFr: 'OFFICIER',
+    descriptionFr: 'Protégez un allié du danger. Un verrouillage de protocole tous les 3 tours.'
   },
   Forensic: {
     label: 'FORENSIC',
@@ -492,7 +641,11 @@ const ROLES = {
     descriptionRu: 'Проверяйте подлинность телеметрии. Один анализ раз в 2 хода.',
     descriptionUk: 'Перевіряйте автентичність телеметрії. Один аналіз раз на 2 ходи.',
     labelEs: 'FORENSE',
-    descriptionEs: 'Verifica la autenticidad de la telemetría. Un análisis cada 2 turnos.'
+    descriptionEs: 'Verifica la autenticidad de la telemetría. Un análisis cada 2 turnos.',
+    labelDe: 'FORENSIKER',
+    descriptionDe: 'Prüfe die Echtheit der Telemetrie. Eine Analyse alle 2 Züge.',
+    labelFr: 'CRIMINALISTE',
+    descriptionFr: 'Authentifiez la validité de la télémétrie. Une analyse tous les 2 tours.'
   },
   Joker: {
     label: 'JOKER',
@@ -504,7 +657,11 @@ const ROLES = {
     descriptionRu: 'Разыскивается для устранения. Вы побеждаете, если совет проголосует за вашу казнь. Подбрасывайте личную улику в обысканной комнате раз в 2 хода.',
     descriptionUk: 'Розшукується для усунення. Ви перемагаєте, якщо рада проголосує за вашу страту. Підкидайте особисту доказ у обшуканій кімнаті раз на 2 ходи.',
     labelEs: 'BROMISTA',
-    descriptionEs: 'Buscado para ser eliminado. Ganas si el consejo vota por tu ejecución. Planta una evidencia personal en una sala registrada una vez cada 2 turnos.'
+    descriptionEs: 'Buscado para ser eliminado. Ganas si el consejo vota por tu ejecución. Planta una evidencia personal en una sala registrada una vez cada 2 turnos.',
+    labelDe: 'JOKER',
+    descriptionDe: 'Zum Abschuss freigegeben. Du gewinnst, wenn der Rat für deine Hinrichtung stimmt. Platziere alle 2 Züge ein persönliches Beweisstück in einem durchsuchten Raum.',
+    labelFr: 'JOKER',
+    descriptionFr: "Recherché pour élimination. Vous gagnez si le conseil vote votre exécution. Placez une preuve personnelle dans une pièce fouillée une fois tous les 2 tours."
   }
 };
 
@@ -559,6 +716,14 @@ Antes de que nadie pudiera gritar, un pesado golpe mecánico retumbó por toda l
 De repente, el terminal de la pared cobró vida. Una voz fría y sintética llenó la sala:
 "PROTOCOLO OMEGA ACTIVADO. Estado del anfitrión: TERMINADO. Todas las salidas selladas bajo cuarentena absoluta durante 24 horas. Identifiquen al asesino entre ustedes, o la bóveda del terminal será purgada."
 Los invitados se miraron unos a otros en un silencio aterrador. La tormenta afuera azotaba el acero, pero el verdadero peligro estaba sentado a la mesa. La cuarentena había comenzado.`;
+
+const INTRO_STORY_FR = `La table en acajou était couverte de carafes en cristal et de vin millésimé. Lord Alistair Vance, un magnat de la tech valant des milliards, leva son verre.
+"Au progrès," porta-t-il un toast.
+Il en but une gorgée. Quelques secondes plus tard, le verre vola en éclats. Alistair suffoqua, se tenant la gorge tandis que ses veines viraient au violet, et s'effondra sans vie sur les plateaux d'argent.
+Avant que quiconque ne puisse crier, un lourd choc mécanique retentit dans tout le manoir. D'imposants volets d'acier scellèrent chaque fenêtre. Les lourdes portes en chêne se verrouillèrent automatiquement.
+Soudain, le terminal mural s'alluma. Une voix froide et synthétique emplit la pièce :
+"PROTOCOLE OMEGA ENGAGÉ. Statut de l'hôte : ÉLIMINÉ. Toutes les issues scellées sous quarantaine absolue pendant 24 heures. Identifiez le tueur parmi vous, ou le coffre du terminal sera purgé."
+Les invités se regardèrent les uns les autres dans un silence terrifiant. La tempête au-dehors se déchaînait contre l'acier, mais le vrai danger était assis à table. La quarantaine avait commencé.`;
 
 // Milliseconds "per character" for the typewriter effect. Progress is computed from
 // REAL elapsed time (see startIntroTypewriter), not from the number of setInterval
@@ -730,14 +895,66 @@ const ROOM_NAMES_ES = {
   'Observatory': 'Observatorio'
 };
 
+const ROOM_NAMES_DE = {
+  'Torture Room': 'Folterkammer',
+  'Grand Hall': 'Große Halle',
+  'Library': 'Bibliothek',
+  'Conservatory': 'Wintergarten',
+  'Kitchen': 'Küche',
+  'Dining Room': 'Esszimmer',
+  'Study': 'Arbeitszimmer',
+  'Wine Cellar': 'Weinkeller',
+  'Ballroom': 'Ballsaal',
+  'Armory': 'Waffenkammer',
+  'Garage': 'Garage',
+  'Holding Cell': 'Arrestzelle',
+  'Master Bedroom': 'Hauptschlafzimmer',
+  'Bathroom': 'Badezimmer',
+  'Guest Room': 'Gästezimmer',
+  'Nursery': 'Kinderzimmer',
+  'Private Office': 'Privatbüro',
+  'Portrait Gallery': 'Porträtgalerie',
+  'Archive': 'Archiv',
+  'Terrace': 'Terrasse',
+  'Attic': 'Dachboden',
+  'Observatory': 'Sternwarte'
+};
+
+const ROOM_NAMES_FR = {
+  'Torture Room': 'Salle de torture',
+  'Grand Hall': 'Grand Hall',
+  'Library': 'Bibliothèque',
+  'Conservatory': "Jardin d'hiver",
+  'Kitchen': 'Cuisine',
+  'Dining Room': 'Salle à manger',
+  'Study': 'Bureau',
+  'Wine Cellar': 'Cave à vin',
+  'Ballroom': 'Salle de bal',
+  'Armory': 'Armurerie',
+  'Garage': 'Garage',
+  'Holding Cell': 'Cellule de détention',
+  'Master Bedroom': 'Chambre principale',
+  'Bathroom': 'Salle de bain',
+  'Guest Room': "Chambre d'amis",
+  'Nursery': "Chambre d'enfant",
+  'Private Office': 'Bureau privé',
+  'Portrait Gallery': 'Galerie de portraits',
+  'Archive': 'Archives',
+  'Terrace': 'Terrasse',
+  'Attic': 'Grenier',
+  'Observatory': 'Observatoire'
+};
+
 // Translates a room name for display only. `name` is whatever English string
 // the server/MANSION_LAYOUT gave us; falls back to the original if there's
-// no mapping (e.g. an unexpected/legacy value) or the UI isn't in Russian/Ukrainian/Spanish.
+// no mapping (e.g. an unexpected/legacy value) or the UI isn't in Russian/Ukrainian/Spanish/German/French.
 function translateRoomName(name, language) {
   if (!name) return name;
   if (language === 'ru') return ROOM_NAMES_RU[name] || name;
   if (language === 'uk') return ROOM_NAMES_UK[name] || name;
   if (language === 'es') return ROOM_NAMES_ES[name] || name;
+  if (language === 'de') return ROOM_NAMES_DE[name] || name;
+  if (language === 'fr') return ROOM_NAMES_FR[name] || name;
   return name;
 }
 
@@ -979,13 +1196,167 @@ const EVIDENCE_ES = {
   'Mysterious personal item': { name: 'Objeto personal misterioso', description: 'Objeto no identificado sin ninguna pista adicional.' }
 };
 
+const EVIDENCE_DE = {
+  'Auction certificate': { name: 'Auktionszertifikat', description: 'Offizieller Kaufnachweis für ein digitales Kunstwerk über eine astronomische Summe, mit Vermerk der vollständigen Zahlung.' },
+  'Hardware crypto wallet': { name: 'Hardware-Krypto-Wallet', description: 'Elegantes Titan-USB-Laufwerk einer limitierten Serie mit lasergravierter Seriennummer, gekauft bei einer exklusiven Technik-Auktion.' },
+  'Vintage Swiss watch': { name: 'Vintage-Schweizer-Uhr', description: 'Elegantes Accessoire an einem dünnen Lederarmband, leicht befleckt mit einem Tropfen teuren Rotweins.' },
+  'Watchmaker magnifier': { name: 'Uhrmacherlupe', description: 'Hochpräzise Juwelierlupe zur Untersuchung komplexer Uhrwerke.' },
+  'Crystal stopper': { name: 'Kristallstöpsel', description: 'Schwerer Stöpsel aus einer seltenen Vintage-Weinflasche, der noch immer ein intensives, scharfes Aroma trägt.' },
+
+  'Steel foil tip cover': { name: 'Stahlspitzenkappe für Florett', description: 'Schutzkappe für die Spitze eines Sportfloretts, sorgfältig mit den Initialen „K.T.“ graviert.' },
+  'White fencing glove': { name: 'Weißer Fechthandschuh', description: 'Makelloser Lederhandschuh zum Fechten mit kaum sichtbaren Kreidespuren und einem gestickten persönlichen Emblem.' },
+  'Opera ticket stub': { name: 'Verbrannter Opernticket-Abschnitt', description: 'Verbrannter Rest eines VIP-Tickets für die Premiere in der ersten Reihe eines renommierten Theaters.' },
+  'Gold opera glasses': { name: 'Goldenes Opernglas', description: 'Kompaktes Vintage-Opernglas aus Messing mit Perlmutt-Verzierung.' },
+  'Genealogy chart': { name: 'Stammbaum', description: 'Ausschnitt aus einem alten Buch über königliche Dynastien, in dem eine Linie rot markiert ist.' },
+
+  'Rubber pool duck': { name: 'Gummiente für den Pool', description: 'Kinderspielzeug aus Gummi, verschmutzt mit dunklem Motoröl und Industrieabfällen.' },
+  'Duck feed container': { name: 'Dose mit Entenfutter', description: 'Kleine Metalldose mit trockener Körnermischung und feinen Zigarrentabakkrümeln.' },
+  'Cigar butt with ash': { name: 'Zigarrenstummel mit Asche', description: 'Halb gerauchte Importzigarre mit goldgeprägtem Ring und frischer Tabakasche.' },
+  'Engraved brass Zippo': { name: 'Gravierte Messing-Zippo', description: 'Schweres altes Feuerzeug, das stark nach Feuerzeugbenzin riecht, mit abgenutzten Initialen „A.R.“ an der Seite.' },
+  'Garbage contract': { name: 'Müllvertrag', description: 'Zerknitterter Müllabfuhrvertrag mit einer verwischten Unterschrift, die wie „Rossi“ aussieht.' },
+
+  'Guitar pick and string': { name: 'Plektrum und Gitarrensaite', description: 'Schwarzes Plektrum mit stilisiertem Logo neben einer gerissenen Stahl-Gitarrensaite.' },
+  'Custom Explorer guitar strap': { name: 'Individueller Gitarrengurt „Explorer“', description: 'Fester Ledergurt mit Metallnieten, der schwach nach Bühnennebel riecht.' },
+  'Engine oil canister': { name: 'Motoröl-Kanister', description: 'Metallbehälter für Öl eines starken V8-Motors mit deutlichen Fingerabdrücken an der Seite.' },
+  'Greasy shop rag': { name: 'Öliger Werkstattlappen', description: 'Dunkelrotes Tuch, getränkt mit hochoktanigem Benzin und dickem Motorenfett.' },
+  'Rifle casing': { name: 'Gewehrpatronenhülse', description: 'Verschossene großkalibrige Hülse, die eindeutig von einem gezogenen Jagdgewehr stammt.' },
+
+  'Exercise band': { name: 'Fitnessband', description: 'Gerissenes Gummi-Fitnessband mit deutlichen Spuren intensiven Trainings.' },
+  'Chalk dust pouch': { name: 'Magnesiabeutel', description: 'Kleiner Stoffbeutel mit trockener Turnkreide, um die Hände bei hartem Training trocken zu halten.' },
+  'Tattoo sketch': { name: 'Tattoo-Skizze', description: 'Düstere monochrome Zeichnung, von Hand auf ein zerknittertes Blatt Papier gebracht.' },
+  'Drawing charcoal pencil': { name: 'Kohlestift zum Zeichnen', description: 'Dünner schwarzer Grafitstift, fast bis zum Stummel abgenutzt vom Zeichnen komplexer Tattoos.' },
+  'Makeshift shank': { name: 'Behelfsmäßige Stichwaffe', description: 'Schwerer Metallstab, bis zur Spitze angeschliffen, mit einem Griff, der fest mit schwarzem Isolierband umwickelt ist.' },
+
+  'Recipe card': { name: 'Rezeptkarte', description: 'Karte mit einem hausgemachten Kuchenrezept, befleckt mit tiefroten Tropfen, die verdächtig nach Blut aussehen.' },
+  'Cherry pie tin': { name: 'Kirschkuchenform', description: 'Leichte Aluminium-Backform mit Resten von klebrigem, süßem rotem Sirup.' },
+  'Skein of wool yarn': { name: 'Wollknäuel', description: 'Weicher Knäuel dicker Wolle mit einer langen Stahlnadel, die daraus hervorsteht.' },
+  'Stray wool thread': { name: 'Verirrter Wollfaden', description: 'Langer Faden kirschroter Wolle, herausgezogen aus einem schweren handgestrickten Pullover.' },
+  'Paperback novel': { name: 'Zerlesener Kriminalroman', description: 'Zerlesenes Krimibuch mit einem Lesezeichen genau bei dem Kapitel mit dem Titel „Der Mörder ist...“.' },
+
+  'Jar of glowing dust': { name: 'Glas mit leuchtendem Staub', description: 'Glasfläschchen mit phosphoreszierendem Pulver und einem Deckel von einem getrockneten Waldpilz.' },
+  'Dried mushroom cap': { name: 'Getrockneter Pilzhut', description: 'Zerbrechlicher biolumineszenter Waldpilz, der im Dunkeln schwach leuchtet.' },
+  'Woven flower crown': { name: 'Geflochtener Blumenkranz', description: 'Getrockneter Kranz aus Waldblumen mit Stückchen grünen Mooses zwischen den Stängeln.' },
+  'Floral wire snips': { name: 'Blumendraht-Schere', description: 'Winzige rostige Schere zum Schneiden von Blumenstielen und Ranken.' },
+  'Sparkling dust jar': { name: 'Glas mit funkelndem Staub', description: 'Winziges verschlossenes Glasfläschchen mit schimmerndem Glitzer und feinem Sand.' },
+
+  'Suture thread': { name: 'Nahtmaterial', description: 'Spule aus feinem chirurgischem Faden, an dessen Ende eine gebogene Nadel befestigt ist.' },
+  'Synthetic skin patch': { name: 'Kunsthaut-Fleck', description: 'Gummi-Übungsunterlage mit einer Reihe ordentlicher, dichter chirurgischer Nähte, die beunruhigend wirken.' },
+  'Surgical scalpel': { name: 'Chirurgisches Skalpell', description: 'Altes Stahlinstrument mit rasiermesserscharfer Klinge, an der kaum sichtbare Spuren von Kunsthaut haften.' },
+  'Antique scalpel case': { name: 'Antikes Skalpell-Etui', description: 'Mit Samt ausgekleidete Holzschatulle für ein Set historischer chirurgischer Instrumente.' },
+  'Anatomy page': { name: 'Seite aus einem Anatomieatlas', description: 'Herausgerissene Seite aus einem medizinischen Lehrbuch mit einer Analyse der verwundbaren Stellen entlang der Halsschlagader.' },
+
+  'Locked black journal': { name: 'Verschlossenes schwarzes Tagebuch', description: 'Gebundenes Taschentagebuch, verschlossen mit einem winzigen Schloss.' },
+  'Water-damaged note': { name: 'Wasserbeschädigte Notiz', description: 'Handgeschriebene Notiz mit vom Wasser verwischten Worten: „...wieder allein in diesem dunklen Zimmer...“.' },
+  'Vinyl record sleeve fragment': { name: 'Fragment einer Schallplattenhülle', description: 'Stück einer seltenen Schallplattenhülle, das schwach nach Regen und Feuchtigkeit riecht.' },
+  'Headphone jack adapter': { name: 'Kopfhörer-Adapter', description: 'Kleiner vergoldeter Audioadapter mit einem winzigen Emblem einer Emo-Band.' },
+  'Damp umbrella cover': { name: 'Feuchte Regenschirmhülle', description: 'Vollkommen durchnässte Nylonhülle für einen kompakten schwarzen Regenschirm.' },
+
+  'Charcoal stick': { name: 'Kohlestift', description: 'Stück Zeichenkohle, das nach chaotischen Skizzen an der Wand dunklen Staub an den Fingern hinterlassen hat.' },
+  'Smudged wall rubbing': { name: 'Verwischter Wandabdruck', description: 'Blatt Papier, das gegen eine harte Oberfläche gepresst wurde und chaotische spiralförmige Muster in Kohle abbildet.' },
+  'Note to invisible visitors': { name: 'Notiz an unsichtbare Besucher', description: 'Zerknittertes Blatt Papier mit einem seltsamen handgeschriebenen Dialog an einen unsichtbaren Gesprächspartner.' },
+  'Empty blister pack': { name: 'Leere Blisterpackung', description: 'Vollständig leere Folienverpackung, die zuvor grell gefärbte verschreibungspflichtige Tabletten enthielt.' },
+  'Pill bottle cap': { name: 'Deckel einer Tablettenflasche', description: 'Schutzdeckel einer Flasche verschreibungspflichtiger Medikamente, verschmutzt mit schwarzem Kohlestaub.' },
+
+  'Katana sheath': { name: 'Katana-Scheide', description: 'Lederscheide für ein traditionelles japanisches Schwert, die stark nach Waffenöl und Politur riecht.' },
+  'Tsuka-ito ribbon': { name: 'Tsuka-Ito-Band', description: 'Streifen aus robustem, gewachstem schwarzem Seidenband, das zum Umwickeln eines Schwertgriffs verwendet wird.' },
+  'Revenge checklist': { name: 'Racheliste', description: 'Blatt Papier mit einer Namensliste, auf der zwei Punkte sauber durchgestrichen sind.' },
+  'Crossed-out name fragment': { name: 'Fragment mit durchgestrichenem Namen', description: 'Abgerissener Papierfetzen mit dem Namen eines der Ziele, durchgestrichen mit einer dicken roten Linie.' },
+  'Meditation blindfold': { name: 'Meditations-Augenbinde', description: 'Schwarze Seiden-Augenbinde, noch feucht vom Schweiß nach einem anstrengenden Training.' },
+
+  'Literature club pin': { name: 'Anstecker des Literaturclubs', description: 'Metallanstecker mit dem Bild eines Buches und einem eingravierten poetischen Zitat.' },
+  'Metaphorical poem draft': { name: 'Entwurf eines metaphorischen Gedichts', description: 'Blatt Papier mit einem zutiefst persönlichen Gedicht über digitale Einsamkeit und klassisches Klavierspiel.' },
+  'Piano sheet music': { name: 'Klaviernoten', description: 'Seite aus einem Notizbuch mit einer melancholischen Melodie in Moll, handschriftlich notiert.' },
+  'USB drive': { name: 'USB-Stick', description: 'Kompakter USB-Stick mit einem ordentlichen Aufkleber „script_v2.py“.' },
+  'Code printout': { name: 'Code-Ausdruck', description: 'Seite mit komplexem Python-Code und handschriftlichen musikalischen Notizen am Rand.' },
+
+  'Mysterious personal item': { name: 'Mysteriöser persönlicher Gegenstand', description: 'Nicht identifiziertes Objekt ohne weitere Hinweise.' }
+};
+
+const EVIDENCE_FR = {
+  'Auction certificate': { name: "Certificat d'enchère", description: "Preuve d'achat officielle d'une œuvre d'art numérique pour une somme astronomique, avec mention du paiement intégral." },
+  'Hardware crypto wallet': { name: 'Portefeuille crypto matériel', description: "Élégante clé USB en titane, série limitée, gravée au laser avec un numéro de série, achetée lors d'une vente aux enchères technologique select." },
+  'Vintage Swiss watch': { name: 'Montre suisse vintage', description: 'Accessoire élégant sur un bracelet en cuir fin, légèrement taché par une goutte de vin rouge coûteux.' },
+  'Watchmaker magnifier': { name: "Loupe d'horloger", description: "Loupe de joaillier de haute précision pour examiner des mécanismes d'horlogerie complexes." },
+  'Crystal stopper': { name: 'Bouchon en cristal', description: "Lourd bouchon d'une rare bouteille de vin vintage, qui conserve encore un arôme intense et âpre." },
+
+  'Steel foil tip cover': { name: 'Protège-pointe de fleuret en acier', description: "Capuchon de protection pour la pointe d'un fleuret de sport, soigneusement gravé des initiales « K.T. »." },
+  'White fencing glove': { name: "Gant d'escrime blanc", description: "Gant en cuir impeccable pour l'escrime, avec de légères traces de craie et un emblème personnel brodé." },
+  'Opera ticket stub': { name: "Talon de billet d'opéra brûlé", description: "Fragment brûlé d'un billet VIP pour la première au premier rang d'un théâtre prestigieux." },
+  'Gold opera glasses': { name: 'Jumelles de théâtre dorées', description: 'Jumelles vintage compactes en laiton, ornées de nacre.' },
+  'Genealogy chart': { name: 'Arbre généalogique', description: "Extrait d'un vieux livre sur les dynasties royales, où une lignée est entourée au marqueur rouge." },
+
+  'Rubber pool duck': { name: 'Canard en caoutchouc pour piscine', description: "Jouet en caoutchouc pour enfant, taché d'huile moteur sombre et de déchets industriels." },
+  'Duck feed container': { name: 'Boîte de nourriture pour canards', description: 'Petite boîte métallique contenant un mélange de grains secs et de fines miettes de tabac à cigare.' },
+  'Cigar butt with ash': { name: 'Mégot de cigare avec cendres', description: "Cigare d'importation à moitié fumé, avec une bague dorée gaufrée et de la cendre de tabac fraîche." },
+  'Engraved brass Zippo': { name: 'Zippo en laiton gravé', description: "Lourd briquet ancien, à l'odeur forte d'essence à briquet, avec les initiales usées « A.R. » sur le côté." },
+  'Garbage contract': { name: 'Contrat de ramassage des ordures', description: "Contrat froissé pour l'enlèvement des ordures, avec une signature maculée ressemblant à « Rossi »." },
+
+  'Guitar pick and string': { name: 'Médiator et corde de guitare', description: "Médiator noir au logo stylisé à côté d'une corde de guitare en acier cassée." },
+  'Custom Explorer guitar strap': { name: 'Sangle de guitare personnalisée « Explorer »', description: 'Sangle en cuir épais avec des clous métalliques, qui sent faiblement la fumée de scène.' },
+  'Engine oil canister': { name: "Bidon d'huile moteur", description: "Récipient métallique pour l'huile d'un puissant moteur V8, avec des empreintes digitales nettes sur le côté." },
+  'Greasy shop rag': { name: "Chiffon d'atelier graisseux", description: "Tissu rouge foncé, imbibé d'essence à haut indice d'octane et de graisse moteur épaisse." },
+  'Rifle casing': { name: 'Douille de fusil', description: 'Douille de gros calibre, appartenant clairement à une carabine de chasse rayée.' },
+
+  'Exercise band': { name: 'Bande élastique de fitness', description: "Bande élastique déchirée, portant des traces évidentes d'un entraînement intensif." },
+  'Chalk dust pouch': { name: 'Sachet de magnésie', description: 'Petit sachet en tissu contenant de la craie de gymnastique sèche, pour garder les mains sèches pendant un entraînement intense.' },
+  'Tattoo sketch': { name: 'Croquis de tatouage', description: 'Dessin monochrome sombre, réalisé à la main sur une feuille de papier froissée.' },
+  'Drawing charcoal pencil': { name: 'Crayon fusain de dessin', description: "Fin crayon graphite noir, usé presque jusqu'au bout à force de dessiner des tatouages complexes." },
+  'Makeshift shank': { name: 'Lame de fortune', description: 'Lourde tige métallique, aiguisée en pointe, avec une poignée solidement enroulée de ruban isolant noir.' },
+
+  'Recipe card': { name: 'Fiche de recette', description: 'Fiche avec une recette de tarte maison, tachée de gouttes rouge foncé qui ressemblent étrangement à du sang.' },
+  'Cherry pie tin': { name: 'Moule à tarte aux cerises', description: 'Moule à pâtisserie léger en aluminium, avec des restes de sirop rouge sucré et collant.' },
+  'Skein of wool yarn': { name: 'Écheveau de laine', description: "Pelote souple de laine épaisse, avec une longue aiguille en acier qui en dépasse." },
+  'Stray wool thread': { name: 'Fil de laine égaré', description: "Long fil de laine rouge cerise vif, tiré d'un lourd pull tricoté à la main." },
+  'Paperback novel': { name: 'Roman policier écorné', description: 'Livre policier écorné, avec un marque-page posé exactement au chapitre intitulé « Le meurtrier est... ».' },
+
+  'Jar of glowing dust': { name: 'Bocal de poussière lumineuse', description: "Flacon en verre contenant une poudre phosphorescente et un bouchon provenant d'un champignon séché." },
+  'Dried mushroom cap': { name: 'Chapeau de champignon séché', description: "Champignon forestier bioluminescent et fragile, qui luit faiblement dans l'obscurité totale." },
+  'Woven flower crown': { name: 'Couronne de fleurs tressée', description: 'Couronne séchée de fleurs des bois, avec des morceaux de mousse verte coincés entre les tiges.' },
+  'Floral wire snips': { name: 'Sécateur de fleuriste', description: 'Minuscules ciseaux rouillés pour couper les tiges de fleurs et de lianes.' },
+  'Sparkling dust jar': { name: 'Bocal de poussière scintillante', description: 'Minuscule flacon en verre bouché, rempli de paillettes irisées et de sable fin.' },
+
+  'Suture thread': { name: 'Fil de suture', description: "Bobine de fil chirurgical fin, avec une aiguille courbée fixée à son extrémité." },
+  'Synthetic skin patch': { name: 'Patch de peau synthétique', description: "Support d'entraînement en caoutchouc, marqué d'une rangée de points de suture chirurgicaux nets et serrés, ce qui est inquiétant." },
+  'Surgical scalpel': { name: 'Scalpel chirurgical', description: "Instrument en acier ancien à la lame tranchante comme un rasoir, portant des traces à peine visibles de peau synthétique." },
+  'Antique scalpel case': { name: 'Étui à scalpels ancien', description: "Coffret en bois tapissé de velours, destiné à un ensemble d'instruments chirurgicaux historiques." },
+  'Anatomy page': { name: "Page d'un atlas d'anatomie", description: "Page arrachée d'un manuel de médecine, analysant les points vulnérables le long de l'artère carotide." },
+
+  'Locked black journal': { name: 'Journal noir verrouillé', description: 'Journal intime relié, verrouillé par un petit cadenas.' },
+  'Water-damaged note': { name: "Note endommagée par l'eau", description: "Note manuscrite aux mots effacés par l'eau : « ...encore seul dans cette pièce sombre... »." },
+  'Vinyl record sleeve fragment': { name: 'Fragment de pochette de vinyle', description: "Morceau de pochette de disque vinyle rare, qui sent faiblement la pluie et l'humidité." },
+  'Headphone jack adapter': { name: 'Adaptateur jack pour écouteurs', description: "Petit adaptateur audio doré, orné d'un minuscule emblème de groupe emo." },
+  'Damp umbrella cover': { name: 'Housse de parapluie humide', description: 'Housse en nylon complètement trempée pour un parapluie noir compact.' },
+
+  'Charcoal stick': { name: 'Bâton de fusain', description: 'Morceau de fusain à dessin, qui a laissé de la poussière sombre sur les doigts après des croquis chaotiques sur le mur.' },
+  'Smudged wall rubbing': { name: 'Frottis de mur estompé', description: "Feuille de papier pressée contre une surface dure, imprimant des motifs spiralés chaotiques au fusain." },
+  'Note to invisible visitors': { name: 'Note à des visiteurs invisibles', description: 'Feuille de papier froissée avec un étrange dialogue manuscrit adressé à un interlocuteur invisible.' },
+  'Empty blister pack': { name: 'Plaquette de médicaments vide', description: "Emballage en aluminium entièrement vide, qui contenait auparavant des comprimés sur ordonnance aux couleurs vives." },
+  'Pill bottle cap': { name: 'Bouchon de flacon de médicaments', description: "Bouchon protecteur d'un flacon de médicaments sur ordonnance, taché de poussière de fusain noire." },
+
+  'Katana sheath': { name: 'Fourreau de katana', description: "Fourreau en cuir pour une épée japonaise traditionnelle, dégageant une forte odeur d'huile d'arme et de polish." },
+  'Tsuka-ito ribbon': { name: 'Ruban tsuka-ito', description: "Bande de ruban en soie noire solide et cirée, utilisée pour enrouler la poignée d'une épée." },
+  'Revenge checklist': { name: 'Liste de vengeance', description: 'Feuille de papier avec une liste de noms, dont deux éléments soigneusement rayés.' },
+  'Crossed-out name fragment': { name: 'Fragment avec un nom barré', description: "Bout de papier déchiré portant le nom d'une des cibles, barré d'un épais trait rouge." },
+  'Meditation blindfold': { name: 'Bandeau de méditation', description: "Bandeau en soie noire, encore humide de sueur après un entraînement épuisant." },
+
+  'Literature club pin': { name: 'Épinglette du club de littérature', description: 'Épinglette métallique représentant un livre, avec une citation poétique gravée.' },
+  'Metaphorical poem draft': { name: 'Brouillon de poème métaphorique', description: 'Feuille de papier avec un poème profondément personnel sur la solitude numérique et le piano classique.' },
+  'Piano sheet music': { name: 'Partition de piano', description: "Page d'un cahier avec une mélodie mélancolique en tonalité mineure, notée à la main." },
+  'USB drive': { name: 'Clé USB', description: 'Clé USB compacte portant une étiquette soignée « script_v2.py ».' },
+  'Code printout': { name: 'Impression de code', description: 'Page de code Python complexe avec des annotations musicales manuscrites dans la marge.' },
+
+  'Mysterious personal item': { name: 'Objet personnel mystérieux', description: 'Objet non identifié, sans indice supplémentaire.' }
+};
+
 // Evidence item NAME for display — falls back to the raw server string for
-// anything unrecognized or when the UI isn't Russian/Ukrainian.
+// anything unrecognized or when the UI isn't Russian/Ukrainian/Spanish/German/French.
 function translateEvidenceName(text, language) {
   if (!text) return text;
   if (language === 'ru') return EVIDENCE_RU[text]?.name || text;
   if (language === 'uk') return EVIDENCE_UK[text]?.name || text;
   if (language === 'es') return EVIDENCE_ES[text]?.name || text;
+  if (language === 'de') return EVIDENCE_DE[text]?.name || text;
+  if (language === 'fr') return EVIDENCE_FR[text]?.name || text;
   return text;
 }
 
@@ -996,6 +1367,8 @@ function translateEvidenceDescription(text, description, language) {
   if (language === 'ru') return EVIDENCE_RU[text]?.description || description;
   if (language === 'uk') return EVIDENCE_UK[text]?.description || description;
   if (language === 'es') return EVIDENCE_ES[text]?.description || description;
+  if (language === 'de') return EVIDENCE_DE[text]?.description || description;
+  if (language === 'fr') return EVIDENCE_FR[text]?.description || description;
   return description;
 }
 
@@ -1047,6 +1420,36 @@ const BODY_DESCRIPTIONS_ES = {
   Moonka: 'Moonka yace inmóvil en el suelo, sosteniendo en la mano una pequeña memoria USB con código. Su rostro está sorprendentemente en paz, como si hubiera alcanzado a terminar su último poema antes del final.'
 };
 
+const BODY_DESCRIPTIONS_DE = {
+  Creed: 'Creeds Körper liegt in einer eleganten Pose reglos auf dem Boden, eine zerbrochene Luxusuhr ist aus seiner Tasche gefallen. Ein dünner Blutfaden läuft ihm aus dem Mundwinkel, ein starker Kontrast zu seinem makellosen Anzug.',
+  Karl: 'Karl liegt mit dem Gesicht nach unten, seine Hand umklammert fest die Spitze eines Fechtdegens. Dunkles, getrocknetes Blut befleckt seinen makellosen weißen Kragen.',
+  Anthonio: 'Anthonios massiger Körper liegt schwer auf der Seite, neben ihm qualmt noch eine teure Zigarre. Seine Augen sind weit aufgerissen — ein erstarrter, stiller Schock über den plötzlichen Tod.',
+  James: 'James lehnt an der Wand, als hätte ihn ein wuchtiger Schlag dorthin geworfen, wenige Schritte entfernt liegt sein schwarzes Plektrum. Blut tropft langsam aus einer tiefen Wunde in der Brust.',
+  Cedric: 'Cedrics kampferprobter Körper ist in einer Verteidigungshaltung erstarrt, obwohl die Kampfspuren auf einen feigen Hinterhalt aus einer Ecke hindeuten. Auf seinen tätowierten Armen sind frische Schürfwunden zu sehen.',
+  Lidy: 'Lidys zerbrechlicher Körper wirkt hilflos, ringsum liegen Knäuel Wollgarn verstreut. Ihr Gesicht ist in einem Ausdruck tiefer Angst und Verrats erstarrt.',
+  May: 'Die kleine May liegt reglos da, ringsum verstreut liegt glitzerndes Pulver aus einem zerbrochenen Glasgefäß. Ihr geflochtener Blumenkranz ist verrutscht und teilweise zerdrückt.',
+  Gregory: 'Dr. Chen fiel rückwärts, chirurgische Instrumente sind aus einer geöffneten Arzttasche verstreut. Ein präziser, professioneller Schlag beendete sein Leben innerhalb weniger Sekunden.',
+  Onyx: "Onyx' Körper liegt reglos im Schatten, fast mit ihm verschmolzen, sein verschlossenes schwarzes Tagebuch liegt achtlos zur Seite geworfen. Auf dem feuchten Boden in der Nähe sind Spuren eines kurzen Kampfes zu erkennen.",
+  Max: 'Max ist in einer unnatürlichen Haltung an einer Wand erstarrt, die mit seinen chaotischen Kohleskizzen bedeckt ist. Ringsum liegen bunte Tabletten aus einer aufgerissenen Blisterpackung verstreut.',
+  Bea: 'Bea liegt an der gegenüberliegenden Wand, ihre Hand umklammert noch immer die Scheide der Katana, die sie nie mehr ziehen konnte. In ihren glasigen Augen ist die pure Wut über eine unvollendete Rache erstarrt.',
+  Moonka: 'Moonka liegt reglos auf dem Boden und hält in der Hand einen kleinen USB-Stick mit Code. Ihr Gesicht wirkt überraschend friedlich — als hätte sie gerade noch ihr letztes Gedicht vor dem Ende zu Ende geschrieben.'
+};
+
+const BODY_DESCRIPTIONS_FR = {
+  Creed: 'Le corps de Creed gît immobile sur le sol dans une pose élégante, une montre de luxe brisée est tombée de sa poche. Un mince filet de sang coule au coin de sa bouche, contrastant fortement avec son costume impeccable.',
+  Karl: "Karl gît face contre terre, sa main serre fermement la pointe d'un fleuret d'escrime. Du sang sombre et séché tache son col blanc impeccable.",
+  Anthonio: "Le corps massif d'Anthonio repose lourdement sur le côté, un cigare coûteux fume encore à côté de lui. Ses yeux sont grands ouverts, figés dans un choc silencieux face à une mort soudaine.",
+  James: 'James est appuyé contre le mur, comme projeté là par un coup puissant, à quelques pas gît son médiator noir. Le sang goutte lentement d\'une profonde blessure à la poitrine.',
+  Cedric: "Le corps aguerri de Cedric s'est figé dans une posture défensive, bien que les traces de lutte indiquent une embuscade lâche depuis un coin. Ses bras tatoués portent des égratignures fraîches.",
+  Lidy: 'Le corps fragile de Lidy semble sans défense, entouré de pelotes de laine éparpillées. Son visage est figé dans une expression de peur profonde et de trahison.',
+  May: "La petite May gît immobile, entourée de poussière brillante répandue d'un bocal en verre brisé. Sa couronne de fleurs tressée est de travers et partiellement écrasée.",
+  Gregory: "Le Dr Chen est tombé à la renverse, des instruments chirurgicaux répandus d'une sacoche médicale ouverte. Un coup précis et professionnel lui a ôté la vie en quelques secondes.",
+  Onyx: "Le corps d'Onyx gît immobile dans l'ombre, presque fondu avec elle, son journal noir verrouillé jeté de côté. Sur le sol humide à proximité, on distingue des traces d'une brève lutte.",
+  Max: 'Max s\'est figé dans une posture contre nature près d\'un mur couvert de ses croquis chaotiques au fusain. Autour de lui sont éparpillés des comprimés colorés d\'une plaquette éventrée.',
+  Bea: "Bea gît près du mur opposé, sa main serre encore le fourreau du katana qu'elle n'a jamais eu le temps de dégainer. Dans ses yeux vitreux s'est figée la pure fureur d'une vengeance inachevée.",
+  Moonka: "Moonka gît immobile sur le sol, tenant dans sa main une petite clé USB avec du code. Son visage est étonnamment paisible — comme si elle avait eu le temps de terminer son dernier poème avant la fin."
+};
+
 // Victim scene description for display — keyed by `character` (e.g. from
 // the findings/body payload), falling back to whatever description string
 // the server actually sent (covers the 'Mysterious...'-style generic
@@ -1055,6 +1458,8 @@ function translateBodyDescription(character, description, language) {
   if (language === 'ru') return BODY_DESCRIPTIONS_RU[character] || description;
   if (language === 'uk') return BODY_DESCRIPTIONS_UK[character] || description;
   if (language === 'es') return BODY_DESCRIPTIONS_ES[character] || description;
+  if (language === 'de') return BODY_DESCRIPTIONS_DE[character] || description;
+  if (language === 'fr') return BODY_DESCRIPTIONS_FR[character] || description;
   return description;
 }
 
@@ -1108,12 +1513,44 @@ const HOBBIES_ES = {
   Moonka: 'Escribe poemas profundamente metafóricos para un club de literatura, toca melodías clásicas tristes al piano, escribe código de programación.'
 };
 
+const HOBBIES_DE = {
+  Creed: 'Bietet bei Auktionen für digitale Kunst um Millionen von Dollar, sammelt Vintage-Luxusuhren, trinkt seltene Rotweine.',
+  Karl: 'Betreibt klassisches Fechten mit personalisierten Stahlrapieren, besucht Premieren der großen Oper, erforscht die Genealogie königlicher Dynastien.',
+  Anthonio: 'Füttert wilde Enten in seinem Swimmingpool, raucht teure Importzigarren, verwaltet Müllabfuhrverträge.',
+  James: 'Spielt schwere Metal-Riffs auf einer personalisierten schwarzen Explorer-Gitarre, restauriert klassische V8-Muscle-Cars, sammelt Jagdgewehre.',
+  Cedric: 'Trainiert nach dem Gefängnis-Calisthenics-System, entwirft Skizzen für monochrome Tätowierungen, fertigt improvisierte Werkzeuge aus Schrott.',
+  Lidy: 'Backt hausgemachte Kirschkuchen, strickt Wollpullover, liest Taschenbuch-Krimis.',
+  May: 'Sammelt leuchtende, biolumineszente Waldpilze, flicht Blumenkränze, bewahrt glitzernden Staub in kleinen Glasfläschchen auf.',
+  Gregory: 'Übt Mikronähte an synthetischer Haut, sammelt historische chirurgische Skalpelle, studiert forensische Anatomie des Menschen.',
+  Onyx: 'Schreibt melancholische Gedichte in ein verschlossenes schwarzes Tagebuch, sammelt Midwest-Emo-Schallplatten, genießt es, allein an dunklen, verregneten Orten zu sein.',
+  Max: 'Zeichnet mit Kohle chaotische, sich wiederholende Muster an Wände, spricht mit unsichtbaren Gästen, hortet bunte verschreibungspflichtige Tabletten.',
+  Bea: 'Übt Schwerthiebe mit einer echten japanischen Katana, führt eine handschriftliche persönliche Racheliste, praktiziert intensive Kampfkunst-Meditation.',
+  Moonka: 'Schreibt tiefgründige, metaphernreiche Gedichte für einen Literaturclub, spielt traurige klassische Melodien am Klavier, schreibt Programmcode.'
+};
+
+const HOBBIES_FR = {
+  Creed: "Enchérit sur des œuvres d'art numérique pour des millions de dollars, collectionne des montres de luxe vintage, boit des vins rouges rares.",
+  Karl: "Pratique l'escrime classique avec des fleurets en acier personnalisés, assiste aux premières du grand opéra, étudie la généalogie des dynasties royales.",
+  Anthonio: 'Nourrit des canards sauvages dans sa piscine, fume des cigares d\'importation coûteux, gère des contrats de ramassage des ordures.',
+  James: 'Joue des riffs de métal lourds sur une guitare Explorer noire personnalisée, restaure des muscle cars vintage à moteur V8, collectionne des fusils de chasse.',
+  Cedric: "S'entraîne selon le système de callisthénie carcérale, dessine des croquis de tatouages monochromes, fabrique des outils de fortune à partir de ferraille.",
+  Lidy: 'Fait des tartes aux cerises maison, tricote des pulls en laine, lit des romans policiers de poche.',
+  May: 'Ramasse des champignons bioluminescents des bois, tresse des couronnes de fleurs, conserve de la poussière scintillante dans de petits bocaux en verre.',
+  Gregory: "S'entraîne aux microsutures sur peau synthétique, collectionne des scalpels chirurgicaux historiques, étudie l'anatomie médico-légale humaine.",
+  Onyx: 'Écrit de la poésie mélancolique dans un journal noir verrouillé, collectionne des vinyles de midwest emo, aime être seul dans des endroits sombres et pluvieux.',
+  Max: 'Dessine au fusain des motifs chaotiques et répétitifs sur les murs, parle à des visiteurs invisibles, accumule des comprimés sur ordonnance de toutes les couleurs.',
+  Bea: "S'entraîne aux coups d'épée avec un authentique katana japonais, tient une liste de vengeance manuscrite personnelle, pratique une méditation intense d'arts martiaux.",
+  Moonka: 'Écrit des poèmes profondément métaphoriques pour un club de littérature, joue des mélodies classiques tristes au piano, écrit du code de programmation.'
+};
+
 // Character hobbies line for display — keyed by CHARACTERS[].name, falling
 // back to the raw English string for anything unrecognized.
 function translateHobbies(characterName, hobbies, language) {
   if (language === 'ru') return HOBBIES_RU[characterName] || hobbies;
   if (language === 'uk') return HOBBIES_UK[characterName] || hobbies;
   if (language === 'es') return HOBBIES_ES[characterName] || hobbies;
+  if (language === 'de') return HOBBIES_DE[characterName] || hobbies;
+  if (language === 'fr') return HOBBIES_FR[characterName] || hobbies;
   return hobbies;
 }
 
@@ -1156,6 +1593,26 @@ function translateTrialResultMessage(result, language) {
         return 'VOTACIÓN OMITIDA — AGENTE NO ELIMINADO';
       case 'executed':
         return `${result.targetName} fue eliminado(a) por decisión del consejo.`;
+      default:
+        return result.message;
+    }
+  }
+  if (language === 'de') {
+    switch (result.reason) {
+      case 'skipped':
+        return 'ABSTIMMUNG ÜBERSPRUNGEN — AGENT NICHT AUSGESCHALTET';
+      case 'executed':
+        return `${result.targetName} wurde durch Ratsbeschluss ausgeschaltet.`;
+      default:
+        return result.message;
+    }
+  }
+  if (language === 'fr') {
+    switch (result.reason) {
+      case 'skipped':
+        return 'VOTE PASSÉ — AUCUN AGENT ÉLIMINÉ';
+      case 'executed':
+        return `${result.targetName} a été éliminé(e) par décision du conseil.`;
       default:
         return result.message;
     }
@@ -1221,6 +1678,42 @@ function translateGameOverMessage(data, language) {
         return data.message;
     }
   }
+  if (language === 'de') {
+    switch (data.reason) {
+      case 'joker_executed':
+        return `${name} entpuppte sich als der Joker und wurde durch Ratsbeschluss hingerichtet. Der Joker gewinnt!`;
+      case 'killer_executed':
+        return `${name} entpuppte sich als der Mörder und wurde durch Ratsbeschluss hingerichtet. Die Unschuldigen gewinnen!`;
+      case 'killer_majority_wipeout':
+        return 'Alle friedlichen Agenten wurden ausgeschaltet. Der Mörder gewinnt!';
+      case 'killer_majority_outnumbered':
+        return 'Das Team des Mörders ist den verbliebenen friedlichen Agenten jetzt zahlenmäßig ebenbürtig oder überlegen. Der Mörder gewinnt!';
+      case 'killer_team_disconnected':
+        return 'Der Mörder hat das Spiel verlassen. Die Unschuldigen gewinnen!';
+      case 'CODE_CRACKED':
+        return `${name} hat den Aufhebungscode geknackt. Die Unschuldigen gewinnen!`;
+      default:
+        return data.message;
+    }
+  }
+  if (language === 'fr') {
+    switch (data.reason) {
+      case 'joker_executed':
+        return `${name} s'est révélé(e) être le Joker et a été exécuté(e) par décision du conseil. Le Joker gagne !`;
+      case 'killer_executed':
+        return `${name} s'est révélé(e) être le Tueur et a été exécuté(e) par décision du conseil. Les Innocents gagnent !`;
+      case 'killer_majority_wipeout':
+        return 'Tous les agents pacifiques ont été éliminés. Le Tueur gagne !';
+      case 'killer_majority_outnumbered':
+        return "L'équipe du Tueur égale ou dépasse désormais en nombre les agents pacifiques restants. Le Tueur gagne !";
+      case 'killer_team_disconnected':
+        return 'Le Tueur a quitté la partie. Les Innocents gagnent !';
+      case 'CODE_CRACKED':
+        return `${name} a percé le code d'annulation. Les Innocents gagnent !`;
+      default:
+        return data.message;
+    }
+  }
   return data.message;
 }
 
@@ -1262,6 +1755,30 @@ function translateCodeSubmissionMessage(payload, language) {
         return 'Código incorrecto';
       default:
         return payload.message || 'Código incorrecto';
+    }
+  }
+  if (language === 'de') {
+    switch (payload.reason) {
+      case 'trap_debuff':
+        return 'Du erholst dich noch von einer Falle — das Terminal akzeptiert diese Runde keine Eingaben.';
+      case 'body_missing':
+        return 'Der Ausgang ist versiegelt — irgendwo ist noch mindestens eine unentdeckte Leiche.';
+      case 'invalid_code':
+        return 'Falscher Code';
+      default:
+        return payload.message || 'Falscher Code';
+    }
+  }
+  if (language === 'fr') {
+    switch (payload.reason) {
+      case 'trap_debuff':
+        return "Vous vous remettez encore d'un piège — le terminal n'acceptera aucune saisie ce tour-ci.";
+      case 'body_missing':
+        return "La sortie est scellée — un corps reste encore introuvable quelque part.";
+      case 'invalid_code':
+        return 'Code incorrect';
+      default:
+        return payload.message || 'Code incorrect';
     }
   }
   return payload.message;
@@ -2805,7 +3322,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           >
-            {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : language === 'uk' ? "ПІДВАЛ" : language === 'es' ? 'SÓTANO' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : language === 'uk' ? `ПОВЕРХ ${floorNum}` : language === 'es' ? `PLANTA ${floorNum}` : `FLOOR ${floorNum}`)}
+            {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : language === 'uk' ? "ПІДВАЛ" : language === 'es' ? 'SÓTANO' : language === 'de' ? 'KELLER' : language === 'fr' ? 'SOUS-SOL' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : language === 'uk' ? `ПОВЕРХ ${floorNum}` : language === 'es' ? `PLANTA ${floorNum}` : language === 'de' ? `ETAGE ${floorNum}` : language === 'fr' ? `ÉTAGE ${floorNum}` : `FLOOR ${floorNum}`)}
           </button>
         ))}
       </div>
@@ -2898,7 +3415,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
                   zIndex: 2,
                   textTransform: 'uppercase'
                 }}>
-                  {language === 'ru' ? 'Заперто' : language === 'uk' ? "Замкнено" : language === 'es' ? 'Cerrado' : 'Locked'}
+                  {language === 'ru' ? 'Заперто' : language === 'uk' ? "Замкнено" : language === 'es' ? 'Cerrado' : language === 'de' ? 'Verschlossen' : language === 'fr' ? 'Verrouillé' : 'Locked'}
                 </span>
               )}
 
@@ -2914,7 +3431,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
                   zIndex: 2,
                   textTransform: 'uppercase'
                 }}>
-                  {language === 'ru' ? '✓ Проверено' : language === 'uk' ? "✓ Перевірено" : language === 'es' ? '✓ Revisado' : '✓ Clear'}
+                  {language === 'ru' ? '✓ Проверено' : language === 'uk' ? "✓ Перевірено" : language === 'es' ? '✓ Revisado' : language === 'de' ? '✓ Geprüft' : language === 'fr' ? '✓ Disculpé' : '✓ Clear'}
                 </span>
               )}
 
@@ -2961,7 +3478,7 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
 
       {(!roomChosen || spectatorMode) && (
         <p style={{ textAlign: 'center', fontSize: '10px', color: '#6272a4', letterSpacing: '1px', marginTop: '12px' }}>
-          {language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ ДЛЯ ОБЫСКА — ОДНА ЗА ХОД' : language === 'uk' ? "ОБЕРІТЬ КІМНАТУ ДЛЯ ОБШУКУ — ОДНА ЗА ХІД" : language === 'es' ? 'ELIGE UNA SALA PARA REGISTRAR — UNA POR TURNO' : 'SELECT A ROOM TO SEARCH — ONE PER TURN'}
+          {language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ ДЛЯ ОБЫСКА — ОДНА ЗА ХОД' : language === 'uk' ? "ОБЕРІТЬ КІМНАТУ ДЛЯ ОБШУКУ — ОДНА ЗА ХІД" : language === 'es' ? 'ELIGE UNA SALA PARA REGISTRAR — UNA POR TURNO' : language === 'de' ? 'WÄHLE EINEN RAUM ZUM DURCHSUCHEN — EINER PRO ZUG' : language === 'fr' ? 'SÉLECTIONNEZ UNE PIÈCE À FOUILLER — UNE PAR TOUR' : 'SELECT A ROOM TO SEARCH — ONE PER TURN'}
         </p>
       )}
     </div>
@@ -3015,8 +3532,8 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#e040fb' }}>{language === 'ru' ? 'ДЖОКЕР — ПОДБРОСИТЬ УЛИКУ' : language === 'uk' ? "ДЖОКЕР — ПІДКИНУТИ ДОКАЗ" : language === 'es' ? 'COMODÍN — PLANTAR PRUEBA' : 'JOKER — PLANT EVIDENCE'}</p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#f0c6ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ' : language === 'uk' ? "ОБЕРІТЬ КІМНАТУ" : language === 'es' ? 'ELIGE UNA SALA' : 'CHOOSE A ROOM'}</h3>
+            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#e040fb' }}>{language === 'ru' ? 'ДЖОКЕР — ПОДБРОСИТЬ УЛИКУ' : language === 'uk' ? "ДЖОКЕР — ПІДКИНУТИ ДОКАЗ" : language === 'es' ? 'COMODÍN — PLANTAR PRUEBA' : language === 'de' ? 'JOKER — BEWEIS PLATZIEREN' : language === 'fr' ? 'JOKER — PLACER UNE PREUVE' : 'JOKER — PLANT EVIDENCE'}</p>
+            <h3 style={{ margin: 0, fontSize: '20px', color: '#f0c6ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ' : language === 'uk' ? "ОБЕРІТЬ КІМНАТУ" : language === 'es' ? 'ELIGE UNA SALA' : language === 'de' ? 'WÄHLE EINEN RAUM' : language === 'fr' ? 'CHOISISSEZ UNE PIÈCE' : 'CHOOSE A ROOM'}</h3>
           </div>
           <button
             onClick={onClose}
@@ -3035,7 +3552,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
               transition: 'all 0.2s ease'
             }}
           >
-            {language === 'ru' ? 'ОТМЕНА' : language === 'uk' ? "СКАСУВАННЯ" : language === 'es' ? 'CANCELAR' : 'CANCEL'}
+            {language === 'ru' ? 'ОТМЕНА' : language === 'uk' ? "СКАСУВАННЯ" : language === 'es' ? 'CANCELAR' : language === 'de' ? 'ABBRECHEN' : language === 'fr' ? 'ANNULER' : 'CANCEL'}
           </button>
         </div>
 
@@ -3061,7 +3578,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
                 transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
-              {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : language === 'uk' ? "ПІДВАЛ" : language === 'es' ? 'SÓTANO' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : language === 'uk' ? `ПОВЕРХ ${floorNum}` : language === 'es' ? `PLANTA ${floorNum}` : `FLOOR ${floorNum}`)}
+              {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : language === 'uk' ? "ПІДВАЛ" : language === 'es' ? 'SÓTANO' : language === 'de' ? 'KELLER' : language === 'fr' ? 'SOUS-SOL' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : language === 'uk' ? `ПОВЕРХ ${floorNum}` : language === 'es' ? `PLANTA ${floorNum}` : language === 'de' ? `ETAGE ${floorNum}` : language === 'fr' ? `ÉTAGE ${floorNum}` : `FLOOR ${floorNum}`)}
             </button>
           ))}
         </div>
@@ -3128,7 +3645,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
                 }}
               >
                 <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.4px', color: restricted ? '#ff5d73' : '#f0c6ff', lineHeight: 1.25 }}>
-                  {isSubmittingThis ? (language === 'ru' ? 'ПОДБРАСЫВАЕМ…' : language === 'uk' ? "ПІДКИДАЄМО…" : language === 'es' ? 'PLANTANDO…' : 'PLANTING…') : translateRoomName(room.name, language).toUpperCase()}
+                  {isSubmittingThis ? (language === 'ru' ? 'ПОДБРАСЫВАЕМ…' : language === 'uk' ? "ПІДКИДАЄМО…" : language === 'es' ? 'PLANTANDO…' : language === 'de' ? 'PLATZIERE…' : language === 'fr' ? 'PLACEMENT…' : 'PLANTING…') : translateRoomName(room.name, language).toUpperCase()}
                 </span>
               </div>
             );
@@ -3136,7 +3653,7 @@ function JokerPlantRoomPicker({ floor, onFloorChange, onChooseRoom, submittingRo
         </div>
 
         <p style={{ margin: 0, fontSize: '11px', letterSpacing: '0.5px', color: '#6272a4', textAlign: 'center' }}>
-          {language === 'ru' ? 'Выберите любую комнату на этом этаже, чтобы оставить там улику.' : language === 'uk' ? "Оберіть будь-яку кімнату на цьому поверсі, щоб залишити там доказ." : language === 'es' ? 'Elige cualquier sala de esta planta para dejar allí una prueba.' : 'Pick any room on this floor to leave a piece of evidence behind.'}
+          {language === 'ru' ? 'Выберите любую комнату на этом этаже, чтобы оставить там улику.' : language === 'uk' ? "Оберіть будь-яку кімнату на цьому поверсі, щоб залишити там доказ." : language === 'es' ? 'Elige cualquier sala de esta planta para dejar allí una prueba.' : language === 'de' ? 'Wähle einen beliebigen Raum auf dieser Etage, um dort einen Beweis zu hinterlassen.' : language === 'fr' ? 'Choisissez une pièce de cet étage pour y laisser une preuve.' : 'Pick any room on this floor to leave a piece of evidence behind.'}
         </p>
       </div>
     </div>
@@ -3192,8 +3709,8 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>{language === 'ru' ? 'СООБЩНИК — УСТАНОВИТЬ ЛОВУШКУ' : language === 'uk' ? "СПІЛЬНИК — ВСТАНОВИТИ ПАСТКУ" : language === 'es' ? 'CÓMPLICE — INSTALAR TRAMPA' : 'ACCOMPLICE — SET A TRAP'}</p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd8a8', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ' : language === 'uk' ? "ОБЕРІТЬ КІМНАТУ" : language === 'es' ? 'ELIGE UNA SALA' : 'CHOOSE A ROOM'}</h3>
+            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>{language === 'ru' ? 'СООБЩНИК — УСТАНОВИТЬ ЛОВУШКУ' : language === 'uk' ? "СПІЛЬНИК — ВСТАНОВИТИ ПАСТКУ" : language === 'es' ? 'CÓMPLICE — INSTALAR TRAMPA' : language === 'de' ? 'KOMPLIZE — FALLE STELLEN' : language === 'fr' ? 'COMPLICE — POSER UN PIÈGE' : 'ACCOMPLICE — SET A TRAP'}</p>
+            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd8a8', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ КОМНАТУ' : language === 'uk' ? "ОБЕРІТЬ КІМНАТУ" : language === 'es' ? 'ELIGE UNA SALA' : language === 'de' ? 'WÄHLE EINEN RAUM' : language === 'fr' ? 'CHOISISSEZ UNE PIÈCE' : 'CHOOSE A ROOM'}</h3>
           </div>
           <button
             onClick={onClose}
@@ -3212,7 +3729,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
               transition: 'all 0.2s ease'
             }}
           >
-            {language === 'ru' ? 'ОТМЕНА' : language === 'uk' ? "СКАСУВАННЯ" : language === 'es' ? 'CANCELAR' : 'CANCEL'}
+            {language === 'ru' ? 'ОТМЕНА' : language === 'uk' ? "СКАСУВАННЯ" : language === 'es' ? 'CANCELAR' : language === 'de' ? 'ABBRECHEN' : language === 'fr' ? 'ANNULER' : 'CANCEL'}
           </button>
         </div>
 
@@ -3238,7 +3755,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
                 transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
-              {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : language === 'uk' ? "ПІДВАЛ" : language === 'es' ? 'SÓTANO' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : language === 'uk' ? `ПОВЕРХ ${floorNum}` : language === 'es' ? `PLANTA ${floorNum}` : `FLOOR ${floorNum}`)}
+              {floorNum === 0 ? (language === 'ru' ? 'ПОДВАЛ' : language === 'uk' ? "ПІДВАЛ" : language === 'es' ? 'SÓTANO' : language === 'de' ? 'KELLER' : language === 'fr' ? 'SOUS-SOL' : 'BASEMENT') : (language === 'ru' ? `ЭТАЖ ${floorNum}` : language === 'uk' ? `ПОВЕРХ ${floorNum}` : language === 'es' ? `PLANTA ${floorNum}` : language === 'de' ? `ETAGE ${floorNum}` : language === 'fr' ? `ÉTAGE ${floorNum}` : `FLOOR ${floorNum}`)}
             </button>
           ))}
         </div>
@@ -3305,7 +3822,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
                 }}
               >
                 <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.4px', color: restricted ? '#ff5d73' : '#ffd8a8', lineHeight: 1.25 }}>
-                  {isSubmittingThis ? (language === 'ru' ? 'УСТАНАВЛИВАЕМ…' : language === 'uk' ? "ВСТАНОВЛЮЄМО…" : language === 'es' ? 'INSTALANDO…' : 'SETTING…') : translateRoomName(room.name, language).toUpperCase()}
+                  {isSubmittingThis ? (language === 'ru' ? 'УСТАНАВЛИВАЕМ…' : language === 'uk' ? "ВСТАНОВЛЮЄМО…" : language === 'es' ? 'INSTALANDO…' : language === 'de' ? 'STELLE AUF…' : language === 'fr' ? 'POSE…' : 'SETTING…') : translateRoomName(room.name, language).toUpperCase()}
                 </span>
               </div>
             );
@@ -3313,7 +3830,7 @@ function AccompliceTrapRoomPicker({ floor, onFloorChange, onChooseRoom, submitti
         </div>
 
         <p style={{ margin: 0, fontSize: '11px', letterSpacing: '0.5px', color: '#6272a4', textAlign: 'center' }}>
-          {language === 'ru' ? 'Выберите любую комнату на этом этаже, чтобы установить там ловушку.' : language === 'uk' ? "Оберіть будь-яку кімнату на цьому поверсі, щоб встановити там пастку." : language === 'es' ? 'Elige cualquier sala de esta planta para instalar allí una trampa.' : 'Pick any room on this floor to set a trap there.'}
+          {language === 'ru' ? 'Выберите любую комнату на этом этаже, чтобы установить там ловушку.' : language === 'uk' ? "Оберіть будь-яку кімнату на цьому поверсі, щоб встановити там пастку." : language === 'es' ? 'Elige cualquier sala de esta planta para instalar allí una trampa.' : language === 'de' ? 'Wähle einen beliebigen Raum auf dieser Etage, um dort eine Falle aufzustellen.' : language === 'fr' ? 'Choisissez une pièce de cet étage pour y poser un piège.' : 'Pick any room on this floor to set a trap there.'}
         </p>
       </div>
     </div>
@@ -3368,8 +3885,8 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <div>
-            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>{language === 'ru' ? 'СООБЩНИК — ИЗМЕНИТЬ УЛИКУ' : language === 'uk' ? "СПІЛЬНИК — ЗМІНИТИ ДОКАЗ" : language === 'es' ? 'CÓMPLICE — CAMBIAR PRUEBA' : 'ACCOMPLICE — CHANGE EVIDENCE'}</p>
-            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd28e', letterSpacing: '1px' }}>{language === 'ru' ? 'КОГО ПОДСТАВИТЬ?' : language === 'uk' ? "КОГО ПІДСТАВИТИ?" : language === 'es' ? '¿A QUIÉN INCRIMINAR?' : 'FRAME WHO?'}</h3>
+            <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff9100' }}>{language === 'ru' ? 'СООБЩНИК — ИЗМЕНИТЬ УЛИКУ' : language === 'uk' ? "СПІЛЬНИК — ЗМІНИТИ ДОКАЗ" : language === 'es' ? 'CÓMPLICE — CAMBIAR PRUEBA' : language === 'de' ? 'KOMPLIZE — BEWEIS ÄNDERN' : language === 'fr' ? 'COMPLICE — MODIFIER UNE PREUVE' : 'ACCOMPLICE — CHANGE EVIDENCE'}</p>
+            <h3 style={{ margin: 0, fontSize: '20px', color: '#ffd28e', letterSpacing: '1px' }}>{language === 'ru' ? 'КОГО ПОДСТАВИТЬ?' : language === 'uk' ? "КОГО ПІДСТАВИТИ?" : language === 'es' ? '¿A QUIÉN INCRIMINAR?' : language === 'de' ? 'WEN BELASTEN?' : language === 'fr' ? 'INCRIMINER QUI ?' : 'FRAME WHO?'}</h3>
           </div>
           <button
             onClick={onClose}
@@ -3388,17 +3905,17 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
               transition: 'all 0.2s ease'
             }}
           >
-            {language === 'ru' ? 'ОТМЕНА' : language === 'uk' ? "СКАСУВАННЯ" : language === 'es' ? 'CANCELAR' : 'CANCEL'}
+            {language === 'ru' ? 'ОТМЕНА' : language === 'uk' ? "СКАСУВАННЯ" : language === 'es' ? 'CANCELAR' : language === 'de' ? 'ABBRECHEN' : language === 'fr' ? 'ANNULER' : 'CANCEL'}
           </button>
         </div>
 
         <p style={{ margin: 0, fontSize: '12px', letterSpacing: '0.5px', color: '#bdc7db', lineHeight: 1.5 }}>
-          {language === 'ru' ? 'Изменяется:' : language === 'uk' ? "Змінюється:" : language === 'es' ? 'Se está cambiando:' : 'Altering:'} <span style={{ color: '#f0c6ff' }}>{evidenceText || (language === 'ru' ? 'эта улика' : language === 'uk' ? "цей доказ" : language === 'es' ? 'esta prueba' : 'this evidence')}</span>. {language === 'ru' ? 'Выберите, на кого она будет указывать — никто не узнает, что это сделали вы.' : language === 'uk' ? "Оберіть, на кого вона вказуватиме — ніхто не дізнається, що це зробили ви." : language === 'es' ? 'Elige a quién va a incriminar — nadie sabrá que fuiste tú quien lo hizo.' : "Pick who it should implicate — nobody will be told you're the one who changed it."}
+          {language === 'ru' ? 'Изменяется:' : language === 'uk' ? "Змінюється:" : language === 'es' ? 'Se está cambiando:' : language === 'de' ? 'Wird geändert:' : language === 'fr' ? 'Modification :' : 'Altering:'} <span style={{ color: '#f0c6ff' }}>{evidenceText || (language === 'ru' ? 'эта улика' : language === 'uk' ? "цей доказ" : language === 'es' ? 'esta prueba' : language === 'de' ? 'dieser Beweis' : language === 'fr' ? 'cette preuve' : 'this evidence')}</span>. {language === 'ru' ? 'Выберите, на кого она будет указывать — никто не узнает, что это сделали вы.' : language === 'uk' ? "Оберіть, на кого вона вказуватиме — ніхто не дізнається, що це зробили ви." : language === 'es' ? 'Elige a quién va a incriminar — nadie sabrá que fuiste tú quien lo hizo.' : language === 'de' ? 'Wähle, wen er belasten soll — niemand wird erfahren, dass du es warst.' : language === 'fr' ? "Choisissez qui cela doit impliquer — personne ne saura que c'est vous qui l'avez modifié." : "Pick who it should implicate — nobody will be told you're the one who changed it."}
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '340px', overflowY: 'auto' }}>
           {eligiblePlayers.length === 0 ? (
-            <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px', textAlign: 'center' }}>{language === 'ru' ? 'Сейчас некого подставить.' : language === 'uk' ? "Зараз нема кого підставити." : language === 'es' ? 'Ahora mismo no hay a quién incriminar.' : 'No eligible players to frame right now.'}</p>
+            <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px', textAlign: 'center' }}>{language === 'ru' ? 'Сейчас некого подставить.' : language === 'uk' ? "Зараз нема кого підставити." : language === 'es' ? 'Ahora mismo no hay a quién incriminar.' : language === 'de' ? 'Gerade gibt es niemanden, den du belasten kannst.' : language === 'fr' ? 'Aucun joueur éligible à incriminer pour le moment.' : 'No eligible players to frame right now.'}</p>
           ) : eligiblePlayers.map((p) => {
             const isSubmittingThis = submittingTargetId === p.id;
             const isDisabled = isBusy;
@@ -3424,7 +3941,7 @@ function AccompliceChangeEvidenceModal({ evidenceText, players, selfId, submitti
                 }}
               >
                 <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.3px', color: '#ffd28e' }}>{p.nickname}</span>
-                <span style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{isSubmittingThis ? (language === 'ru' ? 'ПОДСТАВЛЯЕМ…' : language === 'uk' ? "ПІДСТАВЛЯЄМО…" : language === 'es' ? 'INCRIMINANDO…' : 'FRAMING…') : (language === 'ru' ? 'ВЫБРАТЬ' : language === 'uk' ? "ОБРАТИ" : language === 'es' ? 'ELEGIR' : 'SELECT')}</span>
+                <span style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{isSubmittingThis ? (language === 'ru' ? 'ПОДСТАВЛЯЕМ…' : language === 'uk' ? "ПІДСТАВЛЯЄМО…" : language === 'es' ? 'INCRIMINANDO…' : language === 'de' ? 'BELASTE…' : language === 'fr' ? 'INCRIMINATION…' : 'FRAMING…') : (language === 'ru' ? 'ВЫБРАТЬ' : language === 'uk' ? "ОБРАТИ" : language === 'es' ? 'ELEGIR' : language === 'de' ? 'AUSWÄHLEN' : language === 'fr' ? 'SÉLECTIONNER' : 'SELECT')}</span>
               </div>
             );
           })}
@@ -3476,26 +3993,26 @@ function KillDecisionModal({ targetNickname, resolving, onChoose, language }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЦЕЛЬ УСТРАНЕНА' : language === 'uk' ? "ЦІЛЬ УСУНЕНО" : language === 'es' ? 'OBJETIVO ELIMINADO' : 'TARGET ELIMINATED'}</p>
-          <h3 style={{ margin: 0, fontSize: '24px', color: '#ff9caf', letterSpacing: '1px' }}>{(targetNickname || (language === 'ru' ? 'АГЕНТ' : language === 'uk' ? "АГЕНТ" : language === 'es' ? 'AGENTE' : 'AGENT')).toUpperCase()} {language === 'ru' ? 'ПОВЕРЖЕН' : language === 'uk' ? "ПЕРЕМОЖЕНИЙ" : language === 'es' ? 'HA CAÍDO' : 'IS DOWN'}</h3>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЦЕЛЬ УСТРАНЕНА' : language === 'uk' ? "ЦІЛЬ УСУНЕНО" : language === 'es' ? 'OBJETIVO ELIMINADO' : language === 'de' ? 'ZIEL AUSGESCHALTET' : language === 'fr' ? 'CIBLE ÉLIMINÉE' : 'TARGET ELIMINATED'}</p>
+          <h3 style={{ margin: 0, fontSize: '24px', color: '#ff9caf', letterSpacing: '1px' }}>{(targetNickname || (language === 'ru' ? 'АГЕНТ' : language === 'uk' ? "АГЕНТ" : language === 'es' ? 'AGENTE' : language === 'de' ? 'AGENT' : language === 'fr' ? 'AGENT' : 'AGENT')).toUpperCase()} {language === 'ru' ? 'ПОВЕРЖЕН' : language === 'uk' ? "ПЕРЕМОЖЕНИЙ" : language === 'es' ? 'HA CAÍDO' : language === 'de' ? 'IST GEFALLEN' : language === 'fr' ? 'EST HORS-JEU' : 'IS DOWN'}</h3>
           <p style={{ margin: '10px 0 0 0', fontSize: '12px', lineHeight: 1.5, color: '#c9a3ab' }}>
-            {language === 'ru' ? 'Что сделать с телом?' : language === 'uk' ? "Що зробити з тілом?" : language === 'es' ? '¿Qué hacer con el cuerpo?' : 'What do you do with the body?'}
+            {language === 'ru' ? 'Что сделать с телом?' : language === 'uk' ? "Що зробити з тілом?" : language === 'es' ? '¿Qué hacer con el cuerpo?' : language === 'de' ? 'Was soll mit der Leiche geschehen?' : language === 'fr' ? 'Que faites-vous du corps ?' : 'What do you do with the body?'}
           </p>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <NeonButton variant="danger" style={{ margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }} disabled={resolving} onClick={() => onChoose('hide')}>
-            <Icon name="hatch" size={15} /> {language === 'ru' ? 'СПРЯТАТЬ ТЕЛО' : language === 'uk' ? "СХОВАТИ ТІЛО" : language === 'es' ? 'OCULTAR CUERPO' : 'HIDE BODY'}
+            <Icon name="hatch" size={15} /> {language === 'ru' ? 'СПРЯТАТЬ ТЕЛО' : language === 'uk' ? "СХОВАТИ ТІЛО" : language === 'es' ? 'OCULTAR CUERPO' : language === 'de' ? 'LEICHE VERSTECKEN' : language === 'fr' ? 'CACHER LE CORPS' : 'HIDE BODY'}
           </NeonButton>
           <NeonButton variant="primary" style={{ margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }} disabled={resolving} onClick={() => onChoose('expose')}>
-            <Icon name="eye" size={15} /> {language === 'ru' ? 'ОСТАВИТЬ НА ВИДУ' : language === 'uk' ? "ЗАЛИШИТИ НА ВИДУ" : language === 'es' ? 'DEJAR A LA VISTA' : 'LEAVE BODY EXPOSED'}
+            <Icon name="eye" size={15} /> {language === 'ru' ? 'ОСТАВИТЬ НА ВИДУ' : language === 'uk' ? "ЗАЛИШИТИ НА ВИДУ" : language === 'es' ? 'DEJAR A LA VISTA' : language === 'de' ? 'SICHTBAR LASSEN' : language === 'fr' ? 'LAISSER LE CORPS EXPOSÉ' : 'LEAVE BODY EXPOSED'}
           </NeonButton>
         </div>
 
         <p style={{ margin: 0, fontSize: '10px', letterSpacing: '0.5px', color: '#6272a4', textAlign: 'center' }}>
           {language === 'ru'
             ? 'Спрятанное тело найдут только целенаправленным поиском, но это использует прыжок через вентиляцию в этот ход. Оставленное на виду тело увидит следующий, кто зайдёт в комнату, а вентиляция останется доступной позже.'
-            : language === 'uk' ? "Приховане тіло знайдуть лише цілеспрямованим пошуком, але це використає стрибок через вентиляцію в цьому ході. Залишене на видноті тіло побачить наступний, хто зайде в кімнату, а вентиляція залишиться доступною пізніше." : language === 'es' ? "Un cuerpo oculto solo se encuentra mediante una búsqueda explícita, pero te cuesta el salto de conducto de este turno. Dejarlo a la vista permite que el siguiente en entrar a la sala lo vea, y el conducto seguirá disponible después." : "A hidden body is only ever found by an explicit search, but costs you this turn's vent hop. Leaving it exposed keeps the vent free to use afterward."}
+            : language === 'uk' ? "Приховане тіло знайдуть лише цілеспрямованим пошуком, але це використає стрибок через вентиляцію в цьому ході. Залишене на видноті тіло побачить наступний, хто зайде в кімнату, а вентиляція залишиться доступною пізніше." : language === 'es' ? "Un cuerpo oculto solo se encuentra mediante una búsqueda explícita, pero te cuesta el salto de conducto de este turno. Dejarlo a la vista permite que el siguiente en entrar a la sala lo vea, y el conducto seguirá disponible después." : language === 'de' ? "Eine versteckte Leiche wird nur durch eine gezielte Suche gefunden, kostet dich aber den Lüftungsschacht-Sprung in diesem Zug. Lässt du sie sichtbar, sieht sie die nächste Person, die den Raum betritt, und der Lüftungsschacht bleibt danach weiterhin verfügbar." : language === 'fr' ? "Un corps caché n'est découvert que par une fouille explicite, mais cela vous coûte le saut de conduit de ce tour. Le laisser exposé garde le conduit libre pour plus tard." : "A hidden body is only ever found by an explicit search, but costs you this turn's vent hop. Leaving it exposed keeps the vent free to use afterward."}
         </p>
       </div>
     </div>
@@ -3548,16 +4065,16 @@ function ForensicVerifyResultModal({ evidenceText, isAuthentic, onClose, languag
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>{language === 'ru' ? 'КРИМИНАЛИСТИЧЕСКИЙ АНАЛИЗ — ' : language === 'uk' ? "КРИМІНАЛІСТИЧНИЙ АНАЛІЗ — " : language === 'es' ? 'ANÁLISIS FORENSE — ' : 'FORENSIC ANALYSIS — '}{(evidenceText || (language === 'ru' ? 'УЛИКА' : language === 'uk' ? "ДОКАЗ" : language === 'es' ? 'PRUEBA' : 'EVIDENCE')).toUpperCase()}</p>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>{language === 'ru' ? 'КРИМИНАЛИСТИЧЕСКИЙ АНАЛИЗ — ' : language === 'uk' ? "КРИМІНАЛІСТИЧНИЙ АНАЛІЗ — " : language === 'es' ? 'ANÁLISIS FORENSE — ' : language === 'de' ? 'FORENSISCHE ANALYSE — ' : language === 'fr' ? 'ANALYSE MÉDICO-LÉGALE — ' : 'FORENSIC ANALYSIS — '}{(evidenceText || (language === 'ru' ? 'УЛИКА' : language === 'uk' ? "ДОКАЗ" : language === 'es' ? 'PRUEBA' : language === 'de' ? 'BEWEIS' : language === 'fr' ? 'PREUVE' : 'EVIDENCE')).toUpperCase()}</p>
           <h3 style={{ margin: 0, fontSize: '24px', color: accent, letterSpacing: '1px' }}>
-            {isAuthentic ? (language === 'ru' ? 'ПОДЛИННАЯ' : language === 'uk' ? "СПРАВЖНЯ" : language === 'es' ? 'AUTÉNTICA' : 'AUTHENTIC') : (language === 'ru' ? 'СФАБРИКОВАНА / ПОДБРОШЕНА' : language === 'uk' ? "СФАБРИКОВАНА / ПІДКИНУТА" : language === 'es' ? 'FABRICADA / PLANTADA' : 'FABRICATED / PLANTED')}
+            {isAuthentic ? (language === 'ru' ? 'ПОДЛИННАЯ' : language === 'uk' ? "СПРАВЖНЯ" : language === 'es' ? 'AUTÉNTICA' : language === 'de' ? 'ECHT' : language === 'fr' ? 'AUTHENTIQUE' : 'AUTHENTIC') : (language === 'ru' ? 'СФАБРИКОВАНА / ПОДБРОШЕНА' : language === 'uk' ? "СФАБРИКОВАНА / ПІДКИНУТА" : language === 'es' ? 'FABRICADA / PLANTADA' : language === 'de' ? 'GEFÄLSCHT / PLATZIERT' : language === 'fr' ? 'FABRIQUÉE / PLACÉE' : 'FABRICATED / PLANTED')}
           </h3>
         </div>
 
         <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#bdc7db' }}>
           {isAuthentic
-            ? (language === 'ru' ? 'Этот предмет действительно принадлежит убийце — он был оставлен на месте преступления, а не подстроен.' : language === 'uk' ? "Цей предмет справді належить убивці — він був залишений на місці злочину, а не підлаштований." : language === 'es' ? 'Este objeto realmente pertenece al asesino — fue dejado en la escena del crimen, no manipulado.' : 'This item genuinely belongs to the killer — it was left behind at the scene, not staged.')
-            : (language === 'ru' ? 'Этот предмет не подлинный. Он был сфабрикован или подделан — подброшен, чтобы ввести в заблуждение того, кто его найдёт.' : language === 'uk' ? "Цей предмет несправжній. Він був сфабрикований або підроблений — підкинутий, щоб ввести в оману того, хто його знайде." : language === 'es' ? 'Este objeto no es auténtico. Fue fabricado o falsificado — plantado para engañar a quien lo encontrara.' : 'This item is not authentic. It was fabricated or tampered with — planted to mislead whoever found it.')}
+            ? (language === 'ru' ? 'Этот предмет действительно принадлежит убийце — он был оставлен на месте преступления, а не подстроен.' : language === 'uk' ? "Цей предмет справді належить убивці — він був залишений на місці злочину, а не підлаштований." : language === 'es' ? 'Este objeto realmente pertenece al asesino — fue dejado en la escena del crimen, no manipulado.' : language === 'de' ? 'Dieses Objekt gehört tatsächlich dem Mörder — es wurde am Tatort zurückgelassen, nicht manipuliert.' : language === 'fr' ? "Cet objet appartient réellement au tueur — il a été laissé sur les lieux, sans mise en scène." : 'This item genuinely belongs to the killer — it was left behind at the scene, not staged.')
+            : (language === 'ru' ? 'Этот предмет не подлинный. Он был сфабрикован или подделан — подброшен, чтобы ввести в заблуждение того, кто его найдёт.' : language === 'uk' ? "Цей предмет несправжній. Він був сфабрикований або підроблений — підкинутий, щоб ввести в оману того, хто його знайде." : language === 'es' ? 'Este objeto no es auténtico. Fue fabricado o falsificado — plantado para engañar a quien lo encontrara.' : language === 'de' ? 'Dieses Objekt ist nicht echt. Es wurde gefälscht oder manipuliert — platziert, um jeden zu täuschen, der es findet.' : language === 'fr' ? "Cet objet n'est pas authentique. Il a été fabriqué ou altéré — placé pour tromper celui qui le trouverait." : 'This item is not authentic. It was fabricated or tampered with — planted to mislead whoever found it.')}
         </p>
 
         <button
@@ -3625,16 +4142,16 @@ function TrapTriggeredModal({ roomName, onClose, language }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЛОВУШКА СРАБОТАЛА' : language === 'uk' ? "ПАСТКА СПРАЦЮВАЛА" : language === 'es' ? 'TRAMPA ACTIVADA' : 'TRAP TRIGGERED'}</p>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#ff2a5f' }}>{language === 'ru' ? 'ЛОВУШКА СРАБОТАЛА' : language === 'uk' ? "ПАСТКА СПРАЦЮВАЛА" : language === 'es' ? 'TRAMPA ACTIVADA' : language === 'de' ? 'FALLE AUSGELÖST' : language === 'fr' ? 'PIÈGE DÉCLENCHÉ' : 'TRAP TRIGGERED'}</p>
           <h3 style={{ margin: 0, fontSize: '22px', color: '#ff9caf', letterSpacing: '1px' }}>
-            {(translateRoomName(roomName, language) || (language === 'ru' ? 'ЭТА КОМНАТА' : language === 'uk' ? "ЦЯ КІМНАТА" : language === 'es' ? 'ESTA SALA' : 'THIS ROOM')).toUpperCase()}
+            {(translateRoomName(roomName, language) || (language === 'ru' ? 'ЭТА КОМНАТА' : language === 'uk' ? "ЦЯ КІМНАТА" : language === 'es' ? 'ESTA SALA' : language === 'de' ? 'DIESER RAUM' : language === 'fr' ? 'CETTE PIÈCE' : 'THIS ROOM')).toUpperCase()}
           </h3>
         </div>
 
         <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#bdc7db' }}>
           {language === 'ru'
             ? 'В этой комнате была спрятана ловушка. Весь ваш следующий раунд — и фазу действий, и суд — вы не сможете расследовать, искать тела или использовать способности.'
-            : language === 'uk' ? "У цій кімнаті було приховано пастку. Увесь ваш наступний раунд — і фазу дій, і суд — ви не зможете розслідувати, шукати тіла чи використовувати здібності." : language === 'es' ? "En esta sala se había ocultado una trampa. Durante toda tu próxima ronda — tanto la fase de acciones como el juicio — no podrás investigar, buscar cuerpos ni usar ninguna habilidad." : "There was a trap hidden in this room. For all of your next round — both the search phase and the trial — you won't be able to investigate, search for bodies, or use any ability."}
+            : language === 'uk' ? "У цій кімнаті було приховано пастку. Увесь ваш наступний раунд — і фазу дій, і суд — ви не зможете розслідувати, шукати тіла чи використовувати здібності." : language === 'es' ? "En esta sala se había ocultado una trampa. Durante toda tu próxima ronda — tanto la fase de acciones como el juicio — no podrás investigar, buscar cuerpos ni usar ninguna habilidad." : language === 'de' ? "In diesem Raum war eine Falle versteckt. Während deiner gesamten nächsten Runde — sowohl in der Aktionsphase als auch beim Prozess — kannst du nicht durchsuchen, nach Leichen suchen oder Fähigkeiten einsetzen." : language === 'fr' ? "Un piège était caché dans cette pièce. Pendant tout votre prochain round — la phase de fouille comme le procès — vous ne pourrez ni enquêter, ni chercher de corps, ni utiliser aucune capacité." : "There was a trap hidden in this room. For all of your next round — both the search phase and the trial — you won't be able to investigate, search for bodies, or use any ability."}
         </p>
 
         <button
@@ -3653,7 +4170,7 @@ function TrapTriggeredModal({ roomName, onClose, language }) {
             transition: 'all 0.2s ease'
           }}
         >
-          {language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}
+          {language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}
         </button>
       </div>
     </div>
@@ -3662,7 +4179,7 @@ function TrapTriggeredModal({ roomName, onClose, language }) {
 
 function ForensicBodyExaminationModal({ clue, onClose, language }) {
   const getSentence = () => {
-    if (!clue) return language === 'ru' ? 'Улика недоступна.' : language === 'uk' ? "Доказ недоступний." : language === 'es' ? 'Prueba no disponible.' : 'No clue available.';
+    if (!clue) return language === 'ru' ? 'Улика недоступна.' : language === 'uk' ? "Доказ недоступний." : language === 'es' ? 'Prueba no disponible.' : language === 'de' ? 'Beweis nicht verfügbar.' : language === 'fr' ? 'Aucun indice disponible.' : 'No clue available.';
     if (clue.type === 'bloodType') {
       return (
         <>
@@ -3672,6 +4189,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
             ? <>Сліди крові на місці злочину не збігаються з кров'ю жертви — виявлено тип <strong style={{ color: '#8be7ff' }}>{clue.value}</strong>.</>
             : language === 'es'
             ? <>Los rastros de sangre en la escena no coinciden con los de la víctima — se encontró el tipo <strong style={{ color: '#8be7ff' }}>{clue.value}</strong>.</>
+            : language === 'de'
+            ? <>Blutspuren am Tatort stimmen nicht mit denen des Opfers überein — Typ <strong style={{ color: '#8be7ff' }}>{clue.value}</strong> gefunden.</>
+            : language === 'fr'
+            ? <>Les traces de sang sur les lieux ne correspondent pas à celles de la victime — type <strong style={{ color: '#8be7ff' }}>{clue.value}</strong> détecté.</>
             : <>Blood traces at the scene don't match the victim's — type <strong style={{ color: '#8be7ff' }}>{clue.value}</strong> found.</>}
         </>
       );
@@ -3684,6 +4205,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
           ? <>Кут рани вказує, що нападник був <strong style={{ color: '#8be7ff' }}>вищим</strong> за жертву.</>
           : language === 'es'
           ? <>El ángulo de la herida sugiere que el atacante era <strong style={{ color: '#8be7ff' }}>más alto</strong> que la víctima.</>
+          : language === 'de'
+          ? <>Der Wundwinkel deutet darauf hin, dass der Angreifer <strong style={{ color: '#8be7ff' }}>größer</strong> als das Opfer war.</>
+          : language === 'fr'
+          ? <>L'angle de la blessure suggère que l'agresseur était <strong style={{ color: '#8be7ff' }}>plus grand</strong> que la victime.</>
           : <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>taller</strong> than the victim.</>;
       }
       if (clue.value === 'short') {
@@ -3693,6 +4218,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
           ? <>Кут рани вказує, що нападник був <strong style={{ color: '#8be7ff' }}>нижчим</strong> за жертву.</>
           : language === 'es'
           ? <>El ángulo de la herida sugiere que el atacante era <strong style={{ color: '#8be7ff' }}>más bajo</strong> que la víctima.</>
+          : language === 'de'
+          ? <>Der Wundwinkel deutet darauf hin, dass der Angreifer <strong style={{ color: '#8be7ff' }}>kleiner</strong> als das Opfer war.</>
+          : language === 'fr'
+          ? <>L'angle de la blessure suggère que l'agresseur était <strong style={{ color: '#8be7ff' }}>plus petit</strong> que la victime.</>
           : <>Wound angle suggests the attacker was <strong style={{ color: '#8be7ff' }}>shorter</strong> than the victim.</>;
       }
       return language === 'ru'
@@ -3701,6 +4230,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
         ? <>Кут рани не показує помітної різниці — нападник, ймовірно, був <strong style={{ color: '#8be7ff' }}>середнього зросту</strong>.</>
         : language === 'es'
         ? <>El ángulo de la herida no muestra una diferencia notable — el atacante probablemente era de <strong style={{ color: '#8be7ff' }}>estatura media</strong>.</>
+        : language === 'de'
+        ? <>Der Wundwinkel zeigt keinen deutlichen Unterschied — der Angreifer war vermutlich von <strong style={{ color: '#8be7ff' }}>durchschnittlicher Größe</strong>.</>
+        : language === 'fr'
+        ? <>L'angle de la blessure ne montre pas de différence notable — l'agresseur était probablement de <strong style={{ color: '#8be7ff' }}>taille moyenne</strong>.</>
         : <>Wound angle shows no notable difference — the attacker was likely of <strong style={{ color: '#8be7ff' }}>average height</strong>.</>;
     }
     if (clue.value === 'heavy') {
@@ -3710,6 +4243,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
         ? <>Характер пошкоджень вказує на <strong style={{ color: '#8be7ff' }}>значну фізичну силу</strong>.</>
         : language === 'es'
         ? <>La naturaleza de las heridas sugiere <strong style={{ color: '#8be7ff' }}>una fuerza física considerable</strong>.</>
+        : language === 'de'
+        ? <>Die Art der Verletzungen deutet auf <strong style={{ color: '#8be7ff' }}>erhebliche körperliche Kraft</strong> hin.</>
+        : language === 'fr'
+        ? <>La nature des blessures suggère <strong style={{ color: '#8be7ff' }}>une force physique considérable</strong>.</>
         : <>The nature of the injuries suggests <strong style={{ color: '#8be7ff' }}>significant physical strength</strong>.</>;
     }
     if (clue.value === 'light') {
@@ -3719,6 +4256,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
         ? <>Характер пошкоджень вказує на <strong style={{ color: '#8be7ff' }}>помірну, легшу статуру</strong>.</>
         : language === 'es'
         ? <>La naturaleza de las heridas sugiere <strong style={{ color: '#8be7ff' }}>una complexión moderada y más ligera</strong>.</>
+        : language === 'de'
+        ? <>Die Art der Verletzungen deutet auf einen <strong style={{ color: '#8be7ff' }}>mäßigen, leichteren Körperbau</strong> hin.</>
+        : language === 'fr'
+        ? <>La nature des blessures suggère <strong style={{ color: '#8be7ff' }}>une carrure modérée et plus légère</strong>.</>
         : <>The nature of the injuries suggests a <strong style={{ color: '#8be7ff' }}>moderate, lighter build</strong>.</>;
     }
     return language === 'ru'
@@ -3727,6 +4268,10 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
       ? <>Характер пошкоджень не вказує на незвично сильного чи легкого нападника — ймовірно, <strong style={{ color: '#8be7ff' }}>середня статура</strong>.</>
       : language === 'es'
       ? <>La naturaleza de las heridas no apunta a un atacante inusualmente fuerte o ligero — probablemente una <strong style={{ color: '#8be7ff' }}>complexión media</strong>.</>
+      : language === 'de'
+      ? <>Die Art der Verletzungen deutet nicht auf einen ungewöhnlich starken oder leichten Angreifer hin — wahrscheinlich ein <strong style={{ color: '#8be7ff' }}>durchschnittlicher Körperbau</strong>.</>
+      : language === 'fr'
+      ? <>La nature des blessures ne pointe pas vers un agresseur inhabituellement fort ou léger — probablement une <strong style={{ color: '#8be7ff' }}>carrure moyenne</strong>.</>
       : <>The nature of the injuries doesn't point to an unusually strong or light attacker — likely an <strong style={{ color: '#8be7ff' }}>average build</strong>.</>;
   };
 
@@ -3751,8 +4296,8 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
         }}
       >
         <div>
-          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>{language === 'ru' ? 'СУДЕБНО-МЕДИЦИНСКИЙ ОСМОТР ТЕЛА' : language === 'uk' ? "СУДОВО-МЕДИЧНИЙ ОГЛЯД ТІЛА" : language === 'es' ? 'EXAMEN FORENSE DEL CUERPO' : 'FORENSIC BODY EXAMINATION'}</p>
-          <h3 style={{ margin: 0, fontSize: '22px', color: '#8be7ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ОТЧЁТ ОСМОТРА' : language === 'uk' ? "ЗВІТ ОГЛЯДУ" : language === 'es' ? 'INFORME DE LA ESCENA' : 'SCENE REPORT'}</h3>
+          <p style={{ margin: '0 0 6px 0', fontSize: '11px', letterSpacing: '2px', color: '#8be7ff' }}>{language === 'ru' ? 'СУДЕБНО-МЕДИЦИНСКИЙ ОСМОТР ТЕЛА' : language === 'uk' ? "СУДОВО-МЕДИЧНИЙ ОГЛЯД ТІЛА" : language === 'es' ? 'EXAMEN FORENSE DEL CUERPO' : language === 'de' ? 'FORENSISCHE LEICHENUNTERSUCHUNG' : language === 'fr' ? 'EXAMEN MÉDICO-LÉGAL DU CORPS' : 'FORENSIC BODY EXAMINATION'}</p>
+          <h3 style={{ margin: 0, fontSize: '22px', color: '#8be7ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ОТЧЁТ ОСМОТРА' : language === 'uk' ? "ЗВІТ ОГЛЯДУ" : language === 'es' ? 'INFORME DE LA ESCENA' : language === 'de' ? 'TATORTBERICHT' : language === 'fr' ? 'RAPPORT DE SCÈNE' : 'SCENE REPORT'}</h3>
         </div>
         <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.7, color: '#bdc7db' }}>{getSentence()}</p>
         <button
@@ -3762,7 +4307,7 @@ function ForensicBodyExaminationModal({ clue, onClose, language }) {
             background: 'rgba(0,240,255,0.08)', color: '#8be7ff', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', cursor: 'pointer'
           }}
         >
-          {language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}
+          {language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}
         </button>
       </div>
     </div>
@@ -3780,13 +4325,13 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
         {playerCharacter?.url && <img src={playerCharacter.url} alt="" style={{ width: '42px', height: '42px', borderRadius: '7px', objectFit: 'cover' }} />}
         <div style={{ minWidth: 0, flex: 1 }}>
           <div style={{ fontWeight: 800, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: isEliminated ? '#ff8da6' : '#fff', textDecoration: isEliminated ? 'line-through' : 'none', transition: 'all 0.3s ease' }}>{player.nickname}</div>
-          <div style={{ fontSize: '10px', color: isEliminated ? '#ff8da6' : '#8a99ad', marginTop: '2px' }}>{isEliminated ? (language === 'ru' ? 'УСТРАНЁН(А) — НАБЛЮДЕНИЕ' : language === 'uk' ? "УСУНЕНИЙ(А) — СПОСТЕРЕЖЕННЯ" : language === 'es' ? 'ELIMINADO(A) — ESPECTANDO' : 'ELIMINATED — SPECTATING') : playerCharacter?.name || (language === 'ru' ? 'НЕИЗВЕСТНО' : language === 'uk' ? "НЕВІДОМО" : language === 'es' ? 'DESCONOCIDO' : 'UNKNOWN')}</div>
+          <div style={{ fontSize: '10px', color: isEliminated ? '#ff8da6' : '#8a99ad', marginTop: '2px' }}>{isEliminated ? (language === 'ru' ? 'УСТРАНЁН(А) — НАБЛЮДЕНИЕ' : language === 'uk' ? "УСУНЕНИЙ(А) — СПОСТЕРЕЖЕННЯ" : language === 'es' ? 'ELIMINADO(A) — ESPECTANDO' : language === 'de' ? 'AUSGESCHALTET — BEOBACHTER' : language === 'fr' ? 'ÉLIMINÉ — EN SPECTATEUR' : 'ELIMINATED — SPECTATING') : playerCharacter?.name || (language === 'ru' ? 'НЕИЗВЕСТНО' : language === 'uk' ? "НЕВІДОМО" : language === 'es' ? 'DESCONOCIDO' : language === 'de' ? 'UNBEKANNT' : language === 'fr' ? 'INCONNU' : 'UNKNOWN')}</div>
         </div>
       </div>
       <div style={{ display: 'flex', gap: '8px', marginTop: '9px' }}>
-        <span style={{ padding: '7px 9px', borderRadius: '8px', border: `1px solid ${isEliminated ? 'rgba(255,42,95,0.45)' : isConfirmed ? 'rgba(0,255,135,0.45)' : 'rgba(255,255,255,0.12)'}`, background: isEliminated ? 'rgba(255,42,95,0.12)' : isConfirmed ? 'rgba(0,255,135,0.1)' : 'rgba(255,255,255,0.03)', color: isEliminated ? '#ff9caf' : isConfirmed ? '#76ffb4' : '#8a99ad', fontSize: '10px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{isEliminated ? (language === 'ru' ? 'НАБЛЮДАТЕЛЬ' : language === 'uk' ? "СПОСТЕРІГАЧ" : language === 'es' ? 'ESPECTADOR' : 'SPECTATOR') : isConfirmed ? (language === 'ru' ? 'ГОЛОС ОТДАН / ГОТОВ' : language === 'uk' ? "ГОЛОС ВІДДАНО / ГОТОВИЙ" : language === 'es' ? 'VOTO EMITIDO / LISTO' : 'VOTED / READY') : (language === 'ru' ? 'ОЖИДАНИЕ' : language === 'uk' ? "ОЧІКУВАННЯ" : language === 'es' ? 'ESPERANDO' : 'WAITING')}</span>
-        <button onClick={onVote} disabled={!canVote} style={{ flex: 1, padding: '7px', borderRadius: '8px', border: isDraft ? '1px solid #00ff87' : '1px solid rgba(255,42,95,0.55)', background: isDraft ? 'rgba(0,255,135,0.16)' : 'rgba(255,42,95,0.12)', color: isDraft ? '#76ffb4' : '#ff9caf', fontWeight: 800, cursor: canVote ? 'pointer' : 'not-allowed', transition: 'all 0.25s ease-in-out' }}>{isDraft ? (language === 'ru' ? 'ВЫБРАНО' : language === 'uk' ? "ОБРАНО" : language === 'es' ? 'SELECCIONADO' : 'SELECTED') : (language === 'ru' ? 'ВЫБРАТЬ' : language === 'uk' ? "ОБРАТИ" : language === 'es' ? 'ELEGIR' : 'SELECT')}</button>
-        <button onClick={onCheck} style={{ padding: '7px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ИНФО' : language === 'uk' ? "ІНФО" : language === 'es' ? 'INFO' : 'INFO'}</button>
+        <span style={{ padding: '7px 9px', borderRadius: '8px', border: `1px solid ${isEliminated ? 'rgba(255,42,95,0.45)' : isConfirmed ? 'rgba(0,255,135,0.45)' : 'rgba(255,255,255,0.12)'}`, background: isEliminated ? 'rgba(255,42,95,0.12)' : isConfirmed ? 'rgba(0,255,135,0.1)' : 'rgba(255,255,255,0.03)', color: isEliminated ? '#ff9caf' : isConfirmed ? '#76ffb4' : '#8a99ad', fontSize: '10px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{isEliminated ? (language === 'ru' ? 'НАБЛЮДАТЕЛЬ' : language === 'uk' ? "СПОСТЕРІГАЧ" : language === 'es' ? 'ESPECTADOR' : language === 'de' ? 'BEOBACHTER' : language === 'fr' ? 'SPECTATEUR' : 'SPECTATOR') : isConfirmed ? (language === 'ru' ? 'ГОЛОС ОТДАН / ГОТОВ' : language === 'uk' ? "ГОЛОС ВІДДАНО / ГОТОВИЙ" : language === 'es' ? 'VOTO EMITIDO / LISTO' : language === 'de' ? 'STIMME ABGEGEBEN / BEREIT' : language === 'fr' ? 'VOTÉ / PRÊT' : 'VOTED / READY') : (language === 'ru' ? 'ОЖИДАНИЕ' : language === 'uk' ? "ОЧІКУВАННЯ" : language === 'es' ? 'ESPERANDO' : language === 'de' ? 'WARTEN' : language === 'fr' ? 'EN ATTENTE' : 'WAITING')}</span>
+        <button onClick={onVote} disabled={!canVote} style={{ flex: 1, padding: '7px', borderRadius: '8px', border: isDraft ? '1px solid #00ff87' : '1px solid rgba(255,42,95,0.55)', background: isDraft ? 'rgba(0,255,135,0.16)' : 'rgba(255,42,95,0.12)', color: isDraft ? '#76ffb4' : '#ff9caf', fontWeight: 800, cursor: canVote ? 'pointer' : 'not-allowed', transition: 'all 0.25s ease-in-out' }}>{isDraft ? (language === 'ru' ? 'ВЫБРАНО' : language === 'uk' ? "ОБРАНО" : language === 'es' ? 'SELECCIONADO' : language === 'de' ? 'AUSGEWÄHLT' : language === 'fr' ? 'SÉLECTIONNÉ' : 'SELECTED') : (language === 'ru' ? 'ВЫБРАТЬ' : language === 'uk' ? "ОБРАТИ" : language === 'es' ? 'ELEGIR' : language === 'de' ? 'AUSWÄHLEN' : language === 'fr' ? 'SÉLECTIONNER' : 'SELECT')}</button>
+        <button onClick={onCheck} style={{ padding: '7px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ИНФО' : language === 'uk' ? "ІНФО" : language === 'es' ? 'INFO' : language === 'de' ? 'INFO' : language === 'fr' ? 'INFOS' : 'INFO'}</button>
       </div>
       {/* Detective-only special investigation action. Only ever rendered for
           the Detective themself (see showDetectiveAction), never for anyone
@@ -3810,7 +4355,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
               transition: 'all 0.25s ease-in-out'
             }}
           >
-            🔍 {language === 'ru' ? 'ПРОВЕРИТЬ ЛОКАЦИЮ' : language === 'uk' ? "ПЕРЕВІРИТИ ЛОКАЦІЮ" : language === 'es' ? 'REVISAR UBICACIÓN' : 'CHECK LOCATION'}
+            🔍 {language === 'ru' ? 'ПРОВЕРИТЬ ЛОКАЦИЮ' : language === 'uk' ? "ПЕРЕВІРИТИ ЛОКАЦІЮ" : language === 'es' ? 'REVISAR UBICACIÓN' : language === 'de' ? 'STANDORT PRÜFEN' : language === 'fr' ? 'VÉRIFIER LA POSITION' : 'CHECK LOCATION'}
           </button>
           <span style={{
             padding: '7px 9px',
@@ -3823,7 +4368,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
             letterSpacing: '0.5px',
             whiteSpace: 'nowrap'
           }}>
-            {detectiveAvailable ? (language === 'ru' ? 'ГОТОВО' : language === 'uk' ? "ГОТОВО" : language === 'es' ? 'LISTO' : 'READY') : (language === 'ru' ? `ПЕРЕЗАРЯДКА: ${detectiveTurnsRemaining}` : language === 'uk' ? `ПЕРЕЗАРЯДКА: ${detectiveTurnsRemaining}` : language === 'es' ? `RECARGA: ${detectiveTurnsRemaining}` : `COOLDOWN: ${detectiveTurnsRemaining}`)}
+            {detectiveAvailable ? (language === 'ru' ? 'ГОТОВО' : language === 'uk' ? "ГОТОВО" : language === 'es' ? 'LISTO' : language === 'de' ? 'BEREIT' : language === 'fr' ? 'PRÊT' : 'READY') : (language === 'ru' ? `ПЕРЕЗАРЯДКА: ${detectiveTurnsRemaining}` : language === 'uk' ? `ПЕРЕЗАРЯДКА: ${detectiveTurnsRemaining}` : language === 'es' ? `RECARGA: ${detectiveTurnsRemaining}` : language === 'de' ? `ABKLINGZEIT: ${detectiveTurnsRemaining}` : language === 'fr' ? `RECHARGE : ${detectiveTurnsRemaining}` : `COOLDOWN: ${detectiveTurnsRemaining}`)}
           </span>
         </div>
       )}
@@ -3851,7 +4396,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
               transition: 'all 0.25s ease-in-out'
             }}
           >
-            🔒 {isSelf ? (language === 'ru' ? 'ЗАПЕРЕТЬ СЕБЯ В КАМЕРЕ' : language === 'uk' ? "ЗАМКНУТИ СЕБЕ В КАМЕРІ" : language === 'es' ? 'ENCERRARME EN LA CELDA' : 'LOCK MYSELF IN CELL') : (language === 'ru' ? 'ЗАПЕРЕТЬ В КАМЕРЕ' : language === 'uk' ? "ЗАМКНУТИ В КАМЕРІ" : language === 'es' ? 'ENCERRAR EN LA CELDA' : 'LOCK IN CELL')}
+            🔒 {isSelf ? (language === 'ru' ? 'ЗАПЕРЕТЬ СЕБЯ В КАМЕРЕ' : language === 'uk' ? "ЗАМКНУТИ СЕБЕ В КАМЕРІ" : language === 'es' ? 'ENCERRARME EN LA CELDA' : language === 'de' ? 'MICH IN DER ZELLE EINSPERREN' : language === 'fr' ? "M'ENFERMER DANS LA CELLULE" : 'LOCK MYSELF IN CELL') : (language === 'ru' ? 'ЗАПЕРЕТЬ В КАМЕРЕ' : language === 'uk' ? "ЗАМКНУТИ В КАМЕРІ" : language === 'es' ? 'ENCERRAR EN LA CELDA' : language === 'de' ? 'IN DER ZELLE EINSPERREN' : language === 'fr' ? 'ENFERMER DANS LA CELLULE' : 'LOCK IN CELL')}
           </button>
           <span style={{
             padding: '7px 9px',
@@ -3864,7 +4409,7 @@ function TrialPlayerRow({ player, playerCharacter, isEliminated, isConfirmed, is
             letterSpacing: '0.5px',
             whiteSpace: 'nowrap'
           }}>
-            {officerAvailable ? (language === 'ru' ? 'ГОТОВО' : language === 'uk' ? "ГОТОВО" : language === 'es' ? 'LISTO' : 'READY') : (language === 'ru' ? `ПЕРЕЗАРЯДКА: ${officerTurnsRemaining}` : language === 'uk' ? `ПЕРЕЗАРЯДКА: ${officerTurnsRemaining}` : language === 'es' ? `RECARGA: ${officerTurnsRemaining}` : `COOLDOWN: ${officerTurnsRemaining}`)}
+            {officerAvailable ? (language === 'ru' ? 'ГОТОВО' : language === 'uk' ? "ГОТОВО" : language === 'es' ? 'LISTO' : language === 'de' ? 'BEREIT' : language === 'fr' ? 'PRÊT' : 'READY') : (language === 'ru' ? `ПЕРЕЗАРЯДКА: ${officerTurnsRemaining}` : language === 'uk' ? `ПЕРЕЗАРЯДКА: ${officerTurnsRemaining}` : language === 'es' ? `RECARGA: ${officerTurnsRemaining}` : language === 'de' ? `ABKLINGZEIT: ${officerTurnsRemaining}` : language === 'fr' ? `RECHARGE : ${officerTurnsRemaining}` : `COOLDOWN: ${officerTurnsRemaining}`)}
           </span>
         </div>
       )}
@@ -4897,7 +5442,7 @@ function App() {
 
     // Story text follows the current UI language (English/Russian for now,
     // falling back to English for the placeholder languages).
-    const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : languageRef.current === 'uk' ? INTRO_STORY_UK : languageRef.current === 'es' ? INTRO_STORY_ES : INTRO_STORY;
+    const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : languageRef.current === 'uk' ? INTRO_STORY_UK : languageRef.current === 'es' ? INTRO_STORY_ES : languageRef.current === 'fr' ? INTRO_STORY_FR : INTRO_STORY;
 
     typeIntervalRef.current = trackInterval(setInterval(() => {
       const elapsed = Date.now() - introStartTimeRef.current;
@@ -4952,7 +5497,7 @@ function App() {
     } catch (e) { /* noop */ }
 
     introFinishedRef.current = true;
-    const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : languageRef.current === 'uk' ? INTRO_STORY_UK : languageRef.current === 'es' ? INTRO_STORY_ES : INTRO_STORY;
+    const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : languageRef.current === 'uk' ? INTRO_STORY_UK : languageRef.current === 'es' ? INTRO_STORY_ES : languageRef.current === 'fr' ? INTRO_STORY_FR : INTRO_STORY;
     introTextRef.current = activeIntroStory;
     setIntroTypedText(activeIntroStory);
     setIntroFinished(true);
@@ -5038,7 +5583,7 @@ function App() {
   const handleVerifyEvidence = (evidenceId) => {
     if (myRole !== 'Forensic' || !gameRoomCodeRef.current || forensicVerifyingId) return;
     if (forensicVerifyStatus && forensicVerifyStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     setForensicVerifyingId(evidenceId);
     playAbilityUseSound(0.75);
     socket.emit('verify_evidence', { code: gameRoomCodeRef.current, evidenceId });
@@ -5047,7 +5592,7 @@ function App() {
   const handleExamineBody = (bodyId) => {
     if (myRole !== 'Forensic' || !gameRoomCodeRef.current || !bodyId) return;
     if (forensicVerifyStatus && forensicVerifyStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     socket.emit('examine_body', { code: gameRoomCodeRef.current, bodyId });
   };
@@ -5345,7 +5890,7 @@ function App() {
         clearInterval(typeIntervalRef.current);
         typeIntervalRef.current = null;
       }
-      const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : languageRef.current === 'uk' ? INTRO_STORY_UK : languageRef.current === 'es' ? INTRO_STORY_ES : INTRO_STORY;
+      const activeIntroStory = languageRef.current === 'ru' ? INTRO_STORY_RU : languageRef.current === 'uk' ? INTRO_STORY_UK : languageRef.current === 'es' ? INTRO_STORY_ES : languageRef.current === 'fr' ? INTRO_STORY_FR : INTRO_STORY;
       introTextRef.current = activeIntroStory;
       setIntroTypedText(activeIntroStory);
       finishIntro();
@@ -6321,7 +6866,7 @@ function App() {
         setShowMainContent(true);
       }, 100);
     } else {
-      alert(language === 'ru' ? 'Никнейм должен содержать не менее 2 символов.' : language === 'uk' ? "Нікнейм має містити щонайменше 2 символи." : language === 'es' ? 'El apodo debe tener al menos 2 caracteres.' : 'Nickname must be at least 2 characters long.');
+      alert(language === 'ru' ? 'Никнейм должен содержать не менее 2 символов.' : language === 'uk' ? "Нікнейм має містити щонайменше 2 символи." : language === 'es' ? 'El apodo debe tener al menos 2 caracteres.' : language === 'de' ? 'Der Spitzname muss mindestens 2 Zeichen lang sein.' : language === 'fr' ? 'Le pseudo doit comporter au moins 2 caractères.' : 'Nickname must be at least 2 characters long.');
     }
   };
 
@@ -6339,7 +6884,7 @@ function App() {
     if (inputCode.length === 8) {
       socket.emit('join_by_code', { code: inputCode, nickname });
     } else {
-      setErrorMessage(language === 'ru' ? 'Код должен состоять ровно из 8 символов.' : language === 'uk' ? "Код має складатися рівно з 8 символів." : language === 'es' ? 'El código debe tener exactamente 8 caracteres.' : 'Code must be exactly 8 characters.');
+      setErrorMessage(language === 'ru' ? 'Код должен состоять ровно из 8 символов.' : language === 'uk' ? "Код має складатися рівно з 8 символів." : language === 'es' ? 'El código debe tener exactamente 8 caracteres.' : language === 'de' ? 'Der Code muss genau 8 Zeichen lang sein.' : language === 'fr' ? 'Le code doit comporter exactement 8 caractères.' : 'Code must be exactly 8 characters.');
     }
   };
 
@@ -6414,7 +6959,7 @@ function App() {
   // room is entered (see onRoomEntered) or a new turn starts (onTurnStart).
   const handleInvestigateRoom = () => {
     if (!gameRoomCodeRef.current || !revealedRoom || roomActionTaken) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді дії недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay acciones disponibles esta ronda.' : "You're still recovering from the trap — no actions this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді дії недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay acciones disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Aktionen zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune action ce round." : "You're still recovering from the trap — no actions this round."); return; }
     setRoomActionTaken(true);
     setInvestigateUsedThisTurn(true);
     playAbilityUseSound(0.75);
@@ -6426,7 +6971,7 @@ function App() {
   // "INVESTIGATE ROOM" — see handleInvestigateRoom above.
   const handleSearchBody = () => {
     if (!gameRoomCodeRef.current || !revealedRoom || roomActionTaken) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді дії недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay acciones disponibles esta ronda.' : "You're still recovering from the trap — no actions this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде действия недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді дії недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay acciones disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Aktionen zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune action ce round." : "You're still recovering from the trap — no actions this round."); return; }
     setRoomActionTaken(true);
     playAbilityUseSound(0.75);
     socket.emit('search_body', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
@@ -6449,10 +6994,10 @@ function App() {
   // confirmed empty would just waste the cooldown for nothing.
   const handleCheckRoom = () => {
     if (myRole !== 'Innocent' || !gameRoomCodeRef.current || !revealedRoom || checkRoomSubmitting) return;
-    if (!investigateUsedThisTurn) { pushToast(language === 'ru' ? 'Сначала обыщите эту комнату.' : language === 'uk' ? "Спочатку обшукайте цю кімнату." : language === 'es' ? 'Registra esta sala primero.' : 'Investigate this room first.'); return; }
+    if (!investigateUsedThisTurn) { pushToast(language === 'ru' ? 'Сначала обыщите эту комнату.' : language === 'uk' ? "Спочатку обшукайте цю кімнату." : language === 'es' ? 'Registra esta sala primero.' : language === 'de' ? 'Durchsuche zuerst diesen Raum.' : language === 'fr' ? "Enquêtez d'abord sur cette pièce." : 'Investigate this room first.'); return; }
     if (markRoomStatus && markRoomStatus.available === false) return;
     if (clearedRoomIds[revealedRoom.roomId]) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     setCheckRoomSubmitting(true);
     playAbilityUseSound(0.75);
     socket.emit('check_room', { code: gameRoomCodeRef.current, roomId: revealedRoom.roomId });
@@ -6465,7 +7010,7 @@ function App() {
   const handleDetectiveCheck = (targetId) => {
     if (myRole !== 'Detective' || !gameRoomCodeRef.current) return;
     if (detectiveAbilityStatus && detectiveAbilityStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     socket.emit('detective_check_location', { code: gameRoomCodeRef.current, targetId });
   };
@@ -6477,7 +7022,7 @@ function App() {
   const handleOfficerLock = (targetId) => {
     if (myRole !== 'Officer' || !gameRoomCodeRef.current) return;
     if (officerAbilityStatus && officerAbilityStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     socket.emit('officer_lock_player', { code: gameRoomCodeRef.current, targetId });
   };
@@ -6490,7 +7035,7 @@ function App() {
   const handleOpenJokerPlantPicker = () => {
     if (myRole !== 'Joker' || currentTurnPlayerId !== socket.id) return;
     if (jokerEvidenceStatus && jokerEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playHoverSound(0.25);
     setJokerPlantFloor(mansionFloor);
     setJokerPlantPickerOpen(true);
@@ -6505,7 +7050,7 @@ function App() {
     if (!gameRoomCodeRef.current || myRole !== 'Joker' || jokerPlantSubmittingRoomId) return;
     if (roomId === 'f1_holding_cell') return;
     if (jokerEvidenceStatus && jokerEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     setJokerPlantSubmittingRoomId(roomId);
     socket.emit('plant_joker_evidence', { code: gameRoomCodeRef.current, roomId });
@@ -6523,7 +7068,7 @@ function App() {
   const handleOpenChangeEvidence = (evidenceId) => {
     if (myRole !== 'Accomplice' || !revealedRoom || !evidenceId) return;
     if (accompliceEvidenceStatus && accompliceEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playHoverSound(0.25);
     setChangeEvidenceTargetEvidenceId(evidenceId);
     setChangeEvidencePickerOpen(true);
@@ -6541,7 +7086,7 @@ function App() {
     if (!changeEvidenceTargetEvidenceId || changeEvidenceSubmittingTargetId) return;
     if (targetPlayerId === socket.id) return;
     if (accompliceEvidenceStatus && accompliceEvidenceStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     setChangeEvidenceSubmittingTargetId(targetPlayerId);
     socket.emit('accomplice_change_evidence', {
@@ -6561,7 +7106,7 @@ function App() {
   const handleOpenAccompliceTrapPicker = () => {
     if (myRole !== 'Accomplice' || currentTurnPlayerId !== socket.id) return;
     if (accompliceTrapStatus && accompliceTrapStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playHoverSound(0.25);
     setAccompliceTrapFloor(mansionFloor);
     setAccompliceTrapPickerOpen(true);
@@ -6575,7 +7120,7 @@ function App() {
     if (!gameRoomCodeRef.current || myRole !== 'Accomplice' || accompliceTrapSubmittingRoomId) return;
     if (roomId === 'f1_holding_cell') return;
     if (accompliceTrapStatus && accompliceTrapStatus.available === false) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     playAbilityUseSound(0.75);
     setAccompliceTrapSubmittingRoomId(roomId);
     socket.emit('set_trap', { code: gameRoomCodeRef.current, roomId });
@@ -6587,7 +7132,7 @@ function App() {
   // failure) or 'game_over' (on success).
   const handleSubmitInnocentCode = () => {
     if (!gameRoomCodeRef.current || !codeGuess.trim()) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — терминал не примет ввод в этом раунде.' : language === 'uk' ? "Ви ще приходите до тями після пастки — термінал не прийме введення в цьому раунді." : language === 'es' ? 'Todavía te estás recuperando de la trampa — el terminal no aceptará entradas esta ronda.' : "You're still recovering from the trap — the terminal won't accept input this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — терминал не примет ввод в этом раунде.' : language === 'uk' ? "Ви ще приходите до тями після пастки — термінал не прийме введення в цьому раунді." : language === 'es' ? 'Todavía te estás recuperando de la trampa — el terminal no aceptará entradas esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — das Terminal akzeptiert diese Runde keine Eingaben.' : language === 'fr' ? "Vous vous remettez encore du piège — le terminal n'acceptera aucune saisie ce round." : "You're still recovering from the trap — the terminal won't accept input this round."); return; }
     socket.emit('submit_innocent_code', { code: gameRoomCodeRef.current, guess: codeGuess.trim() });
   };
 
@@ -6614,7 +7159,7 @@ function App() {
     if (isEliminated || isObserver) return;
     if (!gameRoomCodeRef.current || !revealedRoom || ventUsedThisTurn) return;
     if (!VENTS[revealedRoom.roomId]) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     setVentUsedThisTurn(true);
     playAbilityUseSound(0.75);
     socket.emit('use_vent', { code: gameRoomCodeRef.current });
@@ -6632,7 +7177,7 @@ function App() {
     if (isEliminated || isObserver) return;
     if (!gameRoomCodeRef.current || !revealedRoom || pendingKillDecision) return;
     if (!targetId || targetId === socket.id) return;
-    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : "You're still recovering from the trap — no abilities this round."); return; }
+    if (trapDebuffActive) { pushToast(language === 'ru' ? 'Вы всё ещё приходите в себя после ловушки — в этом раунде способности недоступны.' : language === 'uk' ? "Ви ще приходите до тями після пастки — у цьому раунді здібності недоступні." : language === 'es' ? 'Todavía te estás recuperando de la trampa — no hay habilidades disponibles esta ronda.' : language === 'de' ? 'Du erholst dich noch von der Falle — in dieser Runde stehen keine Fähigkeiten zur Verfügung.' : language === 'fr' ? "Vous vous remettez encore du piège — aucune capacité ce round." : "You're still recovering from the trap — no abilities this round."); return; }
     socket.emit('kill_player', { code: gameRoomCodeRef.current, targetId });
   };
 
@@ -7056,7 +7601,7 @@ function App() {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {rolePoolPreview.map(({ name, count }) => (
                           <span key={name} style={{ fontSize: '10px', padding: '3px 6px', borderRadius: '4px', color: ROLES[name].color, border: `1px solid ${ROLES[name].color}`, background: 'rgba(0,0,0,0.25)' }}>
-                            {language === 'ru' ? ROLES[name].labelRu : language === 'uk' ? ROLES[name].labelUk : language === 'es' ? ROLES[name].labelEs : ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
+                            {language === 'ru' ? ROLES[name].labelRu : language === 'uk' ? ROLES[name].labelUk : language === 'es' ? ROLES[name].labelEs : language === 'de' ? ROLES[name].labelDe : language === 'fr' ? ROLES[name].labelFr : ROLES[name].label}{count > 1 ? ` ×${count}` : ''}
                           </span>
                         ))}
                       </div>
@@ -7603,6 +8148,250 @@ function App() {
                 <li style={{ marginBottom: '6px' }}>El código de acceso de una sala privada es un código hexadecimal de 8 caracteres (letras y números, sin distinguir mayúsculas) — no un simple número.</li>
               </ul>
               </>
+              ) : language === 'de' ? (
+              <>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. LOBBY, CHARAKTERE & START</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Räume fassen <strong>5–12 Agenten</strong>. Jeder wählt einen von 12 einzigartigen Charakteren — kein Charakter kann doppelt vergeben werden, aber du kannst frei wechseln, bis du auf Bereit klickst. Der Host sperrt den Raum und startet die Vorbereitung über <strong>START OPERATION</strong>, danach schaltet jeder auf bereit. In dem Moment, in dem <strong>ausnahmslos alle</strong> bereit sind, startet automatisch ein <strong>5-Sekunden-Countdown</strong> — sobald jemand die Bereitschaft zurücknimmt, wird er sofort abgebrochen.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. LADEN & ROLLENENTHÜLLUNG</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Der Einführungstext beginnt erst, wenn <strong>jeder Spieler</strong> sich als geladen gemeldet hat — bleibt ein Tab im Hintergrund hängen, wartet der Server <strong>15 Sekunden</strong> und startet dann trotzdem zwangsweise, damit niemand die Lobby blockieren kann. Deine Rolle wird genau in diesem Moment zugewiesen und <strong>nur dir</strong> offenbart — der Server sagt es niemandem sonst. Das Match selbst startet genauso: erst wenn alle bestätigt haben, den Rollenbildschirm fertig gesehen zu haben (gleiches 15-Sekunden-Sicherheitsnetz).
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. ZÜGE & ZEIT</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Agenten handeln <strong>strikt der Reihe nach</strong>, und die Zugreihenfolge wird jede Runde neu gemischt (garantiert anders als in der Vorrunde). Jeder hat bis zu <strong>30 Sekunden</strong> — ein hartes serverseitiges Zeitlimit — um einen Sektor zum Durchsuchen zu wählen. Du hast <strong>genau eine Durchsuchung pro Zug</strong>, aber der Zug endet nicht automatisch, sobald du durchsuchst — du bleibst im Raum, bis du Zug beenden drückst oder die Zeit abläuft. Läuft die Zeit ab, ohne dass ein Raum gewählt wurde, wirst du trotzdem zufällig einem zugewiesen; läuft die Zeit nach der Raumwahl ab, endet der Zug einfach dort, wo du bist. Beides zieht keine Strafe nach sich. <strong style={{ color: '#fff' }}>Die Villenkarte ist immer nur für denjenigen sichtbar, der gerade am Zug ist</strong> — jeder andere lebende Agent sieht nur den Countdown und die generische Anzeige „EIN AGENT HANDELT", ohne Karte und ohne Möglichkeit, in irgendeinen Raum zu blicken, bis der eigene Zug kommt.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. ZWEI PHASEN PRO RUNDE</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Aktionsphase:</strong> verdeckte Manöver und taktische Ausführung, bis jeder lebende Agent gezogen hat.<br />
+                <strong>Prozessphase:</strong> ein kurzer Blackout (~1,5 s) → Fallankündigung mit Zusammenfassung der Erkenntnisse (~6 s) → Abstimmung (bis zu 120 s, endet früher, sobald alle festgelegt haben) → Auflösung (~3,5 s) → eine neue Runde oder das Spielende.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. LÜFTUNGSABKÜRZUNGEN</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
+                Nur der <strong>Mörder</strong> hat Zugang zu einem Netzwerk von Lüftungsschächten, die bestimmte Räume der Villa paarweise verbinden. Du musst bereits in einem stehen, um zu wechseln. Ein Wechsel geschieht sofort und kommt <strong>zusätzlich zu</strong> deiner normalen Durchsuchung, nicht anstelle davon, und setzt deine Raumoptionen im Zielraum zurück (einschließlich einer dort wartenden Falle). Es ist nur <strong>ein Schachtwechsel pro Zug</strong> erlaubt.
+              </p>
+              <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Bekannte Schachtverbindungen:</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Große Halle</strong> (1. Stock) ↔ <strong style={{ color: '#fff' }}>Hauptschlafzimmer</strong> (2. Stock)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Küche</strong> ↔ <strong style={{ color: '#fff' }}>Waffenkammer</strong> (beide 1. Stock)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Weinkeller</strong> (1. Stock) ↔ <strong style={{ color: '#fff' }}>Dachboden</strong> (2. Stock)</li>
+              </ul>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Über die beiden durchsuchbaren Stockwerke hinaus (je 10 Räume) verfügt die Villa außerdem über eine verschlossene <strong style={{ color: '#fff' }}>Arrestzelle</strong> (1. Stock, untere rechte Ecke — nur relevant für die Fähigkeit des Offiziers) und eine <strong style={{ color: '#fff' }}>Folterkammer</strong> im Keller — rein atmosphärisch, aber wie jeder normale Raum begehbar.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. RAUMAKTIONEN: DURCHSUCHEN VS. NACH LEICHE SUCHEN</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Bei jedem Raumbesuch hast du genau <strong>eine</strong> von zwei Optionen — <strong>Raum durchsuchen</strong> oder <strong>Nach Leiche suchen</strong> — welche du zuerst wählst, sperrt die andere, bis du einen anderen Raum betrittst (eine neue Durchsuchung oder ein Schachtwechsel). Raum durchsuchen deckt auch das Finden platzierter Beweise oder einer dort liegenden Neurotoxin-7-Spritze ab — dafür gibt es keine separaten Schaltflächen.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>7. DER DIGITALE AUFHEBUNGSCODE</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Die Codelänge richtet sich nach der Anzahl der Unschuldigen in der Lobby: <strong style={{ color: '#fff' }}>4 Ziffern bei 1 Unschuldigem, +1 pro weiterem, maximal 10</strong>. Jede Ziffer ist für das gesamte Match in einem eigenen zufälligen Raum versteckt. Nur <strong>Unschuldige</strong> erhalten jemals eine echte Ziffer (samt genauer Position), wenn sie einen Raum durchsuchen, der eine enthält, und sobald das geschieht, wird das ganze Team sofort informiert — jede andere Rolle bekommt dasselbe leere Ergebnis, egal ob dort wirklich eine Ziffer liegt. Eine separate Fähigkeit <strong>Raum prüfen</strong> (<strong style={{ color: '#fff' }}>2-Runden-Abklingzeit</strong>, erfordert, dass der Raum in diesem Zug bereits durchsucht wurde) markiert einen Raum anonym als sauber für das gesamte Unschuldigen-Team — ein Raum, der tatsächlich eine Ziffer enthält, wird jedoch nie als sauber markiert, und diese Fähigkeit enthüllt niemals die Ziffer selbst.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. LEICHE VERSTECKEN ODER OFFENLEGEN</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Direkt nach einem Mord muss der <strong>Mörder</strong> wählen: die Leiche <strong>verstecken</strong> — sie bleibt verborgen, bis jemand gezielt danach sucht, verbraucht dafür aber den Schachtwechsel dieses Zuges, also kein Schachtwechsel in dieser Runde — oder sie <strong>offenlegen</strong>, sodass sie für den nächsten Ankömmling frei sichtbar liegt, während der Schacht danach weiterhin nutzbar bleibt. Wird nie eine Entscheidung getroffen, legt der Server standardmäßig offen — eine Leiche geht nie stillschweigend verloren. Jeder Mord birgt außerdem eine Chance, dass der Mörder versehentlich einen Gegenstand des eigenen Charakters irgendwo zufällig in der Villa fallen lässt, nicht zwingend im Mordraum — nur der Mörder (und, falls im Spiel, der Komplize) erfährt davon. Die Chance ist nicht fix: Sie hängt von der Lobbygröße ab (<strong style={{ color: '#fff' }}>65 % bei 5 Agenten bis 30 % bei 12</strong>) und steigt mit jedem bereits abgeschlossenen Mord in diesem Match (<strong style={{ color: '#fff' }}>+10 % pro vorherigem Mord, maximal +25 %</strong>) — das erste Opfer ist das „sauberste", und gegen Spielende wird ein Beweis fast garantiert.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. LEICHENFUND — DAS ENTSCHEIDENDE DETAIL</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                In dem Moment, in dem jemand erfolgreich eine <strong>versteckte</strong> Leiche durch Nach Leiche suchen findet, hört sie <strong>dauerhaft, für den Rest des Matches</strong>, auf, versteckt zu sein — von da an sieht jeder, der einfach in diesen Raum geht (auch ein Zuschauer, der hineinschaut), sie ohne weitere Suche, und sie kann nie wieder versteckt werden. Jeder, der sie jemals gesehen hat, wird als Finder geführt und erscheint später in der Prozess-Zusammenfassung. Solange <strong>auch nur eine einzige</strong> Leiche irgendwo in der Villa unentdeckt bleibt, verweigert das Ausgangsterminal der Unschuldigen den Code rundweg, ob richtig oder nicht — das Spiel gibt aber nie einen Hinweis, wer fehlt oder wo. Ein vom Rat hingerichteter Spieler ist der Gegenfall: Für ihn wird überhaupt nie eine Leiche erzeugt.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#bdef13', margin: '0 0 6px 0', letterSpacing: '1px' }}>10. FORENSISCHE SPUREN AN LEICHEN</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Sobald eine Leiche entsteht, wird ihr genau ein fester Spurentyp zugewiesen — Blutgruppe, Größenkategorie oder Gewichtskategorie, im Wechsel — der die tatsächlichen Charakterwerte des echten Mörders widerspiegelt, dauerhaft, ab diesem Moment. Nur der <strong>Kriminaltechniker</strong> kann sie auslesen, per Leiche untersuchen, nur während des Prozesses und nur bei einer bereits entdeckten Leiche. Da eine Leiche immer nur eine Kategorie preisgibt, braucht man mehrere verschiedene Leichen im Laufe des Matches, um ein vollständiges Profil zu erstellen.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>11. BEWEISE & DIE GEMEINSAME HINWEISTAFEL</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Agenten finden echte Spuren, die versehentlich hinterlassen wurden. Der <strong>Komplize</strong> kann einen bereits gefundenen Beweis fälschen, um einen ausgewählten Spieler zu belasten — die Fälschung <strong>verschwindet gezielt von der gemeinsamen Tafel</strong>, sobald sie verändert wird, und bleibt nur für denjenigen sichtbar, der genau diesen Raum persönlich erneut durchsucht. Der <strong>Joker</strong> dagegen platziert Beweise, die absichtlich nach seinem eigenen Charakter gestaltet sind — diese landen nach dem Fund tatsächlich auf der gemeinsamen Tafel. Eine gefundene Leiche oder ein Hinweis verschwindet nie und „verfällt" auch in einer neuen Runde nicht — er bleibt dauerhaft in diesem Raum und in der Zusammenfassung sichtbar. Findet ein Spieler einen Hinweis per Raum durchsuchen, wird aber in derselben Runde vom <strong>Mörder</strong> getötet, wird seine Fund-Gutschrift zurückgenommen — der Hinweis gilt wieder als unentdeckt und bleibt im Raum liegen, bis ihn jemand anderes findet; hat ein anderer überlebender Spieler ihn in derselben Runde ebenfalls entdeckt, bleibt dessen Gutschrift bestehen.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#e040fb', margin: '0 0 6px 0', letterSpacing: '1px' }}>12. NEUROTOXIN-7</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Eine begrenzte Anzahl an Spritzen (1–3, je nach Lobbygröße) ist in zufälligen Räumen versteckt und wird durch normales Raum durchsuchen gefunden. Nur <strong>Mörder, Komplize und Joker</strong> dürfen sie berühren — für alle anderen ist sie „zu gefährlich" und bleibt liegen. Es kann immer nur eine getragen werden. Für den <strong>Mörder</strong> erhöht sie das Tötungslimit auf <strong style={{ color: '#fff' }}>zwei pro Runde</strong>, verbraucht nach der zweiten gelungenen Tötung. Für <strong>Komplize/Joker</strong> ist sie ein <strong>passiver Schild</strong>, der den nächsten direkten Angriff des Mörders vollständig aufhebt und beim Auslösen verbraucht wird — ein gescheiterter Versuch gegen ein geschütztes Ziel verbraucht jedoch trotzdem die <strong>gesamte Tötungskapazität des Mörders für diese Runde</strong>, selbst wenn er seine eigene unverbrauchte Spritze bei sich trägt. Der Schild schützt nie vor einer Hinrichtung durch den Rat.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>13. FALLEN</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Der <strong>Komplize</strong> kann einen Raum mit einer versteckten Falle präparieren (<strong style={{ color: '#fff' }}>1 pro 4 Runden</strong>). Der erste Agent jeder Rolle, der diesen Raum betritt — normaler Zug oder Schachtwechsel — löst sie sofort aus und verbraucht sie, und dieser Agent verliert für seine gesamte nächste Runde jede Aktion und Fähigkeit, sowohl Aktionsphase als auch Prozess, einschließlich des Ausgangsterminals. Der Mörder wird privat darüber informiert, wo sein Komplize sie platziert hat.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>14. AKTIVE ROLLEN IM DETAIL</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Mörder:</strong> neutralisiert Ziele (<strong style={{ color: '#fff' }}>1/Zug</strong>, 2 mit Neurotoxin-7), entscheidet dann über das Schicksal der Leiche und hat als Einziger Zugang zu den Lüftungsschächten.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Komplize</strong> (ab 8 Spielern): kann bereits gefundene Beweise fälschen, um einen Spieler zu belasten (<strong style={{ color: '#fff' }}>1 pro 3 eigene Züge</strong>), und eine Falle präparieren (<strong style={{ color: '#fff' }}>1 pro 4 Runden</strong>). Erfährt privat von den Patzern des Mörders.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Detektiv:</strong> enthüllt während des Prozesses, in welchem Raum ein gewählter Spieler seinen <em>vorherigen</em> Zug beendet hat — eingefroren in dem Moment, in dem der Prozess beginnt (<strong style={{ color: '#fff' }}>1 pro 2 Runden</strong>). Kann sich nicht selbst als Ziel wählen. Ergebnis ist nur für dich sichtbar.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Offizier:</strong> plant während des Prozesses, einen Verdächtigen (oder <em>sich selbst</em>) für die <em>nächste</em> Runde in der Arrestzelle einzusperren (<strong style={{ color: '#fff' }}>1 pro 3 Runden</strong>). Ein eingesperrter Spieler ist für alle völlig unsichtbar, auch für Zuschauer, und verliert die ganze Runde über jede Aktion/Fähigkeit.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Kriminaltechniker</strong> (ab 8 Spielern): Beweisechtheit prüfen (echt vs. gefälscht) ODER Leiche auf die Spur des Mörders untersuchen — beide teilen sich <strong style={{ color: '#fff' }}>eine Abklingzeit von 1 Runde</strong>. Eine bereits untersuchte Leiche erneut zu prüfen ist kostenlos — der Bericht ist zwischengespeichert.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Joker</strong> (ab 8 Spielern): gewinnt <em>nur</em>, wenn er vom Rat hingerichtet wird — nichts anderes zählt. Kann in <em>jedem</em> Raum persönliche Beweise platzieren (<strong style={{ color: '#fff' }}>1 pro 2 eigene Züge</strong>). Die einzige Rolle, die beim Prozess für sich selbst stimmen darf.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Unschuldiger:</strong> keine offensive Fähigkeit. Durchsucht die Villa nach den gemeinsamen Ziffern des Aufhebungscodes und kann geprüfte Räume anonym markieren (<strong style={{ color: '#fff' }}>1 pro 2 Runden</strong>). Nur Unschuldige können den Code zum Sieg eingeben.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>15. ABSTIMMUNG & PROZESSAUFLÖSUNG</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Jeder aktive Spieler stimmt für einen bestimmten Verdächtigen oder ausdrücklich für <strong>Überspringen</strong>; niemand darf für sich selbst stimmen außer dem Joker. Eine Stimme zählt erst, wenn sie festgelegt wurde, und kann frei geändert werden, bis der Timer abläuft oder alle festgelegt haben. Ein Kandidat wird nur hingerichtet, wenn er <strong>strikt die meisten</strong> Stimmen hat, es keinen Gleichstand um den ersten Platz gibt und er Überspringen strikt übertrifft — andernfalls wird in dieser Runde niemand hingerichtet. Ein hingerichteter Spieler hinterlässt keine Leiche.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>16. SIEGBEDINGUNGEN</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Ein Unschuldiger gibt beim Prozess den richtigen Code ein, während keine Leiche unentdeckt bleibt — <strong style={{ color: '#00ff87' }}>Sieg der Unschuldigen</strong>.</li>
+                <li style={{ marginBottom: '6px' }}>Der Rat richtet den <strong style={{ color: '#ff2a5f' }}>Mörder</strong> hin — sofortiger <strong style={{ color: '#00ff87' }}>Sieg der Unschuldigen</strong>, unabhängig von der Anzahl der Überlebenden.</li>
+                <li style={{ marginBottom: '6px' }}>Der Rat richtet den <strong style={{ color: '#e040fb' }}>Joker</strong> hin — der Joker gewinnt allein.</li>
+                <li style={{ marginBottom: '6px' }}>Die Zahl der aktiven friedlichen Spieler sinkt auf oder unter die Zahl des aktiven Mörder-Teams (Mörder + Komplize) — sofortiger <strong style={{ color: '#ff2a5f' }}>Sieg des Mörder-Teams</strong>. Der Joker zählt auf keiner Seite dieser Berechnung mit.</li>
+                <li style={{ marginBottom: '6px' }}>Das gesamte Mörder-Team verlässt das Match, während friedliche Spieler übrig bleiben — standardmäßig <strong style={{ color: '#00ff87' }}>Sieg der Unschuldigen</strong>.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>17. GEISTER-PROTOKOLL (VERSTORBENE)</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Die Terminalübertragung ist unterbrochen, doch Freigaben gewähren einen <strong style={{ color: '#00ff87' }}>uneingeschränkten Satelliten-Kartenzugriff</strong> — freie Live-Ansicht jedes Raumes, aber keine Handlungen. Der Chat ist speziell während der Prozessphase für Verstorbene/Zuschauer gesperrt und außerhalb davon wieder offen.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>18. KLEINE DETAILS, DIE LEICHT VERGESSEN WERDEN</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 5px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Eine gefundene Ziffer kommt mit ihrer genauen Position im Code — das Team setzt ihn der Reihe nach zusammen, statt zu raten.</li>
+                <li style={{ marginBottom: '6px' }}>Der versehentliche Hinweis des Mörders kann in jedem durchsuchbaren Raum landen, auch in noch nie besuchten.</li>
+                <li style={{ marginBottom: '6px' }}>Vom Komplizen gefälschte Beweise erscheinen nie auf der gemeinsamen Tafel — nur für denjenigen, der diesen Raum persönlich erneut durchsucht.</li>
+                <li style={{ marginBottom: '6px' }}>Der Offizier kann <em>sich selbst</em> in der Arrestzelle einsperren — dagegen besteht keine Regel, anders als bei der Selbstziel-Beschränkung des Detektivs.</li>
+                <li style={{ marginBottom: '6px' }}>Die beiden Fähigkeiten des Kriminaltechnikers teilen sich eine Abklingzeit — die Nutzung der einen versetzt auch die andere in Abklingzeit.</li>
+                <li style={{ marginBottom: '6px' }}>Der Neurotoxin-7-Schild schützt nie vor einer Ratsabstimmung — nur vor dem direkten Angriff des Mörders.</li>
+                <li style={{ marginBottom: '6px' }}>Der Server überträgt die Identität des Arrestzellen-Insassen technisch an jeden Client (nicht nur den Offizier), aber die Oberfläche zeigt sie nie an — geprüft wird nur gegen „bin ich das?", sodass in der Praxis niemand außer dem Eingesperrten selbst erfährt, wer drin ist.</li>
+                <li style={{ marginBottom: '6px' }}>Hast du nie ausdrücklich einen Charakter gewählt, aber trotzdem Bereit gedrückt mit einem bereits an diese Anfrage angehängten Charakter, akzeptiert der Server stillschweigend den Charakter, der mit dem Bereit-Umschalter mitkam.</li>
+                <li style={{ marginBottom: '6px' }}>Der Einführungstext wird tatsächlich nur übersprungen, wenn wirklich jeder einzelne Spieler dafür gestimmt hat — keine Mehrheit.</li>
+                <li style={{ marginBottom: '6px' }}>Beim Beobachten eines beliebigen Raumes (als Zuschauer oder eliminierter Spieler) aktualisiert sich deine Ansicht live in dem Moment, in dem sich dort etwas ändert (Leiche gefunden, Beweis platziert, Spieler betreten/verlassen den Raum) — der Raum muss nicht neu ausgewählt werden.</li>
+                <li style={{ marginBottom: '6px' }}>Der Beitrittscode eines privaten Raums ist ein 8-stelliger Hex-Code (Buchstaben und Ziffern, Groß-/Kleinschreibung egal) — keine reine Zahl.</li>
+              </ul>
+              </>
+              ) : language === 'fr' ? (
+              <>
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. SALON, PERSONNAGES ET LANCEMENT</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Les salons accueillent de <strong>5 à 12 agents</strong>. Chacun choisit l'un des 12 personnages uniques — deux joueurs ne peuvent pas avoir le même, mais vous pouvez changer librement jusqu'à ce que vous cliquiez sur Prêt. L'hôte verrouille le salon et lance la préparation via <strong>LANCER L'OPÉRATION</strong>, puis chacun bascule sur prêt. Dès l'instant où <strong>absolument tous les joueurs</strong> sont prêts, un <strong>compte à rebours de 5 secondes</strong> démarre automatiquement — si quelqu'un annule sa préparation, il est immédiatement interrompu.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>2. CHARGEMENT ET RÉVÉLATION DU RÔLE</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Le texte d'introduction ne démarre que lorsque <strong>chaque joueur</strong> a signalé avoir fini de charger — si un onglet reste en arrière-plan et se bloque, le serveur attend <strong>15 secondes</strong> puis force le démarrage quand même, afin que personne ne puisse bloquer le salon. Votre rôle est attribué à cet instant précis et révélé <strong>uniquement à vous</strong> — le serveur ne le communique jamais à personne d'autre. La partie elle-même démarre de la même façon : uniquement lorsque tout le monde a confirmé avoir terminé de regarder l'écran de rôle (même filet de sécurité de 15 secondes).
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>3. TOURS ET MINUTAGE</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Les agents agissent <strong>strictement à tour de rôle</strong>, et l'ordre des tours est redistribué à chaque round (garanti différent de celui du round précédent). Chaque agent dispose d'un maximum de <strong>30 secondes</strong> — une limite stricte côté serveur — pour choisir un secteur à fouiller. Vous avez droit à <strong>exactement une fouille par tour</strong>, mais le tour ne se termine pas automatiquement dès que vous fouillez — vous restez dans la pièce jusqu'à ce que vous terminiez votre tour ou que le temps s'écoule. Si le temps s'écoule sans que vous ayez choisi de pièce, vous êtes de toute façon placé au hasard dans l'une d'elles ; s'il s'écoule après que vous en avez choisi une, le tour se termine simplement là où vous êtes. Aucun des deux cas n'entraîne de pénalité. <strong style={{ color: '#fff' }}>La carte du manoir n'est jamais visible que par celui dont c'est actuellement le tour</strong> — tout autre agent vivant ne voit que le compte à rebours et la mention générique « UN AGENT AGIT », sans carte ni aucun moyen de jeter un œil dans une pièce, jusqu'à ce que son propre tour arrive.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>4. DEUX PHASES PAR ROUND</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                <strong>Phase d'action :</strong> manœuvres furtives et exécution tactique jusqu'à ce que chaque agent vivant ait joué.<br />
+                <strong>Phase de procès :</strong> un bref black-out (~1,5 s) → annonce de l'affaire avec un récapitulatif des découvertes (~6 s) → vote (jusqu'à 120 s, se résout plus tôt si tout le monde a validé) → résolution (~3,5 s) → un nouveau round ou la fin de la partie.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>5. RACCOURCIS DE VENTILATION</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 10px 0' }}>
+                Seul le <strong>Tueur</strong> peut accéder à un réseau de conduits d'aération reliant certaines pièces du manoir deux par deux. Vous devez déjà vous trouver dans l'une d'elles pour pouvoir basculer. Un basculement est instantané et <strong>s'ajoute à</strong> votre fouille normale, sans la remplacer, et réinitialise les options de la pièce de destination (y compris un éventuel piège qui y attend). <strong>Un seul basculement de conduit est autorisé par tour</strong>.
+              </p>
+              <p style={{ color: '#ff9100', margin: '0 0 6px 0', fontSize: '12px', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Connexions de conduits connues :</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Grand Hall</strong> (1er étage) ↔ <strong style={{ color: '#fff' }}>Chambre principale</strong> (2e étage)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Cuisine</strong> ↔ <strong style={{ color: '#fff' }}>Armurerie</strong> (toutes deux au 1er étage)</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#fff' }}>Cave à vin</strong> (1er étage) ↔ <strong style={{ color: '#fff' }}>Grenier</strong> (2e étage)</li>
+              </ul>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Au-delà des deux étages fouillables (10 pièces chacun), le manoir comprend aussi une <strong style={{ color: '#fff' }}>Cellule de détention</strong> verrouillée (1er étage, coin inférieur droit — pertinente uniquement pour la capacité de l'Officier) et une <strong style={{ color: '#fff' }}>Salle de torture</strong> au sous-sol — purement atmosphérique, mais praticable comme n'importe quelle pièce normale.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>6. ACTIONS EN PIÈCE : ENQUÊTER OU CHERCHER UN CORPS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Chaque visite de pièce vous donne exactement <strong>une</strong> des deux options — <strong>Enquêter sur la pièce</strong> ou <strong>Chercher un corps</strong> — celle que vous choisissez en premier verrouille l'autre jusqu'à ce que vous entriez dans une autre pièce (une nouvelle fouille ou un saut de conduit). Enquêter sur la pièce permet aussi de trouver toute preuve plantée ou une seringue de Neurotoxine-7 qui s'y trouverait — il n'y a pas de boutons séparés pour cela.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>7. LE CODE DE REMPLACEMENT NUMÉRIQUE</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                La longueur du code dépend du nombre d'Innocents présents dans le salon : <strong style={{ color: '#fff' }}>4 chiffres pour 1 Innocent, +1 par Innocent supplémentaire, avec un maximum de 10</strong>. Chaque chiffre est caché pour toute la partie dans une pièce aléatoire qui lui est propre. Seuls les <strong>Innocents</strong> peuvent obtenir un vrai chiffre (avec sa position exacte) en enquêtant sur une pièce qui en contient un, et dès que cela arrive, toute l'équipe en est informée instantanément — tout autre rôle obtient le même résultat vide, qu'un chiffre s'y trouve réellement ou non. Une capacité distincte, <strong>Vérifier la pièce</strong> (<strong style={{ color: '#fff' }}>recharge de 2 rounds</strong>, nécessite que la pièce ait déjà été fouillée ce tour-ci), marque anonymement une pièce comme propre pour toute l'équipe des Innocents — mais une pièce qui contient réellement un chiffre n'est jamais marquée comme propre, et cette capacité ne révèle jamais le chiffre lui-même.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>8. CACHER OU EXPOSER LE CORPS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Juste après un meurtre, le <strong>Tueur</strong> doit choisir : <strong>Cacher</strong> le corps — il reste dissimulé jusqu'à ce que quelqu'un le cherche délibérément, mais cela consomme le saut de conduit de ce tour, donc pas de conduit ce tour-là — ou l'<strong>Exposer</strong>, le laissant bien visible pour le prochain arrivant, tout en gardant le conduit disponible ensuite. Si aucune décision n'est prise, le serveur choisit par défaut de l'exposer — un corps n'est jamais silencieusement perdu. Chaque meurtre comporte aussi une chance que le Tueur laisse accidentellement tomber un objet de son propre personnage quelque part au hasard dans le manoir, pas nécessairement dans la pièce du meurtre — seul le Tueur (et, s'il est en jeu, le Complice) en est informé. Cette chance n'est pas fixe : elle dépend de la taille du salon (<strong style={{ color: '#fff' }}>65 % à 5 agents jusqu'à 30 % à 12</strong>) et augmente avec chaque meurtre déjà commis dans cette partie (<strong style={{ color: '#fff' }}>+10 % par meurtre précédent, plafonné à +25 %</strong>) — la première victime est la « plus propre », et une preuve devient presque garantie en fin de partie.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>9. DÉCOUVERTE DU CORPS — LE DÉTAIL QUI COMPTE</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Dès qu'un corps <strong>caché</strong> est retrouvé avec succès grâce à Chercher un corps, il cesse d'être caché <strong>de façon permanente, pour le reste de la partie</strong> — à partir de là, quiconque entre simplement dans cette pièce (y compris un spectateur qui y jette un œil) le voit sans avoir besoin de chercher, et il ne peut plus jamais être recaché. Tous ceux qui l'ont déjà vu sont crédités comme découvreurs et apparaissent plus tard dans le récapitulatif du procès. Tant que <strong>ne serait-ce qu'un seul</strong> corps reste non découvert quelque part dans le manoir, le terminal de sortie des Innocents refuse catégoriquement le code, qu'il soit correct ou non — mais le jeu ne donne jamais d'indice sur qui manque ni où. Un joueur exécuté par le conseil est le cas inverse : aucun corps n'est jamais généré pour lui.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#bdef13', margin: '0 0 6px 0', letterSpacing: '1px' }}>10. TRACES MÉDICO-LÉGALES SUR LES CORPS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Dès qu'un corps est créé, il se voit attribuer exactement un type de trace fixe — groupe sanguin, catégorie de taille ou catégorie de poids, en alternance — reflétant les statistiques réelles du personnage du véritable Tueur, de façon permanente, à partir de cet instant. Seul le <strong>Criminaliste</strong> peut l'extraire, via Examiner le corps, uniquement pendant le procès, et uniquement sur un corps déjà découvert. Comme un corps ne révèle jamais qu'une seule catégorie, il faut plusieurs corps différents au cours de la partie pour établir un profil complet.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#00ff87', margin: '0 0 6px 0', letterSpacing: '1px' }}>11. PREUVES ET LE TABLEAU D'INDICES PARTAGÉ</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Les agents récupèrent de véritables indices laissés par accident. Le <strong>Complice</strong> peut falsifier une preuve déjà trouvée pour incriminer un joueur choisi — le faux <strong>disparaît délibérément du tableau partagé</strong> dès qu'il est modifié, ne restant visible que pour celui qui enquête personnellement à nouveau sur cette pièce précise. Le <strong>Joker</strong>, à l'inverse, plante des preuves délibérément conçues à l'image de son propre personnage — celles-ci rejoignent réellement le tableau partagé une fois trouvées. Un corps ou un indice trouvé ne disparaît jamais et n'« expire » jamais lors d'un nouveau round — il reste visible en permanence dans cette pièce et dans le récapitulatif. Si un joueur trouve un indice en Enquêtant sur la pièce mais que le <strong>Tueur</strong> le tue ce même round, son crédit de découverte est annulé — l'indice redevient non découvert et reste dans la pièce jusqu'à ce que quelqu'un d'autre le trouve ; si un autre joueur survivant l'a également découvert ce même round, son crédit à lui reste acquis.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#e040fb', margin: '0 0 6px 0', letterSpacing: '1px' }}>12. NEUROTOXINE-7</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Un nombre limité de seringues (1 à 3, selon la taille du salon) sont cachées dans des pièces aléatoires et se trouvent via un Enquêter sur la pièce normal. Seuls le <strong>Tueur, le Complice et le Joker</strong> peuvent la toucher — elle est « trop dangereuse » pour tous les autres et reste sur place. Une seule peut être transportée à la fois. Pour le <strong>Tueur</strong>, elle porte la limite de meurtres à <strong style={{ color: '#fff' }}>deux par round</strong>, consommée après le deuxième meurtre réussi. Pour le <strong>Complice/Joker</strong>, c'est un <strong>bouclier passif</strong> qui annule entièrement la prochaine attaque directe du Tueur et se consomme lors de son déclenchement — mais une tentative échouée sur une cible protégée consomme quand même <strong>toute la capacité de meurtre du Tueur pour ce round entier</strong>, même s'il porte sa propre seringue non consommée. Le bouclier ne protège jamais contre une exécution du conseil.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff9100', margin: '0 0 6px 0', letterSpacing: '1px' }}>13. PIÈGES</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Le <strong>Complice</strong> peut piéger une pièce avec un piège caché (<strong style={{ color: '#fff' }}>1 tous les 4 rounds</strong>). Le premier agent, quel que soit son rôle, qui entre dans cette pièce — déplacement normal ou saut de conduit — le déclenche instantanément et le consomme, et cet agent perd toute action et capacité pour l'intégralité de son prochain round, aussi bien la phase d'action que le procès, y compris le terminal de sortie. Le Tueur est informé en privé de l'endroit où son Complice l'a posé.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 8px 0', letterSpacing: '1px' }}>14. RÔLES ACTIFS EN DÉTAIL</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff2a5f' }}>Tueur :</strong> neutralise des cibles (<strong style={{ color: '#fff' }}>1/tour</strong>, 2 avec la Neurotoxine-7), décide ensuite du sort du corps, et est le seul à avoir accès aux conduits.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#ff9100' }}>Complice</strong> (8 joueurs et plus) : peut falsifier une preuve déjà trouvée pour incriminer un joueur (<strong style={{ color: '#fff' }}>1 tous les 3 de ses propres tours</strong>) et poser un piège (<strong style={{ color: '#fff' }}>1 tous les 4 rounds</strong>). Apprend en privé les erreurs du Tueur.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00f0ff' }}>Détective :</strong> pendant le procès, révèle dans quelle pièce un joueur choisi a terminé son tour <em>précédent</em> — figé à l'instant où le procès commence (<strong style={{ color: '#fff' }}>1 tous les 2 rounds</strong>). Ne peut pas se cibler lui-même. Le résultat n'est visible que par vous.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#2979ff' }}>Officier :</strong> pendant le procès, programme l'enfermement d'un suspect (ou de <em>vous-même</em>) dans la Cellule de détention pour le round <em>suivant</em> (<strong style={{ color: '#fff' }}>1 tous les 3 rounds</strong>). Un joueur enfermé est totalement invisible pour tout le monde, y compris les spectateurs, et perd toute action/capacité pendant tout le round.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#bdef13' }}>Criminaliste</strong> (8 joueurs et plus) : Vérifier l'authenticité d'une preuve (authentique ou fabriquée) OU Examiner un corps pour trouver la trace du Tueur — les deux partagent <strong style={{ color: '#fff' }}>une seule recharge, d'un round</strong>. Réexaminer un corps déjà examiné est gratuit — le rapport est mis en cache.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#e040fb' }}>Joker</strong> (8 joueurs et plus) : ne gagne <em>que</em> s'il est exécuté par le conseil — rien d'autre ne compte. Peut planter des preuves personnelles dans <em>n'importe quelle</em> pièce (<strong style={{ color: '#fff' }}>1 tous les 2 de ses propres tours</strong>). Le seul rôle autorisé à voter pour lui-même au procès.</li>
+                <li style={{ marginBottom: '6px' }}><strong style={{ color: '#00ff87' }}>Innocent :</strong> aucun pouvoir offensif. Fouille le manoir à la recherche des chiffres du code de remplacement partagé et peut marquer anonymement les pièces vérifiées (<strong style={{ color: '#fff' }}>1 tous les 2 rounds</strong>). Seuls les Innocents peuvent soumettre le code pour gagner.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#ff2a5f', margin: '0 0 6px 0', letterSpacing: '1px' }}>15. VOTE ET RÉSOLUTION DU PROCÈS</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                Chaque joueur actif vote pour un suspect précis ou explicitement pour <strong>Passer</strong> ; personne ne peut voter pour soi-même, sauf le Joker. Un vote ne compte qu'une fois validé, et peut être librement changé tant que le temps n'est pas écoulé ou que tout le monde n'a pas validé. Un candidat n'est exécuté que s'il a <strong>strictement le plus</strong> de voix, sans égalité pour la première place, et qu'il devance strictement Passer — sinon, personne n'est exécuté ce round-là. Un joueur exécuté ne laisse aucun corps.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#ffeb3b', margin: '0 0 6px 0', letterSpacing: '1px' }}>16. CONDITIONS DE VICTOIRE</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 18px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Un Innocent soumet le bon code pendant le procès sans qu'aucun corps ne reste non découvert — <strong style={{ color: '#00ff87' }}>victoire des Innocents</strong>.</li>
+                <li style={{ marginBottom: '6px' }}>Le conseil exécute le <strong style={{ color: '#ff2a5f' }}>Tueur</strong> — <strong style={{ color: '#00ff87' }}>victoire immédiate des Innocents</strong>, quel que soit le nombre de survivants.</li>
+                <li style={{ marginBottom: '6px' }}>Le conseil exécute le <strong style={{ color: '#e040fb' }}>Joker</strong> — le Joker gagne seul.</li>
+                <li style={{ marginBottom: '6px' }}>Le nombre de joueurs pacifiques actifs descend au niveau ou en dessous de celui de l'équipe active du Tueur (Tueur + Complice) — <strong style={{ color: '#ff2a5f' }}>victoire immédiate de l'équipe du Tueur</strong>. Le Joker n'est compté d'aucun côté de ce calcul.</li>
+                <li style={{ marginBottom: '6px' }}>Toute l'équipe du Tueur quitte la partie alors que des joueurs pacifiques restent — <strong style={{ color: '#00ff87' }}>victoire des Innocents</strong> par défaut.</li>
+              </ul>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>17. PROTOCOLE SPECTRE (DÉFUNTS)</p>
+              <p style={{ color: '#8a99ad', margin: '0 0 18px 0' }}>
+                La transmission du terminal est coupée, mais les autorisations accordent un <strong style={{ color: '#00ff87' }}>accès illimité au flux satellite de la carte</strong> — vue en direct et libre de n'importe quelle pièce, mais sans possibilité d'agir. Le chat est verrouillé pour les défunts/observateurs spécifiquement pendant la phase de procès, et se rouvre en dehors de celle-ci.
+              </p>
+
+              <p style={{ fontWeight: 'bold', color: '#9e9e9e', margin: '0 0 6px 0', letterSpacing: '1px' }}>18. PETITS DÉTAILS FACILES À OUBLIER</p>
+              <ul style={{ color: '#8a99ad', paddingLeft: '15px', margin: '0 0 5px 0', listStyleType: 'square' }}>
+                <li style={{ marginBottom: '6px' }}>Un chiffre trouvé vient avec sa position exacte dans le code — l'équipe l'assemble dans l'ordre au lieu de deviner.</li>
+                <li style={{ marginBottom: '6px' }}>L'indice accidentel du Tueur peut atterrir dans n'importe quelle pièce fouillable, y compris celles que personne n'a encore visitées.</li>
+                <li style={{ marginBottom: '6px' }}>Les preuves falsifiées par le Complice n'apparaissent jamais sur le tableau partagé — seulement pour celui qui enquête personnellement à nouveau sur cette pièce.</li>
+                <li style={{ marginBottom: '6px' }}>L'Officier peut s'enfermer <em>lui-même</em> dans la Cellule de détention — rien ne l'interdit, contrairement à la restriction du Détective qui ne peut pas se cibler lui-même.</li>
+                <li style={{ marginBottom: '6px' }}>Les deux capacités du Criminaliste partagent une seule recharge — utiliser l'une met aussi l'autre en recharge.</li>
+                <li style={{ marginBottom: '6px' }}>Le bouclier de Neurotoxine-7 ne protège jamais contre un vote du conseil — seulement contre l'attaque directe du Tueur.</li>
+                <li style={{ marginBottom: '6px' }}>Le serveur diffuse techniquement l'identité de l'occupant de la Cellule de détention à chaque client (pas seulement à l'Officier), mais l'interface ne l'affiche jamais — elle vérifie seulement « est-ce moi ? », donc en pratique, personne à part le joueur enfermé lui-même n'apprend qui est à l'intérieur.</li>
+                <li style={{ marginBottom: '6px' }}>Si vous n'avez jamais explicitement choisi de personnage mais que vous avez quand même cliqué sur Prêt avec un personnage déjà attaché à cette requête, le serveur accepte silencieusement le personnage qui accompagnait le basculement vers Prêt.</li>
+                <li style={{ marginBottom: '6px' }}>Le texte d'introduction n'est réellement passé que lorsque absolument tous les joueurs ont voté pour le passer — pas une majorité.</li>
+                <li style={{ marginBottom: '6px' }}>En observant n'importe quelle pièce (en tant que spectateur ou joueur éliminé), votre vue se met à jour en direct dès que quelque chose y change (un corps trouvé, une preuve plantée, des joueurs qui entrent ou sortent) — inutile de resélectionner la pièce.</li>
+                <li style={{ marginBottom: '6px' }}>Le code d'accès d'un salon privé est un code hexadécimal à 8 caractères (lettres et chiffres, insensible à la casse) — pas un simple nombre.</li>
+              </ul>
+              </>
               ) : (
               <>
               <p style={{ fontWeight: 'bold', color: '#00f0ff', margin: '0 0 6px 0', letterSpacing: '1px' }}>1. LOBBY, CHARACTERS & LAUNCH</p>
@@ -7763,7 +8552,7 @@ function App() {
                 <div
                   onClick={() => setDopamineCornerMinimized(false)}
                   role="button"
-                  aria-label={language === 'ru' ? 'Развернуть дофаминовый уголок' : language === 'uk' ? "Розгорнути дофаміновий куточок" : language === 'es' ? 'Expandir el rincón de dopamina' : 'Expand Dopamine Corner'}
+                  aria-label={language === 'ru' ? 'Развернуть дофаминовый уголок' : language === 'uk' ? "Розгорнути дофаміновий куточок" : language === 'es' ? 'Expandir el rincón de dopamina' : language === 'de' ? 'Dopamin-Ecke erweitern' : language === 'fr' ? 'Agrandir le coin dopamine' : 'Expand Dopamine Corner'}
                   style={{
                     position: 'fixed',
                     // Left corner (moved from the right). Nudged down when the
@@ -7788,14 +8577,14 @@ function App() {
                     transition: 'opacity 0.15s ease'
                   }}
                 >
-                  ▶ {language === 'ru' ? 'ДОФАМИНОВЫЙ УГОЛОК' : language === 'uk' ? "ДОФАМІНОВИЙ КУТОЧОК" : language === 'es' ? 'RINCÓN DE DOPAMINA' : 'DOPAMINE CORNER'}
+                  ▶ {language === 'ru' ? 'ДОФАМИНОВЫЙ УГОЛОК' : language === 'uk' ? "ДОФАМІНОВИЙ КУТОЧОК" : language === 'es' ? 'RINCÓN DE DOPAMINA' : language === 'de' ? 'DOPAMIN-ECKE' : language === 'fr' ? 'COIN DOPAMINE' : 'DOPAMINE CORNER'}
                 </div>
                 <img
                   ref={dopamineCornerVideoRef}
                   src={DOPAMINE_CORNER_VIDEO}
                   alt=""
                   onClick={() => setDopamineCornerMinimized(true)}
-                  aria-label={language === 'ru' ? 'Свернуть дофаминовый уголок' : language === 'uk' ? "Згорнути дофаміновий куточок" : language === 'es' ? 'Minimizar el rincón de dopamina' : 'Minimize Dopamine Corner'}
+                  aria-label={language === 'ru' ? 'Свернуть дофаминовый уголок' : language === 'uk' ? "Згорнути дофаміновий куточок" : language === 'es' ? 'Minimizar el rincón de dopamina' : language === 'de' ? 'Dopamin-Ecke minimieren' : language === 'fr' ? 'Réduire le coin dopamine' : 'Minimize Dopamine Corner'}
                   style={{
                     position: 'fixed',
                     // Left corner (moved from the right), same neurotoxin-badge
@@ -7828,7 +8617,7 @@ function App() {
               textTransform: 'uppercase',
               animation: 'introCaretBlink 1.6s ease-in-out infinite'
             }}>
-              {language === 'ru' ? 'Установка защищённого канала...' : language === 'uk' ? "Встановлення захищеного каналу..." : language === 'es' ? 'Estableciendo canal seguro...' : 'Establishing secure channel...'}
+              {language === 'ru' ? 'Установка защищённого канала...' : language === 'uk' ? "Встановлення захищеного каналу..." : language === 'es' ? 'Estableciendo canal seguro...' : language === 'de' ? 'Sicherer Kanal wird aufgebaut...' : language === 'fr' ? 'Établissement du canal sécurisé...' : 'Establishing secure channel...'}
             </p>
           )}
 
@@ -7868,7 +8657,7 @@ function App() {
                 <div style={{ position: 'fixed', right: '24px', bottom: `${24 + bottomInset}px`, textAlign: 'right' }}>
                   {skipVotes.total > 0 && (
                     <div style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '1px', marginBottom: '6px' }}>
-                      {skipVotes.count}/{skipVotes.total} {language === 'ru' ? 'ПРОГОЛОСОВАЛИ ЗА ПРОПУСК' : language === 'uk' ? "ПРОГОЛОСУВАЛИ ЗА ПРОПУСК" : language === 'es' ? 'VOTARON POR SALTAR' : 'VOTED TO SKIP'}
+                      {skipVotes.count}/{skipVotes.total} {language === 'ru' ? 'ПРОГОЛОСОВАЛИ ЗА ПРОПУСК' : language === 'uk' ? "ПРОГОЛОСУВАЛИ ЗА ПРОПУСК" : language === 'es' ? 'VOTARON POR SALTAR' : language === 'de' ? 'STIMMTEN FÜR ÜBERSPRINGEN' : language === 'fr' ? 'A VOTÉ POUR PASSER' : 'VOTED TO SKIP'}
                     </div>
                   )}
                   <button
@@ -7893,6 +8682,8 @@ function App() {
                       ? (hasVotedSkip ? 'ГОЛОС ВІДДАНО' : 'ПРОПУСТИТИ ▸')
                       : language === 'es'
                       ? (hasVotedSkip ? 'VOTO EMITIDO' : 'SALTAR ▸')
+                      : language === 'de'
+                      ? (hasVotedSkip ? 'STIMME ABGEGEBEN' : 'ÜBERSPRINGEN ▸')
                       : (hasVotedSkip ? 'VOTE CAST' : 'SKIP ▸')}
                   </button>
                 </div>
@@ -7911,7 +8702,7 @@ function App() {
                   textTransform: 'uppercase',
                   animation: 'introCaretBlink 1.6s ease-in-out infinite'
                 }}>
-                  {language === 'ru' ? 'Расшифровка личности...' : language === 'uk' ? "Розшифрування особи..." : language === 'es' ? 'Descifrando identidad...' : 'Decrypting identity...'}
+                  {language === 'ru' ? 'Расшифровка личности...' : language === 'uk' ? "Розшифрування особи..." : language === 'es' ? 'Descifrando identidad...' : language === 'de' ? 'Identität wird entschlüsselt...' : language === 'fr' ? "Déchiffrement de l'identité..." : 'Decrypting identity...'}
                 </p>
               )}
 
@@ -7936,7 +8727,7 @@ function App() {
                     {(roleRevealStage === 'sprite' || roleRevealStage === 'label') && (
                       <img
                         src={activeRoleData.sprite}
-                        alt={language === 'ru' ? activeRoleData.labelRu : language === 'uk' ? activeRoleData.labelUk : language === 'es' ? activeRoleData.labelEs : activeRoleData.label}
+                        alt={language === 'ru' ? activeRoleData.labelRu : language === 'uk' ? activeRoleData.labelUk : language === 'es' ? activeRoleData.labelEs : language === 'de' ? activeRoleData.labelDe : language === 'fr' ? activeRoleData.labelFr : activeRoleData.label}
                         style={{
                           width: '220px',
                           height: '220px',
@@ -7962,7 +8753,7 @@ function App() {
                           fontFamily: 'Georgia, serif',
                           fontStyle: 'italic'
                         }}>
-                          {language === 'ru' ? activeRoleData.labelRu : language === 'uk' ? activeRoleData.labelUk : language === 'es' ? activeRoleData.labelEs : activeRoleData.label}
+                          {language === 'ru' ? activeRoleData.labelRu : language === 'uk' ? activeRoleData.labelUk : language === 'es' ? activeRoleData.labelEs : language === 'de' ? activeRoleData.labelDe : language === 'fr' ? activeRoleData.labelFr : activeRoleData.label}
                         </h2>
                         <p style={{
                           maxWidth: '380px',
@@ -7972,7 +8763,7 @@ function App() {
                           color: '#bdc7db',
                           letterSpacing: '0.5px'
                         }}>
-                          {language === 'ru' ? activeRoleData.descriptionRu : language === 'uk' ? activeRoleData.descriptionUk : language === 'es' ? activeRoleData.descriptionEs : activeRoleData.description}
+                          {language === 'ru' ? activeRoleData.descriptionRu : language === 'uk' ? activeRoleData.descriptionUk : language === 'es' ? activeRoleData.descriptionEs : language === 'de' ? activeRoleData.descriptionDe : language === 'fr' ? activeRoleData.descriptionFr : activeRoleData.description}
                         </p>
                       </div>
                     )}
@@ -8013,7 +8804,7 @@ function App() {
                   boxShadow: '0 10px 30px rgba(0,0,0,0.35)'
                 }}>
                   <p style={{ margin: '0 0 6px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>
-                    {language === 'ru' ? 'КОД ОТМЕНЫ' : language === 'uk' ? "КОД СКАСУВАННЯ" : language === 'es' ? 'CÓDIGO DE ANULACIÓN' : 'OVERRIDE CODE'}
+                    {language === 'ru' ? 'КОД ОТМЕНЫ' : language === 'uk' ? "КОД СКАСУВАННЯ" : language === 'es' ? 'CÓDIGO DE ANULACIÓN' : language === 'de' ? 'AUFHEBUNGSCODE' : language === 'fr' ? 'CODE DE REMPLACEMENT' : 'OVERRIDE CODE'}
                   </p>
                   <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
                     {Array.from({ length: codeTotalDigits || foundFragments.length }, (_, i) => {
@@ -8048,7 +8839,7 @@ function App() {
                 <div
                   onClick={dismissNeurotoxinPopup}
                   role="button"
-                  aria-label={language === 'ru' ? 'Закрыть' : language === 'uk' ? "Закрити" : language === 'es' ? 'Cerrar' : 'Dismiss'}
+                  aria-label={language === 'ru' ? 'Закрыть' : language === 'uk' ? "Закрити" : language === 'es' ? 'Cerrar' : language === 'de' ? 'Schließen' : language === 'fr' ? 'Ignorer' : 'Dismiss'}
                   style={{
                     position: 'fixed',
                     inset: 0,
@@ -8091,7 +8882,7 @@ function App() {
                       <Icon name="flask" size={24} color="#a3ff5a" />
                     </div>
                     <p style={{ margin: 0, fontSize: '11px', letterSpacing: '2px', color: '#a3ff5a', fontWeight: 'bold' }}>
-                      {language === 'ru' ? 'НЕЙРОТОКСИН-7' : language === 'uk' ? "НЕЙРОТОКСИН-7" : language === 'es' ? 'NEUROTOXINA-7' : 'NEUROTOXIN-7'}
+                      {language === 'ru' ? 'НЕЙРОТОКСИН-7' : language === 'uk' ? "НЕЙРОТОКСИН-7" : language === 'es' ? 'NEUROTOXINA-7' : language === 'de' ? 'NEUROTOXIN-7' : language === 'fr' ? 'NEUROTOXINE-7' : 'NEUROTOXIN-7'}
                     </p>
                     <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: '#e2e8f0' }}>
                       {neurotoxinPopup.message}
@@ -8124,7 +8915,7 @@ function App() {
                   letterSpacing: '1px'
                 }}>
                   <Icon name="flask" size={14} />
-                  <span>{language === 'ru' ? 'НЕЙРОТОКСИН-7' : language === 'uk' ? "НЕЙРОТОКСИН-7" : language === 'es' ? 'NEUROTOXINA-7' : 'NEUROTOXIN-7'}</span>
+                  <span>{language === 'ru' ? 'НЕЙРОТОКСИН-7' : language === 'uk' ? "НЕЙРОТОКСИН-7" : language === 'es' ? 'NEUROTOXINA-7' : language === 'de' ? 'NEUROTOXIN-7' : language === 'fr' ? 'NEUROTOXINE-7' : 'NEUROTOXIN-7'}</span>
                 </div>
               )}
 
@@ -8170,7 +8961,7 @@ function App() {
               <p style={{ fontSize: '11px', letterSpacing: '2px', color: '#8a99ad', marginBottom: '6px' }}>
                 {language === 'ru'
                   ? `РАУНД ${gameData.round} ${displayPhase === 'trial' ? '— СУД' : '— ФАЗА ДЕЙСТВИЙ'}`
-                  : language === 'uk' ? `РАУНД ${gameData.round} ${displayPhase === 'trial' ? '— СУД' : '— ФАЗА ДІЙ'}` : language === 'es' ? `RONDA ${gameData.round} ${displayPhase === 'trial' ? '— JUICIO' : '— FASE DE ACCIONES'}` : `ROUND ${gameData.round} ${displayPhase === 'trial' ? '— TRIAL' : '— ACTION PHASE'}`}
+                  : language === 'uk' ? `РАУНД ${gameData.round} ${displayPhase === 'trial' ? '— СУД' : '— ФАЗА ДІЙ'}` : language === 'es' ? `RONDA ${gameData.round} ${displayPhase === 'trial' ? '— JUICIO' : '— FASE DE ACCIONES'}` : language === 'de' ? `RUNDE ${gameData.round} ${displayPhase === 'trial' ? '— PROZESS' : '— AKTIONSPHASE'}` : language === 'fr' ? `ROUND ${gameData.round} ${displayPhase === 'trial' ? '— PROCÈS' : "— PHASE D'ACTION"}` : `ROUND ${gameData.round} ${displayPhase === 'trial' ? '— TRIAL' : '— ACTION PHASE'}`}
               </p>
 
               {/* --- HOLDING CELL: ROUND-LONG SPECTATOR VIEW ---------------------
@@ -8190,12 +8981,12 @@ function App() {
                   padding: '10px 0 4px'
                 }}>
                   <h2 style={{ fontSize: '22px', letterSpacing: '2px', color: '#e0524a', marginBottom: 0 }}>
-                    {language === 'ru' ? 'ЗАПЕРТЫ В КАМЕРЕ' : language === 'uk' ? "ЗАМКНЕНІ В КАМЕРІ" : language === 'es' ? 'ENCERRADO EN LA CELDA' : 'LOCKED IN THE HOLDING CELL'}
+                    {language === 'ru' ? 'ЗАПЕРТЫ В КАМЕРЕ' : language === 'uk' ? "ЗАМКНЕНІ В КАМЕРІ" : language === 'es' ? 'ENCERRADO EN LA CELDA' : language === 'de' ? 'IN DER ZELLE EINGESPERRT' : language === 'fr' ? 'ENFERMÉ DANS LA CELLULE DE DÉTENTION' : 'LOCKED IN THE HOLDING CELL'}
                   </h2>
                   <p style={{ margin: 0, maxWidth: '420px', fontSize: '12px', lineHeight: 1.6, color: '#c9a5a2', letterSpacing: '0.3px' }}>
                     {language === 'ru'
                       ? 'Офицер запер вас здесь на весь этот раунд. Вы не можете двигаться, обыскивать комнаты или действовать — дождитесь начала следующего раунда.'
-                      : language === 'uk' ? "Офіцер замкнув вас тут на весь цей раунд. Ви не можете рухатися, обшукувати кімнати чи діяти — зачекайте на початок наступного раунду." : language === 'es' ? 'El Oficial te ha encerrado aquí durante toda esta ronda. No puedes moverte, registrar salas ni actuar — espera a que empiece la siguiente ronda.' : 'The Officer has confined you here for the entirety of this round. You cannot move, search, or act — sit tight until the next round begins.'}
+                      : language === 'uk' ? "Офіцер замкнув вас тут на весь цей раунд. Ви не можете рухатися, обшукувати кімнати чи діяти — зачекайте на початок наступного раунду." : language === 'es' ? 'El Oficial te ha encerrado aquí durante toda esta ronda. No puedes moverte, registrar salas ni actuar — espera a que empiece la siguiente ronda.' : language === 'de' ? 'Der Offizier hat dich für diese gesamte Runde hier eingesperrt. Du kannst dich nicht bewegen, keine Räume durchsuchen und nicht handeln — warte auf den Beginn der nächsten Runde.' : language === 'fr' ? "L'Agent de police vous a confiné(e) ici pour la totalité de ce round. Vous ne pouvez ni bouger, ni fouiller, ni agir — patientez jusqu'au début du round suivant." : 'The Officer has confined you here for the entirety of this round. You cannot move, search, or act — sit tight until the next round begins.'}
                   </p>
 
                   <div style={{
@@ -8235,7 +9026,7 @@ function App() {
                     fontWeight: 800
                   }}>
                     <Icon name="lock" size={13} color="#ff9caf" />
-                    {language === 'ru' ? 'ДЕЙСТВИЯ В ЭТОМ РАУНДЕ НЕДОСТУПНЫ' : language === 'uk' ? "ДІЇ В ЦЬОМУ РАУНДІ НЕДОСТУПНІ" : language === 'es' ? 'ACCIONES NO DISPONIBLES ESTA RONDA' : 'NO ACTIONS AVAILABLE THIS ROUND'}
+                    {language === 'ru' ? 'ДЕЙСТВИЯ В ЭТОМ РАУНДЕ НЕДОСТУПНЫ' : language === 'uk' ? "ДІЇ В ЦЬОМУ РАУНДІ НЕДОСТУПНІ" : language === 'es' ? 'ACCIONES NO DISPONIBLES ESTA RONDA' : language === 'de' ? 'KEINE AKTIONEN IN DIESER RUNDE VERFÜGBAR' : language === 'fr' ? 'AUCUNE ACTION DISPONIBLE CE ROUND' : 'NO ACTIONS AVAILABLE THIS ROUND'}
                   </div>
                 </div>
               )}
@@ -8249,10 +9040,10 @@ function App() {
                     marginBottom: '18px'
                   }}>
                     {currentTurnPlayerId === socket.id
-                      ? (language === 'ru' ? 'ВАШ ХОД' : language === 'uk' ? "ВАШ ХІД" : language === 'es' ? 'TU TURNO' : 'YOUR TURN')
+                      ? (language === 'ru' ? 'ВАШ ХОД' : language === 'uk' ? "ВАШ ХІД" : language === 'es' ? 'TU TURNO' : language === 'de' ? 'DU BIST AM ZUG' : language === 'fr' ? 'VOTRE TOUR' : 'YOUR TURN')
                       // Deliberately not revealing which player is acting — only the
                       // player themself should know whose turn it is.
-                      : (language === 'ru' ? 'АГЕНТ ДЕЙСТВУЕТ' : language === 'uk' ? "АГЕНТ ДІЄ" : language === 'es' ? 'UN AGENTE ACTÚA' : 'AN AGENT IS ACTING')}
+                      : (language === 'ru' ? 'АГЕНТ ДЕЙСТВУЕТ' : language === 'uk' ? "АГЕНТ ДІЄ" : language === 'es' ? 'UN AGENTE ACTÚA' : language === 'de' ? 'EIN AGENT HANDELT' : language === 'fr' ? 'UN AGENT AGIT' : 'AN AGENT IS ACTING')}
                   </h2>
 
                   <div style={{
@@ -8265,7 +9056,7 @@ function App() {
                   }}>
                     {turnTimeLeft}s
                   </div>
-                  <div aria-label={language === 'ru' ? 'Оставшееся время хода' : language === 'uk' ? "Час, що залишився на хід" : language === 'es' ? 'Tiempo restante del turno' : 'Turn time remaining'} style={{ width: 'min(340px, 80vw)', height: '5px', margin: '-8px auto 20px', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}>
+                  <div aria-label={language === 'ru' ? 'Оставшееся время хода' : language === 'uk' ? "Час, що залишився на хід" : language === 'es' ? 'Tiempo restante del turno' : language === 'de' ? 'Verbleibende Zeit des Zuges' : language === 'fr' ? 'Temps restant du tour' : 'Turn time remaining'} style={{ width: 'min(340px, 80vw)', height: '5px', margin: '-8px auto 20px', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}>
                     <div style={{ height: '100%', background: turnTimeLeft <= 5 ? '#ff2a5f' : '#00f0ff', boxShadow: `0 0 12px ${turnTimeLeft <= 5 ? '#ff2a5f' : '#00f0ff'}`, transformOrigin: 'left center', transform: `scaleX(${Math.max(0, Math.min(1, turnTimeLeft / TURN_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} />
                   </div>
 
@@ -8274,7 +9065,7 @@ function App() {
                       inspect it before ending the turn manually. */}
                   {canObserveMap && (
                     <div style={{ position: 'relative' }}>
-                      {(isEliminated || isObserver) && <div style={{ margin: '0 0 12px', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,42,95,0.45)', background: 'rgba(255,42,95,0.1)', color: '#ff9caf', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{language === 'ru' ? 'НАБЛЮДЕНИЕ — СВОБОДНАЯ НАВИГАЦИЯ ПО КОМНАТАМ. АКТИВНЫЕ ИГРОКИ И ДЕЙСТВИЯ ЗАБЛОКИРОВАНЫ.' : language === 'uk' ? "СПОСТЕРЕЖЕННЯ — ВІЛЬНА НАВІГАЦІЯ КІМНАТАМИ. АКТИВНІ ГРАВЦІ ТА ДІЇ ЗАБЛОКОВАНІ." : language === 'es' ? 'ESPECTANDO — NAVEGACIÓN LIBRE POR LAS SALAS. JUGADORES ACTIVOS Y ACCIONES BLOQUEADOS.' : 'SPECTATING — FREE ROOM NAVIGATION. ACTIVE PLAYERS AND ACTIONS ARE LOCKED.'}</div>}
+                      {(isEliminated || isObserver) && <div style={{ margin: '0 0 12px', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,42,95,0.45)', background: 'rgba(255,42,95,0.1)', color: '#ff9caf', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.3s ease' }}>{language === 'ru' ? 'НАБЛЮДЕНИЕ — СВОБОДНАЯ НАВИГАЦИЯ ПО КОМНАТАМ. АКТИВНЫЕ ИГРОКИ И ДЕЙСТВИЯ ЗАБЛОКИРОВАНЫ.' : language === 'uk' ? "СПОСТЕРЕЖЕННЯ — ВІЛЬНА НАВІГАЦІЯ КІМНАТАМИ. АКТИВНІ ГРАВЦІ ТА ДІЇ ЗАБЛОКОВАНІ." : language === 'es' ? 'ESPECTANDO — NAVEGACIÓN LIBRE POR LAS SALAS. JUGADORES ACTIVOS Y ACCIONES BLOQUEADOS.' : language === 'de' ? 'BEOBACHTER — FREIE NAVIGATION DURCH DIE RÄUME. AKTIVE SPIELER UND AKTIONEN GESPERRT.' : language === 'fr' ? 'SPECTATEUR — NAVIGATION LIBRE ENTRE LES PIÈCES. JOUEURS ACTIFS ET ACTIONS VERROUILLÉS.' : 'SPECTATING — FREE ROOM NAVIGATION. ACTIVE PLAYERS AND ACTIONS ARE LOCKED.'}</div>}
                       {canObserveMap && (
                         <MansionMap
                           floor={mansionFloor}
@@ -8320,8 +9111,8 @@ function App() {
                             {jokerEvidenceStatus?.available === false
                               ? (language === 'ru'
                                   ? `ПОДБРОСИТЬ УЛИКУ (ОСТАЛОСЬ ${jokerEvidenceStatus.turnsRemaining} ХОД${jokerEvidenceStatus.turnsRemaining === 1 ? '' : (jokerEvidenceStatus.turnsRemaining >= 2 && jokerEvidenceStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                  : language === 'uk' ? `ПІДКИНУТИ ДОКАЗ (ЗАЛИШИЛОСЯ ${jokerEvidenceStatus.turnsRemaining} ${(jokerEvidenceStatus.turnsRemaining === 1 ? 'ХІД' : (jokerEvidenceStatus.turnsRemaining >= 2 && jokerEvidenceStatus.turnsRemaining <= 4 ? 'ХОДИ' : 'ХОДІВ'))})` : language === 'es' ? `PLANTAR PRUEBA (QUEDAN ${jokerEvidenceStatus.turnsRemaining} TURNO${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'})` : `PLANT EVIDENCE (${jokerEvidenceStatus.turnsRemaining} TURN${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
-                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />{language === 'ru' ? 'ПОДБРОСИТЬ УЛИКУ' : language === 'uk' ? "ПІДКИНУТИ ДОКАЗ" : language === 'es' ? 'PLANTAR PRUEBA' : 'PLANT EVIDENCE'}</>}
+                                  : language === 'uk' ? `ПІДКИНУТИ ДОКАЗ (ЗАЛИШИЛОСЯ ${jokerEvidenceStatus.turnsRemaining} ${(jokerEvidenceStatus.turnsRemaining === 1 ? 'ХІД' : (jokerEvidenceStatus.turnsRemaining >= 2 && jokerEvidenceStatus.turnsRemaining <= 4 ? 'ХОДИ' : 'ХОДІВ'))})` : language === 'es' ? `PLANTAR PRUEBA (QUEDAN ${jokerEvidenceStatus.turnsRemaining} TURNO${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'})` : language === 'de' ? `BEWEIS PLATZIEREN (NOCH ${jokerEvidenceStatus.turnsRemaining} ZUG${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'E'})` : language === 'fr' ? `PLACER UNE PREUVE (${jokerEvidenceStatus.turnsRemaining} TOUR${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'} RESTANT(S))` : `PLANT EVIDENCE (${jokerEvidenceStatus.turnsRemaining} TURN${jokerEvidenceStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />{language === 'ru' ? 'ПОДБРОСИТЬ УЛИКУ' : language === 'uk' ? "ПІДКИНУТИ ДОКАЗ" : language === 'es' ? 'PLANTAR PRUEBA' : language === 'de' ? 'BEWEIS PLATZIEREN' : language === 'fr' ? 'PLACER UNE PREUVE' : 'PLANT EVIDENCE'}</>}
                           </NeonButton>
                         </div>
                       )}
@@ -8366,8 +9157,8 @@ function App() {
                             {accompliceTrapStatus?.available === false
                               ? (language === 'ru'
                                   ? `УСТАНОВИТЬ ЛОВУШКУ (ОСТАЛОСЬ ${accompliceTrapStatus.roundsRemaining} РАУНД${accompliceTrapStatus.roundsRemaining === 1 ? '' : (accompliceTrapStatus.roundsRemaining >= 2 && accompliceTrapStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                  : language === 'uk' ? `ВСТАНОВИТИ ПАСТКУ (ЗАЛИШИЛОСЯ ${accompliceTrapStatus.roundsRemaining} ${(accompliceTrapStatus.roundsRemaining === 1 ? 'РАУНД' : (accompliceTrapStatus.roundsRemaining >= 2 && accompliceTrapStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `INSTALAR TRAMPA (QUEDAN ${accompliceTrapStatus.roundsRemaining} RONDA${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'})` : `SET A TRAP (${accompliceTrapStatus.roundsRemaining} ROUND${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
-                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />{language === 'ru' ? 'УСТАНОВИТЬ ЛОВУШКУ' : language === 'uk' ? "ВСТАНОВИТИ ПАСТКУ" : language === 'es' ? 'INSTALAR TRAMPA' : 'SET A TRAP'}</>}
+                                  : language === 'uk' ? `ВСТАНОВИТИ ПАСТКУ (ЗАЛИШИЛОСЯ ${accompliceTrapStatus.roundsRemaining} ${(accompliceTrapStatus.roundsRemaining === 1 ? 'РАУНД' : (accompliceTrapStatus.roundsRemaining >= 2 && accompliceTrapStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `INSTALAR TRAMPA (QUEDAN ${accompliceTrapStatus.roundsRemaining} RONDA${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'})` : language === 'de' ? `FALLE STELLEN (NOCH ${accompliceTrapStatus.roundsRemaining} RUNDE${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'N'})` : language === 'fr' ? `POSER UN PIÈGE (${accompliceTrapStatus.roundsRemaining} ROUND${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'} RESTANT(S))` : `SET A TRAP (${accompliceTrapStatus.roundsRemaining} ROUND${accompliceTrapStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
+                              : <><Icon name="search" size={14} style={{ marginRight: 7 }} />{language === 'ru' ? 'УСТАНОВИТЬ ЛОВУШКУ' : language === 'uk' ? "ВСТАНОВИТИ ПАСТКУ" : language === 'es' ? 'INSTALAR TRAMPA' : language === 'de' ? 'FALLE STELLEN' : language === 'fr' ? 'POSER UN PIÈGE' : 'SET A TRAP'}</>}
                           </NeonButton>
                         </div>
                       )}
@@ -8459,15 +9250,15 @@ function App() {
                                 </div>
                                 <div>
                                   <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>
-                                    {language === 'ru' ? 'ПРОСМОТР' : language === 'uk' ? "ПЕРЕГЛЯД" : language === 'es' ? 'VISTA' : 'PEEKING INTO'}
+                                    {language === 'ru' ? 'ПРОСМОТР' : language === 'uk' ? "ПЕРЕГЛЯД" : language === 'es' ? 'VISTA' : language === 'de' ? 'EINBLICK' : language === 'fr' ? "COUP D'ŒIL DANS" : 'PEEKING INTO'}
                                   </p>
                                   <h3 style={{ margin: 0, fontSize: '26px', color: roomAccent, letterSpacing: '1px', textShadow: `0 0 18px ${roomAccent}55` }}>{translateRoomName(revealedRoom.roomName, language).toUpperCase()}</h3>
                                 </div>
                               </div>
                               <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#6272a4', textAlign: 'right' }}>
                                 {(isEliminated || isObserver)
-                                  ? (language === 'ru' ? 'РЕЖИМ НАБЛЮДЕНИЯ — ПРИСУТСТВУЮЩИЕ' : language === 'uk' ? "РЕЖИМ СПОСТЕРЕЖЕННЯ — ПРИСУТНІ" : language === 'es' ? 'MODO ESPECTADOR — PRESENTES' : 'SPECTATOR VIEW — LIVE OCCUPANTS')
-                                  : (language === 'ru' ? `ТАЙМЕР ХОДА: ${turnTimeLeft}с` : language === 'uk' ? `ТАЙМЕР ХОДУ: ${turnTimeLeft}с` : language === 'es' ? `TEMPORIZADOR DE TURNO: ${turnTimeLeft}s` : `TURN TIMER: ${turnTimeLeft}s`)}
+                                  ? (language === 'ru' ? 'РЕЖИМ НАБЛЮДЕНИЯ — ПРИСУТСТВУЮЩИЕ' : language === 'uk' ? "РЕЖИМ СПОСТЕРЕЖЕННЯ — ПРИСУТНІ" : language === 'es' ? 'MODO ESPECTADOR — PRESENTES' : language === 'de' ? 'BEOBACHTERMODUS — ANWESEND' : language === 'fr' ? 'VUE SPECTATEUR — OCCUPANTS EN DIRECT' : 'SPECTATOR VIEW — LIVE OCCUPANTS')
+                                  : (language === 'ru' ? `ТАЙМЕР ХОДА: ${turnTimeLeft}с` : language === 'uk' ? `ТАЙМЕР ХОДУ: ${turnTimeLeft}с` : language === 'es' ? `TEMPORIZADOR DE TURNO: ${turnTimeLeft}s` : language === 'de' ? `ZUG-TIMER: ${turnTimeLeft}s` : language === 'fr' ? `MINUTEUR DU TOUR : ${turnTimeLeft}s` : `TURN TIMER: ${turnTimeLeft}s`)}
                               </div>
                             </div>
 
@@ -8526,7 +9317,7 @@ function App() {
                               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
                                 {revealedRoom.occupants.length === 0 ? (
                                   <span style={{ fontSize: '12px', color: '#8a99ad', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '999px', padding: '6px 10px' }}>
-                                    {language === 'ru' ? 'ЗДЕСЬ БОЛЬШЕ НИКОГО НЕТ' : language === 'uk' ? "ТУТ БІЛЬШЕ НІКОГО НЕМАЄ" : language === 'es' ? 'AQUÍ NO HAY NADIE MÁS' : 'NO OTHER AGENTS HERE'}
+                                    {language === 'ru' ? 'ЗДЕСЬ БОЛЬШЕ НИКОГО НЕТ' : language === 'uk' ? "ТУТ БІЛЬШЕ НІКОГО НЕМАЄ" : language === 'es' ? 'AQUÍ NO HAY NADIE MÁS' : language === 'de' ? 'HIER IST SONST NIEMAND' : language === 'fr' ? 'AUCUN AUTRE AGENT ICI' : 'NO OTHER AGENTS HERE'}
                                   </span>
                                 ) : revealedRoom.occupants.map((occupant, idx) => {
                                   const occupantAvatarUrl = getCharacterUrl(occupant.character);
@@ -8547,7 +9338,7 @@ function App() {
                                       onClick={canKillThis ? () => handleKillPlayer(occupant.id) : undefined}
                                       onMouseEnter={canKillThis ? () => playHoverSound(0.2) : undefined}
                                       onTouchStart={canKillThis ? () => playHoverSound(0.2) : undefined}
-                                      title={canKillThis ? (language === 'ru' ? `Устранить ${occupant.nickname}` : language === 'uk' ? `Усунути ${occupant.nickname}` : language === 'es' ? `Eliminar a ${occupant.nickname}` : `Eliminate ${occupant.nickname}`) : undefined}
+                                      title={canKillThis ? (language === 'ru' ? `Устранить ${occupant.nickname}` : language === 'uk' ? `Усунути ${occupant.nickname}` : language === 'es' ? `Eliminar a ${occupant.nickname}` : language === 'de' ? `${occupant.nickname} ausschalten` : language === 'fr' ? `Éliminer ${occupant.nickname}` : `Eliminate ${occupant.nickname}`) : undefined}
                                       style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -8616,7 +9407,7 @@ function App() {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                   {myRole === 'Accomplice' && (
                                     <p style={{ margin: 0, fontSize: '10px', letterSpacing: '2px', color: '#ff9100' }}>
-                                      {language === 'ru' ? 'СООБЩНИК — НАЖМИТЕ НА УЛИКУ, ЧТОБЫ ПОДСТАВИТЬ' : language === 'uk' ? "СПІЛЬНИК — НАТИСНІТЬ НА ДОКАЗ, ЩОБ ПІДСТАВИТИ" : language === 'es' ? 'CÓMPLICE — TOCA UNA PRUEBA PARA INCRIMINAR' : 'ACCOMPLICE — TAP EVIDENCE TO REFRAME'}
+                                      {language === 'ru' ? 'СООБЩНИК — НАЖМИТЕ НА УЛИКУ, ЧТОБЫ ПОДСТАВИТЬ' : language === 'uk' ? "СПІЛЬНИК — НАТИСНІТЬ НА ДОКАЗ, ЩОБ ПІДСТАВИТИ" : language === 'es' ? 'CÓMPLICE — TOCA UNA PRUEBA PARA INCRIMINAR' : language === 'de' ? 'KOMPLIZE — TIPPE AUF EINEN BEWEIS, UM ZU BELASTEN' : language === 'fr' ? 'COMPLICE — TOUCHEZ UNE PREUVE POUR INCRIMINER' : 'ACCOMPLICE — TAP EVIDENCE TO REFRAME'}
                                     </p>
                                   )}
                                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
@@ -8636,7 +9427,7 @@ function App() {
                                       onClick={canChangeThis ? () => handleOpenChangeEvidence(item.id) : undefined}
                                       onMouseEnter={canChangeThis ? () => playHoverSound(0.12) : undefined}
                                       onTouchStart={canChangeThis ? () => playHoverSound(0.12) : undefined}
-                                      title={canChangeThis ? (language === 'ru' ? 'Изменить эту улику' : language === 'uk' ? "Змінити цей доказ" : language === 'es' ? 'Cambiar esta prueba' : 'Change this evidence') : undefined}
+                                      title={canChangeThis ? (language === 'ru' ? 'Изменить эту улику' : language === 'uk' ? "Змінити цей доказ" : language === 'es' ? 'Cambiar esta prueba' : language === 'de' ? 'Diesen Beweis ändern' : language === 'fr' ? 'Modifier cette preuve' : 'Change this evidence') : undefined}
                                       style={{
                                       display: 'flex',
                                       alignItems: 'center',
@@ -8651,7 +9442,7 @@ function App() {
                                       animation: `trialCardEnter 380ms cubic-bezier(0.16, 1, 0.3, 1) ${idx * 80}ms forwards`
                                     }}>
                                       <span style={{ fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}><Icon name="search" size={12} />{translateEvidenceName(item.text, language)}</span>
-                                      {canChangeThis && <span style={{ fontSize: '10px', letterSpacing: '1px', color: '#ffb974' }}>{language === 'ru' ? 'ИЗМЕНИТЬ' : language === 'uk' ? "ЗМІНИТИ" : language === 'es' ? 'CAMBIAR' : 'CHANGE'}</span>}
+                                      {canChangeThis && <span style={{ fontSize: '10px', letterSpacing: '1px', color: '#ffb974' }}>{language === 'ru' ? 'ИЗМЕНИТЬ' : language === 'uk' ? "ЗМІНИТИ" : language === 'es' ? 'CAMBIAR' : language === 'de' ? 'ÄNDERN' : language === 'fr' ? 'MODIFIER' : 'CHANGE'}</span>}
                                     </div>
                                     );
                                   })}
@@ -8675,7 +9466,7 @@ function App() {
                               } : { display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
                             >
                               {(isEliminated || isObserver) ? (
-                                <NeonButton variant="secondary" style={{ maxWidth: '260px', width: '100%', flexShrink: 0, marginBottom: 0 }} onClick={() => setRoomChosen(false)}>{language === 'ru' ? 'ВЕРНУТЬСЯ К КАРТЕ ОСОБНЯКА' : language === 'uk' ? "ПОВЕРНУТИСЯ ДО КАРТИ ОСОБНЯКА" : language === 'es' ? 'VOLVER AL MAPA DE LA MANSIÓN' : 'RETURN TO MANSION MAP'}</NeonButton>
+                                <NeonButton variant="secondary" style={{ maxWidth: '260px', width: '100%', flexShrink: 0, marginBottom: 0 }} onClick={() => setRoomChosen(false)}>{language === 'ru' ? 'ВЕРНУТЬСЯ К КАРТЕ ОСОБНЯКА' : language === 'uk' ? "ПОВЕРНУТИСЯ ДО КАРТИ ОСОБНЯКА" : language === 'es' ? 'VOLVER AL MAPA DE LA MANSIÓN' : language === 'de' ? 'ZURÜCK ZUR ANWESENKARTE' : language === 'fr' ? 'RETOUR À LA CARTE DU MANOIR' : 'RETURN TO MANSION MAP'}</NeonButton>
                               ) : (
                                 <>
                                   {/* Two mutually-exclusive room actions: picking either one spends
@@ -8688,7 +9479,7 @@ function App() {
                                     disabled={roomActionTaken}
                                     onClick={handleSearchBody}
                                   >
-                                    <Icon name="search" size={14} /> {language === 'ru' ? 'ИСКАТЬ ТЕЛО' : language === 'uk' ? "ШУКАТИ ТІЛО" : language === 'es' ? 'BUSCAR CUERPO' : 'SEARCH FOR BODY'}
+                                    <Icon name="search" size={14} /> {language === 'ru' ? 'ИСКАТЬ ТЕЛО' : language === 'uk' ? "ШУКАТИ ТІЛО" : language === 'es' ? 'BUSCAR CUERPO' : language === 'de' ? 'NACH LEICHE SUCHEN' : language === 'fr' ? 'CHERCHER UN CORPS' : 'SEARCH FOR BODY'}
                                   </NeonButton>
                                   <NeonButton
                                     variant="primary"
@@ -8696,7 +9487,7 @@ function App() {
                                     disabled={roomActionTaken}
                                     onClick={handleInvestigateRoom}
                                   >
-                                    {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : language === 'uk' ? "ОБШУКАТИ КІМНАТУ" : language === 'es' ? 'REGISTRAR SALA' : 'INVESTIGATE ROOM'}
+                                    {language === 'ru' ? 'ОБЫСКАТЬ КОМНАТУ' : language === 'uk' ? "ОБШУКАТИ КІМНАТУ" : language === 'es' ? 'REGISTRAR SALA' : language === 'de' ? 'RAUM DURCHSUCHEN' : language === 'fr' ? 'ENQUÊTER SUR LA PIÈCE' : 'INVESTIGATE ROOM'}
                                   </NeonButton>
                                   {/* NOTE: Neurotoxin-7 no longer has a standalone pickup button —
                                       the server folds the pickup (or the reason it failed) directly
@@ -8726,17 +9517,17 @@ function App() {
                                         style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start', opacity: checkDisabled ? 0.5 : 1, gap: '8px' }}
                                         disabled={checkDisabled}
                                         onClick={handleCheckRoom}
-                                        title={needsInvestigateFirst && !alreadyCleared ? (language === 'ru' ? 'Сначала обыщите эту комнату' : language === 'uk' ? "Спочатку обшукайте цю кімнату" : language === 'es' ? 'Registra esta sala primero' : 'Investigate this room first') : undefined}
+                                        title={needsInvestigateFirst && !alreadyCleared ? (language === 'ru' ? 'Сначала обыщите эту комнату' : language === 'uk' ? "Спочатку обшукайте цю кімнату" : language === 'es' ? 'Registra esta sala primero' : language === 'de' ? 'Durchsuche zuerst diesen Raum' : language === 'fr' ? "Enquêtez d'abord sur cette pièce" : 'Investigate this room first') : undefined}
                                       >
                                         {alreadyCleared
-                                          ? <><Icon name="check" size={14} /> {language === 'ru' ? 'УЖЕ ПРОВЕРЕНО' : language === 'uk' ? "ВЖЕ ПЕРЕВІРЕНО" : language === 'es' ? 'YA REVISADO' : 'ALREADY CLEAR'}</>
+                                          ? <><Icon name="check" size={14} /> {language === 'ru' ? 'УЖЕ ПРОВЕРЕНО' : language === 'uk' ? "ВЖЕ ПЕРЕВІРЕНО" : language === 'es' ? 'YA REVISADO' : language === 'de' ? 'BEREITS GEPRÜFT' : language === 'fr' ? 'DÉJÀ DISCULPÉ' : 'ALREADY CLEAR'}</>
                                           : onCooldown
                                             ? (language === 'ru'
                                                 ? `ПРОВЕРИТЬ КОМНАТУ (ОСТАЛОСЬ ${markRoomStatus.turnsRemaining} РАУНД${markRoomStatus.turnsRemaining === 1 ? '' : (markRoomStatus.turnsRemaining >= 2 && markRoomStatus.turnsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                                : language === 'uk' ? `ПЕРЕВІРИТИ КІМНАТУ (ЗАЛИШИЛОСЯ ${markRoomStatus.turnsRemaining} ${(markRoomStatus.turnsRemaining === 1 ? 'РАУНД' : (markRoomStatus.turnsRemaining >= 2 && markRoomStatus.turnsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `REVISAR SALA (QUEDAN ${markRoomStatus.turnsRemaining} RONDA${markRoomStatus.turnsRemaining === 1 ? '' : 'S'})` : `CHECK ROOM (${markRoomStatus.turnsRemaining} ROUND${markRoomStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                                : language === 'uk' ? `ПЕРЕВІРИТИ КІМНАТУ (ЗАЛИШИЛОСЯ ${markRoomStatus.turnsRemaining} ${(markRoomStatus.turnsRemaining === 1 ? 'РАУНД' : (markRoomStatus.turnsRemaining >= 2 && markRoomStatus.turnsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `REVISAR SALA (QUEDAN ${markRoomStatus.turnsRemaining} RONDA${markRoomStatus.turnsRemaining === 1 ? '' : 'S'})` : language === 'de' ? `RAUM PRÜFEN (NOCH ${markRoomStatus.turnsRemaining} RUNDE${markRoomStatus.turnsRemaining === 1 ? '' : 'N'})` : language === 'fr' ? `VÉRIFIER LA PIÈCE (${markRoomStatus.turnsRemaining} ROUND${markRoomStatus.turnsRemaining === 1 ? '' : 'S'} RESTANT(S))` : `CHECK ROOM (${markRoomStatus.turnsRemaining} ROUND${markRoomStatus.turnsRemaining === 1 ? '' : 'S'} LEFT)`)
                                             : needsInvestigateFirst
-                                              ? (language === 'ru' ? 'СНАЧАЛА ОБЫЩИТЕ' : language === 'uk' ? "СПОЧАТКУ ОБШУКАЙТЕ" : language === 'es' ? 'REGISTRA PRIMERO' : 'INVESTIGATE FIRST')
-                                              : <><Icon name="check" size={14} /> {language === 'ru' ? 'ПРОВЕРИТЬ КОМНАТУ' : language === 'uk' ? "ПЕРЕВІРИТИ КІМНАТУ" : language === 'es' ? 'REVISAR SALA' : 'CHECK ROOM'}</>}
+                                              ? (language === 'ru' ? 'СНАЧАЛА ОБЫЩИТЕ' : language === 'uk' ? "СПОЧАТКУ ОБШУКАЙТЕ" : language === 'es' ? 'REGISTRA PRIMERO' : language === 'de' ? 'ZUERST DURCHSUCHEN' : language === 'fr' ? "D'ABORD ENQUÊTER" : 'INVESTIGATE FIRST')
+                                              : <><Icon name="check" size={14} /> {language === 'ru' ? 'ПРОВЕРИТЬ КОМНАТУ' : language === 'uk' ? "ПЕРЕВІРИТИ КІМНАТУ" : language === 'es' ? 'REVISAR SALA' : language === 'de' ? 'RAUM PRÜFEN' : language === 'fr' ? 'VÉRIFIER LA PIÈCE' : 'CHECK ROOM'}</>}
                                       </NeonButton>
                                     );
                                   })()}
@@ -8751,16 +9542,16 @@ function App() {
                                       disabled={ventUsedThisTurn}
                                       onClick={handleUseVent}
                                     >
-                                      {ventUsedThisTurn ? (language === 'ru' ? 'ВЕНТИЛЯЦИЯ ИСПОЛЬЗОВАНА' : language === 'uk' ? "ВЕНТИЛЯЦІЮ ВИКОРИСТАНО" : language === 'es' ? 'CONDUCTO USADO' : 'VENT USED') : <><Icon name="vent" size={14} /> {language === 'ru' ? 'ИСПОЛЬЗОВАТЬ ВЕНТИЛЯЦИЮ' : language === 'uk' ? "ВИКОРИСТАТИ ВЕНТИЛЯЦІЮ" : language === 'es' ? 'USAR CONDUCTO' : 'USE VENT'}</>}
+                                      {ventUsedThisTurn ? (language === 'ru' ? 'ВЕНТИЛЯЦИЯ ИСПОЛЬЗОВАНА' : language === 'uk' ? "ВЕНТИЛЯЦІЮ ВИКОРИСТАНО" : language === 'es' ? 'CONDUCTO USADO' : language === 'de' ? 'SCHACHT BENUTZT' : language === 'fr' ? 'CONDUIT UTILISÉ' : 'VENT USED') : <><Icon name="vent" size={14} /> {language === 'ru' ? 'ИСПОЛЬЗОВАТЬ ВЕНТИЛЯЦИЮ' : language === 'uk' ? "ВИКОРИСТАТИ ВЕНТИЛЯЦІЮ" : language === 'es' ? 'USAR CONDUCTO' : language === 'de' ? 'SCHACHT BENUTZEN' : language === 'fr' ? 'UTILISER LE CONDUIT' : 'USE VENT'}</>}
                                     </NeonButton>
                                   )}
-                                  <NeonButton variant="success" style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start' }} onClick={handleEndTurn}>{language === 'ru' ? 'ЗАКОНЧИТЬ ХОД' : language === 'uk' ? "ЗАВЕРШИТИ ХІД" : language === 'es' ? 'TERMINAR TURNO' : 'END TURN'}</NeonButton>
+                                  <NeonButton variant="success" style={{ maxWidth: '260px', width: isMobile ? '220px' : '100%', flexShrink: 0, marginBottom: isMobile ? 0 : 14, scrollSnapAlign: 'start' }} onClick={handleEndTurn}>{language === 'ru' ? 'ЗАКОНЧИТЬ ХОД' : language === 'uk' ? "ЗАВЕРШИТИ ХІД" : language === 'es' ? 'TERMINAR TURNO' : language === 'de' ? 'ZUG BEENDEN' : language === 'fr' ? 'TERMINER LE TOUR' : 'END TURN'}</NeonButton>
                                 </>
                               )}
                             </div>
                             {isMobile && !(isEliminated || isObserver) && (
                               <p style={{ margin: '-4px 0 0 0', fontSize: '10px', color: '#5a6478', letterSpacing: '1px', textAlign: 'center' }}>
-                                {language === 'ru' ? '← ПРОЛИСТНИТЕ, ЧТОБЫ УВИДЕТЬ ВСЕ ДЕЙСТВИЯ →' : language === 'uk' ? "← ПРОГОРНІТЬ, ЩОБ ПОБАЧИТИ ВСІ ДІЇ →" : language === 'es' ? '← DESLIZA PARA VER TODAS LAS ACCIONES →' : '← SWIPE TO SEE ALL ACTIONS →'}
+                                {language === 'ru' ? '← ПРОЛИСТНИТЕ, ЧТОБЫ УВИДЕТЬ ВСЕ ДЕЙСТВИЯ →' : language === 'uk' ? "← ПРОГОРНІТЬ, ЩОБ ПОБАЧИТИ ВСІ ДІЇ →" : language === 'es' ? '← DESLIZA PARA VER TODAS LAS ACCIONES →' : language === 'de' ? '← WISCHEN, UM ALLE AKTIONEN ZU SEHEN →' : language === 'fr' ? '← GLISSEZ POUR VOIR TOUTES LES ACTIONS →' : '← SWIPE TO SEE ALL ACTIONS →'}
                               </p>
                             )}
                           </div>
@@ -8814,20 +9605,20 @@ function App() {
                     <div>
                       <div style={{ display: 'flex', flexWrap: isMobile ? 'wrap' : 'nowrap', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? '10px' : 0, marginBottom: '14px' }}>
                         <div>
-                          <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ЗАСЕДАНИЕ СОВЕТА' : language === 'uk' ? "ЗАСІДАННЯ РАДИ" : language === 'es' ? 'SESIÓN DEL CONSEJO' : 'COUNCIL SESSION'}</p>
-                          <h3 style={{ margin: 0, fontSize: isMobile ? '19px' : '24px', color: '#00f0ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ГОЛОСОВАНИЕ О КАЗНИ' : language === 'uk' ? "ГОЛОСУВАННЯ ПРО СТРАТУ" : language === 'es' ? 'VOTACIÓN DE EJECUCIÓN' : 'EXECUTION VOTE'}</h3>
+                          <p style={{ margin: '0 0 4px 0', fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ЗАСЕДАНИЕ СОВЕТА' : language === 'uk' ? "ЗАСІДАННЯ РАДИ" : language === 'es' ? 'SESIÓN DEL CONSEJO' : language === 'de' ? 'RATSSITZUNG' : language === 'fr' ? 'SESSION DU CONSEIL' : 'COUNCIL SESSION'}</p>
+                          <h3 style={{ margin: 0, fontSize: isMobile ? '19px' : '24px', color: '#00f0ff', letterSpacing: '1px' }}>{language === 'ru' ? 'ГОЛОСОВАНИЕ О КАЗНИ' : language === 'uk' ? "ГОЛОСУВАННЯ ПРО СТРАТУ" : language === 'es' ? 'VOTACIÓN DE EJECUCIÓN' : language === 'de' ? 'HINRICHTUNGSABSTIMMUNG' : language === 'fr' ? "VOTE D'EXÉCUTION" : 'EXECUTION VOTE'}</h3>
                         </div>
                         <div style={{ textAlign: isMobile ? 'left' : 'right', width: isMobile ? '100%' : 'auto' }}>
-                          <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{language === 'ru' ? 'ОСТАЛОСЬ ВРЕМЕНИ' : language === 'uk' ? "ЗАЛИШИЛОСЯ ЧАСУ" : language === 'es' ? 'TIEMPO RESTANTE' : 'TIME LEFT'}</div>
+                          <div style={{ fontSize: '11px', letterSpacing: '1px', color: '#8a99ad' }}>{language === 'ru' ? 'ОСТАЛОСЬ ВРЕМЕНИ' : language === 'uk' ? "ЗАЛИШИЛОСЯ ЧАСУ" : language === 'es' ? 'TIEMPO RESTANTE' : language === 'de' ? 'VERBLEIBENDE ZEIT' : language === 'fr' ? 'TEMPS RESTANT' : 'TIME LEFT'}</div>
                           <div style={{ fontSize: '32px', fontWeight: 900, color: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff' }}>
                             {trialTimeLeft ?? '--'}s
                           </div>
-                          <div aria-label={language === 'ru' ? 'Оставшееся время суда' : language === 'uk' ? "Час, що залишився до кінця суду" : language === 'es' ? 'Tiempo restante del juicio' : 'Trial time remaining'} style={{ width: isMobile ? '100%' : '112px', height: '4px', margin: isMobile ? '5px 0 8px 0' : '5px 0 4px auto', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}><div style={{ height: '100%', background: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff', transformOrigin: 'right center', transform: `scaleX(${trialTimeLeft === null ? 1 : Math.max(0, Math.min(1, trialTimeLeft / TRIAL_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} /></div>
+                          <div aria-label={language === 'ru' ? 'Оставшееся время суда' : language === 'uk' ? "Час, що залишився до кінця суду" : language === 'es' ? 'Tiempo restante del juicio' : language === 'de' ? 'Verbleibende Zeit des Prozesses' : language === 'fr' ? 'Temps restant du procès' : 'Trial time remaining'} style={{ width: isMobile ? '100%' : '112px', height: '4px', margin: isMobile ? '5px 0 8px 0' : '5px 0 4px auto', overflow: 'hidden', borderRadius: '999px', background: 'rgba(255,255,255,0.1)' }}><div style={{ height: '100%', background: trialTimeLeft && trialTimeLeft <= 10 ? '#ff2a5f' : '#00f0ff', transformOrigin: 'right center', transform: `scaleX(${trialTimeLeft === null ? 1 : Math.max(0, Math.min(1, trialTimeLeft / TRIAL_DURATION_SECONDS))})`, transition: 'transform 1s linear, background-color 250ms ease', willChange: 'transform' }} /></div>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: isMobile ? 'flex-start' : 'flex-end' }}>
-                          <button onClick={() => selectTrialVote(null)} disabled={isEliminated || isObserver || trialData?.status !== 'voting' || trialData?.confirmedVoterIds?.includes(socket.id)} style={{ marginTop: '6px', padding: '7px 11px', borderRadius: '6px', border: trialDraftTargetId === null ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.16)', background: trialDraftTargetId === null ? 'rgba(255,255,255,0.17)' : 'rgba(255,255,255,0.04)', color: '#e2e8f0', cursor: 'pointer', boxShadow: trialDraftTargetId === null ? '0 0 20px rgba(255,255,255,0.25)' : 'none', animation: trialDraftTargetId === null ? 'trialSkipPulse 900ms ease-in-out infinite' : 'none', transition: 'all 0.25s ease-in-out' }}>⊘ {language === 'ru' ? 'ПРОПУСТИТЬ ГОЛОС' : language === 'uk' ? "ПРОПУСТИТИ ГОЛОС" : language === 'es' ? 'SALTAR VOTO' : 'SKIP VOTE'}</button>
-                          <button onClick={() => setIsTrialChatOpen(open => !open)} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', cursor: 'pointer' }}>{language === 'ru' ? 'ЧАТ' : language === 'uk' ? "ЧАТ" : language === 'es' ? 'CHAT' : 'CHAT'} ({chatMessages.length})</button>
-                          <button onClick={handleOpenClues} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(224,64,251,0.3)', background: 'rgba(224,64,251,0.08)', color: '#e29bff', cursor: 'pointer' }}>{language === 'ru' ? 'УЛИКИ' : language === 'uk' ? "ДОКАЗИ" : language === 'es' ? 'PRUEBAS' : 'CLUES'} ({clues.length})</button>
-                          <button onClick={handleOpenBodies} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(255,143,168,0.3)', background: 'rgba(255,143,168,0.08)', color: '#ff8fa8', cursor: 'pointer' }}>{language === 'ru' ? 'ТЕЛА' : language === 'uk' ? "ТІЛА" : language === 'es' ? 'CUERPOS' : 'BODIES'} ({(trialFindings?.bodies || []).length})</button>
+                          <button onClick={() => selectTrialVote(null)} disabled={isEliminated || isObserver || trialData?.status !== 'voting' || trialData?.confirmedVoterIds?.includes(socket.id)} style={{ marginTop: '6px', padding: '7px 11px', borderRadius: '6px', border: trialDraftTargetId === null ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.16)', background: trialDraftTargetId === null ? 'rgba(255,255,255,0.17)' : 'rgba(255,255,255,0.04)', color: '#e2e8f0', cursor: 'pointer', boxShadow: trialDraftTargetId === null ? '0 0 20px rgba(255,255,255,0.25)' : 'none', animation: trialDraftTargetId === null ? 'trialSkipPulse 900ms ease-in-out infinite' : 'none', transition: 'all 0.25s ease-in-out' }}>⊘ {language === 'ru' ? 'ПРОПУСТИТЬ ГОЛОС' : language === 'uk' ? "ПРОПУСТИТИ ГОЛОС" : language === 'es' ? 'SALTAR VOTO' : language === 'de' ? 'ABSTIMMUNG ÜBERSPRINGEN' : language === 'fr' ? 'PASSER LE VOTE' : 'SKIP VOTE'}</button>
+                          <button onClick={() => setIsTrialChatOpen(open => !open)} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', cursor: 'pointer' }}>{language === 'ru' ? 'ЧАТ' : language === 'uk' ? "ЧАТ" : language === 'es' ? 'CHAT' : language === 'de' ? 'CHAT' : language === 'fr' ? 'CHAT' : 'CHAT'} ({chatMessages.length})</button>
+                          <button onClick={handleOpenClues} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(224,64,251,0.3)', background: 'rgba(224,64,251,0.08)', color: '#e29bff', cursor: 'pointer' }}>{language === 'ru' ? 'УЛИКИ' : language === 'uk' ? "ДОКАЗИ" : language === 'es' ? 'PRUEBAS' : language === 'de' ? 'BEWEISE' : language === 'fr' ? 'INDICES' : 'CLUES'} ({clues.length})</button>
+                          <button onClick={handleOpenBodies} style={{ marginTop: '6px', marginLeft: isMobile ? 0 : '6px', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(255,143,168,0.3)', background: 'rgba(255,143,168,0.08)', color: '#ff8fa8', cursor: 'pointer' }}>{language === 'ru' ? 'ТЕЛА' : language === 'uk' ? "ТІЛА" : language === 'es' ? 'CUERPOS' : language === 'de' ? 'LEICHEN' : language === 'fr' ? 'CORPS' : 'BODIES'} ({(trialFindings?.bodies || []).length})</button>
                           </div>
                         </div>
                       </div>
@@ -8835,14 +9626,14 @@ function App() {
                       <p style={{ margin: '0 0 16px 0', color: '#bdc7db', lineHeight: 1.6 }}>
                         {language === 'ru'
                           ? 'Совещайтесь. Единственный подозреваемый с наибольшим числом голосов будет устранён; ничья или ничья с голосами «Пропустить» не приводит к устранению.'
-                          : language === 'uk' ? "Радьтеся. Єдиний підозрюваний з найбільшою кількістю голосів буде усунений; нічия або нічия з голосами «Пропустити» не призводить до усунення." : language === 'es' ? 'Deliberen. El único sospechoso con más votos será eliminado; un empate, o un empate con Abstenerse, no provoca eliminación alguna.' : 'Deliberate. The sole suspect with the most votes is removed; any tie or Skip vote tie prevents an elimination.'}
+                          : language === 'uk' ? "Радьтеся. Єдиний підозрюваний з найбільшою кількістю голосів буде усунений; нічия або нічия з голосами «Пропустити» не призводить до усунення." : language === 'es' ? 'Deliberen. El único sospechoso con más votos será eliminado; un empate, o un empate con Abstenerse, no provoca eliminación alguna.' : language === 'de' ? 'Beratet euch. Der einzige Verdächtige mit den meisten Stimmen wird ausgeschaltet; ein Gleichstand oder ein Gleichstand mit Enthaltung führt zu keiner Ausschaltung.' : language === 'fr' ? "Délibérez. Le seul suspect ayant reçu le plus de votes est éliminé ; toute égalité, y compris avec l'option Passer, empêche une élimination." : 'Deliberate. The sole suspect with the most votes is removed; any tie or Skip vote tie prevents an elimination.'}
                       </p>
 
                       {isEliminated || isObserver ? (
                         <div style={{ padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(255,42,95,0.2)', background: 'rgba(255,42,95,0.08)', color: '#ff8da6', marginBottom: '12px' }}>
                           {language === 'ru'
                             ? 'Вы наблюдаете за советом из камер внизу. Ваш голос больше не учитывается.'
-                            : language === 'uk' ? "Ви спостерігаєте за радою через камери внизу. Ваш голос більше не враховується." : language === 'es' ? 'Estás observando el consejo desde las celdas de abajo. Tu voto ya no cuenta.' : 'You are observing the council from the cells below. Your vote is no longer in play.'}
+                            : language === 'uk' ? "Ви спостерігаєте за радою через камери внизу. Ваш голос більше не враховується." : language === 'es' ? 'Estás observando el consejo desde las celdas de abajo. Tu voto ya no cuenta.' : language === 'de' ? 'Du beobachtest den Rat von den Zellen unten aus. Deine Stimme zählt nicht mehr.' : language === 'fr' ? 'Vous observez le conseil depuis les cellules en contrebas. Votre vote ne compte plus.' : 'You are observing the council from the cells below. Your vote is no longer in play.'}
                         </div>
                       ) : null}
 
@@ -8897,16 +9688,16 @@ function App() {
                               language={language}
                             />
                           );
-                        }) : <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px' }}>{language === 'ru' ? 'Загрузка зашифрованных профилей агентов...' : language === 'uk' ? "Завантаження зашифрованих профілів агентів..." : language === 'es' ? 'Cargando perfiles cifrados de agentes...' : 'Loading encrypted agent profiles...'}</p>}
+                        }) : <p style={{ margin: '8px 0', color: '#6272a4', fontSize: '12px' }}>{language === 'ru' ? 'Загрузка зашифрованных профилей агентов...' : language === 'uk' ? "Завантаження зашифрованих профілів агентів..." : language === 'es' ? 'Cargando perfiles cifrados de agentes...' : language === 'de' ? 'Verschlüsselte Agentenprofile werden geladen...' : language === 'fr' ? "Chargement des profils d'agents chiffrés..." : 'Loading encrypted agent profiles...'}</p>}
                       </div>
 
                       {!isEliminated && !isObserver && trialData?.status === 'voting' && (
                         <div style={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center' }}>
                           {trialData.confirmedVoterIds?.includes(socket.id) ? (
-                            <><span style={{ flex: 1, color: '#76ffb4', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Icon name="check" size={13} />{language === 'ru' ? 'ГОЛОС ЗАФИКСИРОВАН' : language === 'uk' ? "ГОЛОС ЗАФІКСОВАНО" : language === 'es' ? 'VOTO CONFIRMADO' : 'VOTE LOCKED'}</span><button onClick={unlockTrialVote} style={{ padding: '9px 12px', borderRadius: '8px', border: '1px solid rgba(255,191,105,0.5)', background: 'rgba(255,191,105,0.1)', color: '#ffd28e', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ИЗМЕНИТЬ ГОЛОС' : language === 'uk' ? "ЗМІНИТИ ГОЛОС" : language === 'es' ? 'CAMBIAR VOTO' : 'CHANGE VOTE'}</button></>
+                            <><span style={{ flex: 1, color: '#76ffb4', fontSize: '11px', fontWeight: 800, letterSpacing: '1px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Icon name="check" size={13} />{language === 'ru' ? 'ГОЛОС ЗАФИКСИРОВАН' : language === 'uk' ? "ГОЛОС ЗАФІКСОВАНО" : language === 'es' ? 'VOTO CONFIRMADO' : language === 'de' ? 'STIMME BESTÄTIGT' : language === 'fr' ? 'VOTE VERROUILLÉ' : 'VOTE LOCKED'}</span><button onClick={unlockTrialVote} style={{ padding: '9px 12px', borderRadius: '8px', border: '1px solid rgba(255,191,105,0.5)', background: 'rgba(255,191,105,0.1)', color: '#ffd28e', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ИЗМЕНИТЬ ГОЛОС' : language === 'uk' ? "ЗМІНИТИ ГОЛОС" : language === 'es' ? 'CAMBIAR VOTO' : language === 'de' ? 'STIMME ÄNDERN' : language === 'fr' ? 'CHANGER DE VOTE' : 'CHANGE VOTE'}</button></>
                           ) : trialDraftTargetId !== undefined ? (
-                            <><button onClick={confirmTrialVote} style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #00ff87', background: 'rgba(0,255,135,0.16)', color: '#76ffb4', fontWeight: 900, cursor: 'pointer', boxShadow: '0 0 18px rgba(0,255,135,0.15)', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ПОДТВЕРДИТЬ ГОЛОС' : language === 'uk' ? "ПІДТВЕРДИТИ ГОЛОС" : language === 'es' ? 'CONFIRMAR VOTO' : 'CONFIRM VOTE'}</button><button onClick={() => setTrialDraftTargetId(undefined)} style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(255,255,255,0.04)', color: '#c9d3e0', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'СБРОСИТЬ / ИЗМЕНИТЬ' : language === 'uk' ? "СКИНУТИ / ЗМІНИТИ" : language === 'es' ? 'RESTABLECER / CAMBIAR' : 'RESET / CHANGE'}</button></>
-                          ) : <span style={{ color: '#8a99ad', fontSize: '11px', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ ПОДОЗРЕВАЕМОГО ИЛИ ВОЗДЕРЖИТЕСЬ, ЗАТЕМ ЗАФИКСИРУЙТЕ ГОЛОС' : language === 'uk' ? "ОБЕРІТЬ ПІДОЗРЮВАНОГО АБО УТРИМАЙТЕСЯ, ПОТІМ ЗАФІКСУЙТЕ ГОЛОС" : language === 'es' ? 'ELIGE UN SOSPECHOSO O ABSTENTE, LUEGO CONFIRMA TU VOTO' : 'SELECT A SUSPECT OR ABSTAIN, THEN LOCK YOUR VOTE'}</span>}
+                            <><button onClick={confirmTrialVote} style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #00ff87', background: 'rgba(0,255,135,0.16)', color: '#76ffb4', fontWeight: 900, cursor: 'pointer', boxShadow: '0 0 18px rgba(0,255,135,0.15)', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'ПОДТВЕРДИТЬ ГОЛОС' : language === 'uk' ? "ПІДТВЕРДИТИ ГОЛОС" : language === 'es' ? 'CONFIRMAR VOTO' : language === 'de' ? 'STIMME BESTÄTIGEN' : language === 'fr' ? 'CONFIRMER LE VOTE' : 'CONFIRM VOTE'}</button><button onClick={() => setTrialDraftTargetId(undefined)} style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(255,255,255,0.04)', color: '#c9d3e0', fontWeight: 800, cursor: 'pointer', transition: 'all 0.25s ease-in-out' }}>{language === 'ru' ? 'СБРОСИТЬ / ИЗМЕНИТЬ' : language === 'uk' ? "СКИНУТИ / ЗМІНИТИ" : language === 'es' ? 'RESTABLECER / CAMBIAR' : language === 'de' ? 'ZURÜCKSETZEN / ÄNDERN' : language === 'fr' ? 'RÉINITIALISER / MODIFIER' : 'RESET / CHANGE'}</button></>
+                          ) : <span style={{ color: '#8a99ad', fontSize: '11px', letterSpacing: '1px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ ПОДОЗРЕВАЕМОГО ИЛИ ВОЗДЕРЖИТЕСЬ, ЗАТЕМ ЗАФИКСИРУЙТЕ ГОЛОС' : language === 'uk' ? "ОБЕРІТЬ ПІДОЗРЮВАНОГО АБО УТРИМАЙТЕСЯ, ПОТІМ ЗАФІКСУЙТЕ ГОЛОС" : language === 'es' ? 'ELIGE UN SOSPECHOSO O ABSTENTE, LUEGO CONFIRMA TU VOTO' : language === 'de' ? 'WÄHLE EINEN VERDÄCHTIGEN ODER ENTHALTE DICH, DANN BESTÄTIGE DEINE STIMME' : language === 'fr' ? "SÉLECTIONNEZ UN SUSPECT OU ABSTENEZ-VOUS, PUIS VERROUILLEZ VOTRE VOTE" : 'SELECT A SUSPECT OR ABSTAIN, THEN LOCK YOUR VOTE'}</span>}
                         </div>
                       )}
 
@@ -8923,15 +9714,15 @@ function App() {
                           background: exitSealed ? 'rgba(255,42,95,0.06)' : 'rgba(0,255,135,0.06)'
                         }}>
                           <div style={{ fontSize: '11px', letterSpacing: '2px', color: exitSealed ? '#ff2a5f' : '#76ffb4', marginBottom: '4px' }}>
-                            {language === 'ru' ? 'ТЕРМИНАЛ ОТМЕНЫ — ВВЕДИТЕ КОД, ЧТОБЫ ЗАВЕРШИТЬ ИГРУ' : language === 'uk' ? "ТЕРМІНАЛ СКАСУВАННЯ — ВВЕДІТЬ КОД, ЩОБ ЗАВЕРШИТИ ГРУ" : language === 'es' ? 'TERMINAL DE ANULACIÓN — INTRODUCE EL CÓDIGO PARA TERMINAR LA PARTIDA' : 'OVERRIDE TERMINAL — SUBMIT THE CODE TO END THE MATCH'}
+                            {language === 'ru' ? 'ТЕРМИНАЛ ОТМЕНЫ — ВВЕДИТЕ КОД, ЧТОБЫ ЗАВЕРШИТЬ ИГРУ' : language === 'uk' ? "ТЕРМІНАЛ СКАСУВАННЯ — ВВЕДІТЬ КОД, ЩОБ ЗАВЕРШИТИ ГРУ" : language === 'es' ? 'TERMINAL DE ANULACIÓN — INTRODUCE EL CÓDIGO PARA TERMINAR LA PARTIDA' : language === 'de' ? 'AUFHEBUNGSTERMINAL — GIB DEN CODE EIN, UM DAS SPIEL ZU BEENDEN' : language === 'fr' ? 'TERMINAL DE REMPLACEMENT — SOUMETTEZ LE CODE POUR TERMINER LA PARTIE' : 'OVERRIDE TERMINAL — SUBMIT THE CODE TO END THE MATCH'}
                           </div>
                           {exitSealed ? (
                             <div style={{ fontSize: '10px', letterSpacing: '0.5px', color: '#ff8fa8', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <Icon name="lock" size={12} /> {language === 'ru' ? 'ЗАБЛОКИРОВАНО — где-то ещё осталось непроверенное тело.' : language === 'uk' ? "ЗАБЛОКОВАНО — десь ще залишилося неперевірене тіло." : language === 'es' ? 'SELLADO — todavía queda un cuerpo sin examinar en algún lugar.' : 'SEALED — a body is still out there, unaccounted for.'}
+                              <Icon name="lock" size={12} /> {language === 'ru' ? 'ЗАБЛОКИРОВАНО — где-то ещё осталось непроверенное тело.' : language === 'uk' ? "ЗАБЛОКОВАНО — десь ще залишилося неперевірене тіло." : language === 'es' ? 'SELLADO — todavía queda un cuerpo sin examinar en algún lugar.' : language === 'de' ? 'VERSIEGELT — irgendwo ist noch eine unentdeckte Leiche.' : language === 'fr' ? 'SCELLÉ — un corps reste introuvable quelque part.' : 'SEALED — a body is still out there, unaccounted for.'}
                             </div>
                           ) : (
                             <div style={{ fontSize: '10px', letterSpacing: '0.5px', color: '#8a99ad', marginBottom: '10px' }}>
-                              {language === 'ru' ? 'Проверьте собранные цифры в верхнем правом углу.' : language === 'uk' ? "Перевірте зібрані цифри у верхньому правому куті." : language === 'es' ? 'Comprueba los dígitos recogidos en la esquina superior derecha.' : 'Check your collected digits in the top-right corner.'}
+                              {language === 'ru' ? 'Проверьте собранные цифры в верхнем правом углу.' : language === 'uk' ? "Перевірте зібрані цифри у верхньому правому куті." : language === 'es' ? 'Comprueba los dígitos recogidos en la esquina superior derecha.' : language === 'de' ? 'Überprüfe die gesammelten Ziffern oben rechts.' : language === 'fr' ? 'Consultez les chiffres collectés dans le coin supérieur droit.' : 'Check your collected digits in the top-right corner.'}
                             </div>
                           )}
 
@@ -8948,7 +9739,7 @@ function App() {
                               value={codeGuess}
                               disabled={exitSealed}
                               onChange={(e) => setCodeGuess(e.target.value.replace(/[^0-9]/g, ''))}
-                              placeholder={exitSealed ? (language === 'ru' ? 'ВЫХОД ЗАБЛОКИРОВАН' : language === 'uk' ? "ВИХІД ЗАБЛОКОВАНО" : language === 'es' ? 'SALIDA BLOQUEADA' : 'EXIT SEALED') : (language === 'ru' ? 'ВВЕДИТЕ КОД ОТМЕНЫ' : language === 'uk' ? "ВВЕДІТЬ КОД СКАСУВАННЯ" : language === 'es' ? 'INTRODUCE EL CÓDIGO DE ANULACIÓN' : 'ENTER OVERRIDE CODE')}
+                              placeholder={exitSealed ? (language === 'ru' ? 'ВЫХОД ЗАБЛОКИРОВАН' : language === 'uk' ? "ВИХІД ЗАБЛОКОВАНО" : language === 'es' ? 'SALIDA BLOQUEADA' : language === 'de' ? 'AUSGANG GESPERRT' : language === 'fr' ? 'SORTIE SCELLÉE' : 'EXIT SEALED') : (language === 'ru' ? 'ВВЕДИТЕ КОД ОТМЕНЫ' : language === 'uk' ? "ВВЕДІТЬ КОД СКАСУВАННЯ" : language === 'es' ? 'INTRODUCE EL CÓDIGO DE ANULACIÓN' : language === 'de' ? 'AUFHEBUNGSCODE EINGEBEN' : language === 'fr' ? 'ENTREZ LE CODE DE REMPLACEMENT' : 'ENTER OVERRIDE CODE')}
                               style={{
                                 flex: '1 1 auto',
                                 minWidth: 0,
@@ -8969,7 +9760,7 @@ function App() {
                               disabled={exitSealed || !codeGuess.trim()}
                               style={{ width: 'auto', flex: '0 0 auto', marginBottom: 0, padding: '10px 16px' }}
                             >
-                              {exitSealed ? (language === 'ru' ? 'ЗАБЛОКИРОВАНО' : language === 'uk' ? "ЗАБЛОКОВАНО" : language === 'es' ? 'BLOQUEADO' : 'SEALED') : (language === 'ru' ? 'ОТПРАВИТЬ КОД' : language === 'uk' ? "НАДІСЛАТИ КОД" : language === 'es' ? 'ENVIAR CÓDIGO' : 'SUBMIT CODE')}
+                              {exitSealed ? (language === 'ru' ? 'ЗАБЛОКИРОВАНО' : language === 'uk' ? "ЗАБЛОКОВАНО" : language === 'es' ? 'BLOQUEADO' : language === 'de' ? 'GESPERRT' : language === 'fr' ? 'SCELLÉ' : 'SEALED') : (language === 'ru' ? 'ОТПРАВИТЬ КОД' : language === 'uk' ? "НАДІСЛАТИ КОД" : language === 'es' ? 'ENVIAR CÓDIGO' : language === 'de' ? 'CODE SENDEN' : language === 'fr' ? 'SOUMETTRE LE CODE' : 'SUBMIT CODE')}
                             </NeonButton>
                           </form>
                         </div>
@@ -8989,7 +9780,7 @@ function App() {
                       background: 'rgba(255,255,255,0.03)',
                       display: 'flex', flexDirection: 'column', gap: '14px', minHeight: isMobile ? 'auto' : '320px'
                     }}>
-                      <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ БАЗЫ ДАННЫХ' : language === 'uk' ? "ДОСЬЄ БАЗИ ДАНИХ" : language === 'es' ? 'EXPEDIENTE DE LA BASE DE DATOS' : 'DATABASE DOSSIER'}</div>
+                      <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ БАЗЫ ДАННЫХ' : language === 'uk' ? "ДОСЬЄ БАЗИ ДАНИХ" : language === 'es' ? 'EXPEDIENTE DE LA BASE DE DATOS' : language === 'de' ? 'DATENBANKAKTE' : language === 'fr' ? 'DOSSIER DE LA BASE DE DONNÉES' : 'DATABASE DOSSIER'}</div>
                       {selectedTrialPlayer ? (() => {
                         const character = CHARACTERS.find(({ name }) => name === selectedTrialPlayer.character);
                         const dossier = character;
@@ -9006,15 +9797,15 @@ function App() {
                           </div>
                           <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                           <div style={{ fontSize: isMobile ? '19px' : '24px', fontWeight: 900, color: '#fff' }}>{selectedTrialPlayer.nickname}</div>
-                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{character?.name?.toUpperCase() || (language === 'ru' ? 'НЕИЗВЕСТНЫЙ АГЕНТ' : language === 'uk' ? "НЕВІДОМИЙ АГЕНТ" : language === 'es' ? 'AGENTE DESCONOCIDO' : 'UNKNOWN AGENT')}</div>
+                          <div style={{ fontSize: '11px', color: '#00f0ff', letterSpacing: '1px' }}>{character?.name?.toUpperCase() || (language === 'ru' ? 'НЕИЗВЕСТНЫЙ АГЕНТ' : language === 'uk' ? "НЕВІДОМИЙ АГЕНТ" : language === 'es' ? 'AGENTE DESCONOCIDO' : language === 'de' ? 'UNBEKANNTER AGENT' : language === 'fr' ? 'AGENT INCONNU' : 'UNKNOWN AGENT')}</div>
                           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '8px', fontSize: isMobile ? '12px' : '11px', color: '#c9d3e0', lineHeight: 1.5 }}>
-                            <span>{language === 'ru' ? 'НАСТОЯЩЕЕ ИМЯ' : language === 'uk' ? "СПРАВЖНЄ ІМ'Я" : language === 'es' ? 'NOMBRE REAL' : 'REAL NAME'}: {dossier?.realName || (language === 'ru' ? 'ЗАСЕКРЕЧЕНО' : language === 'uk' ? "ЗАСЕКРЕЧЕНО" : language === 'es' ? 'CLASIFICADO' : 'CLASSIFIED')}</span><span>{language === 'ru' ? 'РОСТ' : language === 'uk' ? "ЗРІСТ" : language === 'es' ? 'ALTURA' : 'HEIGHT'}: {dossier?.height || '—'}</span>
-                            <span>{language === 'ru' ? 'ВЕС' : language === 'uk' ? "ВАГА" : language === 'es' ? 'PESO' : 'WEIGHT'}: {dossier?.weight || '—'}</span><span>{language === 'ru' ? 'ГРУППА КРОВИ' : language === 'uk' ? "ГРУПА КРОВІ" : language === 'es' ? 'GRUPO SANGUÍNEO' : 'BLOOD'}: {dossier?.bloodType || '—'}</span>
-                            <span style={{ gridColumn: isMobile ? 'auto' : '1 / -1' }}>{language === 'ru' ? 'УВЛЕЧЕНИЯ' : language === 'uk' ? "ЗАХОПЛЕННЯ" : language === 'es' ? 'AFICIONES' : 'HOBBIES'}: {translateHobbies(character?.name, dossier?.hobbies, language) || '—'}</span>
+                            <span>{language === 'ru' ? 'НАСТОЯЩЕЕ ИМЯ' : language === 'uk' ? "СПРАВЖНЄ ІМ'Я" : language === 'es' ? 'NOMBRE REAL' : language === 'de' ? 'ECHTER NAME' : language === 'fr' ? 'VRAI NOM' : 'REAL NAME'}: {dossier?.realName || (language === 'ru' ? 'ЗАСЕКРЕЧЕНО' : language === 'uk' ? "ЗАСЕКРЕЧЕНО" : language === 'es' ? 'CLASIFICADO' : language === 'de' ? 'GEHEIM' : language === 'fr' ? 'CLASSIFIÉ' : 'CLASSIFIED')}</span><span>{language === 'ru' ? 'РОСТ' : language === 'uk' ? "ЗРІСТ" : language === 'es' ? 'ALTURA' : language === 'de' ? 'GRÖSSE' : language === 'fr' ? 'TAILLE' : 'HEIGHT'}: {dossier?.height || '—'}</span>
+                            <span>{language === 'ru' ? 'ВЕС' : language === 'uk' ? "ВАГА" : language === 'es' ? 'PESO' : language === 'de' ? 'GEWICHT' : language === 'fr' ? 'POIDS' : 'WEIGHT'}: {dossier?.weight || '—'}</span><span>{language === 'ru' ? 'ГРУППА КРОВИ' : language === 'uk' ? "ГРУПА КРОВІ" : language === 'es' ? 'GRUPO SANGUÍNEO' : language === 'de' ? 'BLUTGRUPPE' : language === 'fr' ? 'SANG' : 'BLOOD'}: {dossier?.bloodType || '—'}</span>
+                            <span style={{ gridColumn: isMobile ? 'auto' : '1 / -1' }}>{language === 'ru' ? 'УВЛЕЧЕНИЯ' : language === 'uk' ? "ЗАХОПЛЕННЯ" : language === 'es' ? 'AFICIONES' : language === 'de' ? 'HOBBYS' : language === 'fr' ? 'LOISIRS' : 'HOBBIES'}: {translateHobbies(character?.name, dossier?.hobbies, language) || '—'}</span>
                           </div>
                           </div>
                         </div>;
-                      })() : <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '2px', fontSize: '13px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ АГЕНТА ДЛЯ РАССЛЕДОВАНИЯ' : language === 'uk' ? "ОБЕРІТЬ АГЕНТА ДЛЯ РОЗСЛІДУВАННЯ" : language === 'es' ? 'SELECCIONA UN AGENTE PARA INVESTIGAR' : 'SELECT AN AGENT TO INVESTIGATE'}</div>}
+                      })() : <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '2px', fontSize: '13px' }}>{language === 'ru' ? 'ВЫБЕРИТЕ АГЕНТА ДЛЯ РАССЛЕДОВАНИЯ' : language === 'uk' ? "ОБЕРІТЬ АГЕНТА ДЛЯ РОЗСЛІДУВАННЯ" : language === 'es' ? 'SELECCIONA UN AGENTE PARA INVESTIGAR' : language === 'de' ? 'WÄHLE EINEN AGENTEN ZUM UNTERSUCHEN' : language === 'fr' ? 'SÉLECTIONNEZ UN AGENT À ENQUÊTER' : 'SELECT AN AGENT TO INVESTIGATE'}</div>}
                     </div>
                   </div>
                 </div>
@@ -9027,11 +9818,11 @@ function App() {
               {displayPhase === 'trial' && detectiveCheckResult && (
                 <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)' }} onClick={() => setDetectiveCheckResult(null)}>
                   <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(360px, calc(100vw - 40px))', padding: '20px', borderRadius: '14px', border: '1px solid rgba(224,64,251,0.4)', background: '#0a0a0f', boxShadow: '0 0 40px rgba(224,64,251,0.25)', animation: 'verdictEnter 420ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#e29bff', marginBottom: '8px' }}>🔍 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ДЕТЕКТИВА' : language === 'uk' ? "КОНФІДЕНЦІЙНО — ЛИШЕ ДЛЯ ДЕТЕКТИВА" : language === 'es' ? 'CONFIDENCIAL — SOLO PARA EL DETECTIVE' : 'CONFIDENTIAL — DETECTIVE EYES ONLY'}</div>
+                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#e29bff', marginBottom: '8px' }}>🔍 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ДЕТЕКТИВА' : language === 'uk' ? "КОНФІДЕНЦІЙНО — ЛИШЕ ДЛЯ ДЕТЕКТИВА" : language === 'es' ? 'CONFIDENCIAL — SOLO PARA EL DETECTIVE' : language === 'de' ? 'VERTRAULICH — NUR FÜR DEN DETEKTIV' : language === 'fr' ? 'CONFIDENTIEL — RÉSERVÉ AU DÉTECTIVE' : 'CONFIDENTIAL — DETECTIVE EYES ONLY'}</div>
                     <div style={{ color: '#e2e8f0', lineHeight: 1.6, fontSize: '14px' }}>
-                      <strong>{detectiveCheckResult.targetNickname}</strong> {language === 'ru' ? 'завершил свой последний ход в:' : language === 'uk' ? "завершив свій останній хід у:" : language === 'es' ? 'terminó su último turno en:' : 'ended their last turn in:'} <strong style={{ color: '#e29bff' }}>{translateRoomName(detectiveCheckResult.roomName, language)}</strong>
+                      <strong>{detectiveCheckResult.targetNickname}</strong> {language === 'ru' ? 'завершил свой последний ход в:' : language === 'uk' ? "завершив свій останній хід у:" : language === 'es' ? 'terminó su último turno en:' : language === 'de' ? 'beendete seinen letzten Zug in:' : language === 'fr' ? 'a terminé son dernier tour dans :' : 'ended their last turn in:'} <strong style={{ color: '#e29bff' }}>{translateRoomName(detectiveCheckResult.roomName, language)}</strong>
                     </div>
-                    <button onClick={() => setDetectiveCheckResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(224,64,251,0.4)', background: 'rgba(224,64,251,0.1)', color: '#e29bff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button>
+                    <button onClick={() => setDetectiveCheckResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(224,64,251,0.4)', background: 'rgba(224,64,251,0.1)', color: '#e29bff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button>
                   </div>
                 </div>
               )}
@@ -9046,20 +9837,20 @@ function App() {
               {displayPhase === 'trial' && officerLockResult && (
                 <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)' }} onClick={() => setOfficerLockResult(null)}>
                   <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(360px, calc(100vw - 40px))', padding: '20px', borderRadius: '14px', border: '1px solid rgba(0,240,255,0.4)', background: '#0a0a0f', boxShadow: '0 0 40px rgba(0,240,255,0.25)', animation: 'verdictEnter 420ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8be7ff', marginBottom: '8px' }}>🔒 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ОФИЦЕРА' : language === 'uk' ? "КОНФІДЕНЦІЙНО — ЛИШЕ ДЛЯ ОФІЦЕРА" : language === 'es' ? 'CONFIDENCIAL — SOLO PARA EL OFICIAL' : 'CONFIDENTIAL — OFFICER EYES ONLY'}</div>
+                    <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8be7ff', marginBottom: '8px' }}>🔒 {language === 'ru' ? 'КОНФИДЕНЦИАЛЬНО — ТОЛЬКО ДЛЯ ОФИЦЕРА' : language === 'uk' ? "КОНФІДЕНЦІЙНО — ЛИШЕ ДЛЯ ОФІЦЕРА" : language === 'es' ? 'CONFIDENCIAL — SOLO PARA EL OFICIAL' : language === 'de' ? 'VERTRAULICH — NUR FÜR DEN OFFIZIER' : language === 'fr' ? "CONFIDENTIEL — RÉSERVÉ À L'AGENT DE POLICE" : 'CONFIDENTIAL — OFFICER EYES ONLY'}</div>
                     <div style={{ color: '#e2e8f0', lineHeight: 1.6, fontSize: '14px' }}>
-                      <strong>{officerLockResult.targetNickname}</strong> {language === 'ru' ? 'будет заперт в' : language === 'uk' ? "буде замкнений у" : language === 'es' ? 'quedará encerrado en' : 'will be locked in the'} <strong style={{ color: '#8be7ff' }}>{language === 'ru' ? 'Камере' : language === 'uk' ? "Камері" : language === 'es' ? 'la Celda' : 'Holding Cell'}</strong> {language === 'ru' ? 'на весь следующий раунд.' : language === 'uk' ? "на весь наступний раунд." : language === 'es' ? 'durante toda la próxima ronda.' : 'for the entirety of next round.'}
+                      <strong>{officerLockResult.targetNickname}</strong> {language === 'ru' ? 'будет заперт в' : language === 'uk' ? "буде замкнений у" : language === 'es' ? 'quedará encerrado en' : language === 'de' ? 'wird eingesperrt in' : language === 'fr' ? 'sera enfermé(e) dans la' : 'will be locked in the'} <strong style={{ color: '#8be7ff' }}>{language === 'ru' ? 'Камере' : language === 'uk' ? "Камері" : language === 'es' ? 'la Celda' : language === 'de' ? 'der Zelle' : language === 'fr' ? 'Cellule de détention' : 'Holding Cell'}</strong> {language === 'ru' ? 'на весь следующий раунд.' : language === 'uk' ? "на весь наступний раунд." : language === 'es' ? 'durante toda la próxima ronda.' : language === 'de' ? 'für die gesamte nächste Runde.' : language === 'fr' ? 'pour tout le round suivant.' : 'for the entirety of next round.'}
                     </div>
-                    <button onClick={() => setOfficerLockResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.1)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button>
+                    <button onClick={() => setOfficerLockResult(null)} style={{ marginTop: '16px', width: '100%', padding: '9px', borderRadius: '8px', border: '1px solid rgba(0,240,255,0.4)', background: 'rgba(0,240,255,0.1)', color: '#8be7ff', fontWeight: 800, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button>
                   </div>
                 </div>
               )}
               {displayPhase === 'trial' && isTrialChatOpen && (
                 <aside style={{ position: 'fixed', top: '18px', right: '18px', bottom: `${18 + bottomInset}px`, zIndex: 30, width: 'min(340px, calc(100vw - 36px))', padding: '14px', borderRadius: '12px', border: '1px solid rgba(0,240,255,0.25)', background: 'rgba(5,8,16,0.98)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#8be7ff', fontSize: '11px', letterSpacing: '1px' }}><span>{language === 'ru' ? 'ТАКТИЧЕСКИЙ ЧАТ' : language === 'uk' ? "ТАКТИЧНИЙ ЧАТ" : language === 'es' ? 'CHAT TÁCTICO' : 'TACTICAL CHAT'}</span><button onClick={() => setIsTrialChatOpen(false)} style={{ color: '#8be7ff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button></div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#8be7ff', fontSize: '11px', letterSpacing: '1px' }}><span>{language === 'ru' ? 'ТАКТИЧЕСКИЙ ЧАТ' : language === 'uk' ? "ТАКТИЧНИЙ ЧАТ" : language === 'es' ? 'CHAT TÁCTICO' : language === 'de' ? 'TAKTIK-CHAT' : language === 'fr' ? 'CHAT TACTIQUE' : 'TACTICAL CHAT'}</span><button onClick={() => setIsTrialChatOpen(false)} style={{ color: '#8be7ff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button></div>
                   <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>{chatMessages.map(message => <div key={message.id} style={{ padding: '8px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', fontSize: '12px' }}><div style={{ color: '#00f0ff', fontSize: '10px' }}>{message.senderNickname}</div>{message.text}</div>)}</div>
-                  {(isEliminated || isObserver) && <div style={{ padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,42,95,0.35)', background: 'rgba(255,42,95,0.08)', color: '#ff9caf', fontSize: '11px', lineHeight: 1.45, transition: 'all 0.3s ease' }}>{language === 'ru' ? 'ВЫ УСТРАНЕНЫ И НЕ МОЖЕТЕ УЧАСТВОВАТЬ В ОБСУЖДЕНИЯХ ИЛИ ГОЛОСОВАНИИ СУДА.' : language === 'uk' ? "ВИ УСУНЕНІ Й НЕ МОЖЕТЕ БРАТИ УЧАСТЬ В ОБГОВОРЕННЯХ АБО ГОЛОСУВАННІ СУДУ." : language === 'es' ? 'HAS SIDO ELIMINADO Y NO PUEDES PARTICIPAR EN LOS DEBATES NI EN LA VOTACIÓN DEL JUICIO.' : 'YOU ARE ELIMINATED AND CANNOT PARTICIPATE IN TRIAL DISCUSSIONS OR VOTING.'}</div>}
-                  <form onSubmit={handleSendChatMessage} style={{ display: 'flex', gap: '6px' }}><input disabled={isEliminated || isObserver} value={draftChatMessage} onChange={(e) => setDraftChatMessage(e.target.value)} placeholder={isEliminated || isObserver ? (language === 'ru' ? 'Чат суда заблокирован для наблюдателей' : language === 'uk' ? "Чат суду заблоковано для спостерігачів" : language === 'es' ? 'El chat del juicio está bloqueado para los espectadores' : 'Trial chat locked for spectators') : (language === 'ru' ? 'Отправить сообщение' : language === 'uk' ? "Надіслати повідомлення" : language === 'es' ? 'Enviar un mensaje' : 'Send a message')} style={{ minWidth: 0, flex: 1, padding: '8px', minHeight: '40px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: '#0a0a0f', color: '#fff', fontSize: '16px', opacity: isEliminated || isObserver ? 0.45 : 1, transition: 'all 0.3s ease' }} /><button disabled={isEliminated || isObserver} type="submit" style={{ borderRadius: '6px', border: '1px solid rgba(0,240,255,0.3)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', padding: '8px 14px', minHeight: '40px', minWidth: '56px', opacity: isEliminated || isObserver ? 0.45 : 1 }}>{language === 'ru' ? 'ОТПРАВИТЬ' : language === 'uk' ? "НАДІСЛАТИ" : language === 'es' ? 'ENVIAR' : 'SEND'}</button></form>
+                  {(isEliminated || isObserver) && <div style={{ padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,42,95,0.35)', background: 'rgba(255,42,95,0.08)', color: '#ff9caf', fontSize: '11px', lineHeight: 1.45, transition: 'all 0.3s ease' }}>{language === 'ru' ? 'ВЫ УСТРАНЕНЫ И НЕ МОЖЕТЕ УЧАСТВОВАТЬ В ОБСУЖДЕНИЯХ ИЛИ ГОЛОСОВАНИИ СУДА.' : language === 'uk' ? "ВИ УСУНЕНІ Й НЕ МОЖЕТЕ БРАТИ УЧАСТЬ В ОБГОВОРЕННЯХ АБО ГОЛОСУВАННІ СУДУ." : language === 'es' ? 'HAS SIDO ELIMINADO Y NO PUEDES PARTICIPAR EN LOS DEBATES NI EN LA VOTACIÓN DEL JUICIO.' : language === 'de' ? 'DU WURDEST AUSGESCHALTET UND KANNST NICHT AN DEN DEBATTEN ODER DER ABSTIMMUNG DES PROZESSES TEILNEHMEN.' : language === 'fr' ? 'VOUS ÊTES ÉLIMINÉ(E) ET NE POUVEZ PAS PARTICIPER AUX DISCUSSIONS NI AU VOTE DU PROCÈS.' : 'YOU ARE ELIMINATED AND CANNOT PARTICIPATE IN TRIAL DISCUSSIONS OR VOTING.'}</div>}
+                  <form onSubmit={handleSendChatMessage} style={{ display: 'flex', gap: '6px' }}><input disabled={isEliminated || isObserver} value={draftChatMessage} onChange={(e) => setDraftChatMessage(e.target.value)} placeholder={isEliminated || isObserver ? (language === 'ru' ? 'Чат суда заблокирован для наблюдателей' : language === 'uk' ? "Чат суду заблоковано для спостерігачів" : language === 'es' ? 'El chat del juicio está bloqueado para los espectadores' : language === 'de' ? 'Der Prozess-Chat ist für Beobachter gesperrt' : language === 'fr' ? 'Chat du procès verrouillé pour les spectateurs' : 'Trial chat locked for spectators') : (language === 'ru' ? 'Отправить сообщение' : language === 'uk' ? "Надіслати повідомлення" : language === 'es' ? 'Enviar un mensaje' : language === 'de' ? 'Eine Nachricht senden' : language === 'fr' ? 'Envoyer un message' : 'Send a message')} style={{ minWidth: 0, flex: 1, padding: '8px', minHeight: '40px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: '#0a0a0f', color: '#fff', fontSize: '16px', opacity: isEliminated || isObserver ? 0.45 : 1, transition: 'all 0.3s ease' }} /><button disabled={isEliminated || isObserver} type="submit" style={{ borderRadius: '6px', border: '1px solid rgba(0,240,255,0.3)', background: 'rgba(0,240,255,0.08)', color: '#8be7ff', padding: '8px 14px', minHeight: '40px', minWidth: '56px', opacity: isEliminated || isObserver ? 0.45 : 1 }}>{language === 'ru' ? 'ОТПРАВИТЬ' : language === 'uk' ? "НАДІСЛАТИ" : language === 'es' ? 'ENVIAR' : language === 'de' ? 'SENDEN' : language === 'fr' ? 'ENVOYER' : 'SEND'}</button></form>
                 </aside>
               )}
               {/* Shared CLUES board — every piece of physical evidence anyone has
@@ -9074,29 +9865,29 @@ function App() {
                       return (
                         <>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#e29bff', fontSize: '11px', letterSpacing: '1px' }}>
-                            <button onClick={handleBackToCluesList} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ {language === 'ru' ? 'НАЗАД' : language === 'uk' ? "НАЗАД" : language === 'es' ? 'ATRÁS' : 'BACK'}</button>
-                            <button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button>
+                            <button onClick={handleBackToCluesList} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ {language === 'ru' ? 'НАЗАД' : language === 'uk' ? "НАЗАД" : language === 'es' ? 'ATRÁS' : language === 'de' ? 'ZURÜCK' : language === 'fr' ? 'RETOUR' : 'BACK'}</button>
+                            <button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button>
                           </div>
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
-                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ УЛИКИ' : language === 'uk' ? "ДОСЬЄ ДОКАЗУ" : language === 'es' ? 'EXPEDIENTE DE LA PRUEBA' : 'EVIDENCE DOSSIER'}</p>
+                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ДОСЬЕ УЛИКИ' : language === 'uk' ? "ДОСЬЄ ДОКАЗУ" : language === 'es' ? 'EXPEDIENTE DE LA PRUEBA' : language === 'de' ? 'BEWEISAKTE' : language === 'fr' ? 'DOSSIER DE PREUVES' : 'EVIDENCE DOSSIER'}</p>
                               <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{translateEvidenceName(selectedClue.text, language)}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              {language === 'ru' ? 'НАЙДЕНО В:' : language === 'uk' ? "ЗНАЙДЕНО В:" : language === 'es' ? 'ENCONTRADO EN:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedClue.roomName, language)}</span>
+                              {language === 'ru' ? 'НАЙДЕНО В:' : language === 'uk' ? "ЗНАЙДЕНО В:" : language === 'es' ? 'ENCONTRADO EN:' : language === 'de' ? 'GEFUNDEN IN:' : language === 'fr' ? 'TROUVÉ DANS :' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedClue.roomName, language)}</span>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              {language === 'ru' ? 'НАЙДЕНО:' : language === 'uk' ? "ЗНАЙДЕНО:" : language === 'es' ? 'ENCONTRADO POR:' : 'FOUND BY:'}
+                              {language === 'ru' ? 'НАЙДЕНО:' : language === 'uk' ? "ЗНАЙДЕНО:" : language === 'es' ? 'ENCONTRADO POR:' : language === 'de' ? 'GEFUNDEN VON:' : language === 'fr' ? 'TROUVÉ PAR :' : 'FOUND BY:'}
                               <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 {selectedClue.foundBy.map((finder, idx) => (
                                   <span key={`${finder.nickname}_${idx}`} style={{ color: '#e2e8f0', fontSize: '12px' }}>
-                                    {finder.nickname} <span style={{ color: '#6272a4' }}>({language === 'ru' ? `Раунд ${finder.round}` : language === 'uk' ? `Раунд ${finder.round}` : language === 'es' ? `Ronda ${finder.round}` : `Round ${finder.round}`})</span>
+                                    {finder.nickname} <span style={{ color: '#6272a4' }}>({language === 'ru' ? `Раунд ${finder.round}` : language === 'uk' ? `Раунд ${finder.round}` : language === 'es' ? `Ronda ${finder.round}` : language === 'de' ? `Runde ${finder.round}` : language === 'fr' ? `Round ${finder.round}` : `Round ${finder.round}`})</span>
                                   </span>
                                 ))}
                               </div>
                             </div>
                             <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', color: '#bdc7db', fontSize: '12px', lineHeight: 1.55 }}>
-                              {translateEvidenceDescription(selectedClue.text, selectedClue.description, language) || (language === 'ru' ? 'Дополнительное описание отсутствует.' : language === 'uk' ? "Додатковий опис відсутній." : language === 'es' ? 'No hay descripción adicional disponible.' : 'No further description available.')}
+                              {translateEvidenceDescription(selectedClue.text, selectedClue.description, language) || (language === 'ru' ? 'Дополнительное описание отсутствует.' : language === 'uk' ? "Додатковий опис відсутній." : language === 'es' ? 'No hay descripción adicional disponible.' : language === 'de' ? 'Keine weitere Beschreibung verfügbar.' : language === 'fr' ? 'Aucune description supplémentaire disponible.' : 'No further description available.')}
                             </div>
                           </div>
                         </>
@@ -9104,11 +9895,11 @@ function App() {
                     }
                     return (
                       <>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#e29bff', fontSize: '11px', letterSpacing: '1px' }}><span>{language === 'ru' ? 'УЛИКИ' : language === 'uk' ? "ДОКАЗИ" : language === 'es' ? 'PRUEBAS' : 'CLUES'} ({clues.length})</span><button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button></div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#e29bff', fontSize: '11px', letterSpacing: '1px' }}><span>{language === 'ru' ? 'УЛИКИ' : language === 'uk' ? "ДОКАЗИ" : language === 'es' ? 'PRUEBAS' : language === 'de' ? 'BEWEISE' : language === 'fr' ? 'INDICES' : 'CLUES'} ({clues.length})</span><button onClick={handleCloseClues} style={{ color: '#e29bff', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button></div>
                         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {clues.length === 0 && (
                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '1px', fontSize: '12px', padding: '20px 8px' }}>
-                              {language === 'ru' ? 'УЛИКИ ПОКА НЕ НАЙДЕНЫ' : language === 'uk' ? "ДОКАЗИ ПОКИ ЩО НЕ ЗНАЙДЕНІ" : language === 'es' ? 'AÚN NO SE HAN ENCONTRADO PRUEBAS' : 'NO EVIDENCE FOUND YET'}
+                              {language === 'ru' ? 'УЛИКИ ПОКА НЕ НАЙДЕНЫ' : language === 'uk' ? "ДОКАЗИ ПОКИ ЩО НЕ ЗНАЙДЕНІ" : language === 'es' ? 'AÚN NO SE HAN ENCONTRADO PRUEBAS' : language === 'de' ? 'BISHER KEINE BEWEISE GEFUNDEN' : language === 'fr' ? "AUCUNE PREUVE TROUVÉE POUR L'INSTANT" : 'NO EVIDENCE FOUND YET'}
                             </div>
                           )}
                           {clues.map(clue => (
@@ -9122,7 +9913,7 @@ function App() {
                               >
                                 <span style={{ fontSize: '13px' }}>{translateEvidenceName(clue.text, language)}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
-                                  {translateRoomName(clue.roomName, language)} · {language === 'ru' ? 'найдено:' : language === 'uk' ? "знайдено:" : language === 'es' ? 'encontrado por' : 'found by'} {clue.foundBy.map(f => f.nickname).join(', ')}
+                                  {translateRoomName(clue.roomName, language)} · {language === 'ru' ? 'найдено:' : language === 'uk' ? "знайдено:" : language === 'es' ? 'encontrado por' : language === 'de' ? 'gefunden von' : language === 'fr' ? 'trouvé par' : 'found by'} {clue.foundBy.map(f => f.nickname).join(', ')}
                                 </span>
                               </div>
                               {/* Forensic Examiner only: "Verify Evidence Authenticity" — asks
@@ -9159,12 +9950,12 @@ function App() {
                                     }}
                                   >
                                     {isBusy
-                                      ? (language === 'ru' ? 'ПРОВЕРКА…' : language === 'uk' ? "ПЕРЕВІРКА…" : language === 'es' ? 'VERIFICANDO…' : 'VERIFYING…')
+                                      ? (language === 'ru' ? 'ПРОВЕРКА…' : language === 'uk' ? "ПЕРЕВІРКА…" : language === 'es' ? 'VERIFICANDO…' : language === 'de' ? 'PRÜFE…' : language === 'fr' ? 'VÉRIFICATION…' : 'VERIFYING…')
                                       : onCooldown
                                         ? (language === 'ru'
                                             ? `ПРОВЕРИТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.roundsRemaining} РАУНД${forensicVerifyStatus.roundsRemaining === 1 ? '' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                            : language === 'uk' ? `ПЕРЕВІРИТИ (ЗАЛИШИЛОСЯ ${forensicVerifyStatus.roundsRemaining} ${(forensicVerifyStatus.roundsRemaining === 1 ? 'РАУНД' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `VERIFICAR (QUEDAN ${forensicVerifyStatus.roundsRemaining} RONDA${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'})` : `VERIFY (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
-                                        : (language === 'ru' ? 'ПРОВЕРИТЬ' : language === 'uk' ? "ПЕРЕВІРИТИ" : language === 'es' ? 'VERIFICAR' : 'VERIFY')}
+                                            : language === 'uk' ? `ПЕРЕВІРИТИ (ЗАЛИШИЛОСЯ ${forensicVerifyStatus.roundsRemaining} ${(forensicVerifyStatus.roundsRemaining === 1 ? 'РАУНД' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `VERIFICAR (QUEDAN ${forensicVerifyStatus.roundsRemaining} RONDA${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'})` : language === 'de' ? `PRÜFEN (NOCH ${forensicVerifyStatus.roundsRemaining} RUNDE${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'N'})` : language === 'fr' ? `VÉRIFIER (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} RESTANT(S))` : `VERIFY (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                        : (language === 'ru' ? 'ПРОВЕРИТЬ' : language === 'uk' ? "ПЕРЕВІРИТИ" : language === 'es' ? 'VERIFICAR' : language === 'de' ? 'PRÜFEN' : language === 'fr' ? 'VÉRIFIER' : 'VERIFY')}
                                   </button>
                                 );
                               })()}
@@ -9223,25 +10014,25 @@ function App() {
                       return (
                         <>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#ff8fa8', fontSize: '11px', letterSpacing: '1px' }}>
-                            <button onClick={handleBackToBodiesList} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ {language === 'ru' ? 'НАЗАД' : language === 'uk' ? "НАЗАД" : language === 'es' ? 'ATRÁS' : 'BACK'}</button>
-                            <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button>
+                            <button onClick={handleBackToBodiesList} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer', padding: 0, fontSize: '11px' }}>‹ {language === 'ru' ? 'НАЗАД' : language === 'uk' ? "НАЗАД" : language === 'es' ? 'ATRÁS' : language === 'de' ? 'ZURÜCK' : language === 'fr' ? 'RETOUR' : 'BACK'}</button>
+                            <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button>
                           </div>
                           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div>
-                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ТЕЛО' : language === 'uk' ? "ТІЛО" : language === 'es' ? 'CUERPO' : 'BODY'}</p>
+                              <p style={{ margin: '0 0 4px 0', fontSize: '10px', letterSpacing: '2px', color: '#8a99ad' }}>{language === 'ru' ? 'ТЕЛО' : language === 'uk' ? "ТІЛО" : language === 'es' ? 'CUERPO' : language === 'de' ? 'LEICHE' : language === 'fr' ? 'CORPS' : 'BODY'}</p>
                               <h4 style={{ margin: 0, fontSize: '18px', color: '#e2e8f0' }}>{selectedBody.nickname}</h4>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              {language === 'ru' ? 'НАЙДЕНО В:' : language === 'uk' ? "ЗНАЙДЕНО В:" : language === 'es' ? 'ENCONTRADO EN:' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedBody.roomName, language)}</span>
+                              {language === 'ru' ? 'НАЙДЕНО В:' : language === 'uk' ? "ЗНАЙДЕНО В:" : language === 'es' ? 'ENCONTRADO EN:' : language === 'de' ? 'GEFUNDEN IN:' : language === 'fr' ? 'TROUVÉ DANS :' : 'FOUND IN:'} <span style={{ color: '#e2e8f0' }}>{translateRoomName(selectedBody.roomName, language)}</span>
                             </div>
                             <div style={{ fontSize: '11px', color: '#8a99ad', letterSpacing: '1px' }}>
-                              {language === 'ru' ? 'НАЙДЕНО:' : language === 'uk' ? "ЗНАЙДЕНО:" : language === 'es' ? 'ENCONTRADO POR:' : 'FOUND BY:'}
+                              {language === 'ru' ? 'НАЙДЕНО:' : language === 'uk' ? "ЗНАЙДЕНО:" : language === 'es' ? 'ENCONTRADO POR:' : language === 'de' ? 'GEFUNDEN VON:' : language === 'fr' ? 'TROUVÉ PAR :' : 'FOUND BY:'}
                               <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 {(selectedBody.foundBy || []).length > 0
                                   ? selectedBody.foundBy.map((nickname, idx) => (
                                     <span key={`${nickname}_${idx}`} style={{ color: '#e2e8f0', fontSize: '12px' }}>{nickname}</span>
                                   ))
-                                  : <span style={{ color: '#e2e8f0', fontSize: '12px' }}>{language === 'ru' ? 'Неизвестно' : language === 'uk' ? "Невідомо" : language === 'es' ? 'Desconocido' : 'Unknown'}</span>}
+                                  : <span style={{ color: '#e2e8f0', fontSize: '12px' }}>{language === 'ru' ? 'Неизвестно' : language === 'uk' ? "Невідомо" : language === 'es' ? 'Desconocido' : language === 'de' ? 'Unbekannt' : language === 'fr' ? 'Inconnu' : 'Unknown'}</span>}
                               </div>
                             </div>
                             {myRole === 'Forensic' && (
@@ -9258,8 +10049,8 @@ function App() {
                                   {forensicVerifyStatus?.available === false
                                     ? (language === 'ru'
                                         ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.roundsRemaining} РАУНД${forensicVerifyStatus.roundsRemaining === 1 ? '' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                        : language === 'uk' ? `ОГЛЯНУТИ (ЗАЛИШИЛОСЯ ${forensicVerifyStatus.roundsRemaining} ${(forensicVerifyStatus.roundsRemaining === 1 ? 'РАУНД' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `EXAMINAR (QUEDAN ${forensicVerifyStatus.roundsRemaining} RONDA${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'})` : `EXAMINE (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
-                                    : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : language === 'uk' ? "ОГЛЯНУТИ ТІЛО" : language === 'es' ? 'EXAMINAR CUERPO' : 'EXAMINE BODY')}
+                                        : language === 'uk' ? `ОГЛЯНУТИ (ЗАЛИШИЛОСЯ ${forensicVerifyStatus.roundsRemaining} ${(forensicVerifyStatus.roundsRemaining === 1 ? 'РАУНД' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `EXAMINAR (QUEDAN ${forensicVerifyStatus.roundsRemaining} RONDA${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'})` : language === 'de' ? `UNTERSUCHEN (NOCH ${forensicVerifyStatus.roundsRemaining} RUNDE${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'N'})` : language === 'fr' ? `EXAMINER (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} RESTANT(S))` : `EXAMINE (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                    : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : language === 'uk' ? "ОГЛЯНУТИ ТІЛО" : language === 'es' ? 'EXAMINAR CUERPO' : language === 'de' ? 'LEICHE UNTERSUCHEN' : language === 'fr' ? 'EXAMINER LE CORPS' : 'EXAMINE BODY')}
                                 </button>
                                 {forensicReportUnlocked && (
                                   <button
@@ -9270,13 +10061,13 @@ function App() {
                                       letterSpacing: '1px', cursor: 'pointer'
                                     }}
                                   >
-                                    {language === 'ru' ? 'СМОТРЕТЬ ОТЧЁТ' : language === 'uk' ? "ПЕРЕГЛЯНУТИ ЗВІТ" : language === 'es' ? 'VER INFORME' : 'VIEW REPORT'}
+                                    {language === 'ru' ? 'СМОТРЕТЬ ОТЧЁТ' : language === 'uk' ? "ПЕРЕГЛЯНУТИ ЗВІТ" : language === 'es' ? 'VER INFORME' : language === 'de' ? 'BERICHT ANSEHEN' : language === 'fr' ? 'VOIR LE RAPPORT' : 'VIEW REPORT'}
                                   </button>
                                 )}
                               </div>
                             )}
                             <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', color: '#bdc7db', fontSize: '12px', lineHeight: 1.55 }}>
-                              {translateBodyDescription(selectedBody.character, selectedBody.description, language) || (language === 'ru' ? 'На месте происшествия больше ничего не обнаружено.' : language === 'uk' ? "На місці події більше нічого не виявлено." : language === 'es' ? 'No se ha descubierto nada más en la escena.' : 'The scene offers no further detail.')}
+                              {translateBodyDescription(selectedBody.character, selectedBody.description, language) || (language === 'ru' ? 'На месте происшествия больше ничего не обнаружено.' : language === 'uk' ? "На місці події більше нічого не виявлено." : language === 'es' ? 'No se ha descubierto nada más en la escena.' : language === 'de' ? 'Am Tatort wurde nichts weiter entdeckt.' : language === 'fr' ? 'La scène ne révèle aucun autre détail.' : 'The scene offers no further detail.')}
                             </div>
                           </div>
                         </>
@@ -9285,13 +10076,13 @@ function App() {
                     return (
                       <>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: '#ff8fa8', fontSize: '11px', letterSpacing: '1px' }}>
-                          <span>{language === 'ru' ? 'ТЕЛА' : language === 'uk' ? "ТІЛА" : language === 'es' ? 'CUERPOS' : 'BODIES'} ({bodies.length})</span>
-                          <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : 'CLOSE'}</button>
+                          <span>{language === 'ru' ? 'ТЕЛА' : language === 'uk' ? "ТІЛА" : language === 'es' ? 'CUERPOS' : language === 'de' ? 'LEICHEN' : language === 'fr' ? 'CORPS' : 'BODIES'} ({bodies.length})</span>
+                          <button onClick={handleCloseBodies} style={{ color: '#ff8fa8', background: 'transparent', border: 0, cursor: 'pointer' }}>{language === 'ru' ? 'ЗАКРЫТЬ' : language === 'uk' ? "ЗАКРИТИ" : language === 'es' ? 'CERRAR' : language === 'de' ? 'SCHLIESSEN' : language === 'fr' ? 'FERMER' : 'CLOSE'}</button>
                         </div>
                         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {bodies.length === 0 && (
                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#6272a4', letterSpacing: '1px', fontSize: '12px', padding: '20px 8px' }}>
-                              {language === 'ru' ? 'ТЕЛА ПОКА НЕ НАЙДЕНЫ' : language === 'uk' ? "ТІЛА ПОКИ ЩО НЕ ЗНАЙДЕНІ" : language === 'es' ? 'AÚN NO SE HAN ENCONTRADO CUERPOS' : 'NO BODIES FOUND YET'}
+                              {language === 'ru' ? 'ТЕЛА ПОКА НЕ НАЙДЕНЫ' : language === 'uk' ? "ТІЛА ПОКИ ЩО НЕ ЗНАЙДЕНІ" : language === 'es' ? 'AÚN NO SE HAN ENCONTRADO CUERPOS' : language === 'de' ? 'BISHER KEINE LEICHEN GEFUNDEN' : language === 'fr' ? "AUCUN CORPS TROUVÉ POUR L'INSTANT" : 'NO BODIES FOUND YET'}
                             </div>
                           )}
                           {bodies.map((body, idx) => (
@@ -9305,7 +10096,7 @@ function App() {
                               >
                                 <span style={{ fontSize: '13px', fontWeight: 700 }}>{body.nickname}</span>
                                 <span style={{ fontSize: '10px', color: '#8a99ad', letterSpacing: '0.5px' }}>
-                                  {translateRoomName(body.roomName, language)} · {language === 'ru' ? 'найдено:' : language === 'uk' ? "знайдено:" : language === 'es' ? 'encontrado por' : 'found by'} {(body.foundBy || []).length > 0 ? body.foundBy.join(', ') : (language === 'ru' ? 'Неизвестно' : language === 'uk' ? "Невідомо" : language === 'es' ? 'Desconocido' : 'Unknown')}
+                                  {translateRoomName(body.roomName, language)} · {language === 'ru' ? 'найдено:' : language === 'uk' ? "знайдено:" : language === 'es' ? 'encontrado por' : language === 'de' ? 'gefunden von' : language === 'fr' ? 'trouvé par' : 'found by'} {(body.foundBy || []).length > 0 ? body.foundBy.join(', ') : (language === 'ru' ? 'Неизвестно' : language === 'uk' ? "Невідомо" : language === 'es' ? 'Desconocido' : language === 'de' ? 'Unbekannt' : language === 'fr' ? 'Inconnu' : 'Unknown')}
                                 </span>
                               </div>
                               {myRole === 'Forensic' && (
@@ -9322,8 +10113,8 @@ function App() {
                                     {forensicVerifyStatus?.available === false
                                       ? (language === 'ru'
                                           ? `ОСМОТРЕТЬ (ОСТАЛОСЬ ${forensicVerifyStatus.roundsRemaining} РАУНД${forensicVerifyStatus.roundsRemaining === 1 ? '' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'А' : 'ОВ')})`
-                                          : language === 'uk' ? `ОГЛЯНУТИ (ЗАЛИШИЛОСЯ ${forensicVerifyStatus.roundsRemaining} ${(forensicVerifyStatus.roundsRemaining === 1 ? 'РАУНД' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `EXAMINAR (QUEDAN ${forensicVerifyStatus.roundsRemaining} RONDA${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'})` : `EXAMINE (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
-                                      : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : language === 'uk' ? "ОГЛЯНУТИ ТІЛО" : language === 'es' ? 'EXAMINAR CUERPO' : 'EXAMINE BODY')}
+                                          : language === 'uk' ? `ОГЛЯНУТИ (ЗАЛИШИЛОСЯ ${forensicVerifyStatus.roundsRemaining} ${(forensicVerifyStatus.roundsRemaining === 1 ? 'РАУНД' : (forensicVerifyStatus.roundsRemaining >= 2 && forensicVerifyStatus.roundsRemaining <= 4 ? 'РАУНДИ' : 'РАУНДІВ'))})` : language === 'es' ? `EXAMINAR (QUEDAN ${forensicVerifyStatus.roundsRemaining} RONDA${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'})` : language === 'de' ? `UNTERSUCHEN (NOCH ${forensicVerifyStatus.roundsRemaining} RUNDE${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'N'})` : language === 'fr' ? `EXAMINER (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} RESTANT(S))` : `EXAMINE (${forensicVerifyStatus.roundsRemaining} ROUND${forensicVerifyStatus.roundsRemaining === 1 ? '' : 'S'} LEFT)`)
+                                      : (language === 'ru' ? 'ОСМОТРЕТЬ ТЕЛО' : language === 'uk' ? "ОГЛЯНУТИ ТІЛО" : language === 'es' ? 'EXAMINAR CUERPO' : language === 'de' ? 'LEICHE UNTERSUCHEN' : language === 'fr' ? 'EXAMINER LE CORPS' : 'EXAMINE BODY')}
                                   </button>
                                   {forensicReportUnlocked && (
                                     <button
@@ -9334,7 +10125,7 @@ function App() {
                                         letterSpacing: '1px', cursor: 'pointer'
                                       }}
                                     >
-                                      {language === 'ru' ? 'СМОТРЕТЬ ОТЧЁТ' : language === 'uk' ? "ПЕРЕГЛЯНУТИ ЗВІТ" : language === 'es' ? 'VER INFORME' : 'VIEW REPORT'}
+                                      {language === 'ru' ? 'СМОТРЕТЬ ОТЧЁТ' : language === 'uk' ? "ПЕРЕГЛЯНУТИ ЗВІТ" : language === 'es' ? 'VER INFORME' : language === 'de' ? 'BERICHT ANSEHEN' : language === 'fr' ? 'VOIR LE RAPPORT' : 'VIEW REPORT'}
                                     </button>
                                   )}
                                 </div>
@@ -9370,25 +10161,25 @@ function App() {
             boxShadow: '0 30px 100px rgba(0,255,135,0.15)', padding: '32px', boxSizing: 'border-box',
             textAlign: 'center', animation: 'verdictEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) both'
           }}>
-            <p style={{ margin: '0 0 8px 0', fontSize: '11px', letterSpacing: '3px', color: '#8a99ad' }}>{language === 'ru' ? 'ИГРА ЗАВЕРШЕНА' : language === 'uk' ? "ГРУ ЗАВЕРШЕНО" : language === 'es' ? 'PARTIDA FINALIZADA' : 'MATCH CONCLUDED'}</p>
+            <p style={{ margin: '0 0 8px 0', fontSize: '11px', letterSpacing: '3px', color: '#8a99ad' }}>{language === 'ru' ? 'ИГРА ЗАВЕРШЕНА' : language === 'uk' ? "ГРУ ЗАВЕРШЕНО" : language === 'es' ? 'PARTIDA FINALIZADA' : language === 'de' ? 'SPIEL BEENDET' : language === 'fr' ? 'PARTIE TERMINÉE' : 'MATCH CONCLUDED'}</p>
             <h2 style={{
               margin: '0 0 14px 0', fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 900,
               color: '#00ff87', textShadow: '0 0 30px rgba(0,255,135,0.5)', letterSpacing: '1px', textTransform: 'uppercase'
             }}>
               {gameOverData.winner === 'Innocent'
-                ? (language === 'ru' ? 'ПОБЕДА КОМАНДЫ НЕВИННЫХ' : language === 'uk' ? "ПЕРЕМОГА КОМАНДИ НЕВИННИХ" : language === 'es' ? 'VICTORIA DEL EQUIPO INOCENTE' : 'INNOCENT TEAM VICTORY')
+                ? (language === 'ru' ? 'ПОБЕДА КОМАНДЫ НЕВИННЫХ' : language === 'uk' ? "ПЕРЕМОГА КОМАНДИ НЕВИННИХ" : language === 'es' ? 'VICTORIA DEL EQUIPO INOCENTE' : language === 'de' ? 'SIEG DES UNSCHULDIGEN-TEAMS' : language === 'fr' ? "VICTOIRE DE L'ÉQUIPE INNOCENTE" : 'INNOCENT TEAM VICTORY')
                 : gameOverData.winner === 'Joker'
-                  ? (language === 'ru' ? 'ПОБЕДА ДЖОКЕРА' : language === 'uk' ? "ПЕРЕМОГА ДЖОКЕРА" : language === 'es' ? 'VICTORIA DEL COMODÍN' : 'JOKER VICTORY')
-                  : (language === 'ru' ? `ПОБЕДА КОМАНДЫ ${gameOverData.winner || 'НЕИЗВЕСТНО'}` : language === 'uk' ? `ПЕРЕМОГА КОМАНДИ ${gameOverData.winner || 'НЕВІДОМО'}` : language === 'es' ? `VICTORIA DEL EQUIPO ${gameOverData.winner || 'DESCONOCIDO'}` : `${gameOverData.winner || 'UNKNOWN'} TEAM VICTORY`)}
+                  ? (language === 'ru' ? 'ПОБЕДА ДЖОКЕРА' : language === 'uk' ? "ПЕРЕМОГА ДЖОКЕРА" : language === 'es' ? 'VICTORIA DEL COMODÍN' : language === 'de' ? 'SIEG DES JOKERS' : language === 'fr' ? 'VICTOIRE DU JOKER' : 'JOKER VICTORY')
+                  : (language === 'ru' ? `ПОБЕДА КОМАНДЫ ${gameOverData.winner || 'НЕИЗВЕСТНО'}` : language === 'uk' ? `ПЕРЕМОГА КОМАНДИ ${gameOverData.winner || 'НЕВІДОМО'}` : language === 'es' ? `VICTORIA DEL EQUIPO ${gameOverData.winner || 'DESCONOCIDO'}` : language === 'de' ? `SIEG DES TEAMS ${gameOverData.winner || 'UNBEKANNT'}` : language === 'fr' ? `VICTOIRE DE L'ÉQUIPE ${gameOverData.winner || 'INCONNUE'}` : `${gameOverData.winner || 'UNKNOWN'} TEAM VICTORY`)}
             </h2>
             <p style={{ margin: '0 0 22px 0', color: '#c9d3e0', lineHeight: 1.6, fontSize: '14px' }}>
               {translateGameOverMessage(gameOverData, language)}
               {gameOverData.digitalCode && (
-                <><br /><span style={{ color: '#76ffb4', letterSpacing: '3px', fontFamily: 'Georgia, serif' }}>{language === 'ru' ? 'КОД ОТМЕНЫ' : language === 'uk' ? "КОД СКАСУВАННЯ" : language === 'es' ? 'CÓDIGO DE ANULACIÓN' : 'OVERRIDE CODE'}: {gameOverData.digitalCode}</span></>
+                <><br /><span style={{ color: '#76ffb4', letterSpacing: '3px', fontFamily: 'Georgia, serif' }}>{language === 'ru' ? 'КОД ОТМЕНЫ' : language === 'uk' ? "КОД СКАСУВАННЯ" : language === 'es' ? 'CÓDIGO DE ANULACIÓN' : language === 'de' ? 'AUFHEBUNGSCODE' : language === 'fr' ? 'CODE DE REMPLACEMENT' : 'OVERRIDE CODE'}: {gameOverData.digitalCode}</span></>
               )}
             </p>
 
-            <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8a99ad', marginBottom: '10px' }}>{language === 'ru' ? 'ИТОГОВЫЕ РОЛИ' : language === 'uk' ? "ПІДСУМКОВІ РОЛІ" : language === 'es' ? 'ROLES FINALES' : 'FINAL ROLES'}</div>
+            <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#8a99ad', marginBottom: '10px' }}>{language === 'ru' ? 'ИТОГОВЫЕ РОЛИ' : language === 'uk' ? "ПІДСУМКОВІ РОЛІ" : language === 'es' ? 'ROLES FINALES' : language === 'de' ? 'FINALE ROLLEN' : language === 'fr' ? 'RÔLES FINAUX' : 'FINAL ROLES'}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '20px' }}>
               {(gameOverData.roster || []).map(entry => (
                 <div key={entry.id} style={{
@@ -9398,17 +10189,17 @@ function App() {
                   background: entry.isEliminated ? 'rgba(255,42,95,0.06)' : 'rgba(255,255,255,0.03)'
                 }}>
                   <span style={{ color: entry.isEliminated ? '#ff8da6' : '#e2e8f0', fontSize: '13px' }}>
-                    {entry.nickname}{entry.isEliminated ? (language === 'ru' ? ' (устранён)' : language === 'uk' ? " (усунений)" : language === 'es' ? ' (eliminado)' : ' (eliminated)') : ''}
+                    {entry.nickname}{entry.isEliminated ? (language === 'ru' ? ' (устранён)' : language === 'uk' ? " (усунений)" : language === 'es' ? ' (eliminado)' : language === 'de' ? ' (ausgeschaltet)' : language === 'fr' ? ' (éliminé)' : ' (eliminated)') : ''}
                   </span>
                   <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '1px', color: ROLES[entry.role]?.color || '#8a99ad' }}>
-                    {(language === 'ru' ? ROLES[entry.role]?.labelRu : language === 'uk' ? ROLES[entry.role]?.labelUk : language === 'es' ? ROLES[entry.role]?.labelEs : ROLES[entry.role]?.label) || entry.role || (language === 'ru' ? 'НЕИЗВЕСТНО' : language === 'uk' ? "НЕВІДОМО" : language === 'es' ? 'DESCONOCIDO' : 'UNKNOWN')}
+                    {(language === 'ru' ? ROLES[entry.role]?.labelRu : language === 'uk' ? ROLES[entry.role]?.labelUk : language === 'es' ? ROLES[entry.role]?.labelEs : language === 'de' ? ROLES[entry.role]?.labelDe : ROLES[entry.role]?.label) || entry.role || (language === 'ru' ? 'НЕИЗВЕСТНО' : language === 'uk' ? "НЕВІДОМО" : language === 'es' ? 'DESCONOCIDO' : language === 'de' ? 'UNBEKANNT' : language === 'fr' ? 'INCONNU' : 'UNKNOWN')}
                   </span>
                 </div>
               ))}
             </div>
 
             <p style={{ margin: 0, fontSize: '11px', letterSpacing: '1px', color: '#6272a4', animation: 'introCaretBlink 1.6s ease-in-out infinite' }}>
-              {language === 'ru' ? 'ВОЗВРАЩЕНИЕ В ЛОББИ...' : language === 'uk' ? "ПОВЕРНЕННЯ ДО ЛОБІ..." : language === 'es' ? 'REGRESANDO AL LOBBY...' : 'RETURNING TO LOBBY...'}
+              {language === 'ru' ? 'ВОЗВРАЩЕНИЕ В ЛОББИ...' : language === 'uk' ? "ПОВЕРНЕННЯ ДО ЛОБІ..." : language === 'es' ? 'REGRESANDO AL LOBBY...' : language === 'de' ? 'RÜCKKEHR ZUR LOBBY...' : language === 'fr' ? 'RETOUR AU LOBBY...' : 'RETURNING TO LOBBY...'}
             </p>
           </div>
         </div>
@@ -9448,7 +10239,7 @@ function App() {
               background: 'rgba(10,10,15,0.9)', animation: 'cinematicTextIn 650ms ease-out 150ms both'
             }}>
               <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#6272a4', marginBottom: '10px', textAlign: 'center' }}>
-                {language === 'ru' ? 'МАТЕРИАЛЫ ДЕЛА — ЧТО НАЙДЕНО НА ДАННЫЙ МОМЕНТ' : language === 'uk' ? "МАТЕРІАЛИ СПРАВИ — ЩО ЗНАЙДЕНО НА ДАНИЙ МОМЕНТ" : language === 'es' ? 'EXPEDIENTE DEL CASO — LO ENCONTRADO HASTA AHORA' : "CASE FILE — WHAT'S BEEN FOUND SO FAR"}
+                {language === 'ru' ? 'МАТЕРИАЛЫ ДЕЛА — ЧТО НАЙДЕНО НА ДАННЫЙ МОМЕНТ' : language === 'uk' ? "МАТЕРІАЛИ СПРАВИ — ЩО ЗНАЙДЕНО НА ДАНИЙ МОМЕНТ" : language === 'es' ? 'EXPEDIENTE DEL CASO — LO ENCONTRADO HASTA AHORA' : language === 'de' ? 'FALLAKTE — BISHER GEFUNDENES' : language === 'fr' ? "DOSSIER DE L'AFFAIRE — CE QUI A ÉTÉ TROUVÉ JUSQU'ICI" : "CASE FILE — WHAT'S BEEN FOUND SO FAR"}
               </div>
               {trialFindings.undiscoveredCount > 0 && (
                 <div style={{
@@ -9459,21 +10250,21 @@ function App() {
                   <Icon name="skull" size={13} />
                   <span>
                     {trialFindings.undiscoveredCount === 1
-                      ? (language === 'ru' ? 'Кто-то был убит, но тело ещё не найдено.' : language === 'uk' ? "Когось було вбито, але тіло ще не знайдено." : language === 'es' ? 'Alguien fue asesinado, pero el cuerpo aún no ha sido encontrado.' : 'Someone was killed, but the body hasn\u2019t been found yet.')
-                      : (language === 'ru' ? `Убито агентов: ${trialFindings.undiscoveredCount}, но их тела ещё не найдены.` : language === 'uk' ? `Вбито агентів: ${trialFindings.undiscoveredCount}, але їхні тіла ще не знайдені.` : language === 'es' ? `Agentes asesinados: ${trialFindings.undiscoveredCount}, pero sus cuerpos aún no han sido encontrados.` : `${trialFindings.undiscoveredCount} agents were killed, but their bodies haven't been found yet.`)}
+                      ? (language === 'ru' ? 'Кто-то был убит, но тело ещё не найдено.' : language === 'uk' ? "Когось було вбито, але тіло ще не знайдено." : language === 'es' ? 'Alguien fue asesinado, pero el cuerpo aún no ha sido encontrado.' : language === 'de' ? 'Jemand wurde getötet, aber die Leiche wurde noch nicht gefunden.' : language === 'fr' ? "Quelqu'un a été tué, mais le corps n'a pas encore été trouvé." : 'Someone was killed, but the body hasn\u2019t been found yet.')
+                      : (language === 'ru' ? `Убито агентов: ${trialFindings.undiscoveredCount}, но их тела ещё не найдены.` : language === 'uk' ? `Вбито агентів: ${trialFindings.undiscoveredCount}, але їхні тіла ще не знайдені.` : language === 'es' ? `Agentes asesinados: ${trialFindings.undiscoveredCount}, pero sus cuerpos aún no han sido encontrados.` : language === 'de' ? `Getötete Agenten: ${trialFindings.undiscoveredCount}, aber ihre Leichen wurden noch nicht gefunden.` : language === 'fr' ? `${trialFindings.undiscoveredCount} agents ont été tués, mais leurs corps n'ont pas encore été trouvés.` : `${trialFindings.undiscoveredCount} agents were killed, but their bodies haven't been found yet.`)}
                   </span>
                 </div>
               )}
               {(trialFindings.bodies?.length || 0) === 0 && (trialFindings.clues?.length || 0) === 0 ? (
                 trialFindings.undiscoveredCount > 0 ? null : (
-                  <div style={{ fontSize: '13px', color: '#8a99ad', textAlign: 'center' }}>{language === 'ru' ? 'Пока ничего не найдено.' : language === 'uk' ? "Поки що нічого не знайдено." : language === 'es' ? 'Todavía no se ha encontrado nada.' : 'Nothing has been found yet.'}</div>
+                  <div style={{ fontSize: '13px', color: '#8a99ad', textAlign: 'center' }}>{language === 'ru' ? 'Пока ничего не найдено.' : language === 'uk' ? "Поки що нічого не знайдено." : language === 'es' ? 'Todavía no se ha encontrado nada.' : language === 'de' ? 'Bisher wurde noch nichts gefunden.' : language === 'fr' ? "Rien n'a encore été trouvé." : 'Nothing has been found yet.'}</div>
                 )
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {(trialFindings.bodies || []).map((body, idx) => (
                     <div key={`body-${idx}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#ff8fa8' }}>
                       <Icon name="skull" size={13} />
-                      <span>{language === 'ru' ? `Тело ${body.nickname} — найдено в ${translateRoomName(body.roomName, language)}` : language === 'uk' ? `Тіло ${body.nickname} — знайдено в ${translateRoomName(body.roomName, language)}` : language === 'es' ? `Cuerpo de ${body.nickname} — encontrado en ${translateRoomName(body.roomName, language)}` : `${body.nickname}'s body — found in ${body.roomName}`}</span>
+                      <span>{language === 'ru' ? `Тело ${body.nickname} — найдено в ${translateRoomName(body.roomName, language)}` : language === 'uk' ? `Тіло ${body.nickname} — знайдено в ${translateRoomName(body.roomName, language)}` : language === 'es' ? `Cuerpo de ${body.nickname} — encontrado en ${translateRoomName(body.roomName, language)}` : language === 'de' ? `Leiche von ${body.nickname} — gefunden in ${translateRoomName(body.roomName, language)}` : language === 'fr' ? `Corps de ${body.nickname} — trouvé dans ${body.roomName}` : `${body.nickname}'s body — found in ${body.roomName}`}</span>
                     </div>
                   ))}
                   {(trialFindings.clues || []).map((clue) => (
@@ -9540,7 +10331,7 @@ function App() {
       {isNicknameSet && currentScreen === 'main' && (
         <button
           onClick={() => setShowSupportPopup(true)}
-          aria-label={language === 'ru' ? 'Поддержать разработчика' : language === 'uk' ? "Підтримати розробника" : language === 'es' ? 'Apoyar al desarrollador' : 'Support the developer'}
+          aria-label={language === 'ru' ? 'Поддержать разработчика' : language === 'uk' ? "Підтримати розробника" : language === 'es' ? 'Apoyar al desarrollador' : language === 'de' ? 'Den Entwickler unterstützen' : language === 'fr' ? 'Soutenir le développeur' : 'Support the developer'}
           style={{
             position: 'fixed',
             right: '20px',
@@ -9599,13 +10390,13 @@ function App() {
           >
             <img
               src="https://files.catbox.moe/amibax.png"
-              alt={language === 'ru' ? 'Разработчик' : language === 'uk' ? "Розробник" : language === 'es' ? 'Desarrollador' : 'Developer'}
+              alt={language === 'ru' ? 'Разработчик' : language === 'uk' ? "Розробник" : language === 'es' ? 'Desarrollador' : language === 'de' ? 'Entwickler' : language === 'fr' ? 'Développeur' : 'Developer'}
               style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', marginBottom: '14px' }}
             />
             <p style={{ color: '#e6e9ef', fontSize: '14px', lineHeight: 1.6, margin: '0 0 20px 0' }}>
               {language === 'ru'
                 ? 'Я инди-разработчик этой игры. Если вам нравится в неё играть, любая поддержка будет много значить для меня!'
-                : language === 'uk' ? "Я інді-розробник цієї гри. Якщо вам подобається в неї грати, будь-яка підтримка буде багато значити для мене!" : language === 'es' ? '¡Soy un desarrollador independiente de este juego. Si te gusta jugarlo, cualquier apoyo significaría mucho para mí!' : "I'm an indie developer working on this game. If you enjoy playing it, any support would mean a lot to me!"}
+                : language === 'uk' ? "Я інді-розробник цієї гри. Якщо вам подобається в неї грати, будь-яка підтримка буде багато значити для мене!" : language === 'es' ? '¡Soy un desarrollador independiente de este juego. Si te gusta jugarlo, cualquier apoyo significaría mucho para mí!' : language === 'de' ? 'Ich bin ein Indie-Entwickler dieses Spiels. Wenn es dir Spaß macht, es zu spielen, würde mir jede Unterstützung sehr viel bedeuten!' : language === 'fr' ? "Je suis un développeur indépendant travaillant sur ce jeu. Si vous aimez y jouer, tout soutien compterait énormément pour moi !" : "I'm an indie developer working on this game. If you enjoy playing it, any support would mean a lot to me!"}
             </p>
             <a
               href="https://boosty.to/limxelstudio/donate"
@@ -9625,7 +10416,7 @@ function App() {
                 boxShadow: '0 8px 20px rgba(255, 42, 95, 0.35)'
               }}
             >
-              {language === 'ru' ? 'Поддержать на Boosty' : language === 'uk' ? "Підтримати на Boosty" : language === 'es' ? 'Apoyar en Boosty' : 'Support on Boosty'}
+              {language === 'ru' ? 'Поддержать на Boosty' : language === 'uk' ? "Підтримати на Boosty" : language === 'es' ? 'Apoyar en Boosty' : language === 'de' ? 'Auf Boosty unterstützen' : language === 'fr' ? 'Soutenir sur Boosty' : 'Support on Boosty'}
             </a>
             <div
               onClick={() => setShowSupportPopup(false)}
@@ -9638,7 +10429,7 @@ function App() {
                 textTransform: 'uppercase'
               }}
             >
-              {language === 'ru' ? 'Закрыть' : language === 'uk' ? "Закрити" : language === 'es' ? 'Cerrar' : 'Close'}
+              {language === 'ru' ? 'Закрыть' : language === 'uk' ? "Закрити" : language === 'es' ? 'Cerrar' : language === 'de' ? 'Schließen' : language === 'fr' ? 'Fermer' : 'Close'}
             </div>
           </div>
         </div>
@@ -9740,7 +10531,7 @@ function App() {
                 textTransform: 'uppercase'
               }}
             >
-              {language === 'ru' ? 'Закрыть' : language === 'uk' ? 'Закрити' : language === 'es' ? 'Cerrar' : 'Close'}
+              {language === 'ru' ? 'Закрыть' : language === 'uk' ? 'Закрити' : language === 'es' ? 'Cerrar' : language === 'de' ? 'Schließen' : language === 'fr' ? 'Fermer' : 'Close'}
             </div>
           </div>
         </div>
