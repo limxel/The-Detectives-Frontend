@@ -202,7 +202,12 @@ const UI_TEXT = {
     volumeLevel: 'VOLUME LEVEL',
     dopamineCorner: 'DOPAMINE CORNER',
     languages: 'LANGUAGES',
-    classifiedDossier: 'CLASSIFIED DOSSIER'
+    classifiedDossier: 'CLASSIFIED DOSSIER',
+    supportButton: 'SUPPORT',
+    supportPopupTitle: 'NEED HELP?',
+    supportPopupDesc: "Found a bug in the game, or running into a problem? Let us know at this email:",
+    copyEmail: 'COPY EMAIL',
+    emailCopied: 'COPIED!'
   },
   ru: {
     enterNickname: 'ВВЕДИТЕ НИКНЕЙМ',
@@ -261,7 +266,12 @@ const UI_TEXT = {
     volumeLevel: 'УРОВЕНЬ ГРОМКОСТИ',
     dopamineCorner: 'ДОФАМИНОВЫЙ УГОЛОК',
     languages: 'ЯЗЫКИ',
-    classifiedDossier: 'СЕКРЕТНОЕ ДОСЬЕ'
+    classifiedDossier: 'СЕКРЕТНОЕ ДОСЬЕ',
+    supportButton: 'ПОДДЕРЖКА',
+    supportPopupTitle: 'НУЖНА ПОМОЩЬ?',
+    supportPopupDesc: 'Нашли баг в игре или столкнулись с проблемой? Напишите нам на эту почту:',
+    copyEmail: 'СКОПИРОВАТЬ ПОЧТУ',
+    emailCopied: 'СКОПИРОВАНО!'
   },
   uk: {
     enterNickname: 'ВВЕДІТЬ НІКНЕЙМ',
@@ -320,7 +330,12 @@ const UI_TEXT = {
     volumeLevel: 'РІВЕНЬ ГУЧНОСТІ',
     dopamineCorner: 'ДОФАМІНОВИЙ КУТОЧОК',
     languages: 'МОВИ',
-    classifiedDossier: 'СЕКРЕТНЕ ДОСЬЄ'
+    classifiedDossier: 'СЕКРЕТНЕ ДОСЬЄ',
+    supportButton: 'ПІДТРИМКА',
+    supportPopupTitle: 'ПОТРІБНА ДОПОМОГА?',
+    supportPopupDesc: 'Знайшли баг у грі чи зіткнулися з проблемою? Напишіть нам на цю пошту:',
+    copyEmail: 'СКОПІЮВАТИ ПОШТУ',
+    emailCopied: 'СКОПІЙОВАНО!'
   },
   es: {
     enterNickname: 'INGRESA APODO',
@@ -379,7 +394,12 @@ const UI_TEXT = {
     volumeLevel: 'NIVEL DE VOLUMEN',
     dopamineCorner: 'RINCÓN DE DOPAMINA',
     languages: 'IDIOMAS',
-    classifiedDossier: 'EXPEDIENTE CLASIFICADO'
+    classifiedDossier: 'EXPEDIENTE CLASIFICADO',
+    supportButton: 'SOPORTE',
+    supportPopupTitle: '¿NECESITAS AYUDA?',
+    supportPopupDesc: '¿Encontraste un error en el juego o tienes un problema? Escríbenos a este correo:',
+    copyEmail: 'COPIAR CORREO',
+    emailCopied: '¡COPIADO!'
   }
 };
 
@@ -1753,6 +1773,18 @@ const ICON_PATHS = {
       <path d="M3 16l12-6.5 2.5 4.7L5.5 21z" />
       <path d="M13.5 10.5 19 7l1.5 2.7-5.3 3.3" />
       <path d="M8 19l-2.5 2M11 21l-2-1" />
+    </>
+  ),
+  mail: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3.5 6.5l8.5 7 8.5-7" />
+    </>
+  ),
+  copy: (
+    <>
+      <rect x="9" y="9" width="12" height="12" rx="2" />
+      <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
     </>
   )
 };
@@ -3937,6 +3969,15 @@ function App() {
   const [isReady, setIsReady] = useState(false);
   const [isCharacterMenuConfirmed, setIsCharacterMenuConfirmed] = useState(false);
   const [showSupportPopup, setShowSupportPopup] = useState(false);
+  // Bug report / contact-email popup, opened from the SUPPORT button in Settings.
+  const [showContactSupportPopup, setShowContactSupportPopup] = useState(false);
+  const [supportEmailCopied, setSupportEmailCopied] = useState(false);
+  const SUPPORT_EMAIL = 'limxelstudio@gmail.com';
+  const copySupportEmail = useCallback(() => {
+    navigator.clipboard?.writeText(SUPPORT_EMAIL).catch(() => {});
+    setSupportEmailCopied(true);
+    setTimeout(() => setSupportEmailCopied(false), 2000);
+  }, []);
 
   // Countdown 5 -> 0 before the game starts (driven by the server)
   const [countdown, setCountdown] = useState(null);
@@ -7162,6 +7203,29 @@ function App() {
                       ))}
                     </div>
                   </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: 'left' }}>
+                    <button
+                      onClick={() => setShowContactSupportPopup(true)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        background: 'rgba(0, 240, 255, 0.08)',
+                        border: '1px solid rgba(0, 240, 255, 0.35)',
+                        color: '#00f0ff',
+                        padding: '10px 16px',
+                        borderRadius: '6px',
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        letterSpacing: '1px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <Icon name="mail" size={14} />
+                      {t('supportButton')}
+                    </button>
+                  </div>
                 </div>
                 <NeonButton variant="secondary" onClick={() => setCurrentScreen('main')}><Icon name="arrowLeft" size={13} style={{ marginRight: 6 }} />{t('back')}</NeonButton>
               </div>
@@ -9575,6 +9639,108 @@ function App() {
               }}
             >
               {language === 'ru' ? 'Закрыть' : language === 'uk' ? "Закрити" : language === 'es' ? 'Cerrar' : 'Close'}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- BUG REPORT / CONTACT SUPPORT POPUP --- */}
+      {showContactSupportPopup && (
+        <div
+          onClick={() => setShowContactSupportPopup(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 70,
+            background: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(4px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'rgba(18, 18, 28, 0.95)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              borderRadius: '16px',
+              padding: '28px 26px',
+              maxWidth: '360px',
+              width: '100%',
+              textAlign: 'center',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.08)'
+            }}
+          >
+            <div style={{
+              width: '54px',
+              height: '54px',
+              borderRadius: '50%',
+              background: 'rgba(0, 240, 255, 0.1)',
+              border: '1px solid rgba(0, 240, 255, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 14px'
+            }}>
+              <Icon name="mail" size={22} color="#00f0ff" />
+            </div>
+            <h3 style={{ color: '#00f0ff', fontSize: '15px', letterSpacing: '1.5px', margin: '0 0 10px 0' }}>
+              {t('supportPopupTitle')}
+            </h3>
+            <p style={{ color: '#bdc7db', fontSize: '13px', lineHeight: 1.6, margin: '0 0 16px 0' }}>
+              {t('supportPopupDesc')}
+            </p>
+            <div style={{
+              background: 'rgba(0,0,0,0.3)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '8px',
+              padding: '10px 14px',
+              color: '#e6e9ef',
+              fontSize: '13px',
+              fontWeight: 'bold',
+              letterSpacing: '0.5px',
+              wordBreak: 'break-all',
+              marginBottom: '18px'
+            }}>
+              {SUPPORT_EMAIL}
+            </div>
+            <button
+              onClick={copySupportEmail}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '10px 22px',
+                borderRadius: '10px',
+                background: supportEmailCopied ? 'rgba(0, 255, 135, 0.12)' : 'linear-gradient(135deg, #00c2ff, #00f0ff)',
+                border: supportEmailCopied ? '1px solid #00ff87' : 'none',
+                color: supportEmailCopied ? '#00ff87' : '#04121a',
+                fontWeight: 'bold',
+                fontSize: '13px',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                boxShadow: supportEmailCopied ? 'none' : '0 8px 20px rgba(0, 240, 255, 0.3)'
+              }}
+            >
+              <Icon name={supportEmailCopied ? 'check' : 'copy'} size={14} />
+              {supportEmailCopied ? t('emailCopied') : t('copyEmail')}
+            </button>
+            <div
+              onClick={() => setShowContactSupportPopup(false)}
+              style={{
+                marginTop: '16px',
+                fontSize: '11px',
+                color: '#8a99ad',
+                cursor: 'pointer',
+                letterSpacing: '1px',
+                textTransform: 'uppercase'
+              }}
+            >
+              {language === 'ru' ? 'Закрыть' : language === 'uk' ? 'Закрити' : language === 'es' ? 'Cerrar' : 'Close'}
             </div>
           </div>
         </div>
