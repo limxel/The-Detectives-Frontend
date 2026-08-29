@@ -8001,25 +8001,28 @@ function App() {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: 'left' }}>
                     <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '1px', color: '#bdc7db' }}>{t('languages')}</span>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '6px' }}>
                       {APP_LANGUAGES.map((lang) => (
                         <button
                           key={lang.code}
                           onClick={() => setLanguage(lang.code)}
+                          title={lang.label}
                           style={{
                             background: language === lang.code ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.04)',
                             border: language === lang.code ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
                             color: language === lang.code ? '#00f0ff' : '#8a99ad',
-                            padding: '8px 14px',
-                            borderRadius: '6px',
-                            fontSize: '11px',
+                            padding: '6px 0',
+                            borderRadius: '5px',
+                            fontSize: '10px',
                             fontWeight: 'bold',
                             letterSpacing: '0.5px',
+                            textAlign: 'center',
                             cursor: 'pointer',
-                            boxShadow: language === lang.code ? '0 0 10px rgba(0, 240, 255, 0.2)' : 'none'
+                            transition: 'background 0.15s, border-color 0.15s, color 0.15s',
+                            boxShadow: language === lang.code ? '0 0 8px rgba(0, 240, 255, 0.2)' : 'none'
                           }}
                         >
-                          {lang.label}
+                          {lang.code.toUpperCase()}
                         </button>
                       ))}
                     </div>
