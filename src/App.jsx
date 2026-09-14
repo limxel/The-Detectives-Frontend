@@ -598,19 +598,25 @@ const UI_TEXT = {
 
 // KEEP IN SYNC WITH backend/index.js — this dossier copy must match the
 // server-authoritative CHARACTERS roster used by generateForensicClue.
+// `tokenUrl` is a transparent-background cutout of the same character, used
+// ONLY for the small round in-game avatar tokens (mansion map, room scene,
+// occupant chips) rendered via getCharacterUrl() below. `url` (the original
+// framed photo) stays as-is and keeps powering the character-select grid and
+// the dossier/trial portrait, which are rectangular, not circular, and are
+// composed to look right as a full frame rather than a badge.
 const CHARACTERS = [
-  { name: 'Creed', url: 'https://i.postimg.cc/xjJPpJNY/2fdb739d-84b9-4d0d-8170-d281954a8b7c.jpg', realName: 'Creed Vance', height: '188 cm', weight: '85 kg', bloodType: 'A+', hobbies: 'Bidding on multi-million dollar digital art auctions, collecting physical vintage luxury watches, drinking rare red wine.' },
-  { name: 'Karl', url: 'https://i.postimg.cc/nVj1Sj9c/4169de45-bccb-49a2-bea0-6e41091a9453.jpg', realName: 'Karl Thorne', height: '178 cm', weight: '68 kg', bloodType: 'A+', hobbies: 'Practicing classical fencing with custom steel foils, attending grand opera premieres, studying royal family genealogy.' },
-  { name: 'Anthonio', url: 'https://i.postimg.cc/VsrFZr0z/53b8e637-00ec-4baa-bdb8-4bdb01564a54.jpg', realName: 'Anthonio Rossi', height: '185 cm', weight: '110 kg', bloodType: 'O+', hobbies: 'Feeding wild ducks in his pool, smoking expensive imported cigars, managing garbage disposal contracts.' },
-  { name: 'James', url: 'https://i.postimg.cc/1RnK7nVm/61da301d-4838-4b30-9e52-45146fe8882d.jpg', realName: 'James Creed', height: '183 cm', weight: '82 kg', bloodType: 'B+', hobbies: 'Shredding heavy metal riffs on a custom black Explorer guitar, restoring vintage V8 muscle cars, collecting hunting rifles.' },
-  { name: 'Cedric', url: 'https://i.postimg.cc/Kck5pk3c/6684a55e-28ee-44cb-9ecc-554d44540f8c.jpg', realName: 'Cedric Rostova', height: '180 cm', weight: '84 kg', bloodType: 'O+', hobbies: 'Prison-style heavy calisthenics, sketching monochrome tattoo designs, carving makeshift tools out of spare scrap metal.' },
-  { name: 'Lidy', url: 'https://i.postimg.cc/gcXKtXLJ/74409a55-7ddb-4fae-bc0a-0d21aa1ae1be.jpg', realName: 'Lidy Vance', height: '168 cm', weight: '62 kg', bloodType: 'A-', hobbies: 'Baking homemade cherry pies, knitting wool sweaters, reading paperback detective novels.' },
-  { name: 'May', url: 'https://i.postimg.cc/c1gckgtC/a7af6a30-acf5-4e55-b9ed-4ed5080008fe.jpg', realName: 'May Creed', height: '152 cm', weight: '42 kg', bloodType: 'B+', hobbies: 'Picking glowing bioluminescent forest mushrooms, crafting flower crowns, collecting sparkling dust in small glass jars.' },
-  { name: 'Gregory', url: 'https://i.postimg.cc/dQk9NkZD/aa60cee7-e3c9-460a-943a-70f505b8526a.jpg', realName: 'Dr. Gregory Chen', height: '182 cm', weight: '75 kg', bloodType: 'A-', hobbies: 'Practicing micro-stitch sewing on synthetic skin, collecting historical surgical scalpels, studying forensic human anatomy.' },
-  { name: 'Onyx', url: 'https://i.postimg.cc/BZLC7LPX/c218fab0-360a-4de0-9fcf-cc7cd2180f9d.jpg', realName: 'Onyx Grey', height: '174 cm', weight: '58 kg', bloodType: 'B-', hobbies: 'Writing melancholic poetry in a locked black journal, collecting midwest emo vinyl records, hanging out alone in dark, rainy places.' },
-  { name: 'Max', url: 'https://i.postimg.cc/2jbx9bLq/f11eb0a7-dda4-4845-8793-2daac4d4bbf0.jpg', realName: 'Max Tanaka', height: '176 cm', weight: '64 kg', bloodType: 'B-', hobbies: 'Drawing chaotic, repetitive patterns on walls with charcoal, talking to invisible visitors, hoarding colorful prescription pills.' },
-  { name: 'Bea', url: 'https://i.postimg.cc/JzvwXxK8/54afbcca-49b7-4570-8b15-38936afa1975.jpg', realName: 'Bea Gray', height: '180 cm', weight: '70 kg', bloodType: 'A+', hobbies: 'Training sword strikes with an authentic Japanese katana, updating a personal handwritten revenge checklist, intense martial arts meditation.' },
-  { name: 'Moonka', url: 'https://i.postimg.cc/ht6FmsMF/28b49642-1595-46cb-b607-f0b7fbce307a.jpg', realName: 'Moonka Miller', height: '164 cm', weight: '53 kg', bloodType: 'O+', hobbies: 'Writing deep metaphorical poems for a literature club, playing sad classical piano melodies, writing script codes.' }
+  { name: 'Creed', url: 'https://i.postimg.cc/xjJPpJNY/2fdb739d-84b9-4d0d-8170-d281954a8b7c.jpg', tokenUrl: 'https://i.postimg.cc/SxVDJTPL/2fdb739d-84b9-4d0d-8170-d281954a8b7c-removebg-preview.png', realName: 'Creed Vance', height: '188 cm', weight: '85 kg', bloodType: 'A+', hobbies: 'Bidding on multi-million dollar digital art auctions, collecting physical vintage luxury watches, drinking rare red wine.' },
+  { name: 'Karl', url: 'https://i.postimg.cc/nVj1Sj9c/4169de45-bccb-49a2-bea0-6e41091a9453.jpg', tokenUrl: 'https://i.postimg.cc/bvJLb0XR/4169de45-bccb-49a2-bea0-6e41091a9453-removebg-preview.png', realName: 'Karl Thorne', height: '178 cm', weight: '68 kg', bloodType: 'A+', hobbies: 'Practicing classical fencing with custom steel foils, attending grand opera premieres, studying royal family genealogy.' },
+  { name: 'Anthonio', url: 'https://i.postimg.cc/VsrFZr0z/53b8e637-00ec-4baa-bdb8-4bdb01564a54.jpg', tokenUrl: 'https://i.postimg.cc/mgV8tXn8/53b8e637-00ec-4baa-bdb8-4bdb01564a54-removebg-preview.png', realName: 'Anthonio Rossi', height: '185 cm', weight: '110 kg', bloodType: 'O+', hobbies: 'Feeding wild ducks in his pool, smoking expensive imported cigars, managing garbage disposal contracts.' },
+  { name: 'James', url: 'https://i.postimg.cc/1RnK7nVm/61da301d-4838-4b30-9e52-45146fe8882d.jpg', tokenUrl: 'https://i.postimg.cc/zGp0VtQd/61da301d-4838-4b30-9e52-45146fe8882d-removebg-preview.png', realName: 'James Creed', height: '183 cm', weight: '82 kg', bloodType: 'B+', hobbies: 'Shredding heavy metal riffs on a custom black Explorer guitar, restoring vintage V8 muscle cars, collecting hunting rifles.' },
+  { name: 'Cedric', url: 'https://i.postimg.cc/Kck5pk3c/6684a55e-28ee-44cb-9ecc-554d44540f8c.jpg', tokenUrl: 'https://i.postimg.cc/43dwtvCw/6684a55e-28ee-44cb-9ecc-554d44540f8c-removebg-preview-(1).png', realName: 'Cedric Rostova', height: '180 cm', weight: '84 kg', bloodType: 'O+', hobbies: 'Prison-style heavy calisthenics, sketching monochrome tattoo designs, carving makeshift tools out of spare scrap metal.' },
+  { name: 'Lidy', url: 'https://i.postimg.cc/gcXKtXLJ/74409a55-7ddb-4fae-bc0a-0d21aa1ae1be.jpg', tokenUrl: 'https://i.postimg.cc/MKnWsN7w/74409a55-7ddb-4fae-bc0a-0d21aa1ae1be-removebg-preview-(1).png', realName: 'Lidy Vance', height: '168 cm', weight: '62 kg', bloodType: 'A-', hobbies: 'Baking homemade cherry pies, knitting wool sweaters, reading paperback detective novels.' },
+  { name: 'May', url: 'https://i.postimg.cc/c1gckgtC/a7af6a30-acf5-4e55-b9ed-4ed5080008fe.jpg', tokenUrl: 'https://i.postimg.cc/xTX0shvY/a7af6a30-acf5-4e55-b9ed-4ed5080008fe-removebg-preview.png', realName: 'May Creed', height: '152 cm', weight: '42 kg', bloodType: 'B+', hobbies: 'Picking glowing bioluminescent forest mushrooms, crafting flower crowns, collecting sparkling dust in small glass jars.' },
+  { name: 'Gregory', url: 'https://i.postimg.cc/dQk9NkZD/aa60cee7-e3c9-460a-943a-70f505b8526a.jpg', tokenUrl: 'https://i.postimg.cc/5t0pv5cK/aa60cee7-e3c9-460a-943a-70f505b8526a-removebg-preview.png', realName: 'Dr. Gregory Chen', height: '182 cm', weight: '75 kg', bloodType: 'A-', hobbies: 'Practicing micro-stitch sewing on synthetic skin, collecting historical surgical scalpels, studying forensic human anatomy.' },
+  { name: 'Onyx', url: 'https://i.postimg.cc/BZLC7LPX/c218fab0-360a-4de0-9fcf-cc7cd2180f9d.jpg', tokenUrl: 'https://i.postimg.cc/HLx350GZ/c218fab0-360a-4de0-9fcf-cc7cd2180f9d-removebg-preview.png', realName: 'Onyx Grey', height: '174 cm', weight: '58 kg', bloodType: 'B-', hobbies: 'Writing melancholic poetry in a locked black journal, collecting midwest emo vinyl records, hanging out alone in dark, rainy places.' },
+  { name: 'Max', url: 'https://i.postimg.cc/2jbx9bLq/f11eb0a7-dda4-4845-8793-2daac4d4bbf0.jpg', tokenUrl: 'https://i.postimg.cc/5NXxPTwD/f11eb0a7-dda4-4845-8793-2daac4d4bbf0-removebg-preview.png', realName: 'Max Tanaka', height: '176 cm', weight: '64 kg', bloodType: 'B-', hobbies: 'Drawing chaotic, repetitive patterns on walls with charcoal, talking to invisible visitors, hoarding colorful prescription pills.' },
+  { name: 'Bea', url: 'https://i.postimg.cc/JzvwXxK8/54afbcca-49b7-4570-8b15-38936afa1975.jpg', tokenUrl: 'https://i.postimg.cc/52pn67r7/54afbcca-49b7-4570-8b15-38936afa1975-removebg-preview.png', realName: 'Bea Gray', height: '180 cm', weight: '70 kg', bloodType: 'A+', hobbies: 'Training sword strikes with an authentic Japanese katana, updating a personal handwritten revenge checklist, intense martial arts meditation.' },
+  { name: 'Moonka', url: 'https://i.postimg.cc/ht6FmsMF/28b49642-1595-46cb-b607-f0b7fbce307a.jpg', tokenUrl: 'https://i.postimg.cc/QdS0H4zf/28b49642-1595-46cb-b607-f0b7fbce307a-removebg-preview.png', realName: 'Moonka Miller', height: '164 cm', weight: '53 kg', bloodType: 'O+', hobbies: 'Writing deep metaphorical poems for a literature club, playing sad classical piano melodies, writing script codes.' }
 ];
 
 // --- ROLES: color, sprite, short description ---
@@ -3342,6 +3348,22 @@ function RoomVisualScene({ roomId, accent, occupants = [], bodies = [] }) {
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
         {(() => {
           let newArrivalIndex = 0;
+          // Token size shrinks along two axes at once: `vw` keeps it
+          // proportional to the viewport (phones get smaller tokens than
+          // desktops automatically, no separate mobile/desktop branch
+          // needed), and the count-based shrink below keeps a crowded room
+          // from letting neighboring tokens visually touch/overlap even
+          // though their center points (from getOccupantPosition, spaced
+          // out server-side) stay fixed. Every occupant beyond the first 3
+          // trims a bit off both the vw share and the px ceiling/floor, so
+          // more people in one room reliably means smaller, better-spaced
+          // portraits rather than crowding.
+          const occupantCount = Math.max(1, entities.length);
+          const crowding = Math.max(0, occupantCount - 3);
+          const tokenVw = Math.max(9, 16 - crowding * 1.1);
+          const tokenMaxPx = Math.max(48, 84 - crowding * 4);
+          const tokenMinPx = Math.max(32, 44 - crowding * 1.5);
+          const tokenSize = `clamp(${tokenMinPx}px, ${tokenVw}vw, ${tokenMaxPx}px)`;
           return entities.map((entity, index) => {
             const pos = getOccupantPosition(entity);
             const avatarUrl = getCharacterUrl(entity.character);
@@ -3356,8 +3378,8 @@ function RoomVisualScene({ roomId, accent, occupants = [], bodies = [] }) {
                   position: 'absolute',
                   left: `${pos.x}%`,
                   top: `${pos.y}%`,
-                  width: 'clamp(44px, 16vw, 84px)',
-                  height: 'clamp(44px, 16vw, 84px)',
+                  width: tokenSize,
+                  height: tokenSize,
                   transform: 'translate(-50%, -50%)',
                   zIndex: 5,
                   ...(isNewArrival
@@ -3380,7 +3402,13 @@ function RoomVisualScene({ roomId, accent, occupants = [], bodies = [] }) {
                   position: 'relative'
                 }}>
                   {avatarUrl ? (
-                    <img src={avatarUrl} alt={entity.nickname} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    // objectFit: 'contain' (not 'cover') because tokenUrl is a
+                    // transparent full-figure cutout, not a square headshot —
+                    // cover would crop heads/feet off; contain keeps the whole
+                    // character visible, letterboxed against the circle's own
+                    // background above. A touch of padding keeps it from
+                    // touching the border ring.
+                    <img src={avatarUrl} alt={entity.nickname} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '8%', boxSizing: 'border-box' }} />
                   ) : (
                     <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '14px', fontWeight: 700 }}>
                       {entity.nickname?.[0]?.toUpperCase() || '?'}
@@ -3530,7 +3558,7 @@ function NeonButton({ children, onClick, variant = 'primary', type = 'button', s
 // for "you" on the map tile, and for other occupants found in a room).
 function getCharacterUrl(name) {
   const found = CHARACTERS.find(c => c.name === name);
-  return found ? found.url : null;
+  return found ? (found.tokenUrl || found.url) : null;
 }
 
 // --- MANSION MAP: an actual floor plan on CSS Grid + floor switcher + fog of war.
@@ -4716,6 +4744,7 @@ function App() {
   useEffect(() => {
     const urlsToPreload = [
       ...CHARACTERS.map((c) => c.url),
+      ...CHARACTERS.map((c) => c.tokenUrl).filter(Boolean),
       ...Object.values(ROLES).map((r) => r.sprite),
       ...Object.values(ROOM_IMAGES)
     ];
