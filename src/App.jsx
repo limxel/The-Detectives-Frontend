@@ -5111,6 +5111,10 @@ function App() {
   // TRIAL_RESOLUTION branch), so a second "you died" popup on top of it would
   // just be redundant/confusing. Holds { nickname, character } or null.
   const [deathPopup, setDeathPopup] = useState(null);
+  // Shown on the main menu after the host removes you from a lobby (see
+  // onKickedFromRoom) — a dismissible popup instead of the old persistent
+  // red error line under the join form. true/false.
+  const [kickedPopup, setKickedPopup] = useState(false);
 
   // Toast queue used for the generic "useless trash" / "nothing of interest"
   // investigate results (and anything else that just needs an on-screen
@@ -6126,14 +6130,14 @@ function App() {
     function onJoinError(msg) { setErrorMessage(msg); }
 
     // The host removed this client from the lobby. Same landing spot as a
-    // failed join — back to the main menu with an explanatory message —
-    // since there's no game state worth preserving once you're kicked out
-    // of a lobby that hasn't started yet.
+    // failed join — back to the main menu — but shown as a dismissible
+    // popup rather than the persistent red error line, since there's no
+    // form/action on the main menu screen for that line to sit under.
     function onKickedFromRoom() {
       setActiveRoom(null);
       gameRoomCodeRef.current = null;
       setCurrentScreen('main');
-      setErrorMessage(languageRef.current === 'ru' ? 'Хост исключил вас из лобби.' : languageRef.current === 'uk' ? "Хост виключив вас із лобі." : languageRef.current === 'es' ? 'El anfitrión te ha expulsado del lobby.' : languageRef.current === 'de' ? 'Der Host hat dich aus der Lobby entfernt.' : languageRef.current === 'it' ? "L'host ti ha rimosso dalla lobby." : languageRef.current === 'fr' ? "L'hôte vous a expulsé du lobby." : 'The host removed you from the lobby.');
+      setKickedPopup(true);
     }
 
     function onRoomUpdated(updatedRoom) {
@@ -10740,7 +10744,7 @@ function App() {
       )}
 
 
-         
+
       {cinematic && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 10000, display: 'flex', flexDirection: 'column', gap: '22px',
@@ -11067,6 +11071,42 @@ function App() {
             >
               {language === 'ru' ? 'Закрыть' : language === 'uk' ? 'Закрити' : language === 'es' ? 'Cerrar' : language === 'de' ? 'Schließen' : language === 'it' ? 'Chiudi' : language === 'fr' ? 'Fermer' : 'Close'}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Kicked-from-lobby notice — top-level (not nested inside the game
+          screen or any one menu screen) so it reliably shows no matter which
+          screen onKickedFromRoom lands the person back on (main menu,
+          servers list, etc). Closes on a single click/tap anywhere on it. */}
+      {kickedPopup && (
+        <div
+          onClick={() => setKickedPopup(false)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 10700, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '24px', background: 'rgba(6, 8, 12, 0.92)', backdropFilter: 'blur(8px)',
+            cursor: 'pointer', animation: 'cinematicOverlayIn 500ms ease-in-out forwards'
+          }}
+        >
+          <div style={{
+            width: 'min(420px, 100%)', background: 'linear-gradient(145deg, rgba(20, 16, 6, 0.98) 0%, rgba(8, 8, 6, 0.98) 100%)',
+            border: '1px solid rgba(255,145,0,0.45)', borderRadius: '18px',
+            boxShadow: '0 30px 90px rgba(255,145,0,0.15)', padding: '30px 26px', boxSizing: 'border-box',
+            textAlign: 'center', animation: 'verdictEnter 480ms cubic-bezier(0.16, 1, 0.3, 1) both'
+          }}>
+            <Icon name="alert" size={28} color="#ff9100" />
+            <h3 style={{
+              margin: '14px 0 8px 0', fontSize: 'clamp(17px, 4vw, 22px)', fontWeight: 900,
+              color: '#ff9100', textShadow: '0 0 22px rgba(255,145,0,0.5)', letterSpacing: '1px', textTransform: 'uppercase'
+            }}>
+              {language === 'ru' ? 'ВЫ ИСКЛЮЧЕНЫ ИЗ ЛОББИ' : language === 'uk' ? 'ВАС ВИКЛЮЧЕНО З ЛОБІ' : language === 'es' ? 'HAS SIDO EXPULSADO DEL LOBBY' : language === 'de' ? 'DU WURDEST AUS DER LOBBY ENTFERNT' : language === 'it' ? 'SEI STATO RIMOSSO DALLA LOBBY' : language === 'fr' ? 'VOUS AVEZ ÉTÉ EXPULSÉ(E) DU LOBBY' : 'YOU WERE REMOVED FROM THE LOBBY'}
+            </h3>
+            <p style={{ margin: '0 0 18px 0', color: '#e2d6c9', lineHeight: 1.6, fontSize: '13px' }}>
+              {language === 'ru' ? 'Хост исключил вас из этого лобби. Вы можете присоединиться к другому серверу.' : language === 'uk' ? "Хост виключив вас із цього лобі. Ви можете приєднатися до іншого сервера." : language === 'es' ? 'El anfitrión te ha expulsado de este lobby. Puedes unirte a otro servidor.' : language === 'de' ? 'Der Host hat dich aus dieser Lobby entfernt. Du kannst einem anderen Server beitreten.' : language === 'it' ? "L'host ti ha rimosso da questa lobby. Puoi unirti a un altro server." : language === 'fr' ? "L'hôte vous a expulsé(e) de ce lobby. Vous pouvez rejoindre un autre serveur." : 'The host removed you from this lobby. You can join a different server.'}
+            </p>
+            <p style={{ margin: 0, fontSize: '10px', letterSpacing: '1.5px', color: '#8a99ad', textTransform: 'uppercase' }}>
+              {language === 'ru' ? 'НАЖМИТЕ, ЧТОБЫ ЗАКРЫТЬ' : language === 'uk' ? 'НАТИСНІТЬ, ЩОБ ЗАКРИТИ' : language === 'es' ? 'TOCA PARA CERRAR' : language === 'de' ? 'ZUM SCHLIESSEN TIPPEN' : language === 'it' ? 'TOCCA PER CHIUDERE' : language === 'fr' ? 'APPUYEZ POUR FERMER' : 'TAP TO DISMISS'}
+            </p>
           </div>
         </div>
       )}
