@@ -3391,34 +3391,39 @@ function RoomVisualScene({ roomId, accent, occupants = [], bodies = [] }) {
                 <div style={{
                   width: '100%',
                   height: '100%',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  border: isBody ? '4px solid rgba(255,42,95,0.9)' : '4px solid rgba(255,255,255,0.95)',
-                  boxShadow: isBody
-                    ? '0 18px 36px rgba(0,0,0,0.5), 0 0 22px rgba(255,42,95,0.55), inset 0 0 0 2px rgba(255,42,95,0.3)'
-                    : '0 18px 36px rgba(0,0,0,0.48), inset 0 0 0 2px rgba(255,255,255,0.24)',
-                  background: isBody ? 'linear-gradient(135deg, rgba(120,0,30,0.4) 0%, rgba(0,0,0,0.5) 100%)' : 'linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(0,0,0,0.32) 100%)',
-                  filter: isBody ? 'grayscale(0.75) brightness(0.75)' : 'none',
                   position: 'relative'
                 }}>
                   {avatarUrl ? (
-                    // objectFit: 'contain' (not 'cover') because tokenUrl is a
-                    // transparent full-figure cutout, not a square headshot —
-                    // cover would crop heads/feet off; contain keeps the whole
-                    // character visible, letterboxed against the circle's own
-                    // background above. A touch of padding keeps it from
-                    // touching the border ring.
-                    <img src={avatarUrl} alt={entity.nickname} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '8%', boxSizing: 'border-box' }} />
+                    // No circular frame/badge here on purpose — tokenUrl is
+                    // already a transparent full-figure cutout, so the
+                    // character itself IS the token. objectFit: 'contain'
+                    // keeps its real proportions (no cropping), and the
+                    // drop-shadow filter (which follows the cutout's own
+                    // silhouette, unlike a boxShadow) is what grounds it in
+                    // the scene instead of a solid frame behind it. Bodies
+                    // get a desaturated, dimmed, red-shifted version of the
+                    // same cutout rather than a red circular wash.
+                    <img
+                      src={avatarUrl}
+                      alt={entity.nickname}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        filter: isBody
+                          ? 'grayscale(0.8) brightness(0.65) sepia(0.4) hue-rotate(-30deg) saturate(2.2) drop-shadow(0 14px 18px rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(255,42,95,0.45))'
+                          : 'drop-shadow(0 14px 18px rgba(0,0,0,0.5))'
+                      }}
+                    />
                   ) : (
-                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '14px', fontWeight: 700 }}>
+                    <div style={{
+                      width: '100%', height: '100%', borderRadius: '50%',
+                      background: isBody ? 'rgba(120,0,30,0.55)' : 'rgba(40,40,55,0.65)',
+                      border: isBody ? '2px solid rgba(255,42,95,0.7)' : '2px solid rgba(255,255,255,0.4)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '14px', fontWeight: 700
+                    }}>
                       {entity.nickname?.[0]?.toUpperCase() || '?'}
                     </div>
-                  )}
-                  {/* A dead character's icon stays on the scene instead of just
-                      disappearing — a translucent red wash over the portrait marks
-                      it as a body rather than a living occupant. */}
-                  {isBody && (
-                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(180,0,40,0.4)', mixBlendMode: 'multiply' }} />
                   )}
                 </div>
 
@@ -3748,14 +3753,12 @@ function MansionMap({ floor, onFloorChange, revealedRoom, roomChosen, onSelectRo
                   alt={myCharacter}
                   style={{
                     position: 'absolute',
-                    bottom: '3px',
-                    right: '3px',
-                    width: '20px',
-                    height: '20px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: '1.5px solid #00ff87',
-                    boxShadow: '0 0 8px rgba(0,255,135,0.7)',
+                    bottom: '2px',
+                    right: '2px',
+                    width: '22px',
+                    height: '22px',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 5px rgba(0,255,135,0.85)) drop-shadow(0 2px 4px rgba(0,0,0,0.6))',
                     animation: 'tokenDropIn 0.4s ease-out',
                     zIndex: 2
                   }}
