@@ -3360,9 +3360,9 @@ function RoomVisualScene({ roomId, accent, occupants = [], bodies = [] }) {
           // portraits rather than crowding.
           const occupantCount = Math.max(1, entities.length);
           const crowding = Math.max(0, occupantCount - 3);
-          const tokenVw = Math.max(9, 16 - crowding * 1.1);
-          const tokenMaxPx = Math.max(48, 84 - crowding * 4);
-          const tokenMinPx = Math.max(32, 44 - crowding * 1.5);
+          const tokenVw = Math.max(18, 32 - crowding * 2.2);
+          const tokenMaxPx = Math.max(96, 168 - crowding * 8);
+          const tokenMinPx = Math.max(64, 88 - crowding * 3);
           const tokenSize = `clamp(${tokenMinPx}px, ${tokenVw}vw, ${tokenMaxPx}px)`;
           return entities.map((entity, index) => {
             const pos = getOccupantPosition(entity);
