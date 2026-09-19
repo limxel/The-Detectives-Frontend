@@ -2430,6 +2430,12 @@ const ICON_PATHS = {
   check: (
     <path d="M4 12l5 5L20 6" />
   ),
+  close: (
+    <>
+      <path d="M6 6l12 12" />
+      <path d="M18 6L6 18" />
+    </>
+  ),
   candle: (
     <>
       <path d="M12 3c1.2 1.5 1.8 2.6 1.8 3.6a1.8 1.8 0 1 1-3.6 0C10.2 5.6 10.8 4.5 12 3z" />
@@ -5099,6 +5105,12 @@ function App() {
   // the GAME_OVER summary overlay. Cleared again on the next 'room_joined'
   // (the server resets the room and sends everyone back to the lobby).
   const [gameOverData, setGameOverData] = useState(null);
+  // Shown to a player the instant they're killed at night (see onPlayerEliminated
+  // below) — closes on click. Deliberately NOT shown for trial executions: those
+  // already get their own dramatic verdict cinematic (see onPhaseState's
+  // TRIAL_RESOLUTION branch), so a second "you died" popup on top of it would
+  // just be redundant/confusing. Holds { nickname, character } or null.
+  const [deathPopup, setDeathPopup] = useState(null);
 
   // Toast queue used for the generic "useless trash" / "nothing of interest"
   // investigate results (and anything else that just needs an on-screen
@@ -6099,6 +6111,7 @@ function App() {
       setLockedInHoldingCell(null);
       setTrapDebuffActive(false);
       setGameOverData(null);
+      setDeathPopup(null);
       setToasts([]);
       setClues([]);
       setIsCluesOpen(false);
@@ -6111,6 +6124,17 @@ function App() {
       setForensicReportUnlocked(false);
     }
     function onJoinError(msg) { setErrorMessage(msg); }
+
+    // The host removed this client from the lobby. Same landing spot as a
+    // failed join — back to the main menu with an explanatory message —
+    // since there's no game state worth preserving once you're kicked out
+    // of a lobby that hasn't started yet.
+    function onKickedFromRoom() {
+      setActiveRoom(null);
+      gameRoomCodeRef.current = null;
+      setCurrentScreen('main');
+      setErrorMessage(languageRef.current === 'ru' ? 'Хост исключил вас из лобби.' : languageRef.current === 'uk' ? "Хост виключив вас із лобі." : languageRef.current === 'es' ? 'El anfitrión te ha expulsado del lobby.' : languageRef.current === 'de' ? 'Der Host hat dich aus der Lobby entfernt.' : languageRef.current === 'it' ? "L'host ti ha rimosso dalla lobby." : languageRef.current === 'fr' ? "L'hôte vous a expulsé du lobby." : 'The host removed you from the lobby.');
+    }
 
     function onRoomUpdated(updatedRoom) {
       console.log(
@@ -6878,8 +6902,16 @@ function App() {
     // Sound is deliberately NOT played here: the murder sound is an "own
     // action" cue that only the Killer hears, fired privately via
     // onKillOptions below — other players/the victim never hear it.
-    function onPlayerEliminated({ targetId, nickname }) {
+    function onPlayerEliminated({ targetId, nickname, character }) {
       console.log('CLIENT player_eliminated:', { targetId, nickname });
+      // Only the victim's own client pops this up, and only outside any trial
+      // micro-phase (TRIAL_ANNOUNCEMENT / TRIAL_VOTING / TRIAL_RESOLUTION) —
+      // an execution already gets its own verdict cinematic, so this is
+      // reserved for the otherwise-silent night kill.
+      const currentPhase = phaseSyncRef.current?.phase || '';
+      if (targetId === socket.id && !currentPhase.startsWith('TRIAL')) {
+        setDeathPopup({ nickname: nickname || '', character: character || null });
+      }
     }
 
     // The server's authoritative snapshot of the shared CLUES board — sent
@@ -6983,6 +7015,7 @@ function App() {
       console.log('CLIENT game_over:', data);
       playGameOverSting(0.95);
       setGameOverData(data);
+      setDeathPopup(null);
       setCinematic(null);
       setCodeGuess('');
     }
@@ -6994,6 +7027,7 @@ function App() {
     socket.on('rooms_list', onRoomsList);
     socket.on('room_joined', onRoomJoined);
     socket.on('join_error', onJoinError);
+    socket.on('kicked_from_room', onKickedFromRoom);
     socket.on('room_updated', onRoomUpdated);
     socket.on('countdown_tick', onCountdownTick);
     socket.on('countdown_cancel', onCountdownCancel);
@@ -7061,6 +7095,7 @@ function App() {
       socket.off('rooms_list', onRoomsList);
       socket.off('room_joined', onRoomJoined);
       socket.off('join_error', onJoinError);
+      socket.off('kicked_from_room', onKickedFromRoom);
       socket.off('room_updated', onRoomUpdated);
       socket.off('countdown_tick', onCountdownTick);
       socket.off('countdown_cancel', onCountdownCancel);
@@ -7207,6 +7242,17 @@ function App() {
     setCountdown(null);
     setIsGameStarting(false);
     setFadeOpacity(0);
+  };
+
+  // Host-only: remove a player from the lobby before the match starts. A
+  // native confirm() guards against a stray misclick actually removing
+  // someone. The server owns the actual removal + broadcasting the updated
+  // roster back out (see 'kick_player' below) — this just asks for it.
+  const handleKickPlayer = (targetId, targetNickname) => {
+    if (!activeRoom || activeRoom.hostId !== socket.id || targetId === socket.id) return;
+    const confirmMsg = language === 'ru' ? `Исключить ${targetNickname} из лобби?` : language === 'uk' ? `Виключити ${targetNickname} з лобі?` : language === 'es' ? `¿Expulsar a ${targetNickname} del lobby?` : language === 'de' ? `${targetNickname} aus der Lobby entfernen?` : language === 'it' ? `Espellere ${targetNickname} dalla lobby?` : language === 'fr' ? `Expulser ${targetNickname} du lobby ?` : `Remove ${targetNickname} from the lobby?`;
+    if (!window.confirm(confirmMsg)) return;
+    socket.emit('kick_player', { code: activeRoom.roomCode, targetId });
   };
 
   const myPlayerEntry = (displayPhase === 'trial' ? trialPlayers : activeRoom?.players || []).find(p => p.id === socket.id) || null;
@@ -7937,18 +7983,37 @@ function App() {
                               {t('profileLabel')} {player.character ? player.character : t('selectingEllipsis')}
                             </div>
                           </div>
-                          <span style={{
-                            fontSize: '10px',
-                            fontWeight: 'bold',
-                            color: player.isReady ? '#00ff87' : '#ff2a5f',
-                            background: player.isReady ? 'rgba(0,255,135,0.1)' : 'rgba(255,42,95,0.1)',
-                            padding: '3px 8px',
-                            borderRadius: '4px',
-                            border: player.isReady ? '1px solid #00ff87' : '1px solid #ff2a5f',
-                            transition: 'all 0.2s ease'
-                          }}>
-                            {player.isReady ? t('ready') : t('wait')}
-                          </span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{
+                              fontSize: '10px',
+                              fontWeight: 'bold',
+                              color: player.isReady ? '#00ff87' : '#ff2a5f',
+                              background: player.isReady ? 'rgba(0,255,135,0.1)' : 'rgba(255,42,95,0.1)',
+                              padding: '3px 8px',
+                              borderRadius: '4px',
+                              border: player.isReady ? '1px solid #00ff87' : '1px solid #ff2a5f',
+                              transition: 'all 0.2s ease'
+                            }}>
+                              {player.isReady ? t('ready') : t('wait')}
+                            </span>
+                            {isHost && player.id !== socket.id && (
+                              <button
+                                onClick={() => handleKickPlayer(player.id, player.nickname)}
+                                onMouseEnter={() => playHoverSound(0.2)}
+                                onTouchStart={() => playHoverSound(0.2)}
+                                title={t('kickPlayer')}
+                                aria-label={t('kickPlayer')}
+                                style={{
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  width: '26px', height: '26px', padding: 0, borderRadius: '4px',
+                                  border: '1px solid rgba(255,42,95,0.35)', background: 'rgba(255,42,95,0.08)',
+                                  color: '#ff9caf', cursor: 'pointer', transition: 'all 0.2s ease'
+                                }}
+                              >
+                                <Icon name="close" size={13} />
+                              </button>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -10638,7 +10703,43 @@ function App() {
         </div>
       )}
 
-      {/* Server-authoritative phase events drive this shared blackout layer. It
+      {/* Silent night-kill notice, private to the victim — closes on a single
+          click/tap anywhere on the overlay. Deliberately never shown for a
+          trial execution (see the TRIAL-phase guard in onPlayerEliminated),
+          which already gets its own verdict cinematic instead. */}
+      {deathPopup && (
+        <div
+          onClick={() => setDeathPopup(null)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 10600, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '24px', background: 'rgba(10, 2, 4, 0.92)', backdropFilter: 'blur(8px)',
+            cursor: 'pointer', animation: 'cinematicOverlayIn 500ms ease-in-out forwards'
+          }}
+        >
+          <div style={{
+            width: 'min(420px, 100%)', background: 'linear-gradient(145deg, rgba(24, 6, 10, 0.98) 0%, rgba(8, 4, 6, 0.98) 100%)',
+            border: '1px solid rgba(255,42,95,0.45)', borderRadius: '18px',
+            boxShadow: '0 30px 90px rgba(255,42,95,0.18)', padding: '30px 26px', boxSizing: 'border-box',
+            textAlign: 'center', animation: 'verdictEnter 480ms cubic-bezier(0.16, 1, 0.3, 1) both'
+          }}>
+            <Icon name="skull" size={30} color="#ff2a5f" />
+            <h3 style={{
+              margin: '14px 0 8px 0', fontSize: 'clamp(18px, 4vw, 24px)', fontWeight: 900,
+              color: '#ff2a5f', textShadow: '0 0 22px rgba(255,42,95,0.55)', letterSpacing: '1px', textTransform: 'uppercase'
+            }}>
+              {language === 'ru' ? 'ВЫ УСТРАНЕНЫ' : language === 'uk' ? 'ВАС УСУНЕНО' : language === 'es' ? 'HAS SIDO ELIMINADO' : language === 'de' ? 'DU WURDEST AUSGESCHALTET' : language === 'it' ? 'SEI STATO ELIMINATO' : language === 'fr' ? 'VOUS ÊTES ÉLIMINÉ(E)' : 'YOU HAVE BEEN ELIMINATED'}
+            </h3>
+            <p style={{ margin: '0 0 18px 0', color: '#e2c9d0', lineHeight: 1.6, fontSize: '13px' }}>
+              {language === 'ru' ? 'Кто-то нашёл вас первым. Теперь вы можете только наблюдать за происходящим.' : language === 'uk' ? 'Хтось знайшов вас першим. Тепер ви можете лише спостерігати за подіями.' : language === 'es' ? 'Alguien te encontró primero. Ahora solo puedes observar lo que ocurre.' : language === 'de' ? 'Jemand hat dich zuerst gefunden. Du kannst das Geschehen jetzt nur noch beobachten.' : language === 'it' ? 'Qualcuno ti ha trovato per primo. Ora puoi solo osservare ciò che accade.' : language === 'fr' ? "Quelqu'un vous a trouvé le premier. Vous ne pouvez désormais qu'observer la suite." : 'Someone found you first. You can now only spectate what happens next.'}
+            </p>
+            <p style={{ margin: 0, fontSize: '10px', letterSpacing: '1.5px', color: '#8a99ad', textTransform: 'uppercase' }}>
+              {language === 'ru' ? 'НАЖМИТЕ, ЧТОБЫ ЗАКРЫТЬ' : language === 'uk' ? 'НАТИСНІТЬ, ЩОБ ЗАКРИТИ' : language === 'es' ? 'TOCA PARA CERRAR' : language === 'de' ? 'ZUM SCHLIESSEN TIPPEN' : language === 'it' ? 'TOCCA PER CHIUDERE' : language === 'fr' ? 'APPUYEZ POUR FERMER' : 'TAP TO DISMISS'}
+            </p>
+          </div>
+        </div>
+      )}
+
+
           intentionally sits above map, trial, dossier, and persistent chat. */}
       {cinematic && (
         <div style={{
